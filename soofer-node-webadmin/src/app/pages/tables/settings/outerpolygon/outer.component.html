@@ -1,0 +1,36 @@
+<!-- <ngui-map style="height:600px"zoom="13"  center="37.775, -122.434" >
+    <marker *ngFor="let pos of positions" [position]="pos" ></marker>
+</ngui-map> -->
+<nb-card>
+  <nb-card-header>
+    Outer polygon
+  </nb-card-header>
+
+  <nb-card-body>
+    <div *ngIf="toshow==false">
+      <ngui-map zoom={{zoom}} style="height:600px" center={{location}} scrollwheel="true">
+        <drawing-manager [draggable]="true" [drawingMode]="'polygon'" [drawingControl]="true" [drawingControlOptions]="{
+                      position: 2,
+                      drawingModes:[  'polygon' ]}" (polygoncomplete)="setPoints($event)"></drawing-manager>
+      </ngui-map>
+    </div>
+
+    <div *ngIf="toshow==true">
+      <ngui-map zoom={{zoom}} style="height:600px" center={{location}} scrollwheel="true">
+        <polygon [clickable]="false" (click)="getWindow($event)" [editable]="true" [draggable]="false" [paths]="paths"
+          [strokeColor]="'#FFC107'" [strokeOpacity]="0.8" [strokeWeight]="2" [fillColor]="'#FFC107'"
+          [fillOpacity]="0.35" (mouseout)="getPoints($event)">
+        </polygon>
+      </ngui-map>
+    </div>
+    <br />
+    <button type="button" (click)="updateLoc()" class="btn btn-primary">Update
+      Location</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" (click)="goback()" class="btn btn-primary">GO Back</button>
+
+  </nb-card-body>
+
+
+
+
+</nb-card>

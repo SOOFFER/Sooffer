@@ -1,0 +1,49 @@
+DONE - TEST NEEDED
+Trip already ended response
+
+------------
+Hail and Multistop
+Ride Later
+------------
+TEST 
+  Admin Fare Tally in Trips Invoice
+  Tax for Rental
+
+
+
+
+
+FIXED
+---------------------------------------MINOR
+Tax,
+Min fare added
+Select a Package (*) = order
+Add Rental in DB
+
+------------------------
+Daily fare: 
+        Mini    Sedan      SUV
+Base    30      50          150
+Min     30      40          150 
+KM Rate 13      14          18
+Time    0.8     1           1
+
+
+TEST :
+Madurai return
+User Cancel - No next ride
+Zone, Outside city alert
+Drop locatoin check
+
+Start after app closed and open
+Dif. percentage check
+
+1 Same Renatal Package
+Base fare  & Tariff - 30, 50 , 150
+Google API distance when distance 0 location different
+Trip End Validation = Drop location
+2 Daily = fare, check update VD update
+3 Google API
+  Driver Docs check
+
+Sedan-Mini = ETA

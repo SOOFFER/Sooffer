@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <script>
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Windows Phone must come first because its UA also contains "Android"
+            if (/windows phone/i.test(userAgent)) {
+                return "Windows Phone";
+            }
+
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            }
+
+            // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            }
+
+            return "unknown";
+        }</script>
+
+    <script>
+        function DetectAndServe() {
+            let os = getMobileOperatingSystem();
+            if (os == "Android") {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.whatsapp&hl=en_IN";
+            } else if (os == "iOS") {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.whatsapp&hl=en_IN";
+            } else if (os == "Windows Phone") {
+                window.location.href = "http://dtaxicabs.in/";
+            } else {
+                window.location.href = "http://dtaxicabs.in/";
+            }
+        }
+    </script>
+</head>
+
+<body onload="DetectAndServe()">
+</body>
+
+</html>
+
+
+<!-- <?php
+
+// android store
+if (preg_match('#android#i', $_SERVER ['HTTP_USER_AGENT'])) {
+    header('Location: market://details?id=com.google.android.apps.maps');
+    exit;
+}
+
+// ios
+if (preg_match('#(iPad|iPhone|iPod)#i', $_SERVER ['HTTP_USER_AGENT'])) {
+    header('Location: itms://itunes.apple.com/us/app/google-maps-real-time-navigation/id585027354?mt=8');
+    exit;
+}
+
+// for another os
+echo $_SERVER ['HTTP_USER_AGENT']; -->

@@ -1,0 +1,184 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>Add Company</nb-card-header>
+      <nb-card-body>
+        <form #Form="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Company Name (<span class="red">*</span>)</label>
+                <input type="text" minlength={{validation.fnameValid.minlength}}
+                  maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                  [(ngModel)]="data.name" name="name" #name="ngModel" placeholder="Company Name" class="form-control"
+                  required />
+                <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                  Company Name is invalid!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email Id (<span class="red">*</span>)</label>
+                <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="data.email" #email="ngModel"
+                  name="email" required placeholder="Email" autocomplete="off" class="form-control" />
+                <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+                  Valid Emailid is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Password (<span class="red">*</span>)</label>
+                <input type="password" minlength={{validation.pwdValid.minlength}}
+                  maxlength={{validation.pwdValid.maxlength}} [(ngModel)]="data.pwd" name="pwd" required #pwd="ngModel"
+                  placeholder="Password" autocomplete="new-password" class="form-control" />
+                <small *ngIf="pwd.invalid && (pwd.dirty)" class="form-text error">
+                  Valid Password is required!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Phone No (<span class="red">*</span>)</label>
+                <input type="number" pattern={{validation.phoneValid.pattern}}
+                  minlength={{validation.phoneValid.minlength}} maxlength={{validation.phoneValid.maxlength}}
+                  [(ngModel)]="data.phone" name="phone" required #phone="ngModel" placeholder="Phone"
+                  class="form-control" />
+                <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                  Phone is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Country (<span class="red">*</span>)</label>
+                <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                  notFoundMsg="No Countries Found" [(ngModel)]="data.cnty" [options]="countries" [allowClear]="true"
+                  (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);" required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>State / Provinces</label>
+                <ng-select name="states" placeholder="Select a State / Provinces"
+                  filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                  [(ngModel)]="data.state" [options]="states" [allowClear]="true" (selected)="selectedState($event);"
+                  (deselected)="deSelectedState($event);">
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>City</label>
+                <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                  notFoundMsg="No Cities Found" [(ngModel)]="data.city" [options]="cities" [allowClear]="true"
+                  (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);">
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>VAT (%) </label>
+                <input type="text" [(ngModel)]="data.vat" #vat="ngModel" name="vat" placeholder="VAT (%)"
+                  class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>VAT Number </label>
+                <input type="text" [(ngModel)]="data.vatNumber" #vatNumber="ngModel" name="vatNumber"
+                  placeholder="VAT Number" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="this.servicecity == true">
+              <div class="form-group">
+                <label>Service Available City (<span class="red">*</span>)</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="scities"
+                  [(ngModel)]="data.scIds" [settings]="dropdownSettings" class="form-control">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+              <div class="col-md-6">
+              <div class="demo-radio col-sm-6">
+                <label>Settlememt Type (<span class="red">*</span>)</label>
+         
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" [(ngModel)]="data.settlementType" selected=true name="settlementType" value="Flat">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Flat</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" [(ngModel)]="data.settlementType" name="settlementType"
+                    value="Percentage">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Percentage</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label *ngIf="data.settlementType=='Flat'">Enter Flat Amount  (<span class="red">*</span>) </label>
+                <label *ngIf="data.settlementType=='Percentage'">Enter Percentage Value (<span class="red">*</span>) </label>
+
+                <input type="number" [(ngModel)]="data.rate" [min]=1 #rate="ngModel" name="rate"
+                  placeholder="Rate" class="form-control" />
+              </div>
+            </div>
+           
+    
+              
+           
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Address Line 1 </label>
+                <textarea rows="5" [(ngModel)]="data.adln1" name="adln1" #adln1="ngModel" placeholder="Address Line 1"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Address Line 2 </label>
+                <textarea rows="5" [(ngModel)]="data.adln2" name="adln2" placeholder="Address Line 2"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" [disabled]="!Form.form.valid" (click)="AddDoc(data)" class="btn btn-success">Add</button>
+      </nb-card-footer>
+    </nb-card>
+
+  </div>
+</div>

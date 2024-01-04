@@ -1,0 +1,933 @@
+<ngx-spinner bdOpacity="0.9" bdColor="#333" size="medium" color="#fff" type="ball-clip-rotate-multiple">
+</ngx-spinner>
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <section>
+        <div class="container my-profile mrgn-t-50 pading-btm">
+          <h3>
+            {{ title }}
+            <span *ngIf="showBackBtn" class="pull-right">
+              <button (click)="goBack()" type="button" class="gobackbtn">
+                {{ "COMMON.GOBACK" | translate }}
+              </button>
+            </span>
+          </h3>
+          <div *ngIf="listPage === 'showTable'" class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12">
+            <div class="mat-elevation-z8">
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="tripno">
+                  <mat-header-cell *matHeaderCellDef>
+                    {{ "FARE.TRIPNO" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.tripno }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="triptype">
+                  <mat-header-cell *matHeaderCellDef>{{ "TRIP.TRIPTYPE" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.triptype }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                  <mat-header-cell *matHeaderCellDef>
+                    {{ "TRIP.TRIPDATE" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.date }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="fare">
+                  <mat-header-cell *matHeaderCellDef>{{ "TRIP.FARE" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.fare }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="vehicle">
+                  <mat-header-cell *matHeaderCellDef>{{ "DASHBOARD.VEHICLE" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.vehicle }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef>{{ "TRIP.STATUS" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    {{ element.status }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef>
+                    {{ "TRIP.ACTION" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <button mat-button class="invoice-button" (click)="getTrip(element)">
+                      {{ "PROFILE.VIEW" | translate }}
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+              </mat-table>
+
+              <div *ngIf="resultsLength === 0" class="no-records">
+                {{ "COMMON.NODATAFOUND" | translate }}
+              </div>
+
+              <!-- <mat-paginator [length]="resultsLength" [pageSize]="5"></mat-paginator> -->
+              <mat-paginator  [length]="length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="currentPage" showFirstLastButtons (page)="onPaginateChange($event)">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div *ngIf="listPage === 'showDetails'">
+        <div class="row" *ngIf="selectedTripDetails.status === 'Finished'">
+          <!-- <mat-card> -->
+            <!-- <h4 class="text-center">
+              <b>
+                {{ "DASHBOARD.TRIPSTATUS" | translate }}:
+                {{ selectedTripDetails.status }}
+              </b>
+            </h4> -->
+          <!-- </mat-card> -->
+          <div class="col-md-6 col-sm-12">
+            <!-- <div class="table-responsive"> -->
+              <table class="table table-bordered" style="text-align: center; font-size: 14px">
+                <thead>
+                  <tr>
+                    <td colspan="3" class="text-center">
+                      <span class="text-bold">
+                        {{ "FARE.TRIPNO" | translate }} :
+                        {{ selectedTripDetails.tripno }} &nbsp;
+                      </span>
+                      | &nbsp;
+                      <span class="text-bold">{{ "TRIP.TRIPTYPE" | translate }} :
+                        {{ selectedTripDetails.triptype | titlecase }}
+                      </span>
+                      <hr />
+                      <span class="text-bold">
+                        {{ "TRIP.YOURTRIPON" | translate }} :
+                        {{ selectedTripDetails.date }} &nbsp;
+                      </span>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="h-100 info-spacing">
+                        <div class="pad-15 text-center">
+                          <span class="text-bold">{{
+                            "TRIP.SELECTEDVEHICLE" | translate
+                            }}</span>
+                        </div>
+                        <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                          {{ selectedTripDetails.vehicle }}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="h-100 info-spacing">
+                        <div class="pad-15 text-center">
+                          <span class="text-bold">{{
+                            "DASHBOARD.TOTALDISTANEC" | translate
+                            }}</span>
+                        </div>
+                        <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                          {{ selectedTripDetails.distanceKM }}
+                          {{ defaultUnit }}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="h-100 info-spacing">
+                        <div class="pad-15 text-center">
+                          <span class="text-bold">{{ "TRIP.TRIPTIME" | translate }} (Mins)</span>
+                        </div>
+                        <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                          {{ selectedTripDetails.totalTime }}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+                  <div class="form-group">
+                    <table class="table trip-loc">
+                      <thead>
+                        <tr>
+                          <th scope="col" colspan="2">
+                            <h4><b>{{'TRIP.TRIPLOCATION' | translate}}</b></h4>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row" width="25%">{{'TRIP.PICKUPTIME' | translate}}</th>
+                          <td width="75%"><b>{{ startTime }}</b></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" width="25%">{{'TRIP.PICKUPLOCATION' | translate}}</th>
+                          <td width="75%"><b>{{ selectedTripDetails.adsp.from }}</b></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" width="25%">{{'TRIP.DROPTIME' | translate}}</th>
+                          <td width="75%"><b>{{ endTime }}</b></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" width="25%">{{'TRIP.DROPLOCATION' | translate}}</th>
+                          <td width="75%"><b>{{ selectedTripDetails.adsp.to }}</b></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+          
+            <!-- </div> -->
+          </div>
+
+          <div class="col-md-6 col-sm-12">
+            <!-- <div class="table-responsive"> -->
+              <table class="table table-bordered" style="text-align: left; font-size: 14px">
+                <thead>
+                  <tr>
+                    <td colspan="3" class="text-center">
+                      <h5>
+                        <b>{{ "TRIP.FAREBREAKDOWN" | translate }}&nbsp; </b>
+                      </h5>
+                    </td>
+                  </tr>
+                </thead>
+
+                <!-- Rental Fare -->
+
+                <tbody *ngIf="selectedTripDetails.triptype === 'rental'">
+                  <table class="table table-bordered fare-det" style="text-align: left">
+                    <tbody>
+                      <tr>
+                        <td>Base Package</td>
+                        <td>{{rentalFare.packageName}}</td>
+                      </tr>
+                      <tr>
+                        <td>Package {{defaultUnit}} Fare</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.distfare}}</td>
+                      </tr>
+                      <tr>
+                        <td>Booking Fare</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.booking}}</td>
+                      </tr>
+                      <tr>
+                        <td>Base Fare</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.base}}</td>
+                      </tr>
+                      <tr>
+                        <td>Fare for Remaining {{defaultUnit}} ({{rentalFare.currency}}
+                          {{rentalFare.perKmRate}}/{{defaultUnit}})
+                        </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.fareForExtraKM}}</td>
+                      </tr>
+                      <tr>
+                        <td>Remaining Time Fare ({{rentalFare.currency}} {{rentalFare.timefare}}/Min)</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.fareForExtraTime}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Time Fare ({{rentalFare.currency}} {{rentalFare.timeRate}}/Min) *
+                          ({{rentalFare.time}} Min)
+                        </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.timefare}}</td>
+                      </tr> -->
+                      <tr>
+                        <td>{{taxLabel}} ({{rentalFare.taxPercentage}} %)</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.tax}}</td>
+                      </tr>
+    
+                      <tr *ngIf="isDTS==true">
+                        <td>TDS Tax Amount this({{rentalFare.taxTDSPercentage}}%):
+                        </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.taxTDS }}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Google Charge </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.googleCharge}}</td>
+                      </tr> -->
+                      <tr>
+                        <td>Toll Fee </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.tollFee}}</td>
+                      </tr>
+                      <tr *ngIf="rentalFare.conveyance!== '0.00'">
+                        <td>Pick Up Charge</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.conveyance}}</td>
+                      </tr>
+                      <tr *ngIf="rentalFare.hillFare !== '0.00'">
+                        <td>Hill Fare</td>
+                        <td>{{rentalFare.currency}} {{rentalFare.hillFare}}</td>
+                      </tr>
+                      <tr>
+                        <td>Discount ({{rentalFare.discountName}} - {{rentalFare.discountPercentage}}%)
+                        </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.detect}}</td>
+                      </tr>
+                      <tr *ngIf="showAdditionalCharge">
+                        <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                        </td>
+                        <td>{{rentalFare.currency}} {{totalAdditionalChar}}</td>
+                      </tr>
+                      <tr>
+                        <td>Gateway Charge </td>
+                        <td>{{rentalFare.currency}} {{rentalFare.gatewayCharge}}</td>
+                      </tr>
+                      <tr>
+                        <th class="totalFare" scope="row">Total Fare (Payment Mode: {{rentalFare.via}})</th>
+                        <th class="totalFare" scope="row">{{rentalFare.currency}} {{rentalFare.cost}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </tbody>
+
+                <!-- Outstation Fare -->
+
+                <tbody *ngIf="selectedTripDetails.triptype === 'outstation'">
+                    <tr>
+                      <td>Base Package</td>
+                      <td>{{outStationFare.packageName}}</td>
+                    </tr>
+                    <tr>
+                      <td>Booking Fare</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.booking}}</td>
+                    </tr>
+                    <tr>
+                      <td>Base Fare</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.base}}</td>
+                    </tr>
+                    <tr>
+                      <td>Package Mile Fare</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.distfare}}</td>
+                    </tr>
+                    <tr>
+                      <td>Fare for Remaining {{defaultUnit}} ({{outStationFare.currency}}
+                        {{outStationFare.perKmRate}}/{{defaultUnit}})
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.fareForExtraKM}}</td>
+                    </tr>
+                    <tr>
+                      <td>Remaining Time Fare ({{outStationFare.currency}} {{outStationFare.timefare}}/Hr)</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.fareForExtraTime}}</td>
+                    </tr>
+                    <!-- <tr>
+                      <td>Time Fare ({{outStationFare.currency}} {{outStationFare.timeRate}}/Min) *
+                        ({{outStationFare.time}} Min)
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.timefare}}</td>
+                    </tr> -->
+  
+                    <tr>
+                      <td>Toll Fee </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.tollFee}}</td>
+                    </tr>
+                    <tr *ngIf="tripdetails.status == 'Finished'">
+                      <td>Day Fare ({{outStationFare.noOfDays}} * {{outStationFare.currency}} {{outStationFare.dayRate}})
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.dayFare }}</td>
+                    </tr>
+  
+                    <tr *ngIf="tripdetails.status == 'Finished'">
+                      <td>Night Fare ({{outStationFare.noOfNights}} * {{outStationFare.currency}}
+                        {{outStationFare.nightRate}})
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.nightFare }}</td>
+                    </tr>
+  
+                    <tr>
+                      <td>{{taxLabel}} ({{outStationFare.taxPercentage}} %)</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.tax}}</td>
+                    </tr>
+  
+                    <tr *ngIf="isDTS==true">
+                      <td>TDS Tax Amount ({{outStationFare.taxTDSPercentage}}%):
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.taxTDS }}</td>
+                    </tr>
+                    <!-- <tr>
+                      <td>Google Charge </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.googleCharge}}</td>
+                    </tr> -->
+                    <tr *ngIf="outStationFare.conveyance!== '0.00'">
+                      <td>Pick Up Charge</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.conveyance}}</td>
+                    </tr>
+                    <tr *ngIf="outStationFare.hillFare !== '0.00'">
+                      <td>Hill Fare</td>
+                      <td>{{outStationFare.currency}} {{outStationFare.hillFare}}</td>
+                    </tr>
+                    <tr>
+                      <td>Discount ({{outStationFare.discountName}} - {{outStationFare.discountPercentage}}%)
+                      </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.detect}}</td>
+                    </tr>
+                    <tr *ngIf="showAdditionalCharge">
+                      <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                      </td>
+                      <td>{{outStationFare.currency}} {{totalAdditionalChar}}</td>
+                    </tr>
+                    <tr>
+                      <td>Gateway Charge </td>
+                      <td>{{outStationFare.currency}} {{outStationFare.gatewayCharge}}</td>
+                    </tr>
+                    <tr>
+                      <th class="totalFare" scope="row">Total Fare (Payment Mode: {{outStationFare.via}})</th>
+                      <th class="totalFare" scope="row">{{outStationFare.currency}} {{outStationFare.cost}}</th>
+                    </tr>
+                </tbody>
+
+                <!-- Daily Trips -->
+
+                <tbody  *ngIf="selectedTripDetails.triptype === 'daily'">
+                  <tr>
+                    <td>Fare Type</td>
+                    <td>{{dailyFare.fareType | uppercase }}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'DASHBOARD.DISTANCEFARE' | translate}} ({{dailyFare.dist}} {{defaultUnit}})</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.distfare}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.BOOKINGFARE' | translate}}</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.booking}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'DASHBOARD.BASEFARE' | translate}}</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.base}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'DASHBOARD.WAITTINGFARE' | translate}} ({{dailyFare.currency}} {{dailyFare.waitingRate}}/Min) *
+                      ({{dailyFare.waitingTime}} Min)</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.waitingCharge}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'DASHBOARD.TIMEFARE' | translate}} ({{dailyFare.currency}} {{dailyFare.timeRate}}/Min) * ({{dailyFare.time}} Min)
+                    </td>
+                    <td>{{dailyFare.currency}} {{dailyFare.timefare}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.MINIMUMFARE' | translate}} ({{dailyFare.currency}} {{dailyFare.minFare}}) </td>
+                    <td>{{dailyFare.currency}} {{dailyFare.minFareAdded}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.TAX' | translate}} ({{dailyFare.taxPercentage}} %)</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.tax}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.ToLLFEE' | translate}}</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.tollFee}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.OLDBALANCE' | translate}}</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.oldBalance}}</td>
+                  </tr>
+                  <tr>
+                    <td *ngIf="nightChargeApplied != true">Night Charge Applied</td>
+                    <td *ngIf="nightChargeApplied != true">0</td>
+                    <td *ngIf="nightChargeApplied == true">
+                      Night Charge Applied (*{{dailyFare.nightPer}})</td>
+                    <td *ngIf="nightChargeApplied == true">{{dailyFare.surgeAmt}} {{dailyFare.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td *ngIf="peakchargechargeApplied != true">Peak Charge Applied</td>
+                    <td *ngIf="peakchargechargeApplied == true">Peak Charge Applied (*{{dailyFare.peakPer}})</td>
+                    <td *ngIf="peakchargechargeApplied != true">0</td>
+                    <td *ngIf="peakchargechargeApplied == true">{{dailyFare.surgeAmt}} {{dailyFare.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'TRIP.SURGEREASON' | translate}}</td>
+                    <td>{{dailyFare.surgeReason}}</td>
+                  </tr>
+                  <tr *ngIf="pickupcharge==true">
+                    <td>Pick Up Charge</td>
+                    <td>{{dailyFare.currency}} {{dailyFare.conveyance}}</td>
+                  </tr>
+            
+                  <tr>
+                    <td>{{'DASHBOARD.DISCOUNT' | translate}} ({{dailyFare.discountName}} - {{dailyFare.discountPercentage}}%)
+                    </td>
+                    <td>{{dailyFare.currency}} {{dailyFare.detect}}</td>
+                  </tr>
+                  <tr>
+                    <th class="totalFare" scope="row">{{'DASHBOARD.TOTALFARE' | translate}} (Payment Mode: {{dailyFare.via}})</th>
+                    <th class="totalFare" scope="row">{{dailyFare.currency}} {{dailyFare.cost}}</th>
+                  </tr>
+                </tbody>
+              </table>
+            <!-- </div> -->
+            <div class="row rental-card" *ngIf="selectedTripDetails.status !== 'Finished'">
+              <div class="col-xs-12 col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered" style="text-align: center; font-size: 14px">
+                    <thead>
+                      <tr>
+                        <td colspan="3" class="text-center">
+                          <span class="text-bold">
+                            {{ "TRIP.YOURTRIPON" | translate }} :
+                            {{ selectedTripDetails.tripDT }} &nbsp;
+                          </span>
+                          | &nbsp;
+                          <span class="text-bold">{{ "TRIP.TRIPTYPE" | translate }} :
+                            {{ selectedTripDetails.triptype | titlecase }}
+                          </span>
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{
+                                "TRIP.SELECTEDVEHICLE" | translate
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ selectedTripDetails.vehicle }}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{
+                                "DASHBOARD.TOTALDISTANEC" | translate
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ selectedTripDetails.dsp.distanceKM }}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{
+                                "TRIP.TRIPTIME" | translate
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ selectedTripDetails.estTime }}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="showNoDriver">
+                        <td colspan="3">
+                          <section class="col-xs-12 col-sm-12 col-md-12 driver_section">
+                            <div class="driver_section_container">
+                              <mat-card class="pad-20">
+                                <h5 class="text-center">
+                                  <b>{{ "FARE.TRIPNO" | translate }}
+                                    :
+                                    {{ selectedTripDetails.tripno }} &nbsp; |
+                                    &nbsp;{{
+                                    "DASHBOARD.TRIPSTATUS" | translate
+                                    }}:
+                                    {{ selectedTripDetails.status }}
+                                  </b>
+                                </h5>
+                              </mat-card>
+                              <br />
+                            </div>
+                          </section>
+                        </td>
+                      </tr>
+                      <tr *ngIf="!showNoDriver">
+                        <td colspan="3">
+                          <!-- Tracking starts -->
+
+                          <ng-template [ngIf]="initial == 'trackingScreen'">
+                            <section class="col-xs-12 col-sm-12 col-md-12 driver_section">
+                              <div class="driver_section_container">
+                                <mat-card class="pad-20">
+                                  <h5 class="text-center">
+                                    <b>
+                                      {{ "FARE.TRIPNO" | translate }}:
+                                      {{ selectedTripDetails.tripno }} &nbsp; |
+                                      &nbsp; {{ "DRIVER.OTP" | translate }}:
+                                      {{ overallBooked.startOTP }}
+                                    </b>
+                                  </h5>
+                                </mat-card>
+                                <br />
+                                <mat-card class="pad-20">
+                                  <h5 class="text-center">
+                                    <b>
+                                      {{ "DASHBOARD.TRIPSTATUS" | translate }}:
+                                      {{ firebaseTripStatus | async }}
+                                    </b>
+                                  </h5>
+                                </mat-card>
+                                <br />
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.PICKUP" | translate }}:
+                                    </label>
+                                    <div class="col-sm-10">
+                                      <div class="input-group">
+                                        <span>
+                                          {{
+                                          bookedLocationDetails.start
+                                          }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-card>
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DROP" | translate }}:
+                                    </label>
+                                    <div class="col-sm-10">
+                                      <div class="input-group">
+                                        <span>
+                                          {{ bookedLocationDetails.end }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-card>
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.VEHICLE" | translate }}:
+                                    </label>
+                                    <div class="col-sm-8">
+                                      <div class="input-group">
+                                        <span>
+                                          {{ bookedTaxiDetails.taxiDet }}</span>
+                                      </div>
+                                    </div>
+                                    <img class="col-sm-2 img" src="{{ temp }}{{
+                                        bookedTaxiDetails.image
+                                      }}" />
+                                  </div>
+                                </mat-card>
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DRIVER" | translate }}:
+                                    </label>
+                                    <div class="col-sm-8">
+                                      <div class="input-group">
+                                        <span>{{
+                                          bookedDriverDetails.drivDet
+                                          }}</span>
+                                      </div>
+                                    </div>
+                                    <img class="col-sm-2 img" src="{{ bookedDriverDetails.profileurl }}" />
+                                  </div>
+                                </mat-card>
+                                <br />
+                                <br />
+                              </div>
+                            </section>
+                          </ng-template>
+
+                          <ng-template [ngIf]="initial == 'completedTripScreen'">
+                            <section class="col-xs-12 col-sm-12 col-md-12 driver_section">
+                              <div class="driver_section_container">
+                                <mat-card class="pad-20">
+                                  <h4 class="text-center">
+                                    <b>
+                                      {{ "FARE.TRIPNO" | translate }}:
+                                      {{ selectedTripDetails.tripno }} &nbsp; |
+                                      &nbsp;{{
+                                      "DASHBOARD.TRIPSTATUS" | translate
+                                      }}:
+                                      {{ firebaseTripStatus | async }}
+                                    </b>
+                                  </h4>
+                                </mat-card>
+                                <br />
+
+                                <mat-card class="pad-20">
+                                  <h4 class="text-center">
+                                    <b>
+                                      {{ "DASHBOARD.TOTALFARE" | translate }}:
+                                      {{ showTripEndedDetails.total_fare }}
+                                    </b>
+                                  </h4>
+                                  <hr />
+                                  <div class="form-group row">
+                                    <label class="col-sm-6">{{ "DASHBOARD.BILLDATE" | translate }}:
+                                      &nbsp;
+                                      {{ showTripEndedDetails.datetime }}</label>
+                                    <label class="col-sm-6">{{
+                                      "DASHBOARD.DISCOUNTAPPLIED" | translate
+                                      }}: &nbsp;
+                                      {{ showTripEndedDetails.discount }}</label>
+                                  </div>
+                                </mat-card>
+
+                                <br />
+
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.PICKUP" | translate }}:
+                                    </label>
+                                    <div class="col-sm-10">
+                                      <div class="input-group">
+                                        <span>
+                                          {{
+                                          showTripEndedDetails.pickup_address
+                                          }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-card>
+                                <mat-card class="no-pad">
+                                  <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DROP" | translate }}:
+                                    </label>
+                                    <div class="col-sm-10">
+                                      <div class="input-group">
+                                        <span>
+                                          {{
+                                          showTripEndedDetails.Drop_address
+                                          }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-card>
+                                <br />
+                                <mat-card>
+                                  <div class="row show-grid">
+                                    <!-- Daily -->
+                                    <table *ngIf="
+                                        showTripEndedDetails.triptype ===
+                                        'daily'
+                                      " style="width: 100%; margin-left: 20px">
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.DISTANCE" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ showTripEndedDetails.distance }}
+                                          {{ defaultUnit }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+                                      <tr>
+                                        <td>
+                                          {{ "DASHBOARD.TIME" | translate }}:
+                                        </td>
+                                        <td>
+                                          {{ showTripEndedDetails.time }}
+                                          {{ deafultTime }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.BASEFARE" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{ showTripEndedDetails.basefare }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.WAITINGTIME" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ showTripEndedDetails.waitingTime }}
+                                          {{ deafultTime }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.TIMEFARE" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{ showTripEndedDetails.time_fare }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.WAITTINGFARE"
+                                          | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{
+                                          showTripEndedDetails.waiting_fare
+                                          }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.PICKUPFEE" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{
+                                          showTripEndedDetails.convance_fare
+                                          }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.DISTANCEFARE"
+                                          | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{
+                                          showTripEndedDetails.distance_fare
+                                          }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.ACCESSFEE" | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{ showTripEndedDetails.tax }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.DISCOUNT" | translate
+                                          }}: ({{
+                                          showTripEndedDetails.discountName
+                                          }}
+                                          -
+                                          {{
+                                          showTripEndedDetails.discountPercentage
+                                          }}%)
+                                        </td>
+                                        <td>
+                                          {{ defaultCurr }}
+                                          {{ showTripEndedDetails.discount }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+
+                                      <tr>
+                                        <td>
+                                          {{
+                                          "DASHBOARD.PAYMENTMETHOD"
+                                          | translate
+                                          }}:
+                                        </td>
+                                        <td>
+                                          {{
+                                          showTripEndedDetails.pay_type
+                                          | titlecase
+                                          }}
+                                        </td>
+                                      </tr>
+                                      &nbsp;
+                                    </table>
+
+                                    <!-- Rental & Outstation Fare -->
+
+                                    <table *ngIf="
+                                        showTripEndedDetails.triptype !==
+                                        'daily'
+                                      " style="width: 100%; margin-left: 20px">
+                                      <tbody *ngFor="
+                                          let item of showTripEndedDetails.fareInvoice
+                                        ">
+                                        <tr>
+                                          <td>{{ item.label }}:</td>
+                                          <td>{{ item.value }}</td>
+                                        </tr>
+                                        &nbsp;
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </mat-card>
+                                <br />
+                              </div>
+
+                              <mat-card>
+                                <form #feedback="ngForm">
+                                  <h5 class="text-center">
+                                    <b>{{
+                                      "DASHBOARD.HOWWASYOURRIDE" | translate
+                                      }}</b>
+                                  </h5>
+                                  <ngx-input-star-rating class="text-center" style="display: inherit" name="rating"
+                                    [(ngModel)]="getFeedbackDetails.rating" #rating="ngModel">
+                                  </ngx-input-star-rating>
+                                  <br />
+                                  <textarea rows="3" cols="150" maxlength="300" style="resize: none" required
+                                    placeholder="Enter Your Comments" name="comments" #comments="ngModel"
+                                    [(ngModel)]="getFeedbackDetails.comments" class="form-control">
+                                  </textarea>
+                                  <br />
+                                  <br />
+                                </form>
+                                <button type="submit" (click)="sendFeedback(getFeedbackDetails)"
+                                  class="btn btn-danger btn-block">
+                                  {{ "DASHBOARD.SUBMIT" | translate }}
+                                </button>
+                              </mat-card>
+                              <br />
+                            </section>
+                          </ng-template>
+
+                          <!-- Tracking Ends -->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

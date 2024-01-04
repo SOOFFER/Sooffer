@@ -1,0 +1,43 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-sm-3">Rental and Outstation Description</div>
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2">Select Language</div>
+      <div class="col-sm-1">
+        <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+          <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+            *ngIf="showTransOption">
+            <select #langSelect (change)="translate.use(langSelect.value)" (click)="getLang(langSelect.value)">
+              <option *ngFor="let list of translate.getLangs()" [value]="list"
+                [selected]="list === translate.currentLang">
+                {{ list }}
+              </option>
+            </select>
+          </nb-action>
+        </nb-actions>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Rental Description</label>
+          <tinymce [(ngModel)]="list.description.htmlBody" [config]="config"></tinymce>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Outstation Description</label>
+          <tinymce [(ngModel)]="list.dynamicDescription.htmlBody" [config]="config"></tinymce>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button type="submit" (click)="updateRecord(list)" nbButton status="primary" size="small">
+      Update
+    </button>
+  </nb-card-footer>
+</nb-card>

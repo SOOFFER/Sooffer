@@ -1,0 +1,682 @@
+@font-face {
+    font-family: 'MavenProMedium';
+    src: url('../../../fonts/MavenProMedium.eot');
+    src: url('../../../fonts/MavenProMedium.eot') format('embedded-opentype'),
+        url('../../../fonts/MavenProMedium.woff2') format('woff2'),
+        url('../../../fonts/MavenProMedium.woff') format('woff'),
+        url('../../../fonts/MavenProMedium.ttf') format('truetype'),
+        url('../../../fonts/MavenProMedium.svg#MavenProMedium') format('svg');
+}
+
+@font-face {
+    font-family: 'mavenprolight300';
+    src: url('../../../fonts/mavenprolight300.eot');
+    src: url('../../../fonts/mavenprolight300.eot') format('embedded-opentype'),
+        url('../../../fonts/mavenprolight300.woff2') format('woff2'),
+        url('../../../fonts/mavenprolight300.woff') format('woff'),
+        url('../../../fonts/mavenprolight300.ttf') format('truetype'),
+        url('../../../fonts/mavenprolight300.svg#mavenprolight300') format('svg');
+}
+
+@font-face {
+    font-family: 'MavenProRegular';
+    src: url('../../../fonts/MavenProRegular.eot');
+    src: url('../../../fonts/MavenProRegular.eot') format('embedded-opentype'),
+        url('../../../fonts/MavenProRegular.woff2') format('woff2'),
+        url('../../../fonts/MavenProRegular.woff') format('woff'),
+        url('../../../fonts/MavenProRegular.ttf') format('truetype'),
+        url('../../../fonts/MavenProRegular.svg#MavenProRegular') format('svg');
+}
+
+body {
+    font-family: MavenProMedium;
+}
+
+.banner:before,
+.prefect_ride:before {
+    background: unset;
+}
+
+.banner {
+    min-height: 664px;
+    width: 100%;
+    max-height: 664px;
+}
+
+/* .banner_second {
+    background-image: url(../../../assets/images/banner_two.jpg);
+    float: right;
+    width: 12%;
+    background-size: cover;
+    background-position: center center;
+    min-height: 664px;
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+} */
+
+.banner h2,
+.banner h3 {
+    text-shadow: 1px 1px 14px rgba(0, 0, 0, 0.55);
+}
+
+.no_pad {
+    padding: 0;
+}
+
+.home-hero-page-right-text span p {
+    margin: 0 0 10px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    line-height: 30px;
+}
+
+.home-hero-page-right-text span a {
+    /* border: 1px solid #fff; */
+    color: #FFFFFF;
+}
+
+.home-hero-page-right-text span a {
+    text-align: center;
+    font-size: 15px;
+    margin: 0px;
+    padding: 12px 35px 12px 15px;
+    transition: all 0.5s;
+    cursor: pointer;
+    text-transform: uppercase;
+    float: left;
+    line-height: normal;
+    font-family: 'MavenProMedium';
+}
+
+.home-hero-page-right-text span a em {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    font-style: normal;
+}
+
+.home-hero-page-right-text {
+    margin: 20% 0 0;
+    padding: 0px;
+    float: left;
+    width: 315px;
+    height: 195px;
+    position: absolute;
+    top: 135px;
+    right: 0;
+}
+
+.home-hero-page-right-text span {
+    margin: 24px 0 0 35px;
+    padding: 0px;
+    float: left;
+    width: 85%;
+    font-size: 23px;
+    font-family: 'MavenProMedium';
+    font-weight: 500;
+    line-height: 35px;
+}
+
+.home-hero-page-left-text {
+    margin: 32% 0 0;
+    padding: 0px;
+    float: left;
+    width: 635px;
+    height: 105px;
+    position: relative;
+    z-index: 99;
+}
+
+.home-hero-page-left-text span {
+    margin: 0 0 0 14px;
+    padding: 0px;
+    float: left;
+    width: 98%;
+    font-size: 18px;
+    font-family: 'MavenProMedium';
+    font-weight: 500;
+    line-height: 35px;
+}
+
+.home-hero-page-left-text .signup {
+    background-color: unset;
+    text-shadow: unset;
+    font-weight: 500;
+    border-radius: unset;
+    min-width: unset;
+}
+
+
+
+.about-us-more-info em {
+    font-style: normal;
+}
+
+.home-hero-page-left-text span a {
+    text-align: center;
+    font-size: 15px;
+    margin: 30px 15px 0 0;
+    padding: 12px 35px 12px 15px;
+    transition: all 0.5s;
+    cursor: pointer;
+    text-transform: uppercase;
+    float: right;
+    line-height: normal;
+    font-family: 'MavenProMedium';
+}
+
+.home-hero-page-left-text span p {
+    margin: 0px;
+    padding: 0px;
+    height: 105px;
+    vertical-align: middle;
+    display: table-cell;
+    width: 570px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.home-hero-page-left-text span a em {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    font-style: normal;
+}
+
+.home-hero-page-left-text span {
+    color: #FFFFFF;
+}
+
+.home-hero-page-left-text span a {
+    /* border: 1px solid #fff; */
+    color: #FFFFFF;
+}
+
+
+.banner {
+    padding: 0;
+}
+
+.tap-app-ride {
+    margin: 60px 0 20px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    padding: 0px 20px;
+}
+
+.tap-app-ride-inner h2 {
+    margin: 0 0 25px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 40px;
+    position: relative;
+    font-family: mavenprolight300;
+}
+
+
+.tap-app-ride-inner {
+    margin: 0 auto;
+    padding: 0px;
+    widows: 100%;
+    max-width: 1120px;
+    text-align: center;
+}
+
+.tap-app-ride-inner p {
+    margin: 10px 0 15px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 30px;
+    color: #404040;
+}
+
+/* .home-body-mid-img{margin: 0 auto;padding: 0px;float: left;width: 100%;} */
+.home-body-mid-part-inner {
+    margin: 0 auto;
+    padding: 0px;
+    widows: 100%;
+    max-width: 1285px;
+}
+
+.home-body-mid-part-inner h3 {
+    text-align: center;
+    margin: 20px 0;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 23px;
+    color: #000000;
+}
+
+.home-body-mid-part-inner p {
+    text-align: center;
+    margin: 0 0 20px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 17px;
+    line-height: 25px;
+    color: #404040;
+}
+
+.home-mobile-app-inner {
+    margin: 0 auto;
+    padding: 0px;
+    width: 100%;
+    max-width: 1280px;
+    color: aquamarine;
+
+}
+
+.home-mobile-app {
+    background: url(../../../assets/images/mobile-app-bg.jpg) no-repeat scroll top center;
+    margin: 30px 0 0;
+    padding: 40px 0;
+    float: left;
+    width: 100%;
+    background-size: cover;
+}
+
+
+
+.home-mobile-app-right span a em {
+    font-style: normal;
+}
+
+.home-mobile-app-right p {
+    margin: 0 0 20px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    line-height: 30px;
+    color: #959595;
+}
+
+.home-mobile-app-right h3 {
+    margin: 0 0 30px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-family: MavenProRegular;
+}
+
+
+
+.home-mobile-app-right {
+    margin: 135px 0 0;
+}
+
+.get_estimate {
+    padding: 0px 0;
+    padding-bottom: 30px;
+}
+
+.taxi-app-right-part h3 {
+    margin: 0 0 20px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 40px;
+}
+
+.taxi-app-right-part p {
+    margin: 0 0 30px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 29px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.taxi-app-right-part {
+    margin: 50px 0 0;
+}
+
+.gallery-page .box_images img {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.gallery-page {
+    width: 100%;
+    float: left;
+}
+
+.driver_section h2 {
+    margin: 20px 0;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 40px;
+    color: #000000;
+    font-family: MavenProRegular;
+    margin-bottom: 10px;
+    width: 100%;
+
+}
+
+.taxi-app-right-part h3 {
+    margin: 0 0 20px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 40px;
+    color: #000000;
+    font-family: MavenProRegular;
+}
+
+.taxi-app-right-part p {
+    font-size: 18px;
+    line-height: 29px;
+    color: #525252;
+    font-weight: 400;
+    font-family: MavenProRegular;
+
+}
+
+.gallery-page {
+    margin-bottom: 0px;
+}
+
+.gallery-page .box_images {
+    position: relative;
+    overflow: hidden;
+}
+
+.driver_section h4 {
+    color: #838383;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 34px;
+    font-family: MavenProRegular;
+    /* margin: 0 0 20px; */
+}
+
+.get-fare-estimation-left .position_rel {
+    margin-bottom: 10px;
+}
+
+.get-fare-estimation-left {
+    margin: 60px 0 0;
+    padding: 0px;
+    max-width: 350px;
+}
+
+.taxi-app-section {
+    height: auto;
+    width: 100%;
+    background-size: cover;
+    float: left;
+    background: antiquewhite;
+}
+
+.driver_section_container {
+    margin: 0 auto;
+    padding: 0px;
+    widows: 100%;
+    max-width: 1300px;
+    text-align: center;
+}
+
+.get_estimate .lable1 {
+    font-size: 32px;
+    font-weight: 400;
+    font-family: MavenProRegular;
+}
+
+.get_estimate .margin_div {
+    margin: 60px;
+    bottom: 20px
+}
+
+.gallery-page .box_images:hover .full-caption {
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    opacity: 1;
+    transform: translateY(100%);
+}
+
+.gallery-page .box_images {
+    margin-bottom: 10px;
+}
+
+.gallery-page .box_images .full-caption {
+    height: 270px;
+    padding: 26% 20px 0;
+    top: -269px;
+    width: 98%;
+}
+
+.setTextBold {
+    font-family: MontserratBold;
+    text-transform: uppercase;
+}
+
+.setBoldImg {
+    text-transform: inherit;
+    line-height: 25px;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+    color: black;
+}
+
+.priceTag {
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    /* margin-top: 20px !important; */
+}
+
+.gallery-page .box_images .caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    color: #fff;
+    z-index: 100;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+    left: 2px;
+    /* background-image: url(../../../assets/images/gallery-icon1.png); */
+    background-repeat: no-repeat;
+    background-position: center 70px;
+}
+
+.gallery-page .box_images .full-caption h3 {
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    position: relative;
+    text-transform: none;
+}
+
+.gallery-page .box_images .full-caption h3 p {
+    margin: 0 0 10px;
+    padding: 0px;
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    color: #fff;
+}
+
+.home-body-mid-img {
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+
+.driver_section_container h2 {
+    padding-top: 30px;
+}
+
+@media screen and (max-width: 992px) and (min-width: 1px) {
+    .gallery-page .box_images {
+        max-width: 270px;
+        margin: 0 auto;
+        margin-bottom: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .get-fare-estimation-left {
+        width: 100%;
+        padding: 0px;
+        margin: 0 auto;
+        max-width: 430px;
+        float: none !important;
+    }
+
+    .taxi-app-right-part h3 {
+        font-size: 27px;
+    }
+
+    .taxi-app-section {
+        background: unset;
+    }
+
+    .taxi_mg_section {
+        background-color: #f2e5d5;
+        /* height: 400px; */
+    }
+
+    .taxi-app-section img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .driver_section {
+        margin-top: 100px;
+    }
+
+    .home-mobile-app-right h3 {
+        font-size: 25px;
+    }
+
+    .gallery-page div {
+        margin-bottom: 0px;
+        padding: 0px;
+    }
+
+    .gallery-page {
+        text-align: center;
+    }
+
+    /* .caption.full-caption{display: none;} */
+    .tap-app-ride-inner h2 {
+        font-size: 25px;
+    }
+
+    .home-mobile-app-right {
+        margin: 50px 0 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .taxi-app-right-part h3 {
+        max-width: 400px;
+    }
+
+    .taxi-app-section img {}
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+
+    .banner,
+    .banner_second {
+        min-height: 500px;
+    }
+
+    .home-hero-page-left-text {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 567px) {
+
+    .banner,
+    .banner_second {
+        min-height: 400px;
+    }
+}
+
+@media screen and (max-width: 666px) and (min-width: 568px) {
+    .home-hero-page-right-text {
+        height: 170px;
+    }
+
+    .home-hero-page-left-text {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 576px) and (min-width: 1px) {
+    .banner {
+        min-height: 232px;
+    }
+
+    .banner_second {
+        min-height: 232px;
+    }
+
+    .home-hero-page-right-text
+    {
+        display: none;
+    }
+    .home-hero-page-left-text {
+        display: none;
+    }
+
+    .driver_section {
+        margin-top: 0px;
+    }
+
+    .get_estimate .margin_div {
+        margin: 15px;
+        bottom: 20px
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .home-hero-page-right-text {
+        margin: 20% 0 0;
+        padding: 0px;
+        float: left;
+        width: 315px;
+        height: 195px;
+        position: absolute;
+        top: 159px;
+        right: 0;
+    }
+}
+@media screen and (max-width: 767px) and (min-width: 576px){
+    .home-hero-page-right-text {
+        margin: 20% 0 0;
+        padding: 0px;
+        float: left;
+        width: 315px;
+        height: 195px;
+        position: absolute;
+        top: 243px;
+        right: 0;
+    }
+}

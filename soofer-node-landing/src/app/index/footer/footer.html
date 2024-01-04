@@ -1,0 +1,159 @@
+<footer>
+  <div class="main-container">
+    <div class="sub-main-div">
+      <div class="black_bg col-xs-12 col-sm-12 col-md-12">
+        <div class="">
+          <div class="footer_main_div">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <h4>{{'COMMON.CONTACTUS' | translate}}</h4>
+              <ul class="contactus">
+                <li>
+                  <i class="f_pin"></i>
+                  <div [innerHTML]="list.contactAdd"></div>
+                </li>
+                <li><i class="f_phone"></i>{{list.contactNo}}</li>
+                <li><i class="f_mail"></i>{{list.contactEmail}}</li>
+              </ul>
+              <h4>
+                <a routerLink="city-address">{{'COMMON.OTHERCITIES' | translate}}</a>
+              </h4>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <h4> {{'COMMON.ABOUT' | translate}} {{appName}} </h4>
+              <ul>
+                <li>
+                  <a routerLink="about">{{'COMMON.ABOUTUS' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="{{routeString}}">{{'FOOTER.HOWITSWORK' | translate}}</a>
+                </li>
+                <!-- <li>
+									<a routerLink="trust-safty-insurance">Trust Safety & Insurance</a>
+								</li> -->
+                <li>
+                  <a routerLink="terms-condition">{{'FOOTER.TERMSANDCONDITION' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="privacy-policy">{{'FOOTER.PRIVACYPLOICY' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="faq">{{'FOOTER.FAQ' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="contact">{{'COMMON.CONTACTUS' | translate}}</a>
+                </li>
+                <li>
+                  <a href="https://blog.sooffer.com/" target="_blank">{{'COMMON.BLOG' | translate}}</a>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="col-md-3 col-sm-6 col-xs-12">
+              <h4>{{'FOOTER.TAXIBOOKINGSERVICES' | translate}}</h4>
+              <ul class="cust">
+                <li class="custt">
+                  {{'FOOTER.BESTQUALITY&SAFETYSECURE' | translate}}
+                </li>
+                <li class="custt">
+                  {{'FOOTER.WELLMAINTAINEDCARFLEET' | translate}}
+                </li>
+                <li class="custt">
+                  {{'FOOTER.CLEANCARSCARRIERSONTOP' | translate}}
+                </li>
+                <li class="custt">{{'FOOTER.247HOURSSERVICE' | translate}}</li>
+                <li class="custt">
+                  {{'FOOTER.CLIENTSUPPORTTRAINEDTAXIDRIVERS' | translate}}
+                </li>
+                <li class="custt">{{'FOOTER.LUXURYCARS' | translate}}</li>
+              </ul>
+              <ul>
+
+                <li *ngIf="showServiceCity">
+                  <a routerLink="servicecities">Service Cities</a>
+                </li>
+
+                <li>
+                  <a routerLink="help">Help Center</a>
+                </li>
+                <li>
+                  <a routerLink="legal">Legal</a>
+                </li>
+              </ul>
+            </div> -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <ul class="mobile-app-link">
+                <h4>{{'FOOTER.DRIVERAPP' | translate}}</h4>
+                <li>
+                  <a href="{{list.driver_link_Android}}" *ngIf="list.driver_link_Android !== '#'" target="_blank"><img
+                      src="assets/images/google-play-img.png" /></a>
+                  <a href="{{list.driver_link_Ios}}" *ngIf="list.driver_link_Ios !== '#'" target="_blank"><img
+                      src="assets/images/app-stor-img.png" /></a>
+                </li>
+                <h4>{{'FOOTER.RIDERAPP' | translate}}</h4>
+                <li>
+                  <a href="{{list.rider_link_Android}}" *ngIf="list.rider_link_Android !== '#'" target="_blank"><img
+                      src="assets/images/google-play-img.png" /></a>
+                  <a href="{{list.rider_link_Ios}}" *ngIf="list.rider_link_Ios !== '#'" target="_blank"><img
+                      src="assets/images/app-stor-img.png" /></a>
+                </li>
+              </ul>
+              <div class="copy_right">
+              <a href="{{list.social_link_twitter}}" *ngIf="list.social_link_twitter !== '#'" target="_blank"><i
+                class="fa fa-twitter"></i></a>
+              <a href="{{list.social_link_facebook}}" *ngIf="list.social_link_facebook !== '#'" target="_blank"><i
+                class="fa fa-facebook-f"></i></a>
+            <!-- <a href=""><i class="fa fa-pinterest-p"></i></a> -->
+              <a href="{{list.driver_link_Google}}" *ngIf="list.driver_link_Google !== '#'" target="_blank"><i
+                class="fa fa-linkedin"></i></a>
+              <a href="{{list.driver_link_Youtube}}" *ngIf="list.driver_link_Youtube !== '#'" target="_blank"><i
+                class="fa fa-youtube"></i></a>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 ">
+            </div>
+            <section class="text-center col-xs-12 copy_right">
+              <div class="container">
+                <div class="">
+                  &copy; {{'FOOTER.COPYRIGHT' | translate}} {{date| date:'yyyy'}}
+                  {{copyrightURL}}
+                </div>
+                <!-- <a href="{{list.social_link_twitter}}" *ngIf="list.social_link_twitter !== '#'" target="_blank"><i
+                    class="fa fa-twitter"></i></a>
+                <a href="{{list.social_link_facebook}}" *ngIf="list.social_link_facebook !== '#'" target="_blank"><i
+                    class="fa fa-facebook-f"></i></a>
+                <a href="{{list.driver_link_Google}}" *ngIf="list.driver_link_Google !== '#'" target="_blank"><i
+                    class="fa fa-linkedin"></i></a>
+                <a href="{{list.driver_link_Youtube}}" *ngIf="list.driver_link_Youtube !== '#'" target="_blank"><i
+                    class="fa fa-youtube"></i></a> -->
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- end footer -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+  ul.cust {
+    list-style: none;
+    padding: 0;
+  }
+
+  li.custt {
+    padding-left: 1.3em;
+  }
+
+  li.custt:before {
+    content: "\f00c";
+    /* FontAwesome Unicode */
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: -1.3em;
+    /* same as padding-left set on li */
+    width: 1.3em;
+    /* same as padding-left set on li */
+  }
+</style>

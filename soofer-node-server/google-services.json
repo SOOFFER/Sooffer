@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "189294547569",
+    "firebase_url": "https://dtaxi-271511.firebaseio.com",
+    "project_id": "dtaxi-271511",
+    "storage_bucket": "dtaxi-271511.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189294547569:android:6312629065239103cd81d0",
+        "android_client_info": {
+          "package_name": "com.dtaxi.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189294547569-0dfsu9c6mv9i2mjm0i60r8qpmt2d3mvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcrha9InqzTVFkZ54RmZczRz27BZYBLKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189294547569-0dfsu9c6mv9i2mjm0i60r8qpmt2d3mvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189294547569:android:215b01d6194ddffccd81d0",
+        "android_client_info": {
+          "package_name": "com.dtaxi.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189294547569-0dfsu9c6mv9i2mjm0i60r8qpmt2d3mvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcrha9InqzTVFkZ54RmZczRz27BZYBLKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189294547569-0dfsu9c6mv9i2mjm0i60r8qpmt2d3mvl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

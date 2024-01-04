@@ -1,0 +1,56 @@
+<nb-card size="large">
+  <div class="consumption-table">
+    <div class="table-header">
+      <div>Trips Statistics </div>
+      <div class="subtitle">Completed/Requested</div>
+    </div>
+
+    <nb-tabset fullWidth>
+      <nb-tab *ngFor="let year of data" [tabTitle]="year.title" [active]="n">
+        <div class="stats-month" *ngFor="let month of year.months">
+          <div>
+            <span style="display: initial" class="month">{{ month.month }}</span>
+            <!-- <span class="delta" [ngClass]="{ 'down': month.down }">{{ month.delta }}</span> -->
+          </div>
+          <div class="results">
+            <b>{{ month.cost }}</b> / <b>{{ month.kWatts }}</b>
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-header">
+      <div class="header-stats">
+        <div class="stats-block">
+          <div [hidden]="type === 'week'" style="font-weight: bold;color: #2a2a2a;">Trips Completed in {{label}}</div>
+          <div [hidden]="type !== 'week'" style="font-weight: bold;color: #2a2a2a;">Trips Completed From
+            {{startWeekDate}} to {{endWeekDate}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <input style="padding: 0.5rem 1.5rem;" nbInput fieldSize="small" class="form-control"
+            placeholder="Click to Select a Date" (dateTimeInput)="logDate($event)" [(ngModel)]="list" name="list"
+            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;
+        </div>
+
+        <div class="col-md-6 dropdown ghost-dropdown" ngbDropdown>
+          <button type="button" style="border: 2px solid #dadfe6;" ngbDropdownToggle class="btn btn-sm" [ngClass]="{
+            'btn-success': currentTheme === 'default',
+            'btn-primary': currentTheme !== 'default'}">
+            {{ type }}
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu style="right: 15px; margin-top: 0px">
+            <li class="dropdown-item" *ngFor="let t of types" (click)="changePeriod(t)">{{ t }}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <ngx-electricity-chart [changedDate]="dateObj['list']" [statusType]="type"></ngx-electricity-chart>
+  </div>
+</nb-card>

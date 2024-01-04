@@ -1,0 +1,8 @@
+// :host /deep/ ng2-smart-table tbody>tr>td:nth-child(4) {
+//     margin: auto;
+//     display: table;
+// }
+
+:host /deep/ ng2-smart-table tbody>tr>td:nth-child(3) {
+    width: 250px;
+}

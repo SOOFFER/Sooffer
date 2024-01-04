@@ -1,0 +1,114 @@
+DriveWCondor
+
+General Condor Fee
+Booking fee: 2.95
+Base/fare: 2.50
+Fare/KM: 0.70
+Fare/minutes: 0.15
+Cancelacion Driv: 3
+Cancelacion Ride: 3
+Taxes: 13%
+Commission: 12%
+
+Drivers:
+Base/fare: 2.50
+Fare/KM: 0.70
+Fare/minutes: 0.15
+Cancelacion Rider: 3
+Minus:
+Taxes: 13%
+Commission: 12%
+Booking fee: 2.95
+
+Riders:
+Booking fee: 2.95
+Base/fare: 2.50
+Fare/KM: 0.70
+Fare/minutes: 0.15
+Cancelacion Rider: 3
+Taxes: 13%
+
+
+Condor get:
+Booking fee: 2.95
+Commission from drivers: 12%
+Taxes: 13%
+
+
+Minimum total fare: $5
+That means if the total charge is less than 5, we will charge $5. Plus
+booking fee, plus taxes.
+
+Remember to add
+two digits after the coma in all the calculations of the software.
+
+In Canada it is Kilometers not miles. But, keep both choices.
+
+-----------------------------------------------------------
+Please find below fare calculation .. if you have any questions send them to me.
+
+1- Condor charge( total amount charged to the customer) Warning: work with two or more digits after the coma so there is not errors)
+Booking fee: 2.95
+Base/fare: 2.50
+Fare/KM: 0.70
+Fare/minutes: 0.15
+Cancelacion Ride: 3
+Taxes: 13%
+
+Example; Ride # 1 **** for 10 km and 15 min.
+10 km    x  0.70  =  $  7.00
+15 min  x  0.15  =      2.25
+Base Fare         =      2.50
+Booking Fee     =       2.95
+
+Sub Total =========   $ 14.70
+Taxes (14.70 x 13% )     +   1.91
+Total         ========      $ 16.61
+
+This is the total Fare the customer would pay in a 10 km ride.
+Example 2 **** If the customer canceled the ride before the driver traveled to the drop off location then a 3 dollar fee plus 
+taxes will be charged to the customer.
+Example 3 ****Once both agree and accept the ride and a few minutes later any party cancel the trip., 
+the charge to the customer will be based on the amount of travel they already accomplished. 
+If a complain is being issue then it is up to the management to withdraw the charge base on the investigation.
+
+
+ 2- Pay Day: this part is very important since the federal government will send people to audit the financial business,
+  just because it is not for profit it is a big news.
+a- ( The app should be able to calculate total taxes accumulated per rider, per driver, per ride, per Month, per year)
+b- ( same of above to everything else)
+
+
+Example 4**** Driver wallet  ********** for 10 km and 15 min.
+10 km    x  0.70     =  $  7.00
+15 min  x  0.15      =      2.25
+Base Fare             =      2.50
+Sub Total =======   $ 11.75
+
+Condor Fee (11.75 x 12% )  - 1.41
+Total         =========      $ 10.34
+
+The driver total amount deposited into his/her account is $10.34
+
+-----------------------------------
+
+I like the different type of charge designed in the app. like Add Trip package . I can design a trip from one city to the next one.
+Example: 35 dollars per passenger up to 4 seats per car. in a 200 km ride.
+
+-----------------------------------
+
+Trip Settings
+Total Distance :
+10 KM
+Estimated Time :         15 Mins
+Minimum Fare :         $ 2.5
+Distance Fare (0.70 $/KM):         $ 7.00
+Waiting Charge (0.15 $/Min):         $ 0.60
+Time Fare (0.15 $/Min):         $ 1.50
+Promo Code :         $ 0.00
+Tax Amount (0.13 ):         $ 0.00
+Surge Percentage :         0 %
+Surge Reason :         N/A
+Total Fare :         $ 0.00
+This is an example from the app, we need to keep all of it. very important the waiting charge.
+

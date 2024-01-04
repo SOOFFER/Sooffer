@@ -1,0 +1,69 @@
+<div *ngIf="initial; then list1 else detail">
+
+</div>
+
+<ng-template #list1>
+    <nb-card>
+        <nb-card-header>
+            View Office Details
+        </nb-card-header>
+        <nb-card-body>
+            <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<ng-template #detail>
+    <div class="col-md-6">
+        <form #dataForm="ngForm">
+                <nb-card>
+                        <nb-card-header>
+                           Office Details 
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="form-group">
+                                <label>Address (<span class="red">*</span>)</label>
+                                <input type="text" class="form-control" name="address" [(ngModel)]="list.address" #address="ngModel" value={{list.address}} 
+                                required placeholder="Enter Address">
+                                <small *ngIf="address.invalid && (address.dirty)" class="form-text error">
+                                    Address is Required!
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label>Office Mail (<span class="red">*</span>)</label>
+                                <input type="text" class="form-control" name="mail" [(ngModel)]="list.mail" #mail="ngModel"
+                                required placeholder="Enter Office Email" pattern={{valid}}>
+                                <small *ngIf="mail.invalid && (mail.dirty)" class="form-text error">
+                                    Office Mail is Required!
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label>Support Number (<span class="red">*</span>) </label>
+                                <input type="text" class="form-control" name="phone" [(ngModel)]="list.phone" #phone="ngModel"
+                                required placeholder="Enter Support Number">
+                                <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                                    Support Number is Required!
+                                </small>   
+                            </div>
+                            
+                                <div class="form-group"  *ngIf="this.servicecity == true" >
+                                    <label>Service Available City (<span class="red">*</span>)</label>
+                                    <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds"  [data]="cities" [(ngModel)]="list.scIds" [settings]="dropdownSettings" 
+                                    class="form-control"></ng-multiselect-dropdown>
+                                 
+                                </div>
+                                <div class="form-group">
+                                   
+                                    <nb-checkbox status="info" name="isSupportNoEnable" [(ngModel)]="list.isSupportNoEnable">Support Number Enable for Mobile</nb-checkbox>
+                                </div>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <button type="submit" [disabled]="!dataForm.valid" (click)="UpdateOffice(list)" class="btn btn-info">Update</button> &nbsp;&nbsp;&nbsp;
+                            <button type="submit" (click)="Delete()" class="btn btn-danger">Delete</button> &nbsp;&nbsp;&nbsp;
+                            <button type="button" (click)="goBack()" class='btn btn-primary'>Go Back</button>
+                        </nb-card-footer>
+                 </nb-card>
+        </form>
+    </div> 
+</ng-template>

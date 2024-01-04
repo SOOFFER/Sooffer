@@ -1,0 +1,15 @@
+package com.bismillah.app.View;
+
+
+
+import com.bismillah.app.Model.TripHistoryModel;
+
+import java.util.List;
+
+import retrofit2.Response;
+
+public interface TripDetailsView {
+    void Onsuccess(Response<List<TripHistoryModel>> Response);
+
+    void onFailure(Response<List<TripHistoryModel>> Response);
+}

@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        Currency Management
+      </nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <div class="form-group">
+            <label>Primary Currency Name</label>
+            <input type="text" [(ngModel)]="selectedDocs.primarycur" #primarycur="ngModel" name="primarycur"
+              placeholder="Primary Currency Name" class="form-control" />
+          </div>
+          <!-- <div class="form-group">
+                    <label>Is Secondary Currency Exists </label>                            
+                      <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.secondarycur" name="secondarycur" [value]=true >
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">true</span>
+                      </label>
+                      <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.secondarycur" name="secondarycur" [value]=false >
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">false</span>
+                      </label>
+                    </div>  -->
+          <div class="form-group">
+            <label>Is Secondary Currency Exists</label>
+            <ng-select name="driverReferral" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.secondarycur" placeholder="Is Secondary Currency Exists" required>
+            </ng-select>
+          </div>
+          <div *ngIf="selectedDocs.secondarycur === 'true'">
+            <div class="form-group">
+              <label>Secondary Currency Name</label>
+              <input type="text" [(ngModel)]="selectedDocs.secondarycurName" #secondarycurName="ngModel"
+                name="secondarycurName" placeholder="Secondary Currency Name" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Secondary Currency Symbol</label>
+              <input type="text" [(ngModel)]="selectedDocs.secondarycurSymbol" #secondarycurSymbol="ngModel"
+                name="secondarycurSymbol" placeholder="Secondary Currency Symbol" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Currency Conversion Multiple Rate</label>
+              <input type="number" [(ngModel)]="selectedDocs.conversionRate" #conversionRate="ngModel"
+                name="conversionRate" placeholder="Currency Conversion Multiple Rate" class="form-control" />
+            </div>
+          </div>
+          <button type="submit" [disabled]="!dataForm.form.valid" (click)="editTemplate(selectedDocs)"
+            class="btn btn-success btn-block">UPDATE</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+
+</style>

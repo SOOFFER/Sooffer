@@ -1,0 +1,27 @@
+<nb-card>
+  <nb-card-header>  
+  	<div class="row">
+  		<div class="col-sm-6">
+  			{{title}}
+  		</div>
+
+  		<div class="col-sm-6">	 
+  			<form class="form-inline"> 
+          From   
+  				<input type="date" #fromDate  required class="form-control"/>
+          To
+  				<input type="date" #toDate required class="form-control"/>
+          		<button type="button" (click)="filterRes(fromDate,toDate)" class="btn btn-danger">Submit</button> 
+  			</form>
+  		</div>
+  	</div> 
+
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source"  (custom)="route($event)"  *ngIf="source ">
+    </ng2-smart-table>
+
+
+  </nb-card-body>
+</nb-card> 

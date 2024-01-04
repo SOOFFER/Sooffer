@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header> Alert Settings </nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="editTemplate(selectedDocs)" #dataForm="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Minimum Balance To Maintain [Number]</label>
+                <input type="number" [(ngModel)]="selectedDocs.minimumBalance"
+                  placeholder="Enter Driver Minimum Balance To Maintain [Number]" #minimumBalance="ngModel"
+                  name="minimumBalance" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Minimum Balance Exceeded Alert</label>
+                <input type="text" [(ngModel)]="selectedDocs.exceededminimumBalanceDriverAlert"
+                  #exceededminimumBalanceDriverAlert="ngModel" name="exceededminimumBalanceDriverAlert"
+                  placeholder="Enter Driver Minimum Balance Exceeded Alert" required class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Low Balance Remainder Amount [Number]</label>
+                <input type="number" [(ngModel)]="selectedDocs.lowBalanceAlert"
+                  placeholder="Enter Driver Low Balance Alert" #lowBalanceAlert="ngModel" name="lowBalanceAlert"
+                  required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Low Balance Remainder Alert</label>
+                <input type="text" [(ngModel)]="selectedDocs.minimumBalanceDriverAlert"
+                  placeholder="Enter Driver Minimum Balance Alert" #minimumBalanceDriverAlert="ngModel"
+                  name="minimumBalanceDriverAlert" required class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Cancel Limit Exceeds Alert
+                </label>
+                <input type="text" [(ngModel)]="selectedDocs.driverCancelLimiitExceeds"
+                  placeholder="Enter Driver Cancel Limit Exceeds Alert" #driverCancelLimiitExceeds="ngModel"
+                  name="driverCancelLimiitExceeds" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Payout Minimum Amount Limit [Number]</label>
+                <input type="number" [(ngModel)]="selectedDocs.driverPayoutAmountLimitMax"
+                  placeholder="Enter Driver Payout Minimum Amount Limit [Number]" #driverPayoutAmountLimitMax="ngModel"
+                  name="driverPayoutAmountLimitMax" required class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Driver Payouts Type</label>
+                <input type="text" [(ngModel)]="selectedDocs.driverPayoutsType" placeholder="Enter Driver Payouts Type"
+                  #driverPayoutsType="ngModel" name="driverPayoutsType" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Rider Maximum Old Balance [Number]</label>
+                <input type="number" [(ngModel)]="selectedDocs.riderMaximumOldBalance"
+                  placeholder="Enter Rider Maximum Old Balance [Number]" #riderMaximumOldBalance="ngModel"
+                  name="riderMaximumOldBalance" required class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Rider Cancel Limit Exceeds</label>
+                <input type="text" [(ngModel)]="selectedDocs.riderCancelLimiitExceeds"
+                  placeholder="Enter Rider Cancel Limit Exceeds" #riderCancelLimiitExceeds="ngModel"
+                  name="riderCancelLimiitExceeds" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Rider Old Balance Exceeded Alert</label>
+                <input type="text" [(ngModel)]="selectedDocs.riderOldBalanceExceededMessage"
+                  #riderOldBalanceExceededMessage="ngModel" name="riderOldBalanceExceededMessage"
+                  placeholder="Enter Rider Old Balance Exceeded Alert" required class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Night Surge Charge Alert</label>
+                <input type="text" [(ngModel)]="selectedDocs.isNightExistAlertLabel"
+                  placeholder="Enter Night Surge Charge Alert" #isNightExistAlertLabel="ngModel"
+                  name="isNightExistAlertLabel" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Is Driver Credit Module Enabled</label>
+                <div class="demo-radio col-sm-4">
+                  <nb-radio-group [(ngModel)]="selectedDocs.isDriverCreditModuleEnabled" required
+                    name="isDriverCreditModuleEnabled" #isDriverCreditModuleEnabled="ngModel">
+                    <nb-radio [value]="true">ON</nb-radio>
+                    <nb-radio [value]="false">OFF</nb-radio>
+                  </nb-radio-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button type="submit" [disabled]="!dataForm.form.valid" (click)="editTemplate(selectedDocs)"
+          class="btn btn-primary">
+          Update
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header> Stripe Gateway Settings </nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="editStrike(lists)" #dataForm1="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Stripe Percentage</label>
+                <input type="number" [(ngModel)]="lists.stripePaymentPercentage" placeholder="Stripe Percentage"
+                  #stripePaymentPercentage="ngModel" name="stripePaymentPercentage" required class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailsubject">Stripe Cents</label>
+                <input type="number" [(ngModel)]="lists.centsToAddExtraForStripe" #centsToAddExtraForStripe="ngModel"
+                  name="centsToAddExtraForStripe" placeholder="Stripe Cents" required class="form-control" />
+              </div>
+            </div>
+          </div>
+        </form>
+        <button type="submit" [disabled]="!dataForm1.form.valid" (click)="editStrike(lists)" class="btn btn-primary">
+          Update
+        </button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+</style>

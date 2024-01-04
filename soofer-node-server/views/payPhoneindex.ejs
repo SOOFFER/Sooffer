@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <script src="https://pay.payphonetodoesposible.com/api/button/js?appId=BujnmX8oMEWevLDu8ifJOw"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>   
+</head>
+
+<body>
+    <div id="pp-button"></div>
+</body>
+
+<script>
+    window.onload = function () {
+        payphone.Button({
+
+            //token obtained from the developer console
+            token: "ikOEN7W9d75-ncoIIDoBCKn0-33ZpHtSMkF2skscPitimQk0V2_M7whkR5KsKboNZAFqQNUQtowHM0v6ObAXnaDeDDMzKluXOHR8SDenTK4vCbkkDHlgXYsX81F7updiT8knGNTv3XD6hF_Hwx5AI-LMOCiSY9C3GS_9i9jzoFfCwNRj5UXx25iIqbihkuP-aczNgKhmFhbtzGw8GxqcnPqujnVvo2VdsEbk-via6n4b1V7TMk7v_BsX61hsCQvo0-jYcWpr6Ypgegfqc9IZXmaXOiDvj4EAGc2XkWiQHqftErCud0EW_fg7BGwljzTLLbmLAICcQGAnMkAnDk79QoWScOk",
+
+            //PARAMETERS OF CONFIGURATION
+            btnHorizontal: true,
+            btnCard: true,
+
+            createOrder: function (actions) {
+                console.log("actions", actions);
+
+                //Transaction data is entered e.g. amount, tax, etc.
+                return actions.prepare({
+                    amount: "<%=amount%>",
+                    amountWithoutTax: "<%=amountWithoutTax%>",
+                    currency: "<%=currency%>",
+                    clientTransactionId: "<%=uniqueTransId%>",
+                });
+
+            },
+            onComplete: function (model, actions) {
+                // console.log("model", model, "Payment id", model.id, "clientTxId", model.clientTxId);
+
+                // alert("Payment id" + model.id + "received, clientTxId" + model.clientTxId);
+                // Payment made is confirmed
+                actions.confirm({
+                    id: model.id,
+                    clientTxId: model.clientTxId
+                }).then(function (value) {
+
+                    //IN THIS SECTION THE RESPONSE IS RECEIVED AND DISPLAYED TO THE USER                                
+                    // alert("Payment" + value.transactionId + "received, status" + value.transactionStatus);
+                    if (value.transactionStatus == "Approved") {
+                        alert("<%=alertMessage%>");
+                        // function makePostRequest(path, queryObj) {
+                        //     axios.put(path, queryObj).then(
+                        //         (response) => {
+                        //             var result = response.data;
+                        //             console.log(result);
+                        //         },
+                        //         (error) => {
+                        //             console.log(error);
+                        //         }
+                        //     );
+                        // }
+                         
+                        // queryObj = value;
+                        // makePostRequest('https://aloapp.com:3001/api/tripPaymentStatus', queryObj);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+
+            }
+        }).render('#pp-button');
+
+    }
+</script>
+
+</html>

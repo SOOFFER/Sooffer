@@ -1,0 +1,286 @@
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+</style>
+<div *ngIf="initial; then list; else detail"></div>
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">View Riders </div>
+      </div>
+      <div class="row" *ngIf="showCity == true">
+        <div class="col-sm-3">Filter :</div>
+        <div class="col-sm-8">
+          <form class="form-row">
+            <div class="col-md-5">
+              <select class="form-control" [(ngModel)]="Doc.servicecity" name="servicecity" #servicecity="ngModel"
+                required placeholder="Service">
+                <option [value]="undefined" selected hidden>
+                  Select a ServiceCity
+                </option>
+                <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                  {{ city.label }}
+                </option>
+                <option value="all" selected>All</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" (click)="SerachDriverForCity(Doc)">
+                Filter
+              </button>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" name="exp" [(ngModel)]="exportInp.exp" #exp="ngModel"
+                (change)="export($event)">
+                <option value="undefined" selected hidden>Export</option>
+                <option value="csv">Csv</option>
+                <option value="excel">Excel</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      Riders Details:
+      <button type="submit" class="btn btn-info pull-right" nbButton size="small" status="success"
+        (click)="routeToCredits(selectedid)">
+        Add Credits
+      </button>
+      <button type="submit" class="btn btn-info pull-right" nbButton size="small" status="primary"
+      (click)="routeToOnlinePayment(selectedid)">
+      Online Payment
+    </button>
+    </nb-card-header>
+    <nb-card-body>
+      <form #dataForm="ngForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>First Name (<span class="red">*</span>)</label>
+              <input autofocus type="text" minlength="{{ validation.fnameValid.minlength }}"
+                maxlength="{{ validation.fnameValid.maxlength }}" pattern="{{ validation.fnameValid.pattern }}"
+                [(ngModel)]="selectedDocs.fname" #fname="ngModel" name="fname" required placeholder="First Name"
+                class="form-control" />
+              <small *ngIf="fname.invalid && fname.dirty" class="form-text error">
+                Name is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Last Name (<span class="red">*</span>)</label>
+              <input type="text" minlength="{{ validation.lnameValid.minlength }}"
+                maxlength="{{ validation.lnameValid.maxlength }}" pattern="{{ validation.lnameValid.pattern }}"
+                [(ngModel)]="selectedDocs.lname" #lname="ngModel" name="lname" required placeholder="Last Name"
+                class="form-control" />
+              <small *ngIf="lname.invalid && lname.dirty" class="form-text error">
+                Name is required!
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Email </label>
+              <input type="email" email pattern="{{ validation.emailValid }}" [(ngModel)]="selectedDocs.email"
+                name="email" #email="ngModel" required placeholder="Email" class="form-control" />
+              <small *ngIf="email.invalid && email.dirty" class="form-text error">
+                Valid Email is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label>Phone Code</label>
+            <select class="form-control" #phcode="ngModel" name="phcode" [(ngModel)]="selectedDocs.phcode" required>
+              <!-- <option value="undefined" selected hidden>Select</option> -->
+              <option *ngFor="let city of list_phon_code" value="{{ city }}">
+                {{ city }}
+              </option>
+            </select>
+            <!-- <input autofocus [disabled]='phcode' type="tel" mask="000" [(ngModel)]="verifyinputs.phcode"
+                                                                                          #phcode="ngModel" name="phcode" required placeholder="Code" class="form-control" /> -->
+            <small *ngIf="phcode.invalid && phcode.dirty" class="form-text error">
+              Phone Code is required!
+            </small>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Phone (<span class="red">*</span>)</label>
+              <input type="tel" pattern="{{ validation.phoneValid.pattern }}"
+                minlength="{{ validation.phoneValid.minlength }}" maxlength="{{ validation.phoneValid.maxlength }}"
+                [(ngModel)]="selectedDocs.phone" #phone="ngModel" name="phone" required placeholder="Phone"
+                class="form-control" />
+              <small *ngIf="phone.invalid && phone.dirty" class="form-text error">
+                Phone Number is required!
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Country</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.cnty" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event)" (deselected)="deSelectedCountry($event)">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="selectedDocs.state" [options]="states" [allowClear]="true"
+                (selected)="selectedState($event)" (deselected)="deSelectedState($event)">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="selectedDocs.city" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event)" (deselected)="deSelectedCity($event)">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Gender</label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Male" selected />
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Male</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Female" />
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Female</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- <div class="col-sm-6">
+            <div class="form-group">
+              <label>Profile Status</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.status" name="status" #status="ngModel">
+                <option [value]="undefined" selected hidden> Select Status</option>
+                <option selected="selected" value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+          </div> -->
+          <div class="col-sm-6" *ngIf="showservicecity == true">
+            <div class="form-group">
+              <label>Service Available City (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Service Available City'" required name="loc"
+                [data]="servicecites" [(ngModel)]="selectedDocs.scIds" [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" class="form-control">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row"> -->
+        <!-- <div class="col-sm-6">
+            <div class="form-group">
+              <label>Language</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.lang" name="lang" placeholder="Language">
+                <option [value]="undefined" selected hidden>Select Language</option>
+                <option *ngFor="let lang of langary" [value]="lang.id">
+                  {{lang.name}}
+                </option>
+              </select>
+            </div>
+          </div> -->
+        <!-- <div class="col-sm-6">
+            <div class="form-group">
+              <label>Currency</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.cur" name="cur" placeholder="Currency">
+                <option [value]="undefined" selected hidden>Select Currency</option>
+                <option *ngFor="let cur of currencyary" [value]="cur.id">
+                  {{cur.name}}
+                </option>
+              </select>
+            </div>
+          </div> -->
+        <!-- <div class="col-sm-6" *ngIf="showservicecity == true && showCurr == false">
+            <div class="form-group">
+              <label>Currency</label>
+              <input type="text" [(ngModel)]="selectedDocs.cur" #cur="ngModel" name="cur" placeholder="Currency"
+                disabled class="form-control" />
+            </div>
+          </div>
+          <div class="col-sm-6" *ngIf="showservicecity == false || showCurr == true">
+            <div class="form-group">
+              <label>Currency</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.cur" name="cur" #cur="ngModel"
+                placeholder="Currency">
+                <option [value]="undefined" selected hidden> Select a Currency</option>
+                <option *ngFor="let cur of currencyary" [value]="cur.id">
+                  {{cur.name}}
+                </option>
+              </select>
+            </div>
+          </div> -->
+        <!-- </div> -->
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="updateRecord(selectedDocs)" nbButton size="small" status="primary" type="submit"
+        class="btn btn-primary">
+        Update
+      </button>
+      &nbsp;
+      <button [disabled]="riderAccepted" *ngIf="!restrictProvider" nbButton size="small" status="danger"
+        (click)="activateRi(selectedid)" type="submit" class="btn btn-danger">
+        Active Rider
+      </button>
+      &nbsp;
+      <button [disabled]="!riderAccepted" *ngIf="!restrictProvider" nbButton size="small" status="danger"
+        (click)="deleteRecord(selectedid)" type="submit" class="btn btn-danger">
+        Inactive Rider
+      </button>
+      &nbsp;
+      <button nbButton size="small" status="danger" (click)="deleteRiderRecord(selectedid)" type="submit"
+        class="btn btn-danger">
+        Delete Rider
+      </button>
+      &nbsp;
+      <button type="submit" class="btn btn-info" nbButton size="small" status="info" (click)="resetMyPwd(selectedid)">
+        Reset Password
+      </button>
+      &nbsp;
+    </nb-card-footer>
+  </nb-card>
+  <button (click)="goBack()" type="button" nbButton size="small" status="danger" class="btn btn-danger">
+    Go Back
+  </button>
+</ng-template>

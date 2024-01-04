@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/_5sdp"
+    tools:context=".TripFlowScreen.CarDropFragment">
+
+    <EditText
+        android:id="@+id/edtVehicelNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
+        android:hint="@string/vehicle_number"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_14sdp"
+        android:textAllCaps="true"
+        tools:ignore="TextFields,TouchTargetSizeCheck"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edtVehicelMake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
+        android:hint="@string/vehicle_make_amp_model"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_14sdp"
+        tools:ignore="TouchTargetSizeCheck"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+
+    <EditText
+        android:id="@+id/edtVehicelModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
+        android:hint="@string/vehicle_model"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_14sdp"
+        tools:ignore="TouchTargetSizeCheck"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/edtVehicelColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
+        android:hint="@string/vehicle_color"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_14sdp"
+        tools:ignore="TouchTargetSizeCheck"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/edtDeliver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@color/light_grey"
+        android:fontFamily="@font/robotomedium"
+        android:gravity="center"
+        android:visibility="gone"
+        android:hint="@string/car_deliver_location"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="@dimen/_14sdp" />
+
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/done" />
+</LinearLayout>

@@ -1,0 +1,58 @@
+<form (ngSubmit)="addNewOffer(list);" #dataForm1="ngForm">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Add an Offer</nb-card-header>
+        <nb-card-body>
+
+          <div class="form-group" *ngIf="this.servicecity == true">
+            <label>Service Available City</label>
+            <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+              [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="form-control">
+            </ng-multiselect-dropdown>
+          </div>
+
+          <div class="form-group">
+            <label>Select Offer Start Date (<span class="red">*</span>)</label>
+            <ng-datepicker [(ngModel)]="list.vdate" [options]="visibleDateOptions" #start="ngModel" name="start"
+              class="form-control" required></ng-datepicker>
+          </div>
+          <div class="form-group">
+            <label>Select Offer End Date (<span class="red">*</span>)</label>
+            <ng-datepicker [(ngModel)]="list.edate" [options]="endDateOptions" #end="ngModel"
+              (ngModelChange)="disableError($event)" name="end" class="form-control" required></ng-datepicker>
+            <small *ngIf="notValidEdate" class="form-text error">
+              Enter Valid Offer End Date!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Title (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="list.title" #title="ngModel" name="title" required
+              placeholder="Enter the Title" class="form-control" />
+            <small *ngIf="title.invalid && (title.dirty || title.touched)" class="form-text error">
+              Title is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Description (<span class="red">*</span>)</label>
+            <textarea [(ngModel)]="list.desc" #desc="ngModel" name="desc" required class="form-control"></textarea>
+            <!-- <tinymce [config]="" [(ngModel)]="list.desc" #desc="ngModel" placeholder="Enter the Description" name="desc"
+              required></tinymce> -->
+            <small *ngIf="desc.invalid && ( desc.dirty || desc.touched)" class="form-text error">
+              Description is required!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Offer Image ( width:150px , height 150px )</label>
+            <input type="file" #fileupload (change)="fileEvent($event)" required value="Image" />
+          </div>
+          <button class="btn btn-success" [hidden]="spinner">
+            <div class="fa fa-spinner fa-spin"></div>
+          </button>
+          <button type="submit" [disabled]="!dataForm1.form.valid" [hidden]="!spinner"
+            class="btn btn-success btn-block">Add</button>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</form>

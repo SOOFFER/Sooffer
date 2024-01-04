@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6">
+    <div class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+        {{ type }}
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+          {{ period }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-3 col-sm-6">
+    <input style="padding: 0.5rem 1.5rem;" nbInput fieldSize="small" class="form-control"
+      placeholder="Click to Select a Date" (dateTimeInput)="logDate($event)" [(ngModel)]="list" name="list"
+      [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;
+  </div>
+
+  <!-- <div class="col-md-1 pull-right">
+  <button type="button" class="pull-right" nbButton size="small" status="primary" (click)="Filter()">Filter</button>
+</div> -->
+
+  <div class="col-lg-3 col-md-3 col-sm-6" *ngIf="showCity==true">
+    <div class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+        {{city}}
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let city of SerivceCity" (click)="changeCity(city.label)">
+          {{ city.label }}
+        </li>
+        <li class="dropdown-item" (click)="changeCity('all')">All</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- <div class="col-md-3 pull-right">
+  <select name="scIds" [(ngModel)]="sel.scIds" class="form-control">
+    <option selected hidden value="undefined" >Service Available City</option>
+    <option *ngFor ="let city of SerivceCity" value="city.label"> {{city.label}}</option>
+    <option value="all" >All</option>
+  </select>
+</div> -->
+
+  <!-- Export Data  -->
+  <div class="col-lg-3 col-md-3 col-sm-6">
+    <div class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+        EXPORT
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let exportType of exportList" (click)="export(exportType.value)">
+          {{ exportType.key }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- *ngIf="type === 'month'"  -->
+
+  <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 15px;
+text-align: center;
+font-weight: 800;">
+    <b>{{duration}}</b>
+  </div>
+</div>
+
+
+<div echarts [options]="options" class="echart" style="margin-top: 0;height: 90%;"></div>
+
+
+
+<!-- <div class="row">
+        <div class=" col-md-5">
+        <div *ngIf="type === 'month'"  style="margin-top: 15px; text-align: center; font-weight: 800;">
+            <b>{{getMonthName}}</b>  
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="scIds" [(ngModel)]="sel.scIds" class="form-control">
+                <option selected hidden value="undefined" >Service Available City</option>
+                <option *ngFor ="let city of SerivceCity" value="city.label"> {{city.label}}</option>
+                <option value="all" >All</option>
+              </select>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="pull-right" nbButton size="small" status="primary" (click)="Filter()">Filter</button>
+        </div>
+        <div class="col-md-2">
+            <input style="padding: 0.5rem 1.5rem;" nbInput fieldSize="small" class="form-control"
+            placeholder="Click to Select a Date" (dateTimeInput)="logDate($event)" [(ngModel)]="list" name="list"
+            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;
+        </div>
+        <div class="col-md-2">
+            <div class="dropdown ghost-dropdown" ngbDropdown>
+                <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+                  {{ type }}
+                </button>
+                <ul ngbDropdownMenu class="dropdown-menu">
+                  <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+                    {{ period }}
+                  </li>
+                </ul>
+              </div>
+        </div>
+      </div> -->

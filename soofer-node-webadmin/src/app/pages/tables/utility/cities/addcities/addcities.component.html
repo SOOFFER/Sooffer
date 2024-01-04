@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>Add a City</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+
+          <div class="form-group">
+            <label>Country</label>
+            <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+              notFoundMsg="No Countries Found" [(ngModel)]="list.countryId" [options]="countries" [allowClear]="true"
+              (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);" required>
+              <ng-template #optionTemplate let-option="option">
+                <span class="{{option.value}}">{{option.label}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div *ngIf="showStateDropDown()">
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="list.stateId" [options]="states" [allowClear]="true" (selected)="selectedState($event);"
+                (deselected)="deSelectedState($event);" required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+
+          <div *ngIf="showCityDropDown()">
+            <div class="form-group">
+              <label class="required">City Name</label>
+              <input type="text" [(ngModel)]="list.name" #name="ngModel" name="name" required placeholder="City Name"
+                class="form-control" />
+              <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                City Name is required!
+              </small>
+            </div>
+
+            <button type="submit" (click)="AddNewDoc(list)" [disabled]="!dataForm.form.valid"
+              class="btn btn-success btn-block">
+              ADD </button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

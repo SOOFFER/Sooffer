@@ -1,0 +1,816 @@
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+</style>
+
+<div *ngIf="initial; then list; else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">View SoftDelete Drivers</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2" *ngIf="showCity == true">Filter :</div>
+
+        <div class="col-sm-5" *ngIf="showCity == true">
+          <form class="form-row">
+            <div class="col-md-5">
+              <select class="form-control" [(ngModel)]="driverDoc.servicecity" name="servicecity" #servicecity="ngModel"
+                required placeholder="Service">
+                <option [value]="undefined" selected hidden>
+                  Select a ServiceCity
+                </option>
+                <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                  {{ city.label }}
+                </option>
+                <option value="all" selected>Show All</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" (click)="SerachDriverForCity(driverDoc)">
+                Filter
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-2">
+          <select class="form-control" name="exp" [(ngModel)]="exportInp.exp" #exp="ngModel" (change)="export($event)">
+            <option value="undefined" selected hidden>Export</option>
+            <option value="csv">Csv</option>
+            <option value="excel">Excel</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <button type="submit" class="btn btn-primary" (click)="routeToNewPage()">
+            GPS Off
+          </button>
+          &nbsp;&nbsp; &nbsp;
+          <button type="submit" class="btn btn-primary" (click)="makeOthersOnline()" style="font-size: 10px">
+            make offline to Online
+          </button>
+
+          <!-- -->
+        </div>
+      </div>
+      <!-- <div class="row">
+					<div class="col-sm-1">
+						Filter :
+					</div>
+					<div class="col-sm-11">
+						<form class="form-row">
+							<div class="col-md-1">
+							<input type="text" [(ngModel)]="driverDoc.licence" #licence="ngModel" name="driverDoc.licence" class="form-control" placeholder="Licence"/>
+							</div>
+							<div class="col-md-2">
+							<input type="text" [(ngModel)]="driverDoc.vehicleNo" #vehicleNo="ngModel" name="driverDoc.vehicleNo" class="form-control" placeholder="Vehicle No"/>
+							</div>
+
+							<div class="col-md-1">
+							<input type="text" [(ngModel)]="driverDoc.make" #make="ngModel" name="driverDoc.make" class="form-control" placeholder="Make"/>
+							</div>
+							<div class="col-md-1">
+							<input type="text" [(ngModel)]="driverDoc.model" #model="ngModel" name="driverDoc.model" class="form-control" placeholder="Model"/>
+							</div>
+							<div class="col-md-1">
+							<input type="text" [(ngModel)]="driverDoc.year" #year="ngModel" name="driverDoc.year" class="form-control" placeholder="Year"/>
+							</div>
+							<div class="col-md-2">
+							<input type="text" [(ngModel)]="driverDoc.vehicleType" #vehicleType="ngModel" name="driverDoc.vehicleType" class="form-control" placeholder="Vehicle Type"/>
+							</div>
+							<div class="col-md-1">
+							<button type="submit" class="btn btn-primary" (click)="SerachDriver(driverDoc);">Filter</button>
+							</div>
+						</form>
+					</div>
+				</div> -->
+    </nb-card-header>
+
+    <nb-card-body>
+      <ng2-smart-table (userRowSelect)="onUserRowSelect($event)" [settings]="settings" [source]="source"
+        (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      DRIVER PROFILE : {{ selectedUser }} &nbsp; | &nbsp; Code :
+      {{ selectedDocs.code }}
+      <button (click)="goBack()" type="button" nbButton size="small" status="danger" class="pull-right">
+        Go Back
+      </button>
+    </nb-card-header>
+    <nb-card-body>
+      <form #dataForm="ngForm" autocomplete="off">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label>Upload Profile Image</label>
+                    <input type="file" (change)="profileEve($event)" id="logo" name="logo" class="form-control" />
+                  </div>
+                </div>
+                <!-- <br/> -->
+                <br />
+                <div class="form-group">
+                  <label for="inputFirstName">First Name (<span class="red">*</span>)</label>
+                  <input type="text" minlength="{{ validation.fnameValid.minlength }}"
+                    maxlength="{{ validation.fnameValid.maxlength }}" pattern="{{ validation.fnameValid.pattern }}"
+                    [(ngModel)]="selectedDocs.fname" #fname="ngModel" name="fname" required placeholder="First Name"
+                    class="form-control" />
+                  <small *ngIf="fname.invalid && fname.dirty" class="form-text error">
+                    Valid Name is required!
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="container" style="width: 187px">
+                  <b>Profile Image</b>
+                </div>
+                <div class="form-group">
+                  <img [src]="baseurl + selectedDocs.profile" height="125" width="140" style="
+                      border-radius: 50%;
+                      margin-top: 25px;
+                      margin-left: 18px;
+                    " />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Date Of Birth</label>
+              <ng-datepicker [(ngModel)]="selectedDocs.DOB" [options]="visibleDateOptions" #DOB="ngModel" name="DOB"
+                class="form-control" required></ng-datepicker>
+              <small *ngIf="DOB.invalid && DOB.dirty" class="form-text error">
+                Date Of Birth is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail">Email </label>
+              <input type="email" email pattern="{{ validation.emailValid }}" [(ngModel)]="selectedDocs.email"
+                #email="ngModel" name="email" required placeholder="Email" class="form-control" />
+              <small *ngIf="email.invalid && email.dirty" class="form-text error">
+                Valid Email is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Country</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.cnty" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event)" (deselected)="deSelectedCountry($event)"
+                required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="selectedDocs.city" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event)" (deselected)="deSelectedCity($event)">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="form-group">
+              <label> Wallet Type</label>
+              <div class="input-group mb-3">
+                <select name="walletType" [(ngModel)]="selectedDocs.walletType" placeholder="Select Type"
+                  class="form-control">
+                  <option value="undefined" selected hidden class="form-control">
+                    Select Type
+                  </option>
+                  <option value="postpaid" class="form-control">
+                    Post Paid
+                  </option>
+                  <option value="prepaid" class="form-control">Pre Paid</option>
+                </select>
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary" (click)="UpdateWallet(selectedDocs.walletType)">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="inputWebsite">Phone (<span class="red">*</span>)</label>
+                  <input type="tel" pattern="{{ validation.phoneValid.pattern }}"
+                    minlength="{{ validation.phoneValid.minlength }}" maxlength="{{ validation.phoneValid.maxlength }}"
+                    [(ngModel)]="selectedDocs.phone" name="phone" #phone="ngModel" placeholder="Phone"
+                    class="form-control" required />
+                  <small *ngIf="phone.invalid && phone.dirty" class="form-text error">
+                    Valid Phone is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="inputWebsite">Alternate Phone No</label>
+                  <input type="tel" pattern="{{ validation.phoneValid.pattern }}"
+                    minlength="{{ validation.phoneValid.minlength }}" maxlength="{{ validation.phoneValid.maxlength }}"
+                    [(ngModel)]="selectedDocs.alternatePhnNo" name="alternatePhnNo" #alternatePhnNo="ngModel"
+                    placeholder="Alternate Phone Number" class="form-control" />
+                  <small *ngIf="alternatePhnNo.invalid && alternatePhnNo.dirty" class="form-text error">
+                    Valid Phone is required!
+                  </small>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label for="inputWebsite">Phone (<span class="red">*</span>)</label>
+              <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+                maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.phone" name="phone"
+                #phone="ngModel" placeholder="Phone" class="form-control" required />
+              <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                Valid Phone is required!
+              </small>
+            </div> -->
+            <div class="form-group">
+              <label for="inputLastName">Last Name (<span class="red">*</span>)</label>
+              <input type="text" minlength="{{ validation.lnameValid.minlength }}"
+                maxlength="{{ validation.lnameValid.maxlength }}" pattern="{{ validation.lnameValid.pattern }}"
+                [(ngModel)]="selectedDocs.lname" #lname="ngModel" name="lname" placeholder="Last Name"
+                class="form-control" required />
+              <small *ngIf="lname.invalid && lname.dirty" class="form-text error">
+                Valid Last Name is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Male" />
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Male</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Female" />
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Female</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="selectedDocs.state" [options]="states" [allowClear]="true"
+                (selected)="selectedState($event)" (deselected)="deSelectedState($event)">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{ option.value }}">{{ option.label }}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="form-group" *ngIf="showCompany">
+              <label>Company</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.cmpy" name="cmpy" #cmpy="ngModel"
+                placeholder="Company" required>
+                <option [value]="undefined" selected hidden>
+                  Select a Company
+                </option>
+                <option *ngFor="let company of companyary" [value]="company._id">
+                  {{ company.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>NIC Number</label>
+              <input type="text" [(ngModel)]="selectedDocs.nic" name="nic" placeholder="NIC Number"
+                class="form-control" />
+            </div>
+
+            <div class="form-group" *ngIf="showservicecity == true">
+              <label>Service Available City (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="loc" [data]="servicecites"
+                [(ngModel)]="selectedDocs.scIds" [settings]="dropdownSettings" required
+                (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" class="form-control">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="row custom-switches">
+              <div class="col-12">
+                <h5>Availablity Status</h5>
+                <p>
+                  <ui-switch switchColor="white" (click)="setDriver(selectedDocs._id, selectedDocs.online)"
+                    [(ngModel)]="selectedDocs.online" name="online" style="color: white" [checked]="chV"></ui-switch>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+
+    <ng-template #content let-modal let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Change Password</h4>
+        <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #diverForm="ngForm">
+          <label>New Password</label>
+          <input type="text" [(ngModel)]="diver.password" name="password" placeholder="New Password"
+            class="form-control" required />
+          <br />
+        </form>
+        <button type="submit" class="btn btn-info pull-" [disabled]="!diverForm.valid"
+          (click)="passwordchange(); closed(d)">
+          Change Password
+        </button>
+      </div>
+    </ng-template>
+    <nb-card-footer>
+      <button (click)="updateRecord(selectedDocs)" nbButton size="small" status="primary" type="submit">
+        Update
+      </button>
+      &nbsp;
+      <button [disabled]="driverAccepted" *ngIf="!restrictProvider" nbButton size="small" status="info" type="submit"
+        (click)="approveDriver(selectedDocs._id)">
+        {{ selectedDocsStatus }}
+      </button>
+      &nbsp;
+      <button [disabled]="!driverAccepted" *ngIf="!restrictProvider" type="submit" nbButton size="small" status="info"
+        (click)="Status(selectedid)">
+        Reject
+      </button>
+      &nbsp;
+      <button type="submit" nbButton size="small" status="info" (click)="resetMyPwd(selectedid)">
+        Reset Password
+      </button>
+      &nbsp;
+      <button type="submit" *ngIf="!restrictProvider" nbButton size="small" status="danger" [hidden]="!showactiveDriver"
+        (click)="deleteDvr(selectedid)">
+        Inactive Driver
+      </button>
+      &nbsp;
+      <button type="submit" *ngIf="!restrictProvider" nbButton size="small" status="danger"
+        (click)="activeDriver(selectedid)" [hidden]="showactiveDriver">
+        Active Driver
+      </button>
+      &nbsp;
+      <button nbButton size="small" status="primary" (click)="openVerticallyCentered(content)">
+        Change Password
+      </button>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header> Bank Details </nb-card-header>
+    <nb-card-body>
+      <form #bankDet="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Holder Name</label>
+              <input type="text" minlength="{{ validation.fnameValid.minlength }}"
+                maxlength="{{ validation.fnameValid.maxlength }}" pattern="{{ validation.fnameValid.pattern }}"
+                [(ngModel)]="bankDocs.holdername" #holdername="ngModel" name="holdername"
+                placeholder="Account Holder Name" class="form-control" />
+              <small *ngIf="holdername.invalid && holdername.dirty" class="form-text error">
+                Name is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Number</label>
+              <input type="text" [(ngModel)]="bankDocs.acctNo" name="acctNo" placeholder="Account Number"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name of Bank</label>
+              <input type="text" [(ngModel)]="bankDocs.bankname" name="bankname" placeholder="Name of Bank"
+                class="form-control" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Bank Location</label>
+              <input type="text" [(ngModel)]="bankDocs.banklocation" name="banklocation" placeholder="Bank Location"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Payment Email</label>
+              <input type="email" email pattern="{{ validation.emailValid }}" [(ngModel)]="bankDocs.email" name="email"
+                placeholder="Payment Email" #email="ngModel" class="form-control" />
+              <small *ngIf="email.invalid && email.dirty" class="form-text error">
+                Valid Email is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>IFSC Code / SWIFT Code</label>
+              <input type="text" [(ngModel)]="bankDocs.swiftCode" name="swiftCode" placeholder="IFSC Code / SWIFT Code"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="updateBankDet(bankDocs)" nbButton size="small" status="primary" type="submit">
+        Update
+      </button>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">DRIVER TAXIS : {{ selectedUser }}</div>
+        <div class="col-md-2">
+          <button type="submit" class="pull-right" nbButton status="info" (click)="routeToSendNotifi()">
+            Send Notification
+          </button>
+        </div>
+        <div class="col-md-2">
+          <button (click)="routetoCredit()" class="pull-right" nbButton size="small" status="primary" type="button">
+            Add Driver Credit
+          </button>
+        </div>
+        <div class="col-md-2">
+          <button (click)="routetoAddTaxi()" class="pull-right" type="button" nbButton size="small" status="danger">
+            Add New Driver Taxi
+          </button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng-container *ngIf="list2; else make_details">
+        <table class="table table-bordered" style="text-align: center">
+          <tr>
+            <th>Action</th>
+            <th>Car Make</th>
+            <th>Vehicle / Service Type</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let taxi of selectedTaxis; let i = index">
+            <td>
+              <a (click)="makeDetails(taxi)" style="cursor: pointer; color: red">
+                Edit
+              </a>
+            </td>
+            <td>{{ taxi.makename }}</td>
+            <td>{{ taxi.vehicletype }}</td>
+            <td>{{ taxi.taxistatus }}</td>
+          </tr>
+          <tr *ngIf="selectedTaxis.length === 0 || selectedTaxis === ''">
+            <td colspan="4">No data found</td>
+          </tr>
+        </table>
+      </ng-container>
+
+      <ng-template #make_details>
+        <form #dataForm="ngForm">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Make (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.makename" #makename="ngModel" name="makename"
+                  (change)="GetModel($event)" required name="makename">
+                  <option value="undefined" hidden selected>
+                    Select Make Name
+                  </option>
+                  <option *ngFor="let make of makeary" [value]="make.make">
+                    {{ make.make }}
+                  </option>
+                </select>
+
+                <!-- <input type="text" [(ngModel)]="singleTaxi.makename" #fname="ngModel" name="makename" required placeholder="Make" class="form-control"
+								/> -->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Model (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.model" name="model" #model="ngModel" required
+                  placeholder="Model">
+                  <option value="undefined" hidden selected>
+                    Select Model Name
+                  </option>
+                  <option *ngFor="let model of modelary" [value]="model">
+                    {{ model }}
+                  </option>
+                </select>
+                <small *ngIf="model.invalid && model.dirty" class="form-text error">
+                  model is required!
+                </small>
+              </div>
+            </div>
+            <!-- <div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputFirstName">Model</label>
+								<input type="text" [(ngModel)]="singleTaxi.model" #fname="ngModel" name="model" required placeholder="Model" class="form-control"
+								/>
+							</div>
+						</div>-->
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Year (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.year" name="year" #year="ngModel" required
+                  placeholder="Year">
+                  <option value="undefined" hidden selected>Select Year</option>
+                  <option *ngFor="let year of yearary" [value]="year.name">
+                    {{ year.name }}
+                  </option>
+                </select>
+                <small *ngIf="year.invalid && year.dirty" class="form-text error">
+                  Name is required!
+                </small>
+
+                <!-- <input type="text" [(ngModel)]="singleTaxi.year" #fname="ngModel" name="year" required placeholder="Year" class="form-control"
+								/> -->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Vehicle No / License Plate No (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi.licence" #licence="ngModel" name="licence" required
+                  placeholder="Vehicle No / License Plate No" class="form-control" />
+                <small *ngIf="licence.invalid && licence.dirty" class="form-text error">
+                  Valid Licence Plate No is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Vehicle / Service Type (<span class="red">*</span>)</label>
+              <select class="form-control" required placeholder="Vehicle / Service Type"
+                [(ngModel)]="singleTaxi.vehicletype" name="vehicletype">
+                <option value="undefined" selected hidden>
+                  Select Vehicle / Service Type
+                </option>
+                <option *ngFor="let vehicle of vehicleary" [value]="vehicle.type">
+                  {{ vehicle.type }}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Vehicle Color (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi.color" #color="ngModel" name="color" required
+                  placeholder="Vehicle Color" class="form-control" />
+                <small *ngIf="color.invalid && color.dirty" class="form-text error">
+                  Valid Vehicle Color is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Upload Vehicle Front Image</label>
+                <input type="file" class="form-control" #fileupload (change)="vehiclePicUpload($event)"
+                  value="Vehicle Image" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Upload Vehicle Back Image</label>
+                <input type="file" class="form-control" #fileupload1 (change)="vehiclePicUpload1($event)"
+                  value="Vehicle Image" />
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="uploadedFileName !== undefined && uploadedFileName !== ''">
+              <div class="form-group">
+                <label>View Vehicle Front Image</label>
+                <div *ngIf="
+                    uploadedFileName !== undefined && uploadedFileName !== ''
+                  " class="form-control">
+                  <b>
+                    <a href="{{ baseurl }}{{ uploadedFileName }}" style="cursor: pointer; color: #5c97d2"
+                      target="_blank">View</a>
+                  </b>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="
+                uploadedFileName1 !== undefined && uploadedFileName1 !== ''
+              ">
+              <div class="form-group">
+                <label>View Vehicle Back Image</label>
+                <div *ngIf="
+                    uploadedFileName1 !== undefined && uploadedFileName1 !== ''
+                  " class="form-control">
+                  <b>
+                    <a href="{{ baseurl }}{{ uploadedFileName1 }}" style="cursor: pointer; color: #5c97d2"
+                      target="_blank">View</a>
+                  </b>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="showTaxiLabel">
+            <div class="col-md-6" *ngFor="let field of otherList | slice: 0:half">
+              <div class="form-group">
+                <label>{{ field.label }} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi[field.value]" name="{{ field.value }}"
+                  #{{field.value}}="ngModel" required placeholder="{{ field.label }}" class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6" *ngFor="let field of otherList | slice: half">
+              <div class="form-group">
+                <label>{{ field.label }} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi[field.value]" name="{{ field.value }}"
+                  #{{field.value}}="ngModel" required placeholder="{{ field.label }}" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </form>
+        <br />
+
+        <nb-card>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card custom-margin">
+                  <div class="card-body">
+                    <div class="form-group" style="
+                        text-align: center;
+                        margin-top: 1rem;
+                        font-size: 16px;
+                      ">
+                      <label>
+                        <h5>Services Enabled : (<span class="red">*</span>)</h5>
+                      </label>
+                      <br />
+                      <div class="example-items-rows" style="align-items: center">
+                        <nb-checkbox readonly disabled name="isDaily" [value]="singleTaxi.isDaily" status="success">
+                          Daily
+                        </nb-checkbox>
+                        <nb-checkbox readonly disabled name="isRental" [value]="singleTaxi.isRental" status="success">
+                          Rental
+                        </nb-checkbox>
+                        <nb-checkbox readonly disabled name="isOutstation" [value]="singleTaxi.isOutstation"
+                          status="success">
+                          OutStation
+                        </nb-checkbox>
+                      </div>
+                    </div>
+                    <br />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card custom-margin">
+                  <div class="card-body">
+                    <div class="form-group" style="
+                        text-align: center;
+                        margin-top: 1rem;
+                        font-size: 16px;
+                      ">
+                      <label>
+                        <h5 style="text-decoration: underline">
+                          Low Category Options
+                        </h5>
+                      </label>
+                      <br />
+                      <div class="example-items-rows" style="align-items: center">
+                        <p style="font-weight: bold">
+                          {{
+                            singleTaxi.lowCategoryOptions
+                              ? singleTaxi?.lowCategoryOptions.join(", ")
+                              : "N/A"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+
+        <hr />
+        <br />
+
+        <button (click)="updateTaxiRecord(singleTaxi)" nbButton size="small" status="primary" type="submit">
+          Update
+        </button>
+        &nbsp;
+        <button [disabled]="driverTaxiAccepted" *ngIf="!restrictProvider" type="button" nbButton size="small"
+          status="info" (click)="approveDriverTaxi(singleTaxi._id, singleTaxi.driver)">
+          {{ selectedTaxiDocsStatus }}
+        </button>
+        &nbsp;
+        <button *ngIf="!restrictProvider" [disabled]="!driverTaxiAccepted" type="submit" nbButton size="small"
+          status="info" (click)="rejectTaxi(singleTaxi._id, singleTaxi.driver)">
+          Reject
+        </button>
+        &nbsp;
+        <button type="submit" nbButton size="small" status="danger" (click)="deleteDvrTaxi(selectedid, singleTaxi)">
+          Delete Driver Taxi
+        </button>
+        &nbsp;
+        <button (click)="toggle()" type="button" nbButton size="small" status="danger">
+          Back
+        </button>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #64bd63;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  input:checked+.slider {
+    background-color: red;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px white;
+  }
+
+  input:checked+.slider:before {
+    background-color: #fff;
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  .toggle-switch-table th,
+  .toggle-switch-table td {
+    border: none;
+  }
+
+  /* Rounded sliders */
+
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>

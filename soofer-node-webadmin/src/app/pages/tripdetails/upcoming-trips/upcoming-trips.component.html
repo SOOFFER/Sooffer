@@ -1,0 +1,46 @@
+<ng-template [ngIf]="initial === 0">
+  <nb-card>
+    <nb-card-header>
+      <nb-card-header>
+        <div class="row" *ngIf="showCity==false">
+          <div class="col-md-6">
+            Upcoming Trips
+          </div>
+        </div>
+        <div class="row" *ngIf="showCity==true">
+          <div class="col-sm-9">
+            Upcoming Trips
+          </div>
+          <div class="col-sm-3">
+            <form class="form-row">
+              <div class="col-md-5">
+                <select class="form-control" [(ngModel)]=" Doc.servicecity" name="servicecity" #servicecity="ngModel"
+                  required placeholder="Service">
+                  <option [value]="undefined" selected hidden>
+                    Select a ServiceCity</option>
+                  <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                    {{city.label}}
+                  </option>
+                  <option value="all" selected>
+                    All</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" class="btn btn-primary" (click)="SerachForCity(Doc);">Filter</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nb-card-header>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial === 1">
+  <ngx-invoice-details (backbtn)="goBack()" [fields]="getFields()">
+  </ngx-invoice-details>
+</ng-template>

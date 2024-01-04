@@ -1,0 +1,37 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-2">
+        {{title}} &nbsp; | &nbsp; Ride Requests: {{requestDrvCount}}
+      </div>
+      <div class="col-md-10">
+        <form #dateForm="ngForm" class="form-inline">
+          From: &nbsp;
+          <input class="form-control" placeholder="Click to Select a Date"
+            (dateTimeInput)="logDate($event)" [(ngModel)]="list.fromDate" name="fromDate" #fromDate="ngModel"
+            [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required>
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          &nbsp; To: &nbsp;
+          <input class="form-control" placeholder="Click to Select a Date"
+            (dateTimeInput)="logDate($event)" [(ngModel)]="list.toDate" name="toDate" #toDate="ngModel"
+            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;&nbsp;
+          <button type="button" (click)="filterRes()"
+            class="btn btn-danger">Submit</button>&nbsp;&nbsp;
+          <button type="button" (click)="refresh()" class="btn btn-danger">Refresh</button> &nbsp; &nbsp;
+          <select *ngIf="showCity == true" class="form-control" name="servicecity" [(ngModel)]="list.servicecity" (change)="FilterRes(list.servicecity)">
+            <option value='undefined' selected hidden>Service Available City</option>
+            <option [value]="city.label" *ngFor="let city of ServiceCity">{{city.label}}</option>
+            <option value="all">All</option>
+          </select> 
+        </form>
+      </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ngui-map center={{location}} zoom={{zoom}} style="height:600px;">
+      <heatmap-layer [data]="points"></heatmap-layer>
+    </ngui-map>
+  </nb-card-body>
+</nb-card>

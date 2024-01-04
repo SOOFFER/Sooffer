@@ -1,0 +1,389 @@
+<nb-card *ngIf="!showAdd && !editList">
+  <nb-card-header>
+    Distance and Fare Details
+    <button class="btn btn-primary pull-right" size="small" nbButton status="primary" [hidden]="showAdd || editList"
+      (click)="show()"> Add Distance Fare </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng-container *ngIf="!showAdd">
+      <table class="table table-bordered" style="text-align: center" [hidden]="editList">
+        <tr>
+          <th>Action</th>
+          <th>Distance From</th>
+          <th>Distance To</th>
+          <th>Distance Fare Type</th>
+          <th>Distance Fare Rate</th>
+        </tr>
+        <tr *ngFor="let taxi of arrList; let i = index">
+          <td>
+            <a (click)="makeDetails(taxi,i)">
+              <span style="cursor: pointer;" class="red">Edit</span>
+              <!-- <i class="material-icons">edit</i> -->
+            </a>
+          </td>
+          <td>{{taxi.distanceFrom}}</td>
+          <td>{{taxi.distanceTo}}</td>
+          <td>{{taxi.distanceFareType | titlecase}}</td>
+          <td *ngIf="taxi.distanceFareType === 'kmrate'">{{taxi.distanceFarePerKM}}</td>
+          <td *ngIf="taxi.distanceFareType === 'flatrate'">{{taxi.distanceFarePerFlatRate}}</td>
+        </tr>
+        <tr *ngIf="arrList.length === 0 || arrList === '' ">
+          <td colspan="5">No data found</td>
+        </tr>
+      </table>
+    </ng-container>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="btn btn-danger pull-left" size="small" nbButton status="danger" [hidden]="showAdd || editList"
+      (click)="mainPage()"> Go back </button>
+  </nb-card-footer>
+</nb-card>
+
+
+<nb-card *ngIf="showAdd">
+  <nb-card-header>
+    Distance and Fare Details
+
+  </nb-card-header>
+  <nb-card-body>
+
+    <form #dataForm="ngForm">
+      <ng-container *ngIf="showAdd">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance From (in MILE) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.distanceFrom" #distanceFrom="ngModel" name="distanceFrom" required
+                placeholder="Distance From (in MILE)" class="form-control" required />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance To (in MILE) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.distanceTo" #distanceTo="ngModel" name="distanceTo" required
+                placeholder="Distance To (in MILE)" class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance Fare Type (<span class="red">*</span>)</label>
+              <ng-select name="distanceFareType" [options]="Faretype" [noFilter]="noFilterThreshold"
+                (selected)="selectedDistance($event)" [(ngModel)]="list.distanceFareType"
+                placeholder="Select Distance Fare Type Should Be" required>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Additional Fare / Per Mins (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.additionalFarePerHrs" #additionalFarePerHrs="ngModel"
+                name="additionalFarePerHrs" required placeholder="Additional Fare Per Hrs" class="form-control"
+                required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="list.distanceFareType === 'kmrate'">
+              <label>Distance Fare Per {{defaultUnit}} (AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.distanceFarePerKM" #distanceFarePerKM="ngModel"
+                name="distanceFarePerKM" value="" placeholder="Distance Fare Per {{defaultUnit}} AC"
+                class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="list.distanceFareType == 'kmrate'">
+              <label>Distance Fare Per {{defaultUnit}} (Non AC) (<span class="red">*</span>) </label>
+              <input type="number" [(ngModel)]="list.distanceFarePerKMnac" #distanceFarePerKMnac="ngModel"
+                name="distanceFarePerKMnac" value="" placeholder="Distance Fare Per {{defaultUnit}} Non AC"
+                class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="list.distanceFareType === 'flatrate'">
+              <label>Distance Fare Per Flat Rate (AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.distanceFarePerFlatRate" #distanceFarePerFlatRate="ngModel"
+                name="distanceFarePerFlatRate" required placeholder="Flat Rate" class="form-control" required />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="list.distanceFareType === 'flatrate'">
+              <label>Distance Fare per Flat Rate (Non AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.distanceFarePerFlatRatenac" #distanceFarePerFlatRatenac="ngModel"
+                name="distanceFarePerFlatRatenac" required placeholder="Flat Rate" class="form-control" required />
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Include this Following for this Distance and Fare Details &nbsp; ---> &nbsp; </label>
+              <nb-checkbox name="applyTax" #applyTax="ngModel" [value]="true" [(ngModel)]="list.applyTax">Tax (%)
+              </nb-checkbox>
+              &nbsp;
+              <nb-checkbox name="applyWaitingTime" #applyWaitingTime="ngModel" [value]="true"
+                [(ngModel)]="list.applyWaitingTime">Waiting
+                Time</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyNightCharge" #applyNightCharge="ngModel" [value]="true"
+                [(ngModel)]="list.applyNightCharge">Night
+                Charge</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyPeakCharge" #applyPeakCharge="ngModel" [value]="true"
+                [(ngModel)]="list.applyPeakCharge">Peak
+                Charge</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyCommission" #applyCommission="ngModel" [value]="true"
+                [(ngModel)]="list.applyCommission">Commission
+                (%)</nb-checkbox>
+              &nbsp;
+              <nb-checkbox name="applyPickupCharge" #applyPickupCharge="ngModel" [value]="true"
+                [(ngModel)]="list.applyPickupCharge">Pickup
+                Charge
+              </nb-checkbox>
+              &nbsp;
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!-- <h5><b>Offer Details</b></h5>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Company Allowance (From Admin To Driver)</label>
+              <ng-select name="cmpyAllowance" [options]="yesOrNo" [noFilter]="noFilterThreshold" [(ngModel)]="list.cmpyAllowance"
+                placeholder="Select Company Allowance" required>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Discount / Offer Percentage</label>
+              <input type="number" max="100" min="0" [(ngModel)]="list.discount" (focusout)="minmaxlist($event)"
+                #discount="ngModel" name="discount" required placeholder="Discount Percentage" class="form-control"
+                required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>No Of Offers Allowed Per User</label>
+              <input type="number" [(ngModel)]="list.offerPerUser" #offerPerUser="ngModel" name="offerPerUser" required
+                placeholder="No Of Offers Allowed Per User" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>No Of Offers Allowed Per Day</label>
+              <input type="number" [(ngModel)]="list.offerPerDay" #offerPerDay="ngModel" name="offerPerDay" required
+                placeholder="No Of Offers Allowed Per Day" class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <hr> -->
+        <div class="row col-md-12">
+          <div class="col-md-6">
+            <button type="button" (click)="goBack()" size="small" nbButton status="danger"
+              class="btn btn-danger pull-left">Back</button> &nbsp;
+          </div>
+
+          <div class="col-md-6">
+            <button type="submit" (click)="addDistance(list)" size="small" nbButton status="success"
+              [disabled]="!dataForm.valid" class="btn btn-success pull-right">Add</button>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+
+  </nb-card-body>
+</nb-card>
+
+
+<nb-card *ngIf="editList">
+  <nb-card-header>
+    Distance and Fare Details
+
+  </nb-card-header>
+  <nb-card-body>
+
+    <form #editForm="ngForm">
+      <ng-container>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance From (in MILE) (<span class="red">*</span>)</label>
+              <input type="text" [(ngModel)]="updateList.distanceFrom" #distanceFrom="ngModel" name="distanceFrom"
+                required placeholder="Distance From (in MILE)" class="form-control" required />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance To (in MILE) (<span class="red">*</span>)</label>
+              <input type="text" [(ngModel)]="updateList.distanceTo" #distanceTo="ngModel" name="distanceTo" required
+                placeholder="Distance To (in MILE)" class="form-control" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Distance Fare Type (<span class="red">*</span>)</label>
+              <ng-select name="distanceFareType" [options]="Faretype" [noFilter]="noFilterThreshold"
+                (selected)="selectedDistanceFare($event)" [(ngModel)]="updateList.distanceFareType"
+                placeholder="Select Distance Fare Type Should Be" required>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Additional Fare / Per Mins (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="updateList.additionalFarePerHrs" #additionalFarePerHrs="ngModel"
+                name="additionalFarePerHrs" required placeholder="Additional Fare Per Hrs" class="form-control"
+                required />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="updateList.distanceFareType === 'kmrate'">
+              <label>Distance Fare Per {{defaultUnit}} (AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="updateList.distanceFarePerKM" #distanceFarePerKM="ngModel"
+                name="distanceFarePerKM" value="" placeholder="Distance Fare Per {{defaultUnit}} AC"
+                class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="updateList.distanceFareType === 'kmrate'">
+              <label>Distance Fare Per {{defaultUnit}} (Non AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="updateList.distanceFarePerKMnac" #distanceFarePerKMnac="ngModel"
+                name="distanceFarePerKMnac" required placeholder="Distance Fare Per {{defaultUnit}} Non AC"
+                class="form-control" required />
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="updateList.distanceFareType === 'flatrate'">
+              <label>Distance Fare Per Flat Rate (AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="updateList.distanceFarePerFlatRate" #distanceFarePerFlatRate="ngModel"
+                name="distanceFarePerFlatRate" required placeholder="Flat Rate" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" *ngIf="updateList.distanceFareType === 'flatrate'">
+              <label>Distance Fare Per Flat Rate (Non AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="updateList.distanceFarePerFlatRatenac"
+                #distanceFarePerFlatRatenac="ngModel" name="distanceFarePerFlatRatenac" required placeholder="Flat Rate"
+                class="form-control" required />
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Include this Following for this Distance and Fare Details &nbsp; ---> &nbsp; </label>
+              <nb-checkbox name="applyTax" #applyTax="ngModel" [value]="true" [(ngModel)]="updateList.applyTax">Tax (%)
+              </nb-checkbox>
+              &nbsp;
+              <nb-checkbox name="applyWaitingTime" #applyWaitingTime="ngModel" [value]="true"
+                [(ngModel)]="updateList.applyWaitingTime">Waiting
+                Time</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyNightCharge" #applyNightCharge="ngModel" [value]="true"
+                [(ngModel)]="updateList.applyNightCharge">Night
+                Charge</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyPeakCharge" #applyPeakCharge="ngModel" [value]="true"
+                [(ngModel)]="updateList.applyPeakCharge">Peak
+                Charge</nb-checkbox> &nbsp;
+              <nb-checkbox name="applyCommission" #applyCommission="ngModel" [value]="true"
+                [(ngModel)]="updateList.applyCommission">Commission
+                (%)</nb-checkbox>
+              &nbsp;
+              <nb-checkbox name="applyPickupCharge" #applyPickupCharge="ngModel" [value]="true"
+                [(ngModel)]="updateList.applyPickupCharge">Pickup
+                Charge
+              </nb-checkbox>
+              &nbsp;
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" (click)="updateDistance(updateList._id,updateList)" size="small" nbButton
+            status="primary" [disabled]="!editForm.valid" class="btn btn-primary ">Update</button>
+        </div>
+      </ng-container>
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<div *ngIf="editList">
+  <!-- <nb-card>
+    <nb-card-header>
+      Offer Details
+
+    </nb-card-header>
+    <nb-card-body>
+
+      <form #editForm="ngForm">
+        <ng-container>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Company Allowance (From Admin To Driver) Fare Type</label>
+                <ng-select name="cmpyAllowance" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+                  [(ngModel)]="offerUpdateList.cmpyAllowance" placeholder="Select Company Allowance" required>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Discount / Offer Percentage</label>
+                <input type="number" max="100" min="0" [(ngModel)]="offerUpdateList.discount"
+                  (focusout)="minmaxOffer($event)" #discount="ngModel" name="discount" required
+                  placeholder="Discount Percentage" class="form-control" required />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No Of Offers Allowed Per User</label>
+                <input type="number" [(ngModel)]="offerUpdateList.offerPerUser" #offerPerUser="ngModel"
+                  name="offerPerUser" required placeholder="No Of Offers Allowed Per User" class="form-control"
+                  required />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No Of Offers Allowed Per Day</label>
+                <input type="number" [(ngModel)]="offerUpdateList.offerPerDay" #offerPerDay="ngModel" name="offerPerDay"
+                  required placeholder="No Of Offers Allowed Per Day" class="form-control" required />
+              </div>
+            </div>
+          </div>
+          <hr>
+          <button type="submit" (click)="offerUpdate(offerUpdateList._id,offerUpdateList)" [disabled]="!editForm.valid"
+            class="btn btn-primary">Update</button>
+        </ng-container>
+      </form>
+    </nb-card-body>
+  </nb-card> -->
+  <button type="button" (click)="goBack()" size="small" nbButton status="danger"
+    class="btn btn-danger pull-left">Back</button> &nbsp;
+  &nbsp;
+  <button type="button" (click)="deleteDistance(updateList._id)" size="small" nbButton status="primary"
+    class="btn btn-primary">delete</button>
+</div>

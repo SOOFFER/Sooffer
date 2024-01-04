@@ -1,0 +1,81 @@
+<ng-template [ngIf]="initial == 0">
+	<nb-card>
+		<nb-card-header>
+			Email configuration
+		</nb-card-header>
+		<nb-card-body>
+			<ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+			</ng2-smart-table>
+		</nb-card-body>
+	</nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial == 1">
+<div class="row">
+  <div class="col-lg-6">
+
+    <nb-card>
+      <nb-card-header>Email Settings</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm" name="clientForm">
+         
+          <div class="form-group">
+            <label>Email Id</label>
+            <input type="email" class="form-control" [(ngModel)]="list.emailid" #emailid="ngModel"  required name="emailid" placeholder="Email Id" />
+            <small *ngIf="emailid.invalid && (emailid.dirty)" class="form-text error">
+              EmailId is required!
+            </small>
+          </div>
+          <div class="form-group">
+              <label for="companyname"> PassWord </label>
+              <input type="text" [(ngModel)]="list.key" #key="ngModel" name="key" placeholder="Activation Key" required
+                class="form-control" />
+              <small *ngIf="key.invalid && (key.dirty)" class="form-text error">
+               PassWord is required!
+              </small>
+            </div>
+            <input  type="submit" (click)="AddKey(list); " [disabled]="!dataForm.form.valid"   class="btn btn-success btn-block" value="Submit"/> 
+            </form>
+        </nb-card-body>
+      </nb-card>
+      <button (click)="goBack()" type="button" class="btn btn-danger"> 
+        Go Back
+      </button>
+    </div>
+  </div>
+  </ng-template>
+  <ng-template [ngIf]="initial == 2">
+      <div class="row">
+        <div class="col-lg-6">
+      
+          <nb-card>
+            <nb-card-header>Edit Email Settings</nb-card-header>
+            <nb-card-body>
+              <form #dataForm="ngForm" name="clientForm">
+               
+                <div class="form-group">
+                  <label>Email Id</label>
+                  <input type="email" class="form-control" [(ngModel)]="listE.emailid" #emailid="ngModel"  required name="emailid" placeholder="Email Id" />
+                  <small *ngIf="emailid.invalid && (emailid.dirty)" class="form-text error">
+                    EmailId is required!
+                  </small>
+                </div>
+                <div class="form-group">
+                    <label for="companyname"> PassWord </label>
+                    <input type="text" [(ngModel)]="listE.key"  #key="ngModel" name="key" placeholder="Activation Key"  
+                      class="form-control" />
+                    <small *ngIf="key.invalid && (key.dirty)" class="form-text error">
+                     PassWord is required!
+                    </small>
+                  </div>
+                  <input  type="submit" (click)="EditKey(listE); " [disabled]="!dataForm.form.valid"   class="btn btn-success btn-block" value="Edit"/> 
+                  </form>
+              </nb-card-body>
+            </nb-card>
+            <button (click)="goBack()" type="button" class="btn btn-danger"> 
+              Go Back
+            </button>
+         
+          </div>
+        </div>
+        </ng-template>

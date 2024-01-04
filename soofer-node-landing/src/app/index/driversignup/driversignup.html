@@ -1,0 +1,514 @@
+<ngx-spinner
+  bdOpacity="0.9"
+  bdColor="#333"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate-multiple"
+>
+</ngx-spinner>
+<section>
+  <div class="main-container">
+    <div class="sub-main-div">
+      <div class="driver-signup margin-topbtm">
+        <div
+          class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12"
+        >
+          <h3>{{'DRIVER.DRIVERSIGNUP' | translate}}</h3>
+          <p>{{'DRIVER.ABOUTYOURSELF' | translate}}</p>
+
+          <div
+            class="driver-info col-lg-6 col-sm-6 col-md-6 col-xs-12"
+            *ngIf="initial === 'showVerify'"
+          >
+            <form #verify="ngForm">
+              <div>
+                <div style="margin: 0 auto" *ngIf="verifyMeth === 'phone'">
+                  <h4>{{'DRIVER.VERIFYYOURPHONENUMBER' | translate}}</h4>
+                  <br />
+                  <div style="margin: 0 auto; margin-left: -14px" class="row">
+                    <div class="col-md-3">
+                      <label>{{'DRIVER.PHONECODE' | translate}}</label>
+                      <select
+                        class="form-control"
+                        #phcode="ngModel"
+                        name="phcode"
+                        [(ngModel)]="verifyinputs.phcode"
+                        required
+                      >
+                        <!-- <option value="undefined" selected hidden>Select</option> -->
+                        <option
+                          *ngFor="let city of list_phon_code"
+                          value="{{city}}"
+                        >
+                          {{city}}
+                        </option>
+                      </select>
+                      <!-- <input autofocus [disabled]='phcode' type="tel" mask="000" [(ngModel)]="verifyinputs.phcode"
+                        #phcode="ngModel" name="phcode" required placeholder="Code" class="form-control" /> -->
+                      <small
+                        *ngIf="phcode.invalid && (phcode.dirty)"
+                        class="form-text error"
+                      >
+                        {{'DRIVER.PHONECODE' | translate}} {{'COMMON.ISREQUIRED'
+                        | translate}}
+                      </small>
+                    </div>
+                    <div class="col-md-9">
+                      <label>{{'DRIVER.PHONENUMBER' | translate}}</label>
+                      <input
+                        type="tel"
+                        mask="00000 00000"
+                        [(ngModel)]="verifyinputs.phone"
+                        #phone="ngModel"
+                        name="phone"
+                        required
+                        placeholder="{{'DASHBOARD.ENTER' | translate}} {{'DRIVER.PHONENUMBER' | translate}}"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="phone.invalid && (phone.dirty)"
+                        class="form-text error"
+                      >
+                        {{'DRIVER.PHONENUMBER' | translate}}
+                        {{'COMMON.ISREQUIRED' | translate}}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin: 0 auto" *ngIf="verifyMeth === 'email'">
+                  <h4>{{'DRIVER.VERIFYYOURMAIL' | translate}}</h4>
+                  <br />
+                  <label>{{'CONTACT.EMAILADDSRESS' | translate}}</label>
+                  <input
+                    autofocus
+                    type="email"
+                    email
+                    [(ngModel)]="verifyinputs.email"
+                    #email="ngModel"
+                    name="email"
+                    required
+                    placeholder="Enter Email ID"
+                    class="form-control"
+                  />
+                  <small
+                    *ngIf="email.invalid && (email.dirty)"
+                    class="form-text error"
+                  >
+                    {{'CONTACT.EMAILADDSRESS' | translate}}
+                    {{'COMMON.ISREQUIRED' | translate}}
+                  </small>
+                </div>
+
+                <br />
+
+                <div style="margin: 0 auto">
+                  <button
+                    type="submit"
+                    [disabled]="!verify.form.valid"
+                    (click)="verifyUser(verifyinputs)"
+                    class="btn btn-danger"
+                  >
+                    {{'DASHBOARD.SUBMIT' | translate}}</button
+                  >&nbsp;&nbsp;&nbsp;
+                  <!-- <button type="submit" [disabled]="!disable" (click)="verifyUser(verifyinputs)"
+                    class="btn btn-danger">Resend OTP</button> -->
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="driver-info" *ngIf="initial === 'showOTP'">
+            <div>
+              <div style="margin: 0 auto">
+                <h3>{{'DRIVER.OTP' | translate}}</h3>
+                <input
+                  autofocus
+                  type="tel"
+                  mask="0000"
+                  [(ngModel)]="otpInputs.otp"
+                  #otp="ngModel"
+                  name="otp"
+                  required
+                  placeholder="Enter OTP"
+                  class="form-control"
+                />
+                <small
+                  *ngIf="otp.invalid && (otp.dirty)"
+                  class="form-text error"
+                >
+                  {{'DRIVER.OTP' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+              <br />
+              <div style="margin: 0 auto">
+                <button
+                  type="submit"
+                  [disabled]="!otpInputs.otp"
+                  (click)="verifyOTP(otpInputs.otp)"
+                  class="btn btn-danger"
+                >
+                  {{'DASHBOARD.SUBMIT' | translate}}</button
+                >&nbsp;&nbsp;
+                <button
+                  type="submit"
+                  [disabled]="!disable"
+                  (click)="verifyUser(verifyinputs)"
+                  class="btn btn-danger"
+                >
+                  {{'COMMON.RESENDOTP' | translate}} {{ showTimer | async }}</button
+                >&nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
+
+          <div class="driver-info" *ngIf="initial === 'addDriverScreen'">
+            <h3>{{'DRIVER.DRIVERINFORMATION' | translate}}</h3>
+            <form (ngSubmit)="AddNewDoc(list)" #dataForm="ngForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'CONTACT.FIRSTNAME' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.fname"
+                          #fname="ngModel"
+                          name="fname"
+                          required
+                          placeholder="{{'CONTACT.FIRSTNAME' | translate}}"
+                          class="form-control"
+                        />
+                        <small
+                          *ngIf="fname.invalid && (fname.dirty)"
+                          class="form-text error"
+                        >
+                          {{'CONTACT.FIRSTNAME' | translate}}
+                          {{'COMMON.ISREQUIRED' | translate}}
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'CONTACT.LASTNAME' | translate}} </label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.lname"
+                          #lname="ngModel"
+                          name="lname"
+                          placeholder="{{'CONTACT.LASTNAME' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'CONTACT.EMAILADDSRESS' | translate}}</label>
+                        <input
+                          type="email"
+                          [(ngModel)]="list.email"
+                          #email="ngModel"
+                          name="email"
+                          placeholder="Email"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'DRIVER.PHONENUMBER' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.phone"
+                          name="phone"
+                          #phone="ngModel"
+                          placeholder="{{'DRIVER.PHONENUMBER' | translate}}"
+                          class="form-control"
+                          required
+                        />
+                        <small
+                          *ngIf="phone.invalid && (phone.dirty)"
+                          class="form-text error"
+                        >
+                          {{'DRIVER.PHONENUMBER' | translate}}
+                          {{'COMMON.ISREQUIRED' | translate}}
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'DRIVER.PASSWORD' | translate}}</label>
+                        <input
+                          type="password"
+                          [(ngModel)]="list.password"
+                          name="password"
+                          #pwd="ngModel"
+                          required
+                          placeholder="{{'DRIVER.PASSWORD' | translate}}"
+                          class="form-control"
+                          required
+                        />
+                        <small
+                          *ngIf="pwd.invalid && (pwd.dirty)"
+                          class="form-text error"
+                        >
+                          {{'DRIVER.PASSWORD' | translate}}
+                          {{'COMMON.ISREQUIRED' | translate}}
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.GENDER' | translate}}</label>
+                        <label class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            class="custom-control-input"
+                            [(ngModel)]="list.gender"
+                            name="gender"
+                            value="Male"
+                          />
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description"
+                            >{{'COMMON.MALE' | translate}}</span
+                          >
+                        </label>
+                        <label class="custom-control custom-radio">
+                          <input
+                            type="radio"
+                            class="custom-control-input"
+                            [(ngModel)]="list.gender"
+                            name="gender"
+                            value="Female"
+                          />
+                          <span class="custom-control-indicator"></span>
+                          <span class="custom-control-description"
+                            >{{'COMMON.FEMALE' | translate}}</span
+                          >
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.COUNTRY' | translate}}</label>
+                        <select
+                          class="form-control"
+                          [(ngModel)]="list.cnty"
+                          (change)="GetState($event)"
+                          name="cty"
+                          #cnty="ngModel"
+                          placeholder="Country"
+                        >
+                          <option value="undefined" selected hidden>
+                            {{'COMMON.SELECTCOUNTRY' | translate}}
+                          </option>
+                          <option
+                            *ngFor="let country of countryary"
+                            [value]="country.value"
+                          >
+                            {{country.label}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.STATE' | translate}}</label>
+                        <select
+                          class="form-control"
+                          [(ngModel)]="list.state"
+                          (change)="GetCity($event)"
+                          name="state"
+                          placeholder="State"
+                        >
+                          <option>{{'COMMON.STATE' | translate}}</option>
+                          <option value="undefined" selected hidden>
+                            {{'COMMON.SELECTSTATE' | translate}}
+                          </option>
+                          <option
+                            *ngFor="let state of stateary"
+                            [value]="state.value"
+                          >
+                            {{state.label}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.CITY' | translate}}</label>
+                        <select
+                          class="form-control"
+                          [(ngModel)]="list.city"
+                          (change)="SetCity($event)"
+                          name="city"
+                          placeholder="City"
+                        >
+                          <option>{{'COMMON.SELECTCITY' | translate}}</option>
+                          <option value="undefined" selected hidden>
+                            {{'COMMON.SELECTCITY' | translate}}
+                          </option>
+                          <option
+                            *ngFor="let city of cityary"
+                            [value]="city.value"
+                          >
+                            {{city.label}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.COMPANY' | translate}}</label>
+                        <select
+                          class="form-control"
+                          [(ngModel)]="list.cmpy"
+                          name="cmpy"
+                          #cmpy="ngModel"
+                          placeholder="Company"
+                        >
+                          <option value="undefined" selected hidden>
+                            {{'COMMON.SELECTCOMPANY' | translate}}
+                          </option>
+                          <option
+                            *ngFor="let company of companyary"
+                            [value]="company._id"
+                          >
+                            {{company.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.PAYMENTEMAIL' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actMail"
+                          name="actMail"
+                          placeholder="{{'COMMON.PAYMENTEMAIL' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label
+                          >{{'DRIVER.ACCOUNTHOLDERNAME' | translate}}</label
+                        >
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actHolder"
+                          name="actHolder"
+                          placeholder="{{'DRIVER.ACCOUNTHOLDERNAME' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'DRIVER.ACCOUNTNUMBER' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actNo"
+                          name="actNo"
+                          placeholder="{{'DRIVER.ACCOUNTNUMBER' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'DRIVER.NAMEOFBANK' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actBank"
+                          name="actBank"
+                          placeholder="{{'DRIVER.NAMEOFBANK' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'DRIVER.BANKLOCATION' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actLoc"
+                          name="actLoc"
+                          placeholder="{{'DRIVER.BANKLOCATION' | translate}}"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'COMMON.BICSWIFTCODE' | translate}}</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="list.actCode"
+                          name="actCode"
+                          placeholder="BIC/SWIFT Code"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="form-group col-sm-6">
+                  <label>Language</label>
+                  <select class="form-control" [(ngModel)]="list.lang" name="lang" #lang="ngModel"
+                    placeholder="Language">
+                    <option *ngFor="let lang of langary" [value]="lang.id">
+                      {{lang.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group  col-sm-6">
+                  <label>Currency</label>
+                  <select class="form-control" [(ngModel)]="list.cur" name="cur" #cur="ngModel" placeholder="Currency">
+                    <option *ngFor="let cur of currencyary" [value]="cur.id">
+                      {{cur.name}}
+                    </option>
+                  </select>
+                </div> -->
+
+              <button
+                type="submit"
+                class="loginbutton"
+                [disabled]="(!dataForm.form.valid)"
+              >
+                {{'DASHBOARD.SUBMIT' | translate}}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

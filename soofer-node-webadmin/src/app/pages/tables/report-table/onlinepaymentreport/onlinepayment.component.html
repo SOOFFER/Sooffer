@@ -1,0 +1,173 @@
+<div *ngIf="initial; then list; else detail"></div>
+<ng-template #list>
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+          <div class="col-md-6">
+            Online Payment
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-3">
+            <select class="form-control" name="usertype" [(ngModel)]="Doc.usertype" #usertype="ngModel"
+              (change)="selectuserType($event.target.value)">
+              <option [value]="undefined" selected hidden>
+                Select a UserType
+              </option>
+              <option *ngFor="let type of userType" [value]="type.value">{{type.label}}</option>
+            </select>
+          </div>
+          <div class="col-sm-1" style="padding: unset;">
+            <button *ngIf="table" type="submit" class="btn btn-danger" (click)="gobacktouser();">Go Back</button>
+          </div>
+        </div>
+        <!-- <ngx-filters *ngIf="!filterData" [selectNameFilter]="selecteduserId" [filterObject]="filterRawData"
+          [selectNameFilter]="selectedname" (childMessage)="childMessage($event)">
+        </ngx-filters> -->
+    </nb-card-header>
+
+    <nb-card-body>
+        <nb-card-body>
+            <ng2-smart-table
+              [settings]="settings"
+              [source]="source"
+              *ngIf="source"
+              (custom)="route($event)"
+            >
+            </ng2-smart-table>
+          </nb-card-body>
+    </nb-card-body>
+</nb-card>
+</ng-template>
+<ng-template #detail>
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-md-6">
+            Online Payment Details
+          </div>
+          <div class="col-md-6">
+            <button (click)="goback()" class="btn btn-danger pull-right">
+              Go Back
+            </button>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-md-8">
+            <table class="table table-striped" style=" margin-bottom: unset; table-layout: fixed;">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="2" style="border-bottom: unset;">
+                    <h5>Payment Details</h5>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Transcaction Id</td>
+                  <td>
+                    {{paymentDetails.transactionId}}
+                    &nbsp;
+                    <span>
+                      <i class="fas fa-copy" (click)="copyText()" matTooltip="Copied to clipboard" #tp="matTooltip"
+                        ngxClipboard [cbContent]= "paymentDetails.transactionId"></i>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Reference Id</td>
+                    <td *ngIf="paymentDetails.paymentType == 'trip'"><a role="button" (click)="redirectToTrips()">
+                    {{paymentDetails.referenceId}}
+                  </a></td>
+                  <td *ngIf="paymentDetails.paymentType != 'trip'">{{paymentDetails.referenceId}}</td>
+                </tr>
+                <tr>
+                  <td>Payment Type</td>
+                  <td>{{paymentDetails.paymentType}}</td>
+                </tr>
+                <tr>
+                  <td>Payment Status</td>
+                  <td>{{paymentDetails.status.toUpperCase()}}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{{paymentDetails.description}}</td>
+                </tr>
+                <tr>
+                  <td>Total Amount</td>
+                  <td>{{defaultCur}} {{paymentDetails.amount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <h4 style="padding: 1rem;margin: unset;">User Information</h4>
+            <nb-list>
+              <nb-list-item>
+                <nb-user title="User Name" name={{userInfo.fname}}></nb-user>
+              </nb-list-item>
+              <nb-list-item>
+                <nb-user title="Email" name={{userInfo.email}}></nb-user>
+              </nb-list-item>
+              <nb-list-item>
+                <nb-user title="Phone" name={{userInfo.phone}}></nb-user>
+              </nb-list-item>
+            </nb-list>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button class="btn btn-danger" *ngIf="paymentDetails.status != 'reversed'"
+        (click)="openRefund(refund)">Refund</button>
+      </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<ng-template #refund let-modal let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="model-title">
+      Refund
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div>
+         <label>Amount</label>
+        <input type="number" [(ngModel)]="showpaymentDetails.fare" #fare="ngModel" name="fare"
+          placeholder="Enter the Amount" class="form-control" (ngModelChange)="onInputChange($event)" required />
+        <small *ngIf="fare.invalid && fare.dirty" class="form-text error">
+          Valid Amount is required!
+        </small>
+        <small *ngIf="value > convertAmt" class="form-text error">
+          The value cannot be greater than the existing amount!
+        </small>
+      </div>
+      <div>
+        <label>Description</label>
+        <input type="text" class="form-control" [(ngModel)]="showpaymentDetails.paymentdesc" #paymentdesc="ngModel"
+          name="paymentdesc" />
+      </div>
+    </form>
+    <br>
+    <button class="btn btn-success pull-right" (click)="paymentrefund(showpaymentDetails)"
+      [disabled]="value > convertAmt || value == null">Submit</button>
+  </div>
+</ng-template>
+<style>
+  table td {
+    padding: 1rem;
+  }
+  tbody, td, tfoot, th, thead, tr {
+    border: none;
+  }
+  a:hover, .nb-theme-default a:focus {
+    color: #2ee56b !important;
+  }
+  /* table tr:last-child td{
+   border-bottom: none;
+} */
+</style>

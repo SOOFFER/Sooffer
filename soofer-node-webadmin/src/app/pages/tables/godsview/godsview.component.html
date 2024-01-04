@@ -1,0 +1,179 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+          God's View (Currently Online - {{driversCount}})
+      </div>
+      <div class="col-md-2">
+        <select *ngIf = "showCity == true" name="servicecity" [(ngModel)]="list.servicecity" class="form-control" (change)="FilterRes(list.servicecity)">
+          <option value="undefined" selected hidden>Service Available City</option>
+          <option [value]="city.label" *ngFor="let city of ServiceCity">{{city.label}}</option>
+          <option value="all">All</option>
+        </select>  
+      </div>
+      <div class="col=md-2">
+        <button type="button" class="btn btn-info pull-right" (click)="refVehicle()">Vehicle Refresh</button>
+      </div>
+      <div class="col-md-2">
+          <button (click)="ReloadPage()" type="button"
+          class="btn btn-primary pull-right">Map Refresh</button>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Vehicle Type </label>
+          <select class="form-control custom-select" name="serviceTypeId" (change)="getAPI(list.serviceTypeId)" required
+            placeholder="Vehicle Type" [(ngModel)]="list.serviceTypeId" #serviceTypeId="ngModel">
+            <option value="undefined" hidden selected> Select Vehicle Type </option>
+            <option value="ALL" >All</option>
+            <option *ngFor="let vehicle of vehicleary" [value]="vehicle.type">
+              {{vehicle.type}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Search Driver </label>
+          <div class="input-group mb-4">
+            <input nbInput fieldSize="small" class="form-control" type="text" [(ngModel)]="inputsearch"
+              name="inputsearch" required placeholder="Phone Number or Driver Code" />
+            <div class="input-group-append ">
+              <button (click)="search()" nbButton size="xsmall" [disabled]="!inputsearch" type="button"
+                class="btn btn-primary">search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Search Location </label>
+          <div class="input-group mb-3">
+            <input nbInput fieldSize="small" places-auto-complete (place_changed)="listenDropLocation($event);"
+              [types]="['geocode']" [(ngModel)]="dropLocation" name="dropLocation"
+              [componentRestrictions]="{country: 'in'}" placeholder="Search Location" class="form-control" />
+            <div class="input-group-append ">
+              <button class="btn btn-primary" nbButton size="xsmall" type="button" [disabled]="!dropLocation"
+                (click)="getfare();">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+
+  <!-- <nb-card>
+  <nb-card-body> -->
+
+  <!-- <div class="row">
+      <div class="col-md-3">
+        <div class="input-group mb-4">
+          <input type="text" [(ngModel)]="inputsearch" name="inputsearch" required
+            placeholder="Phone Number or Driver Code" class="form-control" />
+          <div class="input-group-append ">
+            <button (click)="search()" type="button" class="btn btn-primary">search</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="input-group mb-3">
+            <input places-auto-complete (place_changed)="listenDropLocation($event);" [types]="['geocode']"
+              [(ngModel)]="dropLocation" name="dropLocation" [componentRestrictions]="{country: 'in'}"
+              placeholder="Search Location" class="form-control" />
+            <div class="input-group-append ">
+              <button class="btn btn-primary" type="button" [disabled]="!dropLocation"
+                (click)="getfare();">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button (click)="ReloadPage()" type="button" class="btn btn-primary">Refresh</button>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" name="serviceTypeId" (change)="getAPI(list.serviceTypeId)" required
+          placeholder="Vehicle Type" [(ngModel)]="list.serviceTypeId" #serviceTypeId="ngModel">
+          <option [ngValue]="undefined" hidden selected> Select Vehicle Type </option>
+          <option *ngFor="let vehicle of vehicleary" [value]="vehicle._id">
+            {{vehicle.type}}
+          </option>
+        </select>
+      </div>
+    </div> -->
+  <!-- </nb-card-body>
+</nb-card> -->
+  <!-- <label>Phone Number</label>
+        <input type="number" [(ngModel)]="phone" name="phone" required placeholder="Phone Number" class="form-control" />
+
+      </div>
+      <div class="col-md-3">
+        <button (click)="search()" type="button" class="btn btn-primary">search</button>
+      </div> -->
+
+  <!-- <nb-card> -->
+  <nb-card-body>
+    <ngui-map center={{location}} zoom={{zoom}} style="height:600px;" scrollwheel="true">
+      <marker *ngFor="let pos of positions;let item of resList" (click)="clicked($event,pos.coords)"
+        [position]="pos.coords" [icon]="{ 
+                    url: pos.image,
+                    anchor: [16,16],
+                   size: [24,40],
+                    scaledSize: [24,40]
+                  }">
+        <info-window id="iw" #iw>
+          <div *ngIf="marker">
+            <b>
+              <h5>Name: {{marker.fname}},
+                <br> Phone: {{ marker.phone }},
+                <br> Code: {{ marker.code }},
+                <br> <span *ngIf="marker.curTrip">Trip No: {{ marker.curTrip }} </span> </h5>
+            </b>
+          </div>
+        </info-window>
+      </marker>
+    </ngui-map>
+  </nb-card-body>
+  <nb-card-footer>
+  </nb-card-footer>
+</nb-card>
+<!-- </nb-card> -->
+
+<!-- <nb-card>
+<nb-card-header>
+	God's View
+</nb-card-header>
+<nb-card-body>
+		<ngui-map   [zoom]=zlevel  center="colombo,Srilanka" zoom="4" style="height:600px; width:100%;"    scrollwheel="true">
+			<marker *ngFor="let pos of positions"  [position]="pos" [icon]="{ url: 'assets/images/caricontopview.png',
+                anchor: [16,16],
+               size: [32,32],
+                scaledSize: [32,32]
+              }" >
+			</marker>
+			<info-window id="iw">
+				<div *ngIf="marker.display">
+					lat: {{ marker.lat }}, lng: {{ marker.lng }}
+				</div>
+			</info-window>
+		</ngui-map>
+</nb-card-body>
+<nb-card-footer>
+</nb-card-footer>
+</nb-card> -->
+
+<style>
+  select.custom-select {
+    height: calc(2rem + 5px) !important;
+    padding: 2px 15px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+</style>

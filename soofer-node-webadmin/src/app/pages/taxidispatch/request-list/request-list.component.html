@@ -1,0 +1,51 @@
+<nb-card>
+  <nb-card-header>
+    Requested Trip Details
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-hover" style="text-align: center;font-size: 15px;">
+      <thead>
+        <tr>
+          <th scope="col">Actions</th>
+          <th scope="col">Trip Type</th>
+          <th scope="col">Trip No</th>
+          <th scope="col">Date</th>
+          <th scope="col">Rider</th>
+          <th scope="col">Fare</th>
+          <th scope="col">Vehicle Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Via</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of PendingRequest | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+          <td>
+            <a *ngIf="request.status !== 'processing' && request.triptype === 'daily'" (click)="clickReq(request)"
+              style="cursor: pointer; color: red">
+              Retry
+            </a>
+          </td>
+          <td>{{request.triptype}}</td>
+          <td>{{request.tripno}}</td>
+          <td>{{request.date }}</td>
+          <td>{{request.rid}}</td>
+          <td>{{request.fare}}</td>
+          <td>{{request.vehicle}}</td>
+          <td>{{request.status}}</td>
+          <td>{{request.csp.via}}</td>
+        </tr>
+        <tr *ngIf="PendingRequest.length === 0">
+          <td colspan="9" align="center"> No Data Found </td>
+        </tr>
+        <!-- <tr *ngIf="loading">
+          <td colspan="9" align="center">Fetching Req List</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer>
+    <div>
+      <pagination-controls style="text-align: center;font-size: 16px;" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </nb-card-footer>
+</nb-card>

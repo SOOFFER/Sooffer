@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+        Wallet Details
+      </div>
+      <div class="col-md-6">
+        <label class="pull-right"> <b>   Balance : {{list.totalBal}} &nbsp; </b> </label>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" *ngIf="source">
+    </ng2-smart-table>
+  </nb-card-body>
+  <nb-card-footer>
+    <button type="button" (click)="goBack()" class="btn btn-info pull-left">Go back</button>
+    <button type="button" (click)="export()" class="btn btn-primary pull-right">Export</button>
+  </nb-card-footer>
+</nb-card>

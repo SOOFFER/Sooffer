@@ -1,0 +1,170 @@
+<ngx-spinner></ngx-spinner>
+<ng-template [ngIf]="pageNo == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-10">
+          View Service Available Cities
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" (click)="getval($event)"
+        *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="pageNo == 1">
+  <form #Form="ngForm">
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>Service Available City Details</nb-card-header>
+          <nb-card-body>
+            <div *ngIf="!selectdefault">
+              <div class="form-group">
+                <label>Country</label>
+                <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                  notFoundMsg="No Countries Found" [(ngModel)]="getInputs.countryId" [options]="countries"
+                  [allowClear]="true" (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);"
+                  required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+              <div *ngIf="showStateDropDown()">
+                <div class="form-group">
+                  <label>State / Provinces</label>
+                  <ng-select name="states" placeholder="Select a State / Provinces"
+                    filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                    [(ngModel)]="getInputs.stateId" [options]="states" [allowClear]="true"
+                    (selected)="selectedState($event);" (deselected)="deSelectedState($event);" required>
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{option.value}}">{{option.label}}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div *ngIf="showCityDropDown()">
+                <div class="form-group">
+                  <label>City</label>
+                  <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                    notFoundMsg="No Cities Found" [(ngModel)]="getInputs.cityId" [options]="cities" [allowClear]="true"
+                    (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);" required>
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{option.name}}">{{option.label}}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div *ngIf="getInputs.cityId">
+                <div class="form-group">
+                  <label>Daily Request Radius</label>
+                  <input type="text" class="form-control" name="requestRadius" [(ngModel)]="getInputs.requestRadius"
+                    #requestRadius="ngModel" placeholder="Daily Request Radius" required>
+                </div>
+                <div class="form-group">
+                  <label>Rental Request Radius</label>
+                  <input type="text" class="form-control" name="rentalRequestRadius"
+                    [(ngModel)]="getInputs.rentalRequestRadius" #rentalRequestRadius="ngModel"
+                    placeholder="Rental Request Radius" required>
+                </div>
+                <div class="form-group">
+                  <label>Outstation Request Radius</label>
+                  <input type="text" class="form-control" name="outstationRequestRadius"
+                    [(ngModel)]="getInputs.outstationRequestRadius" #outstationRequestRadius="ngModel"
+                    placeholder="Outstaion Request Radius" required>
+                </div>
+                <div class="form-group">
+                  <label>City Center Latitude </label>
+                  <input type="text" class="form-control" name="centerLat" [(ngModel)]="getInputs.centerLat"
+                    #centerLat="ngModel" required placeholder="City Center Longitude" required>
+                </div>
+                <div class="form-group">
+                  <label>City Center Longitude</label>
+                  <input type="text" class="form-control" name="centerLng" [(ngModel)]="getInputs.centerLng"
+                    #centerLng="ngModel" required placeholder="City Center Latitude" required>
+                </div>
+                <div class="form-group">
+                  <label>Approx City Boundary Mile from Center</label>
+                  <input type="text" class="form-control" name="approxBoundaryKMFromCenter"
+                    [(ngModel)]="getInputs.approxBoundaryKMFromCenter" #approxBoundaryKMFromCenter="ngModel" required
+                    placeholder="Approx City Boundary KM from Center" required>
+                </div>
+                <!-- <div class="form-group">
+                   <label>Driver Prefix Code</label>
+                   <input type="text" class="form-control" name="driverPrefixCode" [(ngModel)]="getInputs.driverPrefixCode" #driverPrefixCode="ngModel" required placeholder="Driver Prefix Code">
+                 </div>
+                 <div class="form-group">
+                   <label>Trip Prefix Code</label>
+                   <input type="text" class="form-control" name="tripPrefixCode" [(ngModel)]="getInputs.tripPrefixCode" #tripPrefixCode="ngModel" required 
+                   placeholder="Trip Prefix Code">
+                 </div> -->
+              </div>
+              <!-- <div *ngIf="showCurrency()">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <select class="form-control" [(ngModel)]="getInputs.currency" name="currency" #currency="ngModel"
+                    placeholder="Currency">
+                    <option [value]="undefined" selected hidden> Select a Currency</option>
+                    <option *ngFor="let cur of currencyary" [value]="cur.id">
+                      {{cur.name}}
+                    </option>
+                  </select>
+                </div>
+              </div> -->
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" name="softDelete" [(ngModel)]="getInputs.softDelete">
+                  <option value="undefined" selected hidden>Select</option>
+                  <option value="false">Active</option>
+                  <option value="true">Inactive</option>
+                </select>
+                <!-- <ng-select name="selectStatus" placeholder="Select a Status" filterPlaceholder="Type to search a Status"
+                  notFoundMsg="No Status Found" [allowClear]="true" [options]="status" [(ngModel)]="getInputs.softDelete"
+                  (selected)="setStatus($event);" (deselected)="clearStatus($event);" required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select> -->
+              </div>
+            </div>
+            <div *ngIf="selectdefault">
+              <div class="form-group">
+                <label><b>Country</b></label> :
+                <label>
+                  <h6> <b> --- </b></h6>
+                </label>
+              </div>
+              <div class="form-group">
+                <label><b>State</b></label> :
+                <label>
+                  <h6> <b> --- </b></h6>
+                </label>
+              </div>
+              <div class="form-group">
+                <label><b>City</b></label> :
+                <label>
+                  <h6> <b>{{getInputs.city}}</b></h6>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn-primary" [hidden]="spinner">
+              <div class="fa fa-spinner fa-spin"></div>
+            </button>
+            <button type="button" (click)="updateAvailableCity(getInputs)"
+              [disabled]="!Form.valid || selectdefault || getInputs.currency === undefined" [hidden]="!spinner"
+              class="btn btn-primary">Update</button> &nbsp;
+            <!-- <button type="button" class="btn btn-primary" [hidden]="!spinner || selectdefault" [disabled]="!Form.valid"
+              (click)="deleteAvailableCity(getInputs._id)">Delete</button> -->
+            <!-- </div> -->
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </form>
+  <button (click)="btnClick(0)" class="btn btn-danger" [disabled]="!spinner">go back</button>
+</ng-template>

@@ -1,0 +1,368 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row" *ngIf="showCity==false">
+        <div class="col-md-9">
+          Driver Purchased Subscription List
+        </div>
+        <div class="col-md-3">
+          <button type="button" (click)="btnClick(2);" nbButton size="xsmall" class="btn btn-danger pull-right">Activate
+            New Subscription</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="showCity==true">
+        <div class="col-md-2">
+          Driver Purchased Subscription List
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="driverDoc.servicecity" name="servicecity" #servicecity="ngModel"
+            required placeholder="Service">
+            <option [value]="undefined" selected hidden>
+              Select a ServiceCity</option>
+            <option *ngFor="let city of serviceCityArray" [value]="city.label">
+              {{city.label}}
+            </option>
+            <option value="all" selected>
+              Show All</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary" (click)="SerachDriverForCity(driverDoc);">Filter</button>
+
+        </div>
+        <div class="col-md-2">
+          <select class="form-control" name="exp" [(ngModel)]="exportInp.exp" #exp="ngModel" (change)="export($event)">
+            <option value="undefined" selected hidden>Export</option>
+            <option value="csv">Csv</option>
+            <option value="excel">Excel</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="button" (click)="btnClick(2);" nbButton size="xsmall" class="btn btn-danger pull-right">Activate
+            New Package</button>
+        </div>
+      </div>
+
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" (history)="history($event)"
+        *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header *ngIf="codeOfDriver == undefined">
+          Activate New Package
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-header *ngIf="codeOfDriver !=undefined">
+          Activate Package For {{codeOfDriver}}
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group" *ngIf="valueEntered==true">
+              <label>Choose Driver</label>
+              <select class="form-control" [(ngModel)]="list.driverId" name="driverId"
+                (change)="getDriverDetail($event);" required #driverId="ngModel" placeholder="driver" disabled>
+                <option [value]="undefined" selected hidden>Select Driver</option>
+                <option *ngFor="let drivers of driverAry" [value]="drivers.id">
+                  {{drivers.code}} &nbsp; | &nbsp; {{drivers.name}}
+                </option>
+              </select>
+              <small *ngIf="driverId.invalid && (driverId.dirty)" class="form-text error">
+                Driver is required!
+              </small>
+            </div>
+            <div class="form-group" *ngIf="valueEntered==false">
+              <label>Choose Driver</label>
+              <select class="form-control" [(ngModel)]="list.driverId" name="driverId"
+                (change)="getDriverDetail($event);" required #driverId="ngModel" placeholder="driver">
+                <option [value]="undefined" selected hidden>Select Driver</option>
+                <option *ngFor="let drivers of driverAry" [value]="drivers.id">
+                  {{drivers.code}} &nbsp; | &nbsp; {{drivers.name}}
+                </option>
+              </select>
+              <small *ngIf="driverId.invalid && (driverId.dirty)" class="form-text error">
+                Driver is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Choose Package Type</label>
+              <select class="form-control" (change)="changePackage($event)" [(ngModel)]="list.type" name="type"
+                #type="ngModel" required>
+                <option value="undefined" selected hidden> Select Package Type </option>
+                <option *ngFor="let sp of packageType" [value]="sp">{{sp | titlecase}}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="list.driverId">
+              <label>Choose Vehicle </label>
+              <select class="form-control" [(ngModel)]="list.vehicleId" name="vehicleId" required
+                (change)="getPackages($event);" #vehicleId="ngModel" placeholder="Vehicle List">
+                <option [value]="undefined" selected hidden>Select Vehicle</option>
+                <option *ngFor="let drivers of vehicleList" [value]="drivers">
+                  {{drivers}}
+                </option>
+              </select>
+              <small *ngIf="vehicleId.invalid && (vehicleId.dirty)" class="form-text error">
+                Vehicle is required!
+              </small>
+            </div>
+            <!-- <div class="form-group">
+              <label>Choose Package Type</label>
+              <select class="form-control" (change)="changePackage($event)" [(ngModel)]="list.type" name="type"
+                #type="ngModel" required>
+                <option value="undefined" selected hidden> Select Package Type </option>
+                <option *ngFor="let sp of packageType" [value]="sp">{{sp | titlecase}}</option>
+              </select>
+            </div> -->
+
+            <div  *ngIf="list.type === 'subscription'  && list.vehicleId">
+              <div class="form-group">
+                <label>Choose Package</label>
+                <select class="form-control" [(ngModel)]="list.packageId" name="packageId"
+                  (change)="getSubPakageDetail($event);" required #packageId="ngModel" placeholder="package">
+                  <option [value]="undefined" selected hidden> Select Package </option>
+                  <option *ngFor="let sub of subAry" [value]="sub._id">
+                    {{sub.name}}
+                  </option>
+                </select>
+                <small *ngIf="packageId.invalid && (packageId.dirty)" class="form-text error">
+                  Package name is required!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Purchase Date </label>
+                <ng-datepicker [(ngModel)]="list.purchaseDate" [options]="visibleDateOptions" #purchaseDate="ngModel"
+                  name="purchaseDate" class="form-control" [required]='!submitdoc'></ng-datepicker>
+              </div>
+              <div class="form-group">
+                <!-- (change)="testChange(list.startDate)" -->
+                <label> Starting Date </label>
+                <ng-datepicker [(ngModel)]="list.startDate" [options]="visibleDateOptions" #start="ngModel" name="start"
+                  class="form-control" [required]='!submitdoc'></ng-datepicker>
+              </div>
+              <div class="form-group" *ngIf="list.startDate">
+                <!-- <label> Note: Expired Date Will be {{list.startDate+list.PackageValidity |date  }} </label> -->
+                <p>Note: Expiry Date Will be {{list.PackageValidity | packageValidityShow: list.startDate}}</p>
+
+              </div>
+
+            </div>
+
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="Getverified(list)" [disabled]="!dataForm1.form.valid"
+            class="btn btn-success">Submit</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header *ngIf="codeOfDriver == undefined">
+          Activate New Package
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-header *ngIf="codeOfDriver !=undefined">
+          Activate Package For {{codeOfDriver}}
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group" *ngIf="valueEntered==true">
+              <label>Choose Driver</label>
+              <select class="form-control" [(ngModel)]="list.driverId" name="driverId"
+                (change)="getDriverDetail($event);" required #driverId="ngModel" placeholder="driver" disabled>
+                <option [value]="undefined" selected hidden>Select Driver</option>
+                <option *ngFor="let drivers of driverAry" [value]="drivers.id">
+                  {{drivers.code}} &nbsp; | &nbsp; {{drivers.name}}
+                </option>
+              </select>
+              <small *ngIf="driverId.invalid && (driverId.dirty)" class="form-text error">
+                Driver is required!
+              </small>
+            </div>
+            <div class="form-group" *ngIf="valueEntered==false">
+              <label>Choose Driver</label>
+              <select class="form-control" [(ngModel)]="list.driverId" name="driverId"
+                (change)="getDriverDetail($event);" required #driverId="ngModel" placeholder="driver">
+                <option [value]="undefined" selected hidden>Select Driver</option>
+                <option *ngFor="let drivers of driverAry" [value]="drivers.id">
+                  {{drivers.code}} &nbsp; | &nbsp; {{drivers.name}}
+                </option>
+              </select>
+              <small *ngIf="driverId.invalid && (driverId.dirty)" class="form-text error">
+                Driver is required!
+              </small>
+            </div>
+
+
+            <div class="form-group">
+              <label>Choose Package Type</label>
+              <select class="form-control" (change)="changePackage($event)" [(ngModel)]="list.type" name="type"
+                #type="ngModel" required>
+                <option value="undefined" selected hidden> Select Package Type </option>
+                <option *ngFor="let sp of packageType" [value]="sp">{{sp | titlecase}}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="list.driverId">
+              <label>Choose Vehicle </label>
+              <select class="form-control" [(ngModel)]="list.vehicleId" name="vehicleId" required
+                (change)="getPackages($event);" #vehicleId="ngModel" placeholder="Vehicle List">
+                <option [value]="undefined" selected hidden>Select Vehicle</option>
+                <option *ngFor="let drivers of vehicleList" [value]="drivers">
+                  {{drivers}}
+                </option>
+              </select>
+              <small *ngIf="vehicleId.invalid && (vehicleId.dirty)" class="form-text error">
+                Vehicle is required!
+              </small>
+            </div>
+
+            <div *ngIf="list.type === 'subscription'  && list.vehicleId">
+              <div class="form-group">
+                <label>Choose Package</label>
+                <select class="form-control" [(ngModel)]="list.packageId" name="packageId"
+                  (change)="getSubPakageDetail($event);" required #packageId="ngModel" placeholder="package">
+                  <option [value]="undefined" selected hidden> Select Package </option>
+                  <option *ngFor="let sub of subAry" [value]="sub._id">
+                    {{sub.name}}
+                  </option>
+                </select>
+                <small *ngIf="packageId.invalid && (packageId.dirty)" class="form-text error">
+                  Package name is required!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Purchase Date </label>
+                <ng-datepicker [(ngModel)]="list.purchaseDate" [options]="visibleDateOptions" #purchaseDate="ngModel"
+                  name="purchaseDate" class="form-control" [required]='!submitdoc'></ng-datepicker>
+              </div>
+              <div class="form-group">
+                <!-- (mouseup)="testChange(list.startDate)" -->
+                <label> Starting Date </label>
+                <ng-datepicker [(ngModel)]="list.startDate" [options]="visibleDateOptions" #start="ngModel" name="start"
+                  class="form-control" [required]='!submitdoc'></ng-datepicker>
+              </div>
+              <div class="form-group" *ngIf="list.startDate">
+                <!-- <label> Note: Expired Date Will be {{list.startDate+list.PackageValidity |date  }} </label> -->
+                <p>Note: Expiry Date Will be {{list.PackageValidity | packageValidityShow: list.startDate}}</p>
+
+              </div>
+            </div>
+
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="Getverified(list)" [disabled]="!dataForm1.form.valid"
+            class="btn btn-success">Submit</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="initial === 3">
+  <div class="row">
+    <div class="col-lg-9">
+      <nb-card>
+        <nb-card-header>Add Credits
+          <!-- <label class="pull-right"> <b> Wallet Balance : {{list.wallet}} &nbsp; </b> </label> -->
+        </nb-card-header>
+        <nb-card-body>
+          <form #Formmanual="ngForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Transaction ID (<span class="red">*</span>)</label>
+                  <input type="text" class="form-control" name="trxId" [(ngModel)]="manuallyAddCreditList.trxId"
+                    #trxId="ngModel" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Choose Driver</label>
+                  <select class="form-control" (change)="selectedDriver($event)"
+                    [(ngModel)]="manuallyAddCreditList.driverId" name="driverId" required #driverId="ngModel"
+                    placeholder="driver">
+                    <option [value]="undefined" selected hidden>Select Driver</option>
+                    <option *ngFor="let drivers of driverAry" [value]="drivers.id">
+                      {{drivers.code}} &nbsp; | &nbsp; {{drivers.name}}
+                    </option>
+                  </select>
+                  <small *ngIf="driverId.invalid && (driverId.dirty)" class="form-text error">
+                    Driver is required!
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Amount (<span class="red">*</span>)</label>
+                  <input type="number" class="form-control" (focusout)="lesserThanZero($event)"
+                    [(ngModel)]="manuallyAddCreditList.amt" #amt="ngModel" name="amt" placeholder="Enter the Amount"
+                    required>
+                  <small *ngIf="amt.invalid && (amt.dirty)" class="form-text error">
+                    Amount is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Type (<span class="red">*</span>)</label>
+                  <ng-select name="type" placeholder="Select a Payment Type" notFoundMsg="No Payment Type Found"
+                    [(ngModel)]="manuallyAddCreditList.type" [options]="payment" [noFilter]="noFilterThreshold"
+                    required>
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{option.value}}">{{option.label}}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea rows="5" [(ngModel)]="manuallyAddCreditList.description" name="description"
+                    #description="ngModel" placeholder="Enter the Description" class="form-control"></textarea>
+                  <small *ngIf="description.invalid && (description.dirty)" class="form-text error">
+                    Description is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Date (<span class="red">*</span>)</label>
+                  <ng-datepicker [(ngModel)]="manuallyAddCreditList.paymentDate" [options]="visibleDateOptions"
+                    #paymentDate="ngModel" name="paymentDate" class="form-control" required></ng-datepicker>
+                  <small *ngIf="paymentDate.invalid && (paymentDate.dirty)" class="form-text error">
+                    Payment Date is required!
+                  </small>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="btnClick(0)" class="btn btn-danger">go back</button> &nbsp; &nbsp;
+          <button type="button" (click)="sendPayment(manuallyAddCreditList)" [disabled]="!Formmanual.valid"
+            class="btn btn-success">Add</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

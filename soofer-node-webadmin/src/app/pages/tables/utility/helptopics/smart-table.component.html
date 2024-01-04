@@ -1,0 +1,209 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-3">{{ title }}</div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <button type="button" (click)="btnClick()" class="btn btn-danger pull-right">
+            Add Help Topics
+          </button>
+        </div>
+        <div class="col-sm-2">Select Language</div>
+        <div class="col-sm-1">
+          <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+            <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+              *ngIf="showTransOption">
+              <select #langSelect (change)="translate.use(langSelect.value)" (click)="getLang(langSelect.value)">
+                <option *ngFor="let list of translate.getLangs()" [value]="list"
+                  [selected]="list === translate.currentLang">
+                  {{ list }}
+                </option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-sm-5">Add Help Topics</div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">Select Language</div>
+            <div class="col-sm-1">
+              <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+                <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+                  *ngIf="showTransOption">
+                  <select #langSelect (click)="getLangs(langSelect.value)">
+                    <option *ngFor="let list of translate.getLangs()" [value]="list"
+                      [selected]="list === translate.currentLang">
+                      {{ list }}
+                    </option>
+                  </select>
+                </nb-action>
+              </nb-actions>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>Catagory </label>
+              <select class="form-control" [(ngModel)]="list.ihelpcategoryId" (change)="getTitle($event)"
+                #ihelpcategoryId="ngModel" name="ihelpcategoryId" required="">
+                <option [value]="undefined" selected hidden>
+                  Select a Category
+                </option>
+                <option *ngFor="let company of category" [value]="company._id">
+                  {{ company.vTitle_EN }}
+                </option>
+              </select>
+              <small *ngIf="ihelpcategoryId.invalid && ihelpcategoryId.dirty" class="form-text error">Catagory is
+                mandatory!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Order </label>
+              <select class="form-control" [(ngModel)]="list.iDisplayOrder" #iDisplayOrder="ngModel"
+                name="iDisplayOrder" required="">
+                <option [value]="undefined" selected hidden>
+                  Select a Display Order
+                </option>
+                <option selected="selected" value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <small *ngIf="iDisplayOrder.invalid && iDisplayOrder.dirty" class="form-text error">
+                Order is Mandatory!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Question</label>
+              <input type="text" required placeholder="Enter the Question" name="vTitle_EN" #vTitle_EN="ngModel"
+                [(ngModel)]="list.vTitle_EN" class="form-control" />
+              <small *ngIf="vTitle_EN.invalid && vTitle_EN.dirty" class="form-text error">
+                Question is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Answer</label>
+              <tinymce [config]="" [(ngModel)]="list.English" name="English" #English="ngModel" required></tinymce>
+              <!-- <input type='text' required  [(ngModel)]="list.English"  name="English" #English="ngModel"  class="form-control"> -->
+              <small class="form-text error" *ngIf="English.invalid && English.dirty">Description is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="addHelp(list)" [disabled]="!dataForm1.form.valid" class="btn btn-success">
+            Add
+          </button>
+          &nbsp;
+          <button (click)="btBack()" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Help Topics</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label>Catagory </label>
+              <select class="form-control" [(ngModel)]="selectedDocs.ihelpcategorytitle" (change)="getTitleED($event)"
+                #ihelpcategoryId="ngModel" name="ihelpcategoryId" required="">
+                <option [value]="selectedDocs.ihelpcategorytitle" selected hidden>
+                  {{selectedDocs.ihelpcategorytitle}}
+                </option>
+                <option *ngFor="let company of category" [value]="company._id">
+                  {{ company.vTitle_EN }}
+                </option>
+              </select>
+              <small *ngIf="ihelpcategoryId.invalid && ihelpcategoryId.dirty" class="form-text error">Catagory is
+                mandatory!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Order </label>
+              <select class="form-control" [(ngModel)]="selectedDocs.iDisplayOrder" #iDisplayOrder="ngModel"
+                name="iDisplayOrder" required="">
+                <option [value]="undefined" selected hidden>
+                  Select a Display Order
+                </option>
+                <option selected="selected" value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <small *ngIf="iDisplayOrder.invalid && iDisplayOrder.dirty" class="form-text error">
+                Order is Mandatory!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Question</label>
+              <input type="text" required placeholder="Enter the Question" name="vTitle_EN" #vTitle_EN="ngModel"
+                [(ngModel)]="selectedDocs.vTitle_EN" class="form-control" />
+              <small *ngIf="vTitle_EN.invalid && vTitle_EN.dirty" class="form-text error">
+                Question is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Answer</label>
+              <tinymce [config]="" [(ngModel)]="selectedDocs.English" name="English" #English="ngModel" required>
+              </tinymce>
+              <!-- <input type='text' required  [(ngModel)]="selectedDocs.English"  name="English" #English="ngModel"  class="form-control"> -->
+              <small class="form-text error" *ngIf="English.invalid && English.dirty">Description is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="editHelp(selectedDocs)" class="btn btn-primary">
+            Update
+          </button>
+          &nbsp;
+          <button type="submit" (click)="deleteMyhelpTopic(selectedDocs._id)" class="btn btn-danger">
+            Delete
+          </button>
+          &nbsp;
+          <button (click)="btBack()" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

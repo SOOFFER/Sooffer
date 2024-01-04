@@ -1,0 +1,55 @@
+<div *ngIf="initial; then list else detail"></div>
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      View All Car Make & Models
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Car Make & Model Details</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+            <div class="form-group">
+              <label class="required">Car Make</label>
+              <input type="text" [(ngModel)]="selectedDocs.make" #make="ngModel" name="make" required placeholder="Car Make"
+                class="form-control" />
+              <small *ngIf="make.invalid && (make.dirty)" class="form-text error">
+                Make is required!
+              </small>
+            </div>
+
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let carm of carmodel" [selectable]="selectable" [removable]="removable" (removed)="remove(carm)">
+                  {{carm.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Car Model..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" required>
+              </mat-chip-list>
+            </mat-form-field>
+
+            <button class="btn btn-primary" [hidden]="spinner">
+              <div class="fa fa-spinner fa-spin"></div>
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="UpdateNewDoc(selectedDocs)" [disabled]="(!dataForm.form.valid)"
+              [hidden]="!spinner">Update</button>
+            <button type="button" class="btn btn-primary" (click)="DeleteDoc(selectedid)" [hidden]="!spinner">Delete</button>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <button (click)="goBack()" type="button" class="btn btn-danger" [disabled]="!spinner">
+    Go Back
+  </button>
+</ng-template>

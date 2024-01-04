@@ -1,0 +1,205 @@
+<!-- <div class="row">
+  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+    <ngx-status-card [title]="statusCard.title" [type]="statusCard.type">
+      <i [ngClass]="statusCard.iconClass"></i>
+    </ngx-status-card>
+  </div>
+</div> -->
+
+
+<!-- <ngx-temperature></ngx-temperature> -->
+
+
+<!-- <ngx-dnd-container [model]="orderableLists">
+</ngx-dnd-container>  -->
+
+<!-- 
+<div class="row">
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6 ">
+    <ngx-temperature></ngx-temperature>
+  </div>
+
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6  ">
+    <ngx-electricity></ngx-electricity>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6  ">
+    <ngx-rooms></ngx-rooms>
+  </div>
+
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6 ">
+    <ngx-contacts></ngx-contacts>
+  </div>
+
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6 ">
+    <ngx-solar [chartValue]="72"></ngx-solar>
+
+    <ngx-kitten></ngx-kitten>
+  </div>
+
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6  ">
+    <ngx-traffic></ngx-traffic>
+    <ngx-weather></ngx-weather>
+  </div>
+
+  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6  ">
+    <ngx-security-cameras></ngx-security-cameras>
+  </div> -->
+
+<!-- <gridster [options]="options">
+    <gridster-item [item]="item" *ngFor="let item of dashboard">
+      <div class="button-holder">
+        <button mat-mini-fab (mousedown)="removeItem($event, item)" (touchstart)="removeItem($event, item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <ngx-status-card title="sample" type="statusCard">
+            <i [ngClass]="statusCard.iconClass"></i> 
+        </ngx-status-card>
+      </div>
+    </gridster-item>
+  </gridster> -->
+<!-- </div> -->
+
+
+<div class="row">
+  <div class="col-xxxl-3 col-md-6" (click)="routeToOtherTable('rider-table')">
+    <!-- <a [routerLink]="['/pages/tables/rider-table']" > -->
+    <ngx-status-card style="cursor:pointer;" title="Riders" type="primary" status={{Riders}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+    <!-- </a> -->
+  </div>
+  <div class="col-xxxl-3 col-md-6" (click)="routeToOtherTable('driver-table')">
+    <!-- <a href="http://localhost:4200/#/pages/tables/driver-table"> -->
+    <ngx-status-card style="cursor:pointer" title="Drivers" type="success" status={{Drivers}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+    <!-- </a> -->
+  </div>
+  <div class="col-xxxl-3 col-md-6" (click)="routeToOtherTable('driver-table')">
+    <ngx-status-card style="cursor:pointer" title="Companies" type="info" status={{Companies}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+  <div class="col-xxxl-3 col-md-6" (click)="routeToOtherTable('vehicletype-table')">
+    <!-- <a href="http://localhost:4200/#/pages/tables/vehicletype-table"> -->
+    <ngx-status-card style="cursor:pointer" title="Vehicles" type="warning" status={{Vehicles}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+    <!-- </a> -->
+  </div>
+</div>
+<!-- <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card title="Riders" type="primary" status={{Riders}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card title="Drivers" type="success" status={{Drivers}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card title="Companies" type="info" status={{Companies}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6">
+    <ngx-status-card title="Vehicles" type="warning" status={{Vehicles}}>
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div> -->
+<!-- </div> -->
+<div class="row">
+  <div class="col-xxxl-3 col-md-6" style="cursor: pointer;" (click)="routeTrips('all-trips')">
+    <ngx-status-card title="Total Trips" type="primary" status={{Trips}} spanvalue="This Month">
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6" style="cursor: pointer;" (click)="routeTrips('all-trips')">
+    <ngx-status-card title=" Total Trip Payment " type="success" status={{Payment}} spanvalue="This Month">
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6" style="cursor: pointer;" (click)="routePayment()">
+    <ngx-status-card title="Total Trip Commision" type="info" status={{Commission}} spanvalue="This Month">
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+
+  <div class="col-xxxl-3 col-md-6" style="cursor: pointer;" (click)="routePayment()">
+    <ngx-status-card title="Total Driver Earned" type="warning" status={{Earned}} spanvalue="This Month">
+      <i class="nb-chevron-up"></i>
+    </ngx-status-card>
+  </div>
+</div>
+<div class="row">
+  <!-- <div class="col-xxl-12">
+    <ngx-ecommerce-charts></ngx-ecommerce-charts>
+  </div> -->
+
+  <!-- <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+      <ngx-status-card [title]="statusCard.title"
+                       [type]="statusCard.type">
+        <i [ngClass]="statusCard.iconClass"></i>
+      </ngx-status-card>
+    </div> -->
+</div>
+
+<div class="row">
+  <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+    <ngx-electricity></ngx-electricity>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <ngx-solar-d></ngx-solar-d>
+    <ngx-solar-r></ngx-solar-r>
+    <!-- <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6"> -->
+    <ngx-traffic-reveal-card></ngx-traffic-reveal-card>
+    <!-- </div> -->
+  </div>
+  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <ngx-contacts-r></ngx-contacts-r>
+  </div>
+
+  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <ngx-contacts-l></ngx-contacts-l>
+  </div>
+</div>
+<!-- <div class="col-xxxl-3 col-xl-12">
+    <ngx-contacts-d></ngx-contacts-d>
+  </div> -->
+<!-- <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <ngx-list></ngx-list>
+  </div> -->
+
+
+<!-- <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
+  
+    </div> -->
+
+<div class="col-xxxl-6 col-xxl-6 col-lg-6 col-md-6">
+</div>
+
+
+
+<div class="row">
+
+  <!-- <div class="col-xxxl-3 col-xxl-4 col-md-5">
+      <ngx-traffic></ngx-traffic>
+      <ngx-weather></ngx-weather>
+    </div> -->
+
+  <!-- <div class="col-xxxl-6 col-xxl-12 col-md-7">
+      <ngx-security-cameras></ngx-security-cameras>
+    </div> -->
+</div>

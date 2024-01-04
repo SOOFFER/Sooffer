@@ -1,0 +1,246 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-3">{{ title }}</div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <button
+            type="button"
+            (click)="btBack(1)"
+            class="btn btn-danger pull-right"
+          >
+            Add driver
+          </button>
+        </div>
+        <div class="col-sm-2">Select Language</div>
+        <div class="col-sm-1">
+          <nb-actions
+            size="medium"
+            [class.right]="position === 'normal'"
+            [class.left]="position === 'inverse'"
+          >
+            <nb-action
+              size="medium"
+              [class.right]="position === 'normal'"
+              [class.left]="position === 'inverse'"
+              *ngIf="showTransOption"
+            >
+              <select
+                #langSelect
+                (change)="translate.use(langSelect.value)"
+                (click)="getLang(langSelect.value)"
+              >
+                <option
+                  *ngFor="let list of translate.getLangs()"
+                  [value]="list"
+                  [selected]="list === translate.currentLang"
+                >
+                  {{ list }}
+                </option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-2">
+          <button
+            type="button"
+            (click)="btBack(1)"
+            class="btn btn-danger pull-right"
+          >
+            Add driver
+          </button>
+        </div>
+      </div> -->
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (custom)="route($event)"
+        *ngIf="source"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-sm-5">Add Home Page Driver</div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">Select Language</div>
+            <div class="col-sm-1">
+              <nb-actions
+                size="medium"
+                [class.right]="position === 'normal'"
+                [class.left]="position === 'inverse'"
+              >
+                <nb-action
+                  size="medium"
+                  [class.right]="position === 'normal'"
+                  [class.left]="position === 'inverse'"
+                  *ngIf="showTransOption"
+                >
+                  <select
+                    #langSelect
+                    (change)="translate.use(langSelect.value)"
+                    (click)="getLangs(langSelect.value)"
+                  >
+                    <option
+                      *ngFor="let list of translate.getLangs()"
+                      [value]="list"
+                      [selected]="list === translate.currentLang"
+                    >
+                      {{ list }}
+                    </option>
+                  </select>
+                </nb-action>
+              </nb-actions>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label> Image </label> &nbsp;
+              <input
+                type="file"
+                (change)="fileEvent($event)"
+                value="Driver Profile Image"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label> Name </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Name"
+                [(ngModel)]="list.name"
+                #name="ngModel"
+                name="name"
+                class="form-control"
+              />
+              <small class="form-text error" *ngIf="name.invalid && name.dirty"
+                >Name is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Description</label>
+              <tinymce
+                [config]=""
+                [(ngModel)]="list.desc"
+                #desc="ngModel"
+                name="desc"
+                required
+              ></tinymce>
+              <small class="form-text error" *ngIf="desc.invalid && desc.dirty"
+                >Description is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            (click)="AddDriver(list)"
+            [disabled]="!dataForm1.form.valid"
+            type="submit"
+            class="btn btn-danger"
+          >
+            Add</button
+          >&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Home Page Driver</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label> Image </label> &nbsp;
+              <input
+                type="file"
+                (change)="fileEvent($event)"
+                value="Driver Profile Image"
+              />
+            </div>
+            <div class="form-group">
+              <img
+                src="{{ baseurl }}{{ selectedDocs.image }}"
+                required
+                height="50"
+                width="50"
+              />
+            </div>
+            <hr />
+            <div class="form-group">
+              &nbsp;
+              <label> Name </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Name"
+                [(ngModel)]="selectedDocs.name"
+                #name="ngModel"
+                name="name"
+                class="form-control"
+              />
+              <small class="form-text error" *ngIf="name.invalid && name.dirty"
+                >Name is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Description</label>
+              <tinymce
+                [config]=""
+                [(ngModel)]="selectedDocs.desc"
+                #desc="ngModel"
+                name="desc"
+                required
+              ></tinymce>
+              <small class="form-text error" *ngIf="desc.invalid && desc.dirty"
+                >Description is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            (click)="EditDriver(selectedDocs)"
+            [disabled]="!dataForm2.form.valid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Update</button
+          >&nbsp;
+          <button
+            (click)="deleteDriver(selectedDocs._id)"
+            type="button"
+            class="btn btn-danger"
+          >
+            Delete</button
+          >&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

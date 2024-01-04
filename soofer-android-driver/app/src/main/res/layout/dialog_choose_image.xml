@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_5sdp"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Image (4)"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16sdp"
+            android:gravity="center"
+            android:fontFamily="@font/robotomedium"
+            android:padding="@dimen/_5sdp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            android:gravity="center"
+            android:weightSum="2">
+            <ImageView
+                android:id="@+id/imgLeft"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                app:srcCompat="@drawable/ic_camera"
+                android:padding="@dimen/_10sdp"
+                app:tint="@color/grey" />
+            <ImageView
+                android:id="@+id/imgRight"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                app:srcCompat="@drawable/ic_camera"
+                android:padding="@dimen/_10sdp"
+                app:tint="@color/grey" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            android:gravity="center"
+            android:weightSum="2">
+            <ImageView
+                android:id="@+id/imgFront"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                app:srcCompat="@drawable/ic_camera"
+                android:padding="@dimen/_10sdp"
+                app:tint="@color/grey" />
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_5sdp"
+                app:srcCompat="@drawable/ic_camera"
+                android:padding="@dimen/_10sdp"
+                app:tint="@color/grey" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_SaveImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:fontFamily="@font/robotomedium"
+            android:textSize="@dimen/_11sdp"
+            android:text="Take Photo"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

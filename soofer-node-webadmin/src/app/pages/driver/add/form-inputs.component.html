@@ -1,0 +1,660 @@
+<ng-template [ngIf]="initial === 'driverAdd'">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          <!-- {{ "DRIVERS.ADDDRIVER" | translate }} -->
+          ADD DRIVERS
+          <span class="fa-stack fa-1x pull-right">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <strong class="fa-stack-1x text-success">1</strong>
+          </span>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm" autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required"
+                    >First Name (<span class="red">*</span>)</label
+                  >
+                  <input
+                    type="text"
+                    minlength="{{ validation.fnameValid.minlength }}"
+                    maxlength="{{ validation.fnameValid.maxlength }}"
+                    [disabled]="disableFirstForm"
+                    pattern="{{ validation.fnameValid.pattern }}"
+                    [(ngModel)]="list.fname"
+                    #fname="ngModel"
+                    name="fname"
+                    required
+                    placeholder="First Name"
+                    class="form-control"
+                  />
+                  <small
+                    *ngIf="fname.invalid && fname.dirty"
+                    class="form-text error"
+                  >
+                    First Name is invalid!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required"
+                    >Last Name (<span class="red">*</span>)
+                  </label>
+                  <input
+                    type="text"
+                    minlength="{{ validation.lnameValid.minlength }}"
+                    maxlength="{{ validation.lnameValid.maxlength }}"
+                    [disabled]="disableFirstForm"
+                    pattern="{{ validation.lnameValid.pattern }}"
+                    [(ngModel)]="list.lname"
+                    #lname="ngModel"
+                    name="lname"
+                    required
+                    placeholder="Last Name"
+                    class="form-control"
+                  />
+                  <small
+                    *ngIf="lname.invalid && lname.dirty"
+                    class="form-text error"
+                  >
+                    Last Name is invalid!
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="demo-radio col-sm-6">
+                  <label>Gender</label>
+                  <label class="custom-control custom-radio">
+                    <input
+                      type="radio"
+                      class="custom-control-input"
+                      [disabled]="disableFirstForm"
+                      [(ngModel)]="list.gender"
+                      name="gender"
+                      value="Male"
+                    />
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Male</span>
+                  </label>
+                  <label class="custom-control custom-radio">
+                    <input
+                      type="radio"
+                      class="custom-control-input"
+                      [disabled]="disableFirstForm"
+                      [(ngModel)]="list.gender"
+                      name="gender"
+                      value="Female"
+                    />
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Female</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Phone Code</label>
+                    <select
+                      class="form-control"
+                      #phcode="ngModel"
+                      name="phcode"
+                      [(ngModel)]="list.phcode"
+                      required
+                    >
+                      <!-- <option value="undefined" selected hidden>Select</option> -->
+                      <option
+                        *ngFor="let city of list_phon_code"
+                        value="{{ city }}"
+                      >
+                        {{ city }}
+                      </option>
+                    </select>
+                    <!-- <input autofocus [disabled]='phcode' type="tel" mask="000" [(ngModel)]="verifyinputs.phcode"
+                                                  #phcode="ngModel" name="phcode" required placeholder="Code" class="form-control" /> -->
+                    <small
+                      *ngIf="phcode.invalid && phcode.dirty"
+                      class="form-text error"
+                    >
+                      Phone Code is required!
+                    </small>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-group">
+                      <label for="inputWebsite"
+                        >Phone (<span class="red">*</span>)</label
+                      >
+                      <input
+                        type="tel"
+                        pattern="{{ validation.phoneValid.pattern }}"
+                        minlength="{{ validation.phoneValid.minlength }}"
+                        maxlength="{{ validation.phoneValid.maxlength }}"
+                        [(ngModel)]="list.phone"
+                        name="phone"
+                        #phone="ngModel"
+                        placeholder="Phone"
+                        class="form-control"
+                        required
+                      />
+                      <small
+                        *ngIf="phone.invalid && phone.dirty"
+                        class="form-text error"
+                      >
+                        Valid Phone is required!
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-group">
+                      <label for="inputWebsite">Alternate Phone No</label>
+                      <input
+                        type="tel"
+                        pattern="{{ validation.phoneValid.pattern }}"
+                        minlength="{{ validation.phoneValid.minlength }}"
+                        maxlength="{{ validation.phoneValid.maxlength }}"
+                        [(ngModel)]="list.alternatePhnNo"
+                        name="alternatePhnNo"
+                        #alternatePhnNo="ngModel"
+                        placeholder="Alternate Phone Number"
+                        class="form-control"
+                      />
+                      <small
+                        *ngIf="alternatePhnNo.invalid && alternatePhnNo.dirty"
+                        class="form-text error"
+                      >
+                        Valid Phone is required!
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="form-group">
+                  <label class="required">Phone (<span class="red">*</span>)</label>
+                  <input type="tel" pattern={{validation.phoneValid.pattern}}
+                    minlength={{validation.phoneValid.minlength}} [disabled]="disableFirstForm"
+                    maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="list.phone" name="phone" #phone="ngModel"
+                    placeholder="Phone" class="form-control" required />
+                  <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                    Phone is required!
+                  </small>
+                </div> -->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Date Of Birth</label>
+                  <ng-datepicker
+                    [(ngModel)]="list.DOB"
+                    [disabled]="disableFirstForm"
+                    [options]="visibleDateOptions"
+                    #DOB="ngModel"
+                    name="DOB"
+                    class="form-control"
+                  ></ng-datepicker>
+                  <small
+                    *ngIf="DOB.invalid && DOB.dirty"
+                    class="form-text error"
+                  >
+                    Date Of Birth is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Upload Profile Image</label>
+                  <input
+                    type="file"
+                    (change)="fileEvent($event)"
+                    [disabled]="disableFirstForm"
+                    id="logo"
+                    name="logo"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-3" *ngIf="list.profile !== undefined">
+                <div class="form-group">
+                  <label>Profile Image</label>
+                  <div>
+                    <a
+                      href="{{ baseurl }}{{ list.profile }}"
+                      target="_blank"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Click To View!"
+                    >
+                      <img
+                        src="{{ baseurl }}{{ list.profile }}"
+                        height="85"
+                        width="150"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required">Email </label>
+                  <input
+                    type="email"
+                    email
+                    pattern="{{ validation.emailValid }}"
+                    [disabled]="disableFirstForm"
+                    [(ngModel)]="list.email"
+                    #email="ngModel"
+                    name="email"
+                    placeholder="Email"
+                    autocomplete="off"
+                    class="form-control"
+                  />
+                  <small
+                    *ngIf="email.invalid && email.dirty"
+                    class="form-text error"
+                  >
+                    Valid Email is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="required"
+                    >Password (<span class="red">*</span>)</label
+                  >
+                  <input
+                    type="password"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
+                    minlength="{{ validation.pwdValid.minlength }}"
+                    maxlength="{{ validation.pwdValid.maxlength }}"
+                    [disabled]="disableFirstForm"
+                    [(ngModel)]="list.password"
+                    name="password"
+                    #pwd="ngModel"
+                    autocomplete="new-password"
+                    required
+                    placeholder="Password"
+                    class="form-control"
+                    required
+                  />
+                  <small
+                    *ngIf="pwd.invalid && pwd.dirty"
+                    class="form-text error"
+                  >
+                  Valid Password is required! (min 8 Character with Uppercase, Lowercase, Special character, Number)
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Country</label>
+                  <ng-select
+                    name="countries"
+                    placeholder="Select a Country"
+                    [disabled]="disableFirstForm"
+                    filterPlaceholder="Type to Search a Country"
+                    notFoundMsg="No Countries Found"
+                    [(ngModel)]="list.cnty"
+                    [options]="countries"
+                    [allowClear]="true"
+                    (selected)="selectedCountry($event)"
+                    (deselected)="deSelectedCountry($event)"
+                  >
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{ option.value }}">{{ option.label }}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>State / Provinces</label>
+                  <ng-select
+                    name="states"
+                    placeholder="Select a State / Provinces"
+                    [disabled]="disableFirstForm"
+                    filterPlaceholder="Type to Search a State / Provinces"
+                    notFoundMsg="No States / Provinces found"
+                    [(ngModel)]="list.state"
+                    [options]="states"
+                    [allowClear]="true"
+                    (selected)="selectedState($event)"
+                    (deselected)="deSelectedState($event)"
+                  >
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{ option.value }}">{{ option.label }}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>City</label>
+                  <ng-select
+                    name="cities"
+                    placeholder="Select a City"
+                    [disabled]="disableFirstForm"
+                    filterPlaceholder="Type to Search a City"
+                    notFoundMsg="No Cities Found"
+                    [(ngModel)]="list.city"
+                    [options]="cities"
+                    [allowClear]="true"
+                    (selected)="selectedCity($event)"
+                    (deselected)="deSelectedCity($event)"
+                  >
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{ option.value }}">{{ option.label }}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>National ID Card Number (NIC)</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="list.nic"
+                    [disabled]="disableFirstForm"
+                    (focusout)="checkNICAvailability(list.nic)"
+                    name="nic"
+                    placeholder="NIC Number"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Language</label>
+                  <select class="form-control" [(ngModel)]="list.lang" name="lang" #lang="ngModel" placeholder="Language">
+                    <option [value]="undefined" selected hidden> Select a Language</option>
+                    <option *ngFor="let lang of langary" [value]="lang.id">
+                      {{lang.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="showservicecity == true && showCurr == false">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <input type="text" [(ngModel)]="list.cur" #cur="ngModel" name="cur" placeholder="Currency" disabled
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="showservicecity == false || showCurr == true">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <select class="form-control" [(ngModel)]="list.cur" name="cur" #cur="ngModel" placeholder="Currency">
+                    <option [value]="undefined" selected hidden> Select a Currency</option>
+                    <option *ngFor="let cur of currencyary" [value]="cur.id">
+                      {{cur.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-md-6" *ngIf="showservicecity == true">
+                <div class="form-group">
+                  <label
+                    >Service Available City (<span class="red">*</span>)</label
+                  >
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Service Available City'"
+                    [disabled]="disableFirstForm"
+                    name="scIds"
+                    [data]="serviceCity"
+                    [(ngModel)]="list.scIds"
+                    required
+                    [settings]="dropdownSettings"
+                    (onSelect)="onItemSelect($event)"
+                    (onDeSelect)="onItemDeSelect($event)"
+                    class="form-control"
+                  >
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="optionalField">
+                <div class="form-group">
+                  <label>Reference Code</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="list.referenceCode"
+                    [disabled]="disableFirstForm"
+                    name="referenceCode"
+                    placeholder="Reference Code"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="showCompany">
+                <div class="form-group">
+                  <label>Company</label>
+                  <select
+                    class="form-control"
+                    [(ngModel)]="list.cmpy"
+                    [disabled]="disableFirstForm"
+                    name="cmpy"
+                    #cmpy="ngModel"
+                    placeholder="Company"
+                  >
+                    <option [value]="undefined" selected hidden>
+                      Select a Company
+                    </option>
+                    <option
+                      *ngFor="let company of companyary"
+                      [value]="company._id"
+                    >
+                      {{ company.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            type="submit"
+            (click)="AddNewDoc(list)"
+            [disabled]="!dataForm.form.valid"
+            [hidden]="disableFirstForm"
+            class="btn btn-success"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            (click)="secondScreen()"
+            [disabled]="!disableFirstForm"
+            class="btn btn-primary pull-right"
+          >
+            Next
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header> Upload CSV File </nb-card-header>
+        <nb-card-body>
+          <div class="form-control">
+            <label>Select File :</label>
+            <input
+              type="file"
+              name="CSV File Upload"
+              (change)="fileChangeListener($event)"
+              accept=".csv"
+            />
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            [disabled]="!filedata"
+            (click)="addFile()"
+            class="btn btn-primary"
+          >
+            Import
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="initial === 'bankDetailsAdd'">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          Add Bank Details
+          <span class="fa-stack fa-1x pull-right">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <strong class="fa-stack-1x text-success">2</strong>
+          </span>
+        </nb-card-header>
+        <nb-card-body>
+          <form #bankForm="ngForm" autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Account Holder Name</label>
+                  <input
+                    type="text"
+                    minlength="{{ validation.fnameValid.minlength }}"
+                    maxlength="{{ validation.fnameValid.maxlength }}"
+                    pattern="{{ validation.fnameValid.pattern }}"
+                    #holdername="ngModel"
+                    required
+                    [(ngModel)]="bankList.holdername"
+                    name="holdername"
+                    placeholder="Account Holder Name"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Account Number</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="bankList.acctNo"
+                    #acctNo="ngModel"
+                    required
+                    name="acctNo"
+                    placeholder="Account Number"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Name of Bank</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="bankList.bankname"
+                    name="bankname"
+                    #bankname="ngModel"
+                    required
+                    placeholder="Name of Bank"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Bank Location</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="bankList.banklocation"
+                    #banklocation="ngModel"
+                    required
+                    name="banklocation"
+                    placeholder="Bank Location"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Email</label>
+                  <input
+                    type="email"
+                    email
+                    pattern="{{ validation.emailValid }}"
+                    #email="ngModel"
+                    required
+                    [(ngModel)]="bankList.email"
+                    name="email"
+                    placeholder="Payment Email"
+                    class="form-control"
+                  />
+                  <small
+                    *ngIf="email.invalid && email.dirty"
+                    class="form-text error"
+                  >
+                    Valid Email is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>IFSC Code / SWIFT Code</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="bankList.swiftCode"
+                    name="swiftCode"
+                    #swiftCode="ngModel"
+                    required
+                    placeholder="IFSC Code / SWIFT Code"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            class="btn btn-success"
+            [disabled]="!bankForm.form.valid"
+            (click)="addBankDetail(bankList)"
+          >
+            Submit
+          </button>
+          &nbsp;
+          <button (click)="firstScreen()" class="btn btn-primary">
+            go back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

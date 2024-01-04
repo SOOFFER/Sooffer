@@ -1,0 +1,36 @@
+<div class="main-container">
+    <div class="sub-main-div">
+        <section>
+            <div class=" my-profile mrgn-t-50 pading-btm">
+                <div class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12">
+                    <h3>My Profile</h3>
+                    <br>
+                    <br>
+                    <div class="mrgn-t-50" *ngIf="expandedprofile">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 drvr-profile-img  no_pad relative">
+                            <img [src]=SelectedUserPic>
+                            <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#exampleModal"></i>
+                            <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 drvr-profile-img  no_pad relative">
+                          <img src="{{SelectedUserPic}}" class="img-circle">
+                          <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#exampleModal"></i>-
+                        </div> -->
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 drve-profil-detail padding-leff-4">
+                            <h5>{{SetDetail.fname}} {{SetDetail.lname}}</h5>
+                            <p>{{SetDetail.gender}} | {{SetDetail.email}}</p>
+                            <!-- <p>
+                                <i class="fa fa-map-marker pading-right-1"></i>{{SetDetail.cityname}} | {{SetDetail.statename}} |
+                                {{SetDetail.cntyname}}
+                              </p> -->
+                            <p>My referal code:{{SetDetail.referal}}</p>
+                            <div class="edit-button" (click)="profiledetail($event)">
+                                <i class="fa fa-pencil"></i> View</div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

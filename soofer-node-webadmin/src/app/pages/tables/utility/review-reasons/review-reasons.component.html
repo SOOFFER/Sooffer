@@ -1,0 +1,22 @@
+<ngx-spinner></ngx-spinner>
+<nb-card>
+  <nb-card-header>
+    Feedback Reasons For Driver
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings1" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="updateRecord($event)"
+      (createConfirm)="addRecord($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Feedback Reasons For Rider
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings2" [source]="source2" (deleteConfirm)="onDeleteConfirmRider($event)"
+      (editConfirm)="updateRecordRider($event)" (createConfirm)="addRecordRider($event)" *ngIf="source2">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

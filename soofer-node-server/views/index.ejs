@@ -1,0 +1,74 @@
+<html><head>
+        <title>FAQ</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="bootstrap-accordions-faqs.css" rel="stylesheet">
+        <style type="text/css">
+        h2 {
+            font-family: Arial, Verdana;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #091f2f;
+            text-transform: uppercase;
+        }
+        .accordion-section .panel-default > .panel-heading {
+            border: 0;
+            background: #f4f4f4;
+            padding: 0;
+        }
+        .accordion-section .panel-default .panel-title a {
+            display: block;
+            font-size: 1.5rem;
+        }
+        .accordion-section .panel-default .panel-title a:after {
+            font-family: 'FontAwesome';
+            font-style: normal;
+            font-size: 3rem;
+            content: "\f106";
+            color: #1f7de2;
+            float: right;
+            margin-top: -12px;
+        }
+        .accordion-section .panel-default .panel-title a.collapsed:after {
+            content: "\f107";
+        }
+        .accordion-section .panel-default .panel-body {
+            font-family: 'Oldtown', fantasy;
+            font-size: 1.2rem;
+            background: #f5e290;
+        }
+
+        </style>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+</head>
+
+<body>
+        <section class="accordion-section clearfix mt-3" aria-label="Question Accordions">
+                <div class="container">
+                        <h2>Frequently Asked Questions </h2>
+                </div>
+                
+                <% for(var i=0; i < data.length; i++) { %> 
+                <div class="container"> 
+                      <div class="panel panel-default"> 
+                        <div class="panel-heading p-3 mb-3" role="tab" id="heading<%= i%>">
+                          <h3 class="panel-title">
+                            <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= i%>" aria-expanded="true" aria-controls="collapse<%= i%>">
+                                    <%= data[i].vTitle_EN%>? 
+                            </a>
+                          </h3>
+                        </div>
+                        <div id="collapse<%= i%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%= i%>">
+                          <div class="panel-body px-3 mb-4">
+                            <p><%= data[i].English%></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          
+                </div>
+                          <% } %>
+              </section>           
+</body></html>

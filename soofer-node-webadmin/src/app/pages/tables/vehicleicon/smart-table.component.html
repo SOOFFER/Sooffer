@@ -1,0 +1,90 @@
+<style type="text/css">
+	.action1 {
+		margin-top: 35px;
+	}
+</style>
+<div class="row">
+		<div class="col-lg-6">
+
+<ng-template [ngIf]="initial==1">
+	<nb-card>
+		<nb-card-header>
+			<div class="row">
+				<div class="col-xs-6 col-sm-8 col-md-8 col-lg-9">
+					{{title}}
+				</div>
+
+				<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+					<button type="button" (click)="btnClick();" class="btn btn-primary">Add Icon</button>
+
+				</div>
+			</div>
+
+
+
+		</nb-card-header>
+		<nb-card-body>
+			<ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+
+			</ng2-smart-table>
+		</nb-card-body>
+	</nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial==2">
+
+	<nb-card>
+
+		<nb-card-body>
+			<form>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Vehicle Type Icon ( width:150px , height 150px ) </label>
+						<input type="file"  (change)="fileEvent($event)" value="Vehicle Type Icon" />
+						<!-- <img width="150px" src={{baseurl+imageUrl}} alt='icon' /> -->
+					</div>
+				</div>
+
+			</form>
+			<button (click)="addRecord()" type="submit" class="btn btn-primary">Add Icon</button>
+			<!-- <button (click)="deleteRecord(selectedid)" type="submit" class="btn btn-primary">Delete</button> -->
+
+		</nb-card-body>
+
+	</nb-card>
+
+	<button (click)="goBack()" type="button" class="btn btn-danger">
+		Go Back
+	</button>
+
+</ng-template>
+<ng-template [ngIf]="initial==3">
+
+	<nb-card>
+
+		<nb-card-body>
+			<form>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label>Vehicle Type Icon </label>
+						<br/>
+						<!-- <input type="file" #fileupload [(ngModel)]="myFile" name="myFile" (change)="fileEvent($event)" value="Vehicle Type Icon" /> -->
+						<img width="150px" src={{baseurl+selectedDocs.image}} alt='icon' />
+					</div>
+				</div>
+
+			</form>
+			<!-- <button (click)="addRecord()" type="submit" class="btn btn-primary">Edit</button>-->
+		  <button (click)="deleteRecord(selectedDocs._id)" type="submit" class="btn btn-primary">Delete</button>  
+
+		</nb-card-body>
+
+	</nb-card>
+
+	<button (click)="goBack()" type="button" class="btn btn-danger">
+		Go Back
+	</button>
+
+</ng-template>
+</div>
+</div>

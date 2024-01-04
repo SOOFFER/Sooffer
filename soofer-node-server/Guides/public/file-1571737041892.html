@@ -1,0 +1,252 @@
+<html>
+
+<body>
+    <p>&nbsp;</p>
+    <div style="max-width: 850px; margin: 0 auto; width: 100%; box-shadow: 0px 3px 14px 0px rgba(0, 11, 40, 0.06);">
+        <table style="padding: 0px 25px; padding-bottom: 20px; width: 100%;">
+            <tbody>
+                <tr>
+                    <td style="width: 60%;">
+                        <div><img style="width: 215px; height: 50px; object-fit: cover;" src="{{mailLogo}}" /></div>
+                    </td>
+                    <td style="width: 40%; text-align: right;">
+                        <p style="font-size: 15px; margin-top: 8px; margin-bottom: 0px; display: block;">Booking No:
+                            {{tripno}}</p>
+                        <p style="font-size: 15px; margin-top: 8px; margin-bottom: 0px;">{{CUSTOMER_NAME&amp;PHONE_NO}}
+                        </p>
+                        <p style="font-size: 15px; margin-top: 8px; margin-bottom: 0px;">{{GST&amp;0}}</p>
+                        <p style="font-size: 15px; margin-top: 8px; margin-bottom: 0px;">{{datepaid}}</p>
+                        <!-- <button style="margin-top: 11px;background-color: #374d8f;color: #fff;border: none;padding: 8px 10px 7px;font-size: 15px;">Download Invoice</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="padding: 10px 25px;">
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="width: 100%; background-color: #374d8f; color: #fff; font-weight: bold;">
+                            <p style="text-transform: uppercase; text-align: center;">Thank you for using {{appname}}
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td
+                            style="width: 100%; background-color: #7aaa3a; color: #fff; font-weight: bold; padding: 10px 0;">
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 14px; display: block; margin-bottom: 8px;">
+                                total fare</p>
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 26px; display: block; margin-top: 0px; margin-bottom: 10px; font-weight: normal;">
+                                {{currency}} {{amountpaid}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%; border: 1px solid #ddd; margin-top: 25px;">
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #ddd;">
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 17px; display: block; margin-bottom: 8px;">
+                                Total distance</p>
+                            <p
+                                style="text-align: center; font-size: 16px; display: block; margin-bottom: 8px; font-weight: 600; margin-top: 8px;">
+                                {{distanceKM}}</p>
+                        </td>
+                        <td style="border: 1px solid #ddd;">
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 17px; display: block; margin-bottom: 8px;">
+                                Total travel time</p>
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 16px; display: block; margin-bottom: 8px; font-weight: 600; margin-top: 8px;">
+                                {{time}}</p>
+                        </td>
+                        <td style="border: 1px solid #ddd;">
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 17px; display: block; margin-bottom: 8px;">
+                                payment mode</p>
+                            <p
+                                style="text-align: center; font-size: 16px; display: block; margin-bottom: 8px; font-weight: 600; margin-top: 8px;">
+                                {{paymentmethod}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%; margin-top: 25px;">
+                <tbody>
+                    <tr>
+                        <th style="background-color: #262626; width: 50%;">
+                            <p
+                                style="text-transform: uppercase; text-align: center; font-size: 17px; display: block; margin-bottom: 8px; color: #fff; margin-top: 10px;">
+                                fare break up</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p
+                                                style="font-size: 16px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px; width: 250px; text-transform: capitalize;">
+                                                Distance fare({{dist}})</p>
+                                        </td>
+                                        <td style="width: 100%; margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                                style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;">
+                                                100</p>
+                                        </td>
+                                        <td style="margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                            style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;">
+                                           $</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p
+                                                style="font-size: 16px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px; width: 250px;">
+                                                Waiting fare({{waiting}})</p>
+                                        </td>
+                                        <td style="width: 100%; margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                            style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;">
+                                            100</p>
+                                        </td>
+                                        <td style="margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                            style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;">
+                                            $</p>
+                                        </td>
+                                    </tr>
+                                  
+                                    <tr>
+                                        <td>
+                                            <p style="font-size: 16px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px; width: 250px;">
+                                                Discount</p>
+                                        </td>
+                                            <td style="width: 100%; margin-top: 25px; padding: 10px 0;">
+                                                <p
+                                                style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;">
+                                                {{detect}}&nbsp; &nbsp; &nbsp;
+                                            </p>
+                                        </td>
+                                        <td style="margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                            style="font-size: 15px; display: block; margin-bottom: 8px; color: #262626; text-align: left; margin-top: 10px;"> {{currency}}
+                                        </p>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p  style="font-size: 16px; display: block; margin-bottom: 8px; color: #000; text-align: left; margin-top: 10px; width: 250px; font-weight: bold; text-transform: capitalize;">
+                                                netfare&nbsp;</p>
+                                        </td>
+                                        <td style="width: 100%; margin-top: 25px; padding: 10px 0;">
+                                            <p
+                                                style="font-size: 15px; display: block; margin-bottom: 8px; color: #000; text-align: left; margin-top: 10px; font-weight: bold;">
+                                                {{fare}}</p>
+                                        </td>
+                                        <td style=" margin-top: 25px; padding: 10px 0;">
+                                        <p style="font-size: 15px; display: block; margin-bottom: 8px; color: #000; text-align: left; margin-top: 10px; font-weight: bold;">
+                                            {{currency}} </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="width: 100%; text-align: center; background-color: #dbdbdb;">
+                            <p style="text-transform: uppercase; font-size: 15px;">Booking details</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 200px;">
+                            <p style="margin: 10px 0px;">Cab Type</p>
+                        </td>
+                        <td>
+                            <p style="margin: 10px 0px;">{{tripvehicle}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">
+                            <p style="margin: 10px 0px;">Pick up place &amp; time</p>
+                        </td>
+                        <td>
+                            <p style="margin: 10px 0px;">{{from}} &amp; {{starttime}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 200px;">
+                            <p style="margin: 10px 0px;">Drop place &amp; time</p>
+                        </td>
+                        <td>
+                            <p style="margin: 10px 0px;">{{tripto}} &amp; {{endtime}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="border-top: 2px solid #ddd; border-bottom: 2px solid #ddd;">
+                            <p style="text-align: right;">*Total Fare excludes Toll and parking charges.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p style="text-align: center; margin-bottom: 0px;">{{companyaddress}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%; border: 1px solid #ddd; margin-top: 25px;">
+                <tbody>
+                    <tr>
+                        <!-- <td style="border:1px solid #ddd;">
+                        <p style="text-transform:uppercase;text-align:center;font-size:17px;display:block;margin-bottom:8px;">gst</p>
+                        <p style="text-transform:uppercase;text-align:center;font-size:16px;display:block;margin-bottom:8px;font-weight:600;margin-top:8px;">{{GST_NO}}</p>
+                    </td>
+                    <td style="border:1px solid #ddd;">
+                        <p style="text-transform:uppercase;text-align:center;font-size:17px;display:block;margin-bottom:8px;">pan no</p>
+                        <p style="text-transform:uppercase;text-align:center;font-size:16px;display:block;margin-bottom:8px;font-weight:600;margin-top:8px;">{{PAN_NO}}	</p>
+                    </td> -->
+                        <td style="border: 1px solid #ddd;"><a
+                                style="text-align: center; font-size: 16px; display: block; margin-bottom: 8px; font-weight: 600; margin-top: 8px; color: #2446ad; text-decoration: underline;"
+                                href="{{link}}">{{link}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width: 100%; margin-top: 30px;">
+                <tbody>
+                    <tr>
+                        <td style="width: 100%; text-align: center; background-color: #dbdbdb;">
+                            <p style="text-transform: capitalize; font-size: 15px;">&copy; copyright {{appname}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

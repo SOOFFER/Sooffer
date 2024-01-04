@@ -1,0 +1,154 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+.nb-theme-default ng2-smart-table .ng2-smart-actions {
+  height: 100% !important;
+}
+
+.nb-theme-default nb-checkbox .customised-control-input:checked+.customised-control-indicator {
+  background-color: #5DBCD2 !important;
+}
+
+.nb-theme-default nb-checkbox .customised-control-input:checked+.customised-control-indicator::before {
+  border-color: #fff !important;
+}
+
+/* ul.menu-items li:last-child {
+  padding-bottom: 100px !important;
+} */
+
+/* ul.menu-items li.menu-item:last-of-type {
+  padding-bottom: 60px !important;
+} */
+.menu-items li:last-child {
+  padding-bottom: 200px;
+}
+
+#timepicker_input {
+  width: 100%;
+  border: none;
+}
+
+#timepicker_input:focus {
+  outline: none;
+}
+
+.context-menu .menu-items li:last-child {
+  padding: 0px;
+}
+
+ng2-smart-table {
+  overflow: auto;
+  width: 100%;
+  float: left;
+}
+
+ng-select>select-dropdown>div .options ul {
+  padding-left: 0.1rem !important
+}
+
+.ng2-smart-action-custom-custom {
+  position: relative;
+}
+
+ng-multiselect-dropdown.custom-drop .multiselect-dropdown .dropdown-btn {
+  padding: 0.75rem 1.125rem !important;
+  color: #2a2a2a !important;
+  background-color: #ffffff !important;
+  border: 2px solid #dadfe6 !important;
+  font-family: Roboto !important;
+  border-radius: 0.375rem !important;
+}
+
+i.nb-edit::before,
+i.ion-plus-round::before,
+i.ion-cash::before,
+i.ion-clipboard::before {
+  text-align: center;
+  width: 50px;
+  float: left;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 0px !important;
+}
+
+.nb-theme-default ng2-smart-table .ng2-smart-actions,
+.nb-theme-default ng2-smart-table .ng2-smart-th.child {
+  text-align: center !important;
+}
+
+.nb-theme-default nb-card-body {
+  overflow: visible !important;
+}
+
+.ngx-dorpdown-container /deep/.ngx-dropdown-list-container {
+  height: 200px;
+}
+
+body span.created-by {
+  display: none;
+}
+
+body ngx-pages /deep/span.created-by {
+  display: block !important;
+}
+
+body /deep/ng-select select-dropdown>div {
+  z-index: 999999 !important;
+}
+
+body /deep/ng-select>div {
+  outline: none;
+  padding: 0.58rem 1.125rem !important;
+}
+
+.red {
+  color: red;
+}
+
+body /deep/nb-sidebar.settings-sidebar.fixed {
+  display: none !important;
+}
+
+body /deep/ng-datepicker input.ngx-datepicker-input {
+  width: 100% !important;
+  border: none !important;
+}
+
+.ngx-datepicker-calendar-container {
+  z-index: 999 !important;
+}
+
+.nb-theme-default .input-group-addon, .nb-theme-default .form-control { 
+  height: auto;
+}
+
+select-dropdown>div {
+  position: absolute;
+  z-index: 2 !important;
+}
+
+
+/* Site Statistics */
+.area-chart
+{
+  height: 650px !important;
+}
+.pie-chart
+{
+  height: 650px !important;
+}
+
+.bar-chart
+{
+  height: 650px !important;
+}
+
+.duration-disp
+{
+  margin-top: 10px;
+  font-weight: 800;
+}

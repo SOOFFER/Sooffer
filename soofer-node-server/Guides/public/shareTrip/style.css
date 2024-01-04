@@ -1,0 +1,81 @@
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #818181;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenavbtn{font-size:30px;cursor:pointer;position:absolute;top:9px;left: 185px;background-color: #fff;padding: 0px 13px;border-radius: 8px;}
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+.defalult-continer{max-width:390px;}
+.image_inner_container{border-radius: 50%;padding: 3px;background: #833ab4;background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);width: 61px;height: 61px;float: none;text-align: center;margin-left: 15px;}
+
+.image_inner_container img{width: 55px;float: right;border-radius: 50%;height: 55px;border: 3px solid white;    object-fit: cover;}
+.driver-section{margin-bottom:10px;}
+.support-section{width: 100%;float: left;padding: 3px 20px;}
+.support-div{position: relative; width: 100%; float: left; display: block;bottom: 20px;}
+.name{cursor:pointer;}
+.details_sect{padding-left: 0;list-style-type: none;margin-bottom: 0;}
+.details_sect li .question{color: #353535;font-weight: 600;display: inline-block;}
+.details_sect li  .answer{ word-break: break-all;width: 100%;display: inline;}
+.glyphicon {
+
+    margin-right: 4px;
+}
+cite{color:#676767;}
+.pad-right{padding-right:0px;}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+@media screen and (max-width: 500px) {
+
+
+
+ }
+
+

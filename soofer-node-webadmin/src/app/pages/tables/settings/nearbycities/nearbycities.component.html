@@ -1,0 +1,76 @@
+<div *ngIf="initial; then list else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      Near By Cities of {{parentCityName}}
+      <button class="btn btn-primary pull-right" (click)="show()"> Add </button>
+    </nb-card-header>
+    <nb-card-body>
+      <ng-container>
+        <table class="table table-bordered" style="text-align: center">
+          <tr>
+            <th>Action</th>
+            <th>Near By City</th>
+            <th>Near By City Code</th>
+          </tr>
+          <tr *ngFor="let NBC of nearbyCities; let i = index">
+            <td>
+              <a (click)="DeleteDocs(NBC,i)">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+            <td>{{NBC.city}}</td>
+            <td>{{NBC.cityId}}</td>
+
+          </tr>
+          <tr *ngIf="nearbyCities.length == 0 || nearbyCities === '' ">
+            <td colspan="5">No data found</td>
+          </tr>
+        </table>
+        <hr>
+        <button class="btn btn-danger pull-left" (click)="NavigatetoMain()"> Go back </button>
+      </ng-container>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+
+
+<ng-template #detail>
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card>
+
+        <nb-card-header>
+          Add Near By Cities:
+        </nb-card-header>
+
+        <nb-card-body>
+
+          <form #dataForm="ngForm">
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="list.cityId" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event);" required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </form>
+          <button type="submit" (click)="AddDocs(list)" [disabled]="!dataForm.form.valid" class="btn btn-primary">ADD</button>
+
+
+        </nb-card-body>
+
+      </nb-card>
+    </div>
+  </div>
+
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+
+</ng-template>

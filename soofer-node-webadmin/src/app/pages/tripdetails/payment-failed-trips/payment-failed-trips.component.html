@@ -1,0 +1,44 @@
+<ng-template [ngIf]="initial === 0">
+  <nb-card>
+    <div class="row" style="margin: 15px 0px">
+      <div class="col-sm-12" style="float:right">
+        <button type="button" class="btn btn-primary pull-right" (click)="ExportAsCSV();">Export</button>
+      </div>
+    </div>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-8">
+          Card Payment Failed Trips
+        </div>
+        <div class="col-sm-4" *ngIf="showCity==true">
+          <form class="form-row">
+            <div class="col-md-6">
+              <select class="form-control" [(ngModel)]=" Doc.servicecity" name="servicecity" #servicecity="ngModel"
+                required placeholder="Service">
+                <option [value]="undefined" selected hidden>
+                  Search ServiceCity</option>
+                <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                  {{city.label}}
+                </option>
+                <option value="all" selected>
+                  All</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" (click)="SerachForCity(Doc);">Filter</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial === 1">
+  <ngx-invoice-details (backbtn)="goBack()" [fields]="getFields()">
+  </ngx-invoice-details>
+</ng-template>

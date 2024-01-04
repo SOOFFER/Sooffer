@@ -1,0 +1,18 @@
+@media screen and (max-width: 768px) {
+    .formlabel {
+        border-right: 0px;
+    }
+
+    .formlabel .forgotpwd {
+        margin-left: 10%;
+    }
+
+    .sociallink {
+        margin-left: -12px;
+    }
+
+    .notebox {
+        margin-right: 0px;
+        margin-top: -50px;
+    }
+}

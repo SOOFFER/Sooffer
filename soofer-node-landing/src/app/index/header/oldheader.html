@@ -1,0 +1,348 @@
+<div *ngIf="Menu == 0">
+  <header>
+    <div class="main-container">
+      <div class="sub-main-div">
+        <div class="">
+          <nav class="navbar">
+            <div class="navbar-header">
+              <div class="line-icon" (click)="menuoption(1)" ng-model="myCheck">
+                <div class="head-line"></div>
+                <div class="head-line"></div>
+                <div class="head-line"></div>
+              </div>
+              <button
+                type="button"
+                class="navbar-toggle"
+                data-toggle="collapse"
+                data-target="#myNavbar"
+              >
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" routerLink=""
+                ><img
+                  height="{{logoHeight}}"
+                  width="{{logoWidth}}"
+                  src="{{logoURL}}"
+              /></a>
+            </div>
+            <div class="">
+              <ul class="nav navbar-nav navbar-center">
+                <li class="app_link" title="Download Android APP For Rider">
+                  <a href="{{list.rider_link_Android}}" target="_blank"
+                    ><img src="assets/images/android.svg"
+                  /></a>
+                </li>
+                <li class="app_link" title="Download IOS APP For Rider">
+                  <a href="{{list.rider_link_Ios}}" target="_blank"
+                    ><img src="assets/images/apple-logo.svg"
+                  /></a>
+                </li>
+              </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <!-- <li class="app_link">
+									<a href=""><img src="assets/images/android.svg"></a>
+								</li>
+								<li class="app_link">
+									<a href=""><img src="assets/images/apple-logo.svg"></a>
+								</li> -->
+
+                <li>
+                  <a routerLink="">{{'COMMON.HOME' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="about">{{'COMMON.ABOUTUS' | translate}}</a>
+                </li>
+                <li *ngIf="showServiceCity">
+                  <a routerLink="servicecities"
+                    >{{'COMMON.SERVICECITY' | translate}}</a
+                  >
+                </li>
+                <li>
+                  <a routerLink="contact">{{'COMMON.CONTACTUS' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="help">{{'COMMON.HELP' | translate}}</a>
+                </li>
+                <li>
+                  <a routerLink="sign-in">{{'COMMON.SIGNIN' | translate}}</a>
+                </li>
+                <select
+                  class="home-lang"
+                  #langSelect
+                  (change)="translate.use(langSelect.value)"
+                >
+                  <option value="" selected hidden>Language</option>
+                  <option
+                    *ngFor="let list of translate.getLangs()"
+                    [value]="list"
+                    [selected]="list === translate.currentLang"
+                  >
+                    {{ list }}
+                  </option>
+                </select>
+              </ul>
+              <div class="lang"></div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+    <div class="leftlogin-sidbar {{menuclass}}">
+      <div class="back-img">
+        <h4>
+          <i class="closefilter" (click)="menuoption(2)"></i>{{'COMMON.MENU' |
+          translate}}
+        </h4>
+      </div>
+      <ul (click)="menuoption(2)">
+        <li>
+          <a routerLink=""
+            ><i class="fa fa-home"></i>{{'COMMON.HOME' | translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="about"
+            ><i class="fa fa-user"></i> {{'COMMON.ABOUTUS' | translate}}</a
+          >
+        </li>
+        <li *ngIf="showServiceCity">
+          <a routerLink="servicecities"
+            ><i class="fa fa-building-o"></i> {{'COMMON.SERVICECITY' |
+            translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="contact"
+            ><i class="fa fa-car"></i>{{'COMMON.CONTACTUS' | translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="help"
+            ><i class="fa fa-location-arrow"></i>{{'COMMON.HELP' |
+            translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="sign-in"
+            ><i class="fa fa-money"></i>{{'COMMON.SIGNIN' | translate}}</a
+          >
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+<div *ngIf="Menu == 1">
+  <header>
+    <div class="main-container">
+      <div class="sub-main-div">
+        <div class="container no_pad">
+          <nav class="navbar">
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <div class="navbar-header">
+                <div
+                  class="line-icon"
+                  (click)="menuoption(1)"
+                  ng-model="myCheck"
+                >
+                  <div class="head-line"></div>
+                  <div class="head-line"></div>
+                  <div class="head-line"></div>
+                </div>
+                <button
+                  type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target="#myNavbar"
+                >
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" routerLink=""
+                  ><img height="80" src="{{logoURL}}"
+                /></a>
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a routerLink="">{{'COMMON.HOME' | translate}}</a>
+                  </li>
+                  <li>
+                    <a routerLink="about">{{'COMMON.ABOUTUS' | translate}}</a>
+                  </li>
+                  <li *ngIf="showServiceCity">
+                    <a routerLink="servicecities"
+                      >{{'COMMON.SERVICECITY' | translate}}</a
+                    >
+                  </li>
+                  <li>
+                    <a routerLink="contact"
+                      >{{'COMMON.CONTACTUS' | translate}}</a
+                    >
+                  </li>
+                  <li>
+                    <a routerLink="help">{{'COMMON.HELP' | translate}}</a>
+                  </li>
+                  <li>
+                    <a routerLink="profile"
+                      >{{'COMMON.MYPROFILE' | translate}}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+    <div class="leftlogin-sidbar {{menuclass}}">
+      <div class="back-img">
+        <h4><i class="closefilter" (click)="menuoption(2)"></i></h4>
+      </div>
+      <ul (click)="menuoption(2)">
+        <li>
+          <a routerLink="profile"
+            ><i class="fa fa-user"></i>{{'COMMON.MYPROFILE' | translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="taxi"
+            ><i class="fa fa-car"></i> {{'COMMON.MYTAXIS' | translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="trips"
+            ><i class="fa fa-location-arrow"></i>{{'COMMON.MYTRIP' |
+            translate}}</a
+          >
+        </li>
+        <!-- <li><a routerLink="earnings"><i class="fa fa-money"></i> My Earning</a></li> -->
+        <li>
+          <button
+            type="button"
+            class="btn-link btn-btn-primary"
+            (click)="MYLogout()"
+          >
+            <i class="fa fa-inbox"></i>{{'COMMON.LOGOUT' | translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+<div *ngIf="Menu == 3">
+  <header>
+    <div class="main-container">
+      <div class="sub-main-div">
+        <div class="container no_pad">
+          <nav class="navbar">
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <div class="navbar-header">
+                <div
+                  class="line-icon"
+                  (click)="menuoption(1)"
+                  ng-model="myCheck"
+                >
+                  <div class="head-line"></div>
+                  <div class="head-line"></div>
+                  <div class="head-line"></div>
+                </div>
+                <button
+                  type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target="#myNavbar"
+                >
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" routerLink=""
+                  ><img height="80" src="{{logoURL}}"
+                /></a>
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a routerLink="">{{'COMMON.HOME' | translate}}</a>
+                  </li>
+                  <li>
+                    <a routerLink="about">{{'COMMON.ABOUTUS' | translate}}</a>
+                  </li>
+                  <li *ngIf="showServiceCity">
+                    <a routerLink="servicecities"
+                      >{{'COMMON.SERVICECITY' | translate}}</a
+                    >
+                  </li>
+                  <li>
+                    <a routerLink="contact"
+                      >{{'COMMON.CONTACTUS' | translate}}</a
+                    >
+                  </li>
+                  <li>
+                    <a routerLink="help">{{'COMMON.HELP' | translate}}</a>
+                  </li>
+                  <li>
+                    <a routerLink="riderprofile"
+                      >{{'COMMON.MYPROFILE' | translate}}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+    <div class="leftlogin-sidbar {{menuclass}}">
+      <div class="back-img">
+        <h4><i class="closefilter" (click)="menuoption(2)"></i></h4>
+      </div>
+      <ul (click)="menuoption(2)">
+        <li>
+          <a routerLink="dashboard-section"
+            ><i class="fa fa-tachometer" aria-hidden="true"></i
+            >{{'COMMON.MYDASHBOARD' | translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="riderprofile"
+            ><i class="fa fa-user" aria-hidden="true"></i>{{'COMMON.MYPROFILE' |
+            translate}}</a
+          >
+        </li>
+        <li>
+          <a routerLink="processing-trips"
+            ><i class="fa fa-car" aria-hidden="true"></i>{{'COMMON.MYTRIP' |
+            translate}}</a
+          >
+        </li>
+        <!-- <li><a routerLink="riderwallet"><i class="fa fa-location-arrow" aria-hidden="true"></i> My Wallet</a>
+				</li> -->
+        <li>
+          <button
+            type="button"
+            class="btn-link btn-btn-primary"
+            (click)="MYLogout()"
+          >
+            <i class="fa fa-sign-out" aria-hidden="true"></i>{{'COMMON.LOGOUT' |
+            translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

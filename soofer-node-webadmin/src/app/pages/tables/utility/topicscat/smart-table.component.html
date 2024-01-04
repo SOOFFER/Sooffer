@@ -1,0 +1,173 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-3">{{ title }}</div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <button type="button" (click)="btnClick()" class="btn btn-danger">
+            Add Catagory
+          </button>
+        </div>
+        <div class="col-sm-1">Select Language</div>
+        <div class="col-sm-1">
+          <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+            <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+              *ngIf="showTransOption">
+              <select #langSelect (change)="translate.use(langSelect.value)" (click)="getLang(langSelect.value)">
+                <option *ngFor="let list of translate.getLangs()" [value]="list"
+                  [selected]="list === translate.currentLang">
+                  {{ list }}
+                </option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Help Topics Category</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label>Status</label><br />
+              <input type="radio" value="on" name="eStatus" [(ngModel)]="selectedDocs.eStatus" #eStatus="ngModel" />on
+              <input type="radio" value="off" name="eStatus" [(ngModel)]="selectedDocs.eStatus" #eStatus="ngModel" />off
+            </div>
+            <div class="form-group">
+              <label>Order </label>
+              <select class="form-control" name="iDisplayOrder" required [(ngModel)]="selectedDocs.iDisplayOrder"
+                #iDisplayOrder="ngModel">
+                <option value="undefined" selected hidden>
+                  Select a Display Order
+                </option>
+                <option selected="selected" value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+
+              </select>
+              <small class="form-text error" *ngIf="iDisplayOrder.invalid && iDisplayOrder.dirty">
+                Order is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Category </label>
+              <input type="text" placeholder="Enter the Category" class="form-control" name="vTitle_EN" required
+                [(ngModel)]="selectedDocs.vTitle_EN" #vTitle_EN="ngModel" />
+              <small class="form-text error" *ngIf="vTitle_EN.invalid && vTitle_EN.dirty">
+                Category is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="editHelpCategory(selectedDocs)" [disabled]="!dataForm2.form.valid" type="Submit"
+            class="btn btn-primary">
+            Update
+          </button>
+          &nbsp;
+          <button (click)="deleteHelpCategory(selectedId)" type="button" class="btn btn-danger">
+            Delete
+          </button>
+          &nbsp;
+          <button (click)="btBack()" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-sm-5">Add Help Topics Category</div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">Select Language</div>
+            <div class="col-sm-1">
+              <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+                <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+                  *ngIf="showTransOption">
+                  <select #langSelect (click)="getLangs(langSelect.value)">
+                    <option *ngFor="let list of translate.getLangs()" [value]="list"
+                      [selected]="list === translate.currentLang">
+                      {{ list }}
+                    </option>
+                  </select>
+                </nb-action>
+              </nb-actions>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>Status</label><br />
+              <input type="radio" value="on" name="eStatus" [(ngModel)]="list.eStatus" #eStatus="ngModel" />on
+              <input type="radio" value="off" name="eStatus" [(ngModel)]="list.eStatus" #eStatus="ngModel" />off
+            </div>
+            <div class="form-group">
+              <label>Order </label>
+              <select class="form-control" name="iDisplayOrder" required [(ngModel)]="list.iDisplayOrder"
+                #iDisplayOrder="ngModel">
+                <option value="undefined" selected hidden>
+                  Select a Display Order
+                </option>
+                <option selected="selected" value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <small class="form-text error" *ngIf="iDisplayOrder.invalid && iDisplayOrder.dirty">
+                Order is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Category </label>
+              <input type="text" placeholder="Enter the Category" class="form-control" name="vTitle_EN" required
+                [(ngModel)]="list.vTitle_EN" #vTitle_EN="ngModel" />
+              <small class="form-text error" *ngIf="vTitle_EN.invalid && vTitle_EN.dirty">
+                Category is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="addHelpCategory(list)" [disabled]="!dataForm1.form.valid" type="Submit"
+            class="btn btn-success">
+            Add
+          </button>
+          &nbsp;
+          <button (click)="btBack()" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

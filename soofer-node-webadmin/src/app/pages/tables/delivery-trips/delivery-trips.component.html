@@ -1,0 +1,300 @@
+<ng-template [ngIf]="initial === 0">
+  <nb-card>
+    <nb-card-header>
+      Delivery Trips
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" (custom)="route($event)" [source]="source" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial === 1">
+
+  <nb-card>
+    <nb-card-header>
+      Delivery Trip Invoice : {{tripdetails.status}}
+      <!-- <span *ngIf="tripdetails.status === 'canceled'">({{tripdetails.review}})</span> -->
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <label class="form-control-label">Your Trip : {{tripdspdetails.tripno}} On {{tripdetails.date}} </label>
+          <div class="tripmap" style="height: 300px;">
+            <ngui-map zoom="13" center="{{tripdspdetails.pLat}},{{tripdspdetails.pLng}}" mapTypeId="terrain"
+              scrollwheel="false">
+              <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'" [strokeOpacity]="1"
+                [strokeWeight]="2"></polyline>
+            </ngui-map>
+          </div>
+          <br />
+          <br />
+          <!-- Estimated Location -->
+          <!-- Trip Location -->
+          <h5>Trip Location</h5>
+          <div class="form-group">
+            <label>Start :</label>
+            <p><b>{{tripdetails.from}}</b><br />
+            </p>
+            <label>End :</label>
+            <p><b>{{tripdetails.to}}</b><br />
+            </p>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row show-grid">
+              <div class="col-4 col-md-4">
+                <div align="center">vehicle Type</div>
+                <div align="center">
+                  <p><b>{{tripdetails.vehicle}}</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4" *ngIf="!showNoResponse">
+                <div align="center">Distance</div>
+                <div align="center">
+                  <p><b>({{Amountdetails.dist}} {{defaultUnit}})</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4" *ngIf="showNoResponse">
+                <div align="center">Distance</div>
+                <div align="center">
+                  <p><b>({{tripdspdetails.distanceKM}} {{defaultUnit}})</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4">
+                <div align="center">Trip time (Min)</div>
+                <div align="center">
+                  <p><b>{{tripcspdetails.time}}</b></p>
+                </div>
+              </div>
+              <div class="col-4 col-md-4">
+                <div align="center">OTP</div>
+                <div align="center">
+                  <p><b>{{tripdetails.tripOTP[0]}}</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4">
+                <div align="center">Request From</div>
+                <div align="center">
+                  <p><b>{{tripdetails.request}}</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <hr>
+          </div>
+          <div class="form-group">
+            <div class="row show-grid">
+              <div class="col-6 col-md-6">
+                <img alt="img" class="user-picture image" align="center" height="42" width="42"
+                  src="assets/images/driver.png">
+                <div align="center">Driver</div>
+                <div align="center">
+                  <p><b>{{tripdetails.dvr}}</b></p>
+                  <span>{{DriverAcceptedPhone}}</span>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <img _ngcontent-c3="" alt="img" class="user-picture image" align="center" height="42"
+                  src="assets/images/rider.png" width="42">
+                <div align="center">Rider</div>
+                <div align="center">
+                  <p><b>{{tripdetails.rid}}</b></p>
+                  <span>{{RiderPhone}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+						<div class="row show-grid">
+							<div class="col-6 col-md-6">
+								<div>ROUTE</div>
+								<p><b>{{tripdetails.adsp.dLat}}</b></p>
+							</div>
+							<div class="col-6 col-md-6">
+								<div>Rider</div>
+								<p><b>{{tripdetails.adsp.dLng}}</b></p>
+							</div>
+						</div>
+					</div>  -->
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <br>
+          <b><label class="form-control-label">Fare Breakdown For Trip No : {{tripdetails.tripno}} </label> </b>
+          <hr>
+          <div class="row show-grid">
+
+            <!-- <div class="col-md-4">
+              <div>Fare Type</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.fareType}}</div>
+            </div>
+            <br /> -->
+            <!-- <div class="col-md-4">
+              <div>Actual cost</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.actualcost}}</div>
+            </div>
+            <br /> -->
+            <div class="col-md-5">
+              <div>Base Fare</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.baseFare}}</div>
+            </div>
+            <br />
+
+            <div class="col-md-5">
+              <div>Distance Fare</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.distanceFare}}</div>
+            </div>
+            <br />
+
+            <div class="col-md-5">
+              <div>Commission</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.commision}}</div>
+            </div>
+            <br />
+
+            <div class="col-md-4">
+              <div>Time Fare</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.timeFare}}</div>
+            </div>
+            <br />
+
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+            <div class="col-md-4">
+              <div><b>Total Fare</b></div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div><b>{{Amountdetails.total}}</b></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <br />
+          <!-- Cancel Reasons -->
+          <ng-template #content let-modal let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Cancel A Trip</h4>
+              <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #cancelForm="ngForm">
+                <label>Reason</label>
+                <input type="text" [(ngModel)]="cancelTripDetails.reason" #reason="ngModel" name="reason"
+                  placeholder="Enter the Reason to Cancel A Trip" class="form-control" required />
+                <br>
+              </form>
+              <button type="submit" class="btn btn-info" [disabled]="!cancelForm.valid"
+                (click)="cancelTrip(cancelTripDetails);closed(d)">Submit</button>
+            </div>
+          </ng-template>
+          <!-- <div align="right">
+            <button class="btn btn-danger" [hidden]="!showCancelButton" (click)="openVerticallyCentered(content)">Cancel
+              Trip</button> &nbsp;
+            <button class="btn btn-primary" (click)="testHeader()">E-Mail</button> &nbsp;
+            <button class="btn btn-danger" (click)="deleteATripDetails()">Delete</button>
+          </div> -->
+          <!-- <hr> -->
+          <h5>Estimated Location</h5>
+          <div class="form-group">
+            <label>Start :</label>
+            <p><b>{{tripdetails['dsp'].start}}</b><br />
+            </p>
+            <label>End :</label>
+            <p><b>{{tripdetails['dsp'].end}}</b><br />
+            </p>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+
+          <hr>
+          <h5>Delivery Details</h5>
+          <table class="table table-bordered table-responsive-md">
+            <thead>
+              <tr>
+                <th>Package Type</th>
+                <th>Receiver Name</th>
+                <th>Phone No.</th>
+                <th>Package Details</th>
+                <th>Delivery Instruction</th>
+                <th>Pickup Instruction</th>
+              </tr>
+            </thead>
+            <tbody border="1">
+              <tr>
+                <td>{{deliveryDetails.packageType}}</td>
+                <td>{{deliveryDetails.receiverName}}</td>
+                <td>{{deliveryDetails.receiverMobile}}</td>
+                <td>{{deliveryDetails.packageDetail}}</td>
+                <td>{{deliveryDetails.deliveryInstruct}}</td>
+                <td>{{deliveryDetails.pickupInstruct}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card>
+    <nb-card-header>
+      Request Drivers List
+    </nb-card-header>
+    <nb-card-body>
+      <table class="table table-bordered table-responsive-md">
+        <thead>
+          <tr>
+            <th>Driver Code</th>
+            <th>Driver name</th>
+            <th>Phone No.</th>
+            <th>Current Service</th>
+            <th>Current Status</th>
+            <th>Status</th>
+            <th>Distance *({{defaultUnit}})</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="
+			 let drv of driverDetails" border="1">
+          <tr>
+            <td>{{drv.code}}</td>
+            <td>{{drv.fname}}</td>
+            <td>{{drv.phone}}</td>
+            <td>{{drv.curService}}</td>
+            <td>{{drv.curStatus}}</td>
+            <td>{{drv.called}}</td>
+            <td>{{drv.distVal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+  </nb-card>
+  <nb-card-footer>
+    <button (click)="goBack()" type="button" class="btn btn-danger">
+      Go Back
+    </button>
+  </nb-card-footer>
+</ng-template>

@@ -1,0 +1,102 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row" *ngIf="showCity == false">
+      <div class="col-md-6">Trip Reviews From Rider</div>
+    </div>
+    <div class="row" *ngIf="showCity == true">
+      <div class="col-sm-2">Trip Reviews From Rider</div>
+
+      <div class="col-md-2">
+        <select
+          class="form-control"
+          [(ngModel)]="Doc.servicecity"
+          name="servicecity"
+          #servicecity="ngModel"
+          required
+          placeholder="Service"
+        >
+          <option [value]="undefined" selected hidden>
+            Select a ServiceCity
+          </option>
+          <option *ngFor="let city of serviceCityArray" [value]="city.label">
+            {{ city.label }}
+          </option>
+          <option value="all" selected>show All</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="SerachForCity(Doc)"
+        >
+          Filter
+        </button>
+      </div>
+
+      <div class="col-md-6" style="display: inline-block; text-align: center">
+        <form
+          #dateForm="ngForm"
+          class="form-inline"
+          style="display: inline-block; text-align: center"
+        >
+          Ratings From: &nbsp;
+          <input
+            type="number"
+            nbInput
+            fieldSize="small"
+            min="0"
+            max="4"
+            (change)="changeInput($event)"
+            (focusout)="changeInput($event)"
+            name="fromDate"
+            #fromDate="ngModel"
+            [(ngModel)]="list.fromDate"
+            required
+            placeholder="From"
+            class="form-control"
+            onwheel="return false;"
+          />
+          &nbsp; To: &nbsp;
+          <input
+            type="number"
+            placeholder="To"
+            nbInput
+            min="1"
+            max="5"
+            fieldSize="small"
+            (change)="changeInput($event)"
+            (focusout)="changeInput($event)"
+            name="toDate"
+            #toDate="ngModel"
+            [(ngModel)]="list.toDate"
+            required
+            class="form-control"
+          />
+          &nbsp;&nbsp;
+          <button
+            type="button"
+            nbButton
+            size="xsmall"
+            [disabled]="list.fromDate >= list.toDate"
+            (click)="filterRes()"
+            class="btn btn-danger"
+          >
+            Filter</button
+          >&nbsp;&nbsp;
+        </form>
+      </div>
+    </div>
+    <br />
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source"
+      (custom)="route($event)"
+      *ngIf="source"
+    >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,109 @@
+<ng-template [ngIf]="initial === 0">
+  <nb-card>
+    <nb-card-header>
+      Driver Incentives
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)=route($event) *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial === 1">
+  <nb-card>
+    <nb-card-header>
+      Incentives
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Target Name (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="selectedList1.targetName" name="targetName" #targetName="ngModel"
+              placeholder="Target Name" class="form-control" required />
+            <small *ngIf="targetName.invalid && (targetName.dirty)" class="form-text error">
+              Target Name is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Target For (<span class="red">*</span>)</label>
+            <ng-select name="targetFor" [options]="tripFor" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedList1.targetFor" placeholder="Target For" required>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Target Time (<span class="red">*</span>)</label>
+            <ng-select name="targetTime" [options]="tripTime" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedList1.targetTime" placeholder="Target Time" required>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Status (<span class="red">*</span>)</label>
+            <ng-select name="status" [options]="tripStatus" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedList1.status" placeholder="Status" required>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" nbButton size="small" (click)="updateList1(selectedList1)" status="danger">Update</button>
+      &nbsp;
+      <button type="submit" nbButton size="small" (click)="goBack()" status="primary">Back</button>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Incentives Target Details
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Target (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="selectedList2.target" name="target" #target="ngModel" placeholder="Target"
+              class="form-control" required />
+            <small *ngIf="target.invalid && (target.dirty)" class="form-text error">
+              Target is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Target Amount (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="selectedList2.targetAmt" name="targetAmt" #targetAmt="ngModel"
+              placeholder="Target Amount" class="form-control" required />
+            <small *ngIf="targetAmt.invalid && (targetAmt.dirty)" class="form-text error">
+              Target Amount is required!
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Status (<span class="red">*</span>)</label>
+            <ng-select name="status" [options]="tripStatus" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedList2.status" placeholder="Status" required>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" nbButton size="small" (click)="updateList2(selectedList2)" status="danger">Update</button>
+      &nbsp;
+      <button type="submit" nbButton size="small" (click)="goBack()" status="primary">Back</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

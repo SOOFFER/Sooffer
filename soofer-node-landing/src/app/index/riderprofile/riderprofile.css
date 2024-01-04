@@ -1,0 +1,44 @@
+@media screen and (max-width: 768px) {
+    .drve-profil-detail .edit-button {
+        float: left;
+        margin-top: 20px;
+    }
+
+    .drve-profil-detail .edit-button.log {
+        float: right;
+        margin-top: 20px;
+        margin: 0;
+    }
+
+    .pading-btm {
+        margin-top: 10px !important;
+        padding-bottom: 0px;
+    }
+
+
+
+}
+
+
+.top-rel-phone {
+    top: -50px;
+}
+
+.pwd_email_box {
+    position: relative;
+    margin-top: 40px;
+}
+
+.pwd_email_box .postn-arrow {
+    top: -16px;
+
+}
+
+.custom-box {
+    top: 45px;
+}
+
+
+.postn-arrow-phone {
+    right: 22%;
+}

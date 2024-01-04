@@ -1,0 +1,28 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-4">
+        {{title}}
+      </div>
+      <div class="col-md-8">
+        <form #dateForm="ngForm" class="form-inline">
+          Ratings From: &nbsp;
+          <input type="number" nbInput fieldSize="small" min="0" max="4" (change)="changeInput($event)"
+            (focusout)="changeInput($event)" name="fromDate" #fromDate="ngModel" [(ngModel)]="list.fromDate" required
+            placeholder="From" class="form-control" />
+          &nbsp; To: &nbsp;
+          <input type="number" placeholder="To" nbInput fieldSize="small" min="1" max="5" (change)="changeInput($event)"
+            (focusout)="changeInput($event)" name="toDate" #toDate="ngModel" [(ngModel)]="list.toDate" required
+            class="form-control" />
+          &nbsp;&nbsp;
+          <button type="button" nbButton size="xsmall" [disabled]="(list.fromDate >= list.toDate)" (click)="filterRes()"
+            class="btn btn-danger">Filter</button>&nbsp;&nbsp;
+        </form>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

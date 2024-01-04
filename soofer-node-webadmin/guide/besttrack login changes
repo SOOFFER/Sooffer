@@ -1,0 +1,12 @@
+ 	--------------------include these lines in /home/abservetech/Sanjay/Projects/Angular Projects/Git Projects/citytrack_admin/node_modules/@nebular/auth/components/login/login.component.js inside NbLoginComponent.prototype.login = function () {  ---------> above this.submitted = true;
+--------------------------------------------------------------------------------------------------------------------------------------
+	
+	var navigator_info = window.navigator;
+        var screen_info = window.screen;
+        var uid = navigator_info.mimeTypes.length;
+        uid += navigator_info.userAgent.replace(/\D+/g, '');
+        uid += navigator_info.plugins.length;
+        uid += screen_info.height || '';
+        uid += screen_info.width || '';
+        uid += screen_info.pixelDepth || '';
+        this.user.deviceId = uid;

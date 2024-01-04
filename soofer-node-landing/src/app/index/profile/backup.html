@@ -1,0 +1,531 @@
+<ngx-spinner bdOpacity="0.9" bdColor="#333" size="medium" color="#fff" type="ball-clip-rotate-multiple">
+</ngx-spinner>
+
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <section>
+        <div class="my-profile mrgn-t-30 pading-btm">
+          <div class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12">
+            <h3>{{'COMMON.MYPROFILE' | translate}}</h3>
+
+            <div *ngIf="expandedprofile">
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 drvr-profile-img no_pad relative">
+                <img [src]="SelectedUserPic" />
+                <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#exampleModal"></i>
+              </div>
+              <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 drve-profil-detail padding-leff-4">
+                <div class="edit-button log" (click)="logout()">
+                  <i class="fa fa-sign-out"></i>{{'COMMON.LOGOUT' | translate}}
+                </div>
+                <h5>{{SetDetail.fname}}</h5>
+                <p>{{SetDetail.gender}} | Code: {{SetDetail.code}}</p>
+                <p>
+                  <i class="fa fa-map-marker pading-right-1"></i>{{SetDetail.cityname}} | {{SetDetail.statename}} |
+                  {{SetDetail.cntyname}}
+                </p>
+                <!-- <p>My referal code:{{4545}}</p> -->
+                <div class="edit-button" style="font-size: 17px !important" (click)="profiledetail($event)">
+                  <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!showProfileSave">
+              <div class="modal fade model-hide" id="exampleModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content modal-content-popup">
+                    <div class="modal-header">
+                      <button type="button" class="close" id="CloseButton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        {{'PROFILE.PROFILEPICUTRE' | translate}}
+                      </h5>
+                    </div>
+                    <div class="modal-body">
+                      <div id="click-result"></div>
+                      <div class="form-group">
+                        <label>{{'PROFILE.UPLOADFILE' | translate}}</label>
+                        <input class="form-control" type="file" (change)="fileEvent2($event)" value="Insurance" />
+                      </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                      <button type="button" (click)="setProfile()" class="btn btn-secondary savepopup">
+                        {{'PROFILE.SAVE' | translate}}
+                      </button>
+                      <button type="button" class="btn btn-primary cancelpopup" data-dismiss="modal">
+                        {{'PROFILE.CANCEL' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- profile-detail-hide -->
+            <div *ngIf="expandedprofiledetail">
+              <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-12">
+                <br />
+                <form name="editForm" #editForm="ngForm">
+                  <div class="form-group">
+                    <label>{{'CONTACT.EMAILADDSRESS' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" class="form-control" [(ngModel)]="SetDetail.email" #email="ngModel" name="email"
+                      required />
+                    <div *ngIf="email.errors && (email.dirty || email.touched)">
+                      <br />
+                      <small> Email is required</small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>{{'PROFILE.YOURFIRSTNAME' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" [(ngModel)]="SetDetail.fname" #fname="ngModel" name="fname" required
+                      class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label>{{'PROFILE.YOURLASTNAME' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="lname" [(ngModel)]="SetDetail.lname" #lname="ngModel" required
+                      class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label>{{'COMMON.SELECTCOUNTRY' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <select class="form-control" id="sel1" name="cnty" [(ngModel)]="SetDetail.cnty" #cnty="ngModel"
+                      (change)="GetState($event)" required>
+                      <option value="undefined" selected hidden>
+                        {{'COMMON.SELECTCOUNTRY' | translate}}
+                      </option>
+                      <option *ngFor="let country of countryary" [value]="country.value">
+                        {{country.label}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>{{'COMMON.SELECTSTATE' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <select class="form-control" id="sel1" name="state" [(ngModel)]="SetDetail.state"
+                      (change)="GetCity($event)" #state="ngModel" required>
+                      <option value="undefined" selected hidden>
+                        {{'COMMON.SELECTSTATE' | translate}}
+                      </option>
+                      <option *ngFor="let state of stateary" [value]="state.value">
+                        {{state.label}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>{{'COMMON.SELECTCITY' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <select class="form-control" id="sel1" name="city" [(ngModel)]="SetDetail.city"
+                      (change)="SetCity($event)" #city="ngModel" required>
+                      <option value="undefined" selected hidden>
+                        {{'COMMON.SELECTCITY' | translate}}
+                      </option>
+                      <option *ngFor="let city of cityary" [value]="city.value">
+                        {{city.label}}
+                      </option>
+                    </select>
+                  </div>
+                </form>
+                <div class="save-cancel-profile">
+                  <input name="save" type="submit" (click)="updateRecord('profile',SetDetail)" value="Save"
+                    class="sc-butn m-r-10" />
+                  <button (click)="profiledetail($event)" class="sc-butn">
+                    {{'PROFILE.CANCEL' | translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container mrgn-t-90 mrgn-b-50 edit-profile-epm prf">
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="mobilnum-box">
+              <h4>Driving Licence</h4>
+              <div *ngIf="SetDetail.licence;else no_licence">
+                <div class=" ">
+                  {{'PROFILE.EXPIREDATE' | translate}} :
+                  {{SetDetail.licenceexp}}
+                </div>
+                <hr />
+                <div class="">
+                  <div>
+                    <b>
+                      <a href="{{baseurl}}{{SetDetail.licence}}" target="_blank">
+                        {{'PROFILE.VIEW' | translate}}</a>
+                      <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#licenseModal"></i>
+                    </b>
+                  </div>
+                </div>
+              </div>
+
+              <ng-template #no_licence>
+                <div class=" ">
+                  <div class="form-group">
+                    <label>{{'PROFILE.DRIVINGLICENCENOTFOUND' | translate}}</label>
+                    <input class="form-control" style="text-align: center; display: initial; width: 80%" type="file"
+                      (change)="fileEvent($event)" value="Driving Licence" />
+                    <br /><br />
+                    <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                    <input class="form-control" style="text-align: center; display: initial; width: 80%" type="date"
+                      name="selectedDate" (change)="logDate($event)" />
+                    <br /><br />
+                    <button class="form-control" (click)="submitDriverDocs('licence')" type="submit"
+                      class="btn btn-primary">
+                      {{'DASHBOARD.SUBMIT' | translate}}
+                    </button>
+                  </div>
+                </div>
+                <div class=" "></div>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="mobilnum-box">
+              <h4>Aadhar Card</h4>
+              <div *ngIf="SetDetail.passing;else no_passing">
+                <!-- <div class=" ">
+                      Expire Date : {{SetDetail.passingexp}}
+                    </div> -->
+                <hr />
+                <div class="">
+                  <div>
+                    <b>
+                      <a href="{{baseurl}}{{SetDetail.passing}}" target="_blank">{{'PROFILE.VIEW' | translate}}</a>
+                      <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#passingModal"></i></b>
+                  </div>
+                </div>
+              </div>
+              <ng-template #no_passing>
+                <div class=" ">
+                  <div class="form-group">
+                    <label>Aadhar Card not found </label>
+                    <input class="form-control" style="text-align: center; display: initial; width: 80%" type="file"
+                      (change)="fileEvent($event)" value="Passing" />
+                    <br /><br />
+                    <!-- <label>Expire Date </label>
+                        <input class="form-control" style="text-align: center;display: initial;width: 80%;" type="date"
+                          name="selectedDate" (change)="logDate($event)" />
+                        <br> -->
+                    <br />
+                    <button class="form-control" (click)="submitDriverDocsWithoutExpiry('passing')" type="submit"
+                      class="btn btn-primary">
+                      {{'DASHBOARD.SUBMIT' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="mobilnum-box">
+              <h4>{{'PROFILE.ADDRESSPROOF' | translate}}</h4>
+              <div *ngIf="SetDetail.insurance;else no_insurance">
+                <!-- <div class=" ">
+                        Expire Date : {{SetDetail.insuranceexp}}
+                      </div> -->
+                <hr />
+                <div class=" ">
+                  <div>
+                    <b>
+                      <a href="{{baseurl}}{{SetDetail.insurance}}" target="_blank">{{'PROFILE.VIEW' | translate}}</a>
+                    </b>
+                  </div>
+                  <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#insuranceModal"></i>
+                </div>
+              </div>
+
+              <ng-template #no_insurance>
+                <div class=" ">
+                  <div class="form-group">
+                    <label>{{'PROFILE.ADDRESSPROOFNOTFOUND' | translate}}</label>
+                    <input class="form-control" style="text-align: center; display: initial; width: 80%" type="file"
+                      (change)="fileEvent($event)" value="Insurance" />
+                    <br /><br />
+                    <!-- <label>Expire Date </label>
+                          <input class="form-control" style="text-align: center;display: initial;width: 80%;" type="date"
+                            name="selectedDate" (change)="logDate($event)" />
+                          <br><br> -->
+                    <button class="form-control" (click)="submitDriverDocsWithoutExpiry('insurance')" type="submit"
+                      class="btn btn-primary">
+                      {{'DASHBOARD.SUBMIT' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container mrgn-t-25 mrgn-b-50 edit-profile-epm">
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="email-box">
+              <h4>{{'CONTACT.EMAILADDSRESS' | translate}}</h4>
+              <p>{{SetDetail.email}}</p>
+              <i class="fa fa-envelope faenvelope"></i>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="mobilnum-box">
+              <h4>{{'CONTACT.PHONE' | translate}}</h4>
+              <p>{{SetDetail.phone}}</p>
+              <div class="pwd-box-edit show-phonenumber" (click)="editmobile($event)">
+                <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+              </div>
+              <i class="fa fa-unlock-alt falock"></i>
+            </div>
+            <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 pad25 relative " > -->
+
+            <!-- </div> -->
+
+            <div class="col-xs-12 box_2 no-pad">
+              <div class="phone-box-1" *ngIf="expandededitmobile">
+                <h4>
+                  <i class="fa fa-mobile"></i>&nbsp;&nbsp;&nbsp;{{'CONTACT.PHONE' | translate}}
+                </h4>
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <div class="form-group">
+                    <label>{{'CONTACT.PHONE' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="phone" class="form-control" form="editForm" [(ngModel)]="SetDetail.phone"
+                      #phone="ngModel" required />
+                  </div>
+                </div>
+
+                <div class="save-cancel-butn">
+                  <input name="save" type="submit" value="Save" (click)="updateRecord('phone',SetDetail)"
+                    class="sc-butn m-r-10" />
+                  <button class="sc-butn" (click)="editmobile($event)">
+                    {{'PROFILE.CANCEL' | translate}}
+                  </button>
+                </div>
+              </div>
+              <img src="assets/images/arrow-top.jpg" class="postn-arrow-phone" />
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="email-box">
+              <h4>{{'PROFILE.BANKDETAILS' | translate}}</h4>
+              <!-- <p>example@gmail.com</p> -->
+              <div class="pwd-box-edit" (click)="editemail($event)">
+                <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+              </div>
+              <i class="fa fa-envelope faenvelope"></i>
+            </div>
+            <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 pad25 relative " > -->
+
+            <!-- </div> -->
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-sm-offset-6">
+            <div class="pwd-box-1" *ngIf="expandedemaildetail">
+              <h4>
+                <i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;&nbsp;{{'PROFILE.BANKDETAILS' | translate}}
+              </h4>
+              <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label>{{'COMMON.PAYMENTEMAIL' | translate}}
+                    <span class="astrick">&nbsp;*</span>
+                  </label>
+                  <input type="text" [(ngModel)]="SetDetail.actMail" form="editForm" #actMail="ngModel" name="actMail"
+                    required class="form-control" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label>Cedula Number
+                    <span class="astrick">&nbsp;*</span>
+                  </label>
+                  <input type="text" [(ngModel)]="SetDetail.actCode" form="editForm" #actCode="ngModel" name="actCode"
+                    required class="form-control" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label>{{'PROFILE.ACCOUNTBANK' | translate}}
+                    <span class="astrick">&nbsp;*</span>
+                  </label>
+                  <input type="email" name="actBank" [(ngModel)]="SetDetail.actBank" class="form-control"
+                    form="editForm" [(ngModel)]="SetDetail.actBank" #actBank="ngModel" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label>{{'PROFILE.ACCOUNTNO' | translate}}
+                    <span class="astrick">&nbsp;*</span>
+                  </label>
+                  <input type="actNo" name="actNo" [(ngModel)]="SetDetail.actNo" class="form-control" form="editForm"
+                    [(ngModel)]="SetDetail.actNo" #actBank="ngModel" />
+                </div>
+              </div>
+              <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                <div class="form-group">
+                  <label>{{'PROFILE.ACCOUNTLOCATION' | translate}}
+                    <span class="astrick">&nbsp;*</span>
+                  </label>
+                  <input type="actLoc" name="actLoc" [(ngModel)]="SetDetail.actLoc" class="form-control" form="editForm"
+                    [(ngModel)]="SetDetail.actLoc" #actLoc="ngModel" />
+                </div>
+              </div>
+              <div class="save-cancel-butn">
+                <input name="save" type="submit" value="Save" (click)="updateRecord('bank',SetDetail)"
+                  class="sc-butn m-r-10" />
+                <button class="sc-butn" (click)="editemail($event)">
+                  {{'PROFILE.CANCEL' | translate}}
+                </button>
+              </div>
+              <img src="assets/images/arrow-top.jpg" class="postn-arrow" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- popup model start here -->
+      <!--  popup model Insurance end here -->
+      <div class="modal fade model-hide" id="insuranceModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content modal-content-popup">
+            <div class="modal-header">
+              <button type="button" class="close" id="ClsBtn1" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title" id="exampleModalLabel">
+                {{'PROFILE.ADDRESSPROOF' | translate}}
+              </h5>
+            </div>
+            <div class="modal-body">
+              <strong>
+                <div>{{documentMessage}}</div>
+              </strong>
+              <div class="form-group">
+                <label>{{'PROFILE.ADDRESSPROOF' | translate}}</label>
+                <input class="form-control" type="file" (change)="fileEvent($event)" value="Insurance" />
+                <br />
+                <!-- <label>Expire Date </label>
+                <input class="form-control" type="date" name="selectedDate" (change)="logDate($event)" /> -->
+              </div>
+            </div>
+            <div class="modal-footer text-center">
+              <div class="form-group">
+                <button (click)="submitDriverDocsWithoutExpiry('insurance','ClsBtn1')" type="submit"
+                  class="btn btn-secondary savepopup">
+                  {{'DASHBOARD.SUBMIT' | translate}}
+                </button>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary cancelpopup" data-dismiss="modal">
+                  {{'PROFILE.CANCEL' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end -->
+      <!--  popup model License end here -->
+      <div class="modal fade model-hide" id="licenseModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content modal-content-popup">
+            <div class="modal-header">
+              <button type="button" class="close" id="ClsBtn2" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title" id="exampleModalLabel">
+                {{'PROFILE.LICENCE' | translate}}
+              </h5>
+            </div>
+            <div class="modal-body">
+              <strong>
+                <div>{{documentMessage}}</div>
+              </strong>
+              <div class="form-group">
+                <label>{{'PROFILE.DRIVINGLICENCE' | translate}} </label>
+                <input class="form-control" type="file" (change)="fileEvent($event)" value="Driving Licence" />
+                <br />
+                <label>{{'PROFILE.EXPIREDATE' | translate}}</label>
+                <input class="form-control" type="date" name="selectedDate" (change)="logDate($event)" />
+              </div>
+              <div class="modal-footer text-center">
+                <div class="form-group">
+                  <button (click)="submitDriverDocs('licence','ClsBtn2')" type="submit"
+                    class="btn btn-secondary savepopup">
+                    {{'DASHBOARD.SUBMIT' | translate}}
+                  </button>
+                </div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-primary cancelpopup" data-dismiss="modal">
+                    {{'PROFILE.CANCEL' | translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end -->
+      <!--  popup model Passing end here -->
+      <div class="modal fade model-hide" id="passingModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content modal-content-popup">
+            <div class="modal-header">
+              <button type="button" class="close" id="ClsBtn3" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title" id="exampleModalLabel">Aadhar Card</h5>
+            </div>
+            <div class="modal-body">
+              <strong>
+                <div>{{documentMessage}}</div>
+              </strong>
+              <div class="form-group">
+                <label>Aadhar Card </label>
+                <input class="form-control" type="file" (change)="fileEvent($event)" value="Taxi Passing" />
+                <!-- <br>
+                <label>Expire Date </label>
+                <input class="form-control" type="date" name="selectedDate" (change)="logDate($event)" /> -->
+              </div>
+              <div class="modal-footer text-center">
+                <div class="form-group">
+                  <button (click)="submitDriverDocsWithoutExpiry('passing','ClsBtn3')" type="submit"
+                    class="btn btn-secondary savepopup">
+                    {{'DASHBOARD.SUBMIT' | translate}}
+                  </button>
+                </div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-primary cancelpopup" data-dismiss="modal">
+                    {{'PROFILE.CANCEL' | translate}}
+                  </button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end -->

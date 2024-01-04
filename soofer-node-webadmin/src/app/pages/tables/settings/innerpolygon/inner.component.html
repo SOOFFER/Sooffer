@@ -1,0 +1,29 @@
+  <!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fff" type="ball-spin-clockwise">
+  </ngx-spinner> -->
+
+  <ngx-spinner bdOpacity=0.9 bdColor="#333" size="large" color="#fff" type="ball-spin-clockwise">
+  </ngx-spinner>
+
+  <nb-card>
+    <nb-card-header>
+      Inner polygon
+    </nb-card-header>
+    <nb-card-body>
+      <ngui-map zoom={{zoom}} style="height:600px" center={{location}} scrollwheel="true">
+        <polygon [clickable]="false" [editable]="true" *ngIf="paths.length!=0" [draggable]="false" [paths]="paths"
+          [strokeColor]="'#FFC107'" [strokeOpacity]="0.8" [strokeWeight]="2" [fillColor]="'#FFC107'"
+          [fillOpacity]="0.35" (click)="getWindow($event)" (mouseout)="getPoints($event)">
+        </polygon>
+        <drawing-manager [draggable]="true" *ngIf="paths.length===0" [drawingMode]="'polygon'" [drawingControl]="true"
+          [drawingControlOptions]="{position: 2,drawingModes:['polygon']}" (polygoncomplete)="setPoints($event)">
+        </drawing-manager>
+      </ngui-map>
+      <br />
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="button" (click)="updateLoc()" class="btn btn-primary">Update
+        Location
+      </button> &nbsp;
+      <button type="button" (click)="goback()" class="btn btn-primary">GO Back</button>
+    </nb-card-footer>
+  </nb-card>

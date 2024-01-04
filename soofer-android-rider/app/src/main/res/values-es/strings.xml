@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sooffer</string>
+    <string name="app_superbname">Sooffer</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/profile</item>
+        <item>@string/wallet</item>
+        <item>@string/trip</item>
+        <item>@string/invite</item>
+        <item>@string/Contacts</item>
+        <item>@string/support</item>
+        <item>@string/offers</item>
+        <item>@string/favorite</item>
+        <item>@string/notification</item>
+    </string-array>
+    <string name="default_notification_channel_id">1</string>
+    <string name="welcome_title">Nos encanta que ahora seas parte de Sooffer</string>
+    <string name="favorite_location">Lugar favorito</string>
+    <string name="login">Acceder</string>
+    <string name="notification">Notificación.</string>
+    <string name="register">Registro</string>
+    <string name="favorite">Agregar lugar favorito</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="drawer_open">Cajón abierto</string>
+    <string name="drawer_close">Cajón cerrado</string>
+
+    <!-- navigation drawer item labels  -->
+
+    <string name="profile">Mi perfil</string>
+    <string name="payment">Pago</string>
+    <string name="wallet">Mi Wallet</string>
+    <string name="trip">Mis viajes</string>
+    <string name="invite">Invitar amigos</string>
+    <string name="Contacts">Contacto de emergencia</string>
+    <string name="support">Soporte</string>
+
+    <string name="invite_code">Comparte tu código de invitación</string>
+
+    <string name="email">Correo electronico</string>
+    <string name="mobile">Celular</string>
+    <string name="language">Idioma</string>
+    <string name="currency">Moneda</string>
+    <string name="plasces">Lugares</string>
+    <string name="home_address">Direccion</string>
+    <string name="home_place">Lugar del domicilio</string>
+    <string name="work_address">Direccion del trabajo</string>
+    <string name="work_place">Lugar del trabajo</string>
+
+    <string name="cc">CC</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="contact_us">Contáctanos</string>
+    <string name="terms_amp_condition">Términos y condiciones</string>
+    <string name="privacy_policy">Politicas y privacidad</string>
+    <string name="about_us">Acerca de nosotros</string>
+    <string name="faq">Preguntas mas frecuentes</string>
+    <string name="driver">Conductor</string>
+    <string name="rider">Usuario</string>
+    <string name="general">General</string>
+    <string name="feature_of_cabs">Característica de las cabinas</string>
+    <string name="how_to">Cómo</string>
+    <string name="book_cancel">Cómo cancelar tu reserva?</string>
+    <string name="simply_tab">Simplemente toque cancelar el botón cancelar</string>
+    <string name="how_workings">Cómo funciona?</string>
+    <string name="login_to_the_rider">Inicie sesión en la aplicación Ride y seleccione el tipo de automóvil apropiado Ingrese el destino y envíe la solicitud a los conductores</string>
+    <string name="signups_as">¿Cómo registrarse como usuaro?</string>
+    <string name="appstore">En primer lugar, descarga la aplicación Express Track Passenger de Playstore. Después de la instalación, vaya a la página de registro y los detalles de llenado.</string>
+    <string name="driver_signup">FEn primer lugar, descargue la aplicación Express Track Driver de Playstore. Después de la instalación, vaya a la página de registro y complete los detalles requeridos. Después de registrarse, agregue su vehículo y documentos. Una vez que su cuenta esté verificada y activada, puede conectarse y aceptar la solicitud de viaje.</string>
+    <string name="how_driver_signup">Cómo registrarse como conductor?</string>
+    <string name="send_query">Enviar consulta</string>
+    <string name="card_details">Detalles de consulta</string>
+    <string name="add_card">Agregar tarjeta</string>
+    <string name="card_type">Tipo de tarjeta</string>
+    <string name="visa">Visa</string>
+    <string name="cvv">cvv</string>
+    <string name="no_card_available">Tarjeta no disponible</string>
+    <string name="please_add_your_card_to_use_card_payment">Agregue su tarjeta para usar el pago con tarjeta</string>
+    <string name="please_wait">Por favor espere</string>
+    <string name="enter_card_details">Detalles de tarjeta invalidos</string>
+    <string name="your_balance">tu Balance</string>
+    <string name="view_transcations">Ver transacciones</string>
+    <string name="add_money">Agregar dinero</string>
+    <string name="it_s_safe_and_secure">Es seguro y protegido</string>
+    <string name="recharge_amount">Cantidad de recarga</string>
+    <string name="by_proceeding_ahead_you_agree_to_our_terms_amp_n_privacy_policy">Para continuar, aceptanuestros términos y políticas de privacidad</string>
+    <string name="view_terms_amp_privacy_policy">Ver términosy políticas de privacidad</string>
+    <string name="notes">Notas</string>
+    <string name="no_transaction_available">Transaccion no disponible</string>
+    <string name="your_transcations">Tus transacciones</string>
+    <string name="no_trip_data">Sin fecha de viaje</string>
+    <string name="internet_connect">Alerta de conexion de internet</string>
+    <string name="connection">Por favor verifica la conexion de tu internet</string>
+    <string name="please_added_card">Por favor agregue una tarjeta</string>
+    <string name="ok">OK</string>
+
+    <string name="offers">Ofertas</string>
+    <string name="enter_Valid_otp">Ingrese su  OTP</string>
+    <string name="your_trip_has_ended_please_rate_your_rider">Gracias, no olvide calificar nuestro servicio</string>
+
+    <string name="bill_date">Fecha de pago</string>
+    <string name="discount_applied">Descuento aplicado</string>
+    <string name="distance">Distancia</string>
+    <string name="time">Tiempo</string>
+
+    <string name="distance_fare">Tarifa de distancia</string>
+    <string name="time_fare">Tarifa de espera</string>
+    <string name="balance_fare">Tarifa de cancelacion</string>
+    <string name="detected_fare">Tarifa detectada</string>
+    <string name="how_was_your_ride">Como fue su viaje?</string>
+    <string name="enter_your_comments">Ingrese sus comentarios</string>
+
+    <string name="pickup_address">Direccion de recogida</string>
+    <string name="drop_address">Direccion de destino</string>
+
+
+    <string name="pickup_fee">Tarifa de recogida</string>
+    <string name="access_fee">Tarifa de acceso</string>
+    <string name="flat_fee">Tarifa plana</string>
+    <string name="payment_method">Modo de pago</string>
+
+    <string name="something_went_wrong">Algo salio mal</string>
+    <string name="delete">Borrar</string>
+    <string name="ride_faress">tarifa de viaje</string>
+    <string name="pickup_addressss">Direccion de recogida</string>
+    <string name="search">Buscar</string>
+    <string name="recent_and_favorite_places">Lugares favoritos</string>
+    <string name="poor_network">Mala conexion de internet</string>
+    <string name="invite_friends">Invitar amigos</string>
+    <string name="code_and_earn_the_referral_amount">codifica y gana la cantidad de referencia</string>
+    <string name="invite_your_friends_by_sharing_above_invite">Invita a tus amigos compartiendo arriba invitar</string>
+    <string name="emergency_contact">Contacto de emergencia</string>
+    <string name="make_your_travel_safe">Haz que tu viaje sea seguro</string>
+    <string name="send_alert_to_your_friends_family">Enviar alerta a sus amigos / familiares</string>
+    <string name="members_in_case_of_an_emergency">Miembros en casa de emergencia</string>
+    <string name="please_add_them_to_your">Por favor agrégalos a tu</string>
+    <string name="you_can_add_up_to_2_contacts">Puedes agregar hasta 2 contactos</string>
+    <string name="add_contacts">Agregar Contactos</string>
+    <string name="forgot_password">Has olvidado tu contraseña</string>
+    <string name="your_trip">Mi viaje</string>
+    <string name="book_your_ride">Reserve su viaje</string>
+    <string name="invoice"> <u>Factura de viaje</u></string>
+    <string name="i_agree_to_the_terms_amp_condition_and_privacy_policy">Acepto los términos y condiciones y la política de privacidad</string>
+    <string name="by_continuing_you_may_receive_an_sms_for_verification_message_and_date_rate_may_apply">Si continúa, puede recibir un sms para su verificación. Se pueden aplicar tarifas de mensajes y fechas.</string>
+    <string name="please_keep_stops_to_3_minutes_or_less">Mantenga las paradas a 3 minutos o menos</string>
+    <string name="as_a_courtesy_for_your_driver_s_time_please_limit_each_stop_to_3_minutes_or_less_otherwise_your_fare_may_change">Como cortesía por el tiempo de su conductor, limite cada parada a 3 minutos o menos; de lo contrario, su tarifa puede cambiar</string>
+    <string name="done">Hecho</string>
+    <string name="enter_the_email_address_you_used_to_register">Ingrese el número de celular que utilizó para registrarse</string>
+    <string name="pickupss">Recogida</string>
+    <string name="stops">Parada</string>
+    <string name="drop">Destino</string>
+    <string name="enter_your_message">Ingrese su mensaje</string>
+    <string name="getting_address">Obteniendo dirección ...</string>
+    <string name="please_select_your_Address">Por favor seleccione su direccion</string>
+    <string name="camera">Camara</string>
+    <string name="gallery">Galeria</string>
+    <string name="your_driver">Su conductor</string>
+    <string name="card">Tarjeta</string>
+    <string name="profiles">Perfil</string>
+    <string name="home">Inicio</string>
+    <string name="work">Trabajo</string>
+    <string name="other">Otro</string>
+    <string name="name_your_favorite_ex_gym">Nombra tu favorito (EX.Gym)</string>
+
+    <string name="save">Guardar</string>
+    <string name="night_charge_apply">\"Se aplica cargo nocturno"</string>
+    <string name="pleask_charge_App">\"Se aplica un cargo pico\"</string>
+    <string name="base_package">Paquete base</string>
+    <string name="package_km_fare">Tarifa del paquete Mile</string>
+    <string name="fare_for_remaining_km">Tarifa por Mile restante</string>
+    <string name="remaining_time_fare">Tarifa por tiempo restante</string>
+    <string name="discount">Descuento</string>
+    <string name="total_fare">Tarifa total</string>
+    <string name="total_bill">Cuenta total</string>
+    <string name="view_fare_detals">Ver detalle de tarifa</string>
+    <string name="km_fare">Tarifa Mile</string>
+    <string name="waiting_fare">Tarifa de espera</string>
+    <string name="pickup_fare">Tarifa de recogida</string>
+    <string name="access_fare">Tarifa de acceso</string>
+    <string name="cancellation_fare">Tarifa de cancelacion</string>
+    <string name="trip_details">Detalle del viaje</string>
+    <string name="status">\"Estado"</string>
+    <string name="required">Exigir</string>
+    <string name="resend_otp">Reenviar OTP</string>
+    <string name="book_rebustar_outstation">Reserva Sooffer fuera de la ciudad</string>
+    <string name="drop_location_is_outsite_city_limits_continue_booking_outstation_instead">La ubicación de la entrega está fuera de los límites de la ciudad. ¿Continuar reservando Fuera de la ciudad en su lugar?</string>
+    <string name="change_drop">Cambiar destino</string>
+    <string name="continues">Continuar</string>
+    <string name="enter_your_promo_code">Ingresar el codigo de promocion</string>
+    <string name="okay">OK</string>
+
+    <string name="please_enter_your_coupon_code">Por favor ingresa el codigo del cupon</string>
+    <string name="submit">Enviar</string>
+    <string name="save_as_favourite">Guardar como favorito</string>
+    <string name="find_your_favourite_locations_by_tapping_the_search_bar_and_easy_selection_them_next_time">Agreagr a tu lista de lugares favoritos.</string>
+    <string name="go_it">VAMOS</string>
+    <string name="enter_subject_here">Ingrese el asunto aquí</string>
+    <string name="write_your_query_here">Escriba su consulta aquí</string>
+    <string name="enter_your_first_name">Ingrese su nombre</string>
+    <string name="enter_valid_email_id">Ingrese un correo electronico valido</string>
+    <string name="enter_your_mobile_number">Ingrese su numero de celular</string>
+    <string name="update_information">Actualizar información</string>
+    <string name="enter_the_email_or_mobile">Ingrese su correo electrónico o numero de celular válido</string>
+    <string name="enter_the_password">Introduce la contraseña</string>
+    <string name="email_or_phone">Correo electrónico o número de celular</string>
+    <string name="password">Contraseña</string>
+    <string name="forgot_passwordss">¿Has olvidado tu contraseña?</string>
+    <string name="card_no">Tarjeta NO</string>
+    <string name="enter_minum_maximum">Ingrese 4 como mínimo a 12 caracteres</string>
+    <string name="enter_password_minimum_maximum">Ingrese el mínimo de 6 a 12 caracteres</string>
+    <string name="enter_mobile_number_minmum_maximum">Ingrese el mínimo de 6 a 15 caracteres</string>
+    <string name="first_name">Nombres</string>
+    <string name="last_name">Apellidos</string>
+    <string name="email_address">Correo electrónico</string>
+    <string name="mobile_number">Número de celular</string>
+    <string name="referral_invite_code_optional">Código de recomendación / invitación (opcional)</string>
+    <string name="all">TODO</string>
+    <string name="wallet_in">WALLET IN</string>
+    <string name="wallet_out">WALLET OUT</string>
+    <string name="view_transaction">Ver transacción</string>
+    <string name="past">PASADO</string>
+    <string name="upcoming">PRÓXIMAMENTE</string>
+    <string name="show_fare_details">Mostrar detalles de tarifa</string>
+    <string name="base_fare">Tarifa base</string>
+    <string name="fare_for_remaining_kmss">Tarifa por mile restante</string>
+    <string name="fare_for_remaining_hours">Tarifa por horas restantes</string>
+    <string name="taxes_amp_fees"><![CDATA[Taxes & fees]]></string>
+    <string name="driver_allowance">Propina para conductor</string>
+    <string name="night_time_allowance">Propina de noche</string>
+    <string name="taxes">Impuestos</string>
+    <string name="estimated_fare">Tarifa estimada</string>
+    <string name="description">Descripción</string>
+    <string name="cash">Efectivo</string>
+    <string name="apply_coupon">Aplicar cupón</string>
+    <string name="coupon">Cupón</string>
+    <string name="confirm_booking">Confirmar</string>
+    <string name="one_way_trip_of_about">\" Viaje de ida \"</string>
+    <string name="roud_trip_of_about">\" viaje de ida y vuelta  \"</string>
+    <string name="your_are_not_eligible_for_outstation_request">No eres elegible para ir a otra ciudad</string>
+    <string name="please_select_the_return_by_time">Seleccione la hora de regreso</string>
+    <string name="select">Seleccione</string>
+    <string name="book_your_outstation_ride">Reserve su viaje para otras ciudades</string>
+    <string name="one_way">Solo ida</string>
+    <string name="round_trip">Ida y vuelta</string>
+    <string name="get_dropped_off">Llegada</string>
+    <string name="keep_car_till_return">Conservar el vehículo hasta el regreso</string>
+    <string name="leave_on">Dejar</string>
+    <string name="date">Fecha</string>
+    <string name="return_by">Fecha de regreso</string>
+    <string name="select_cab_type">Seleccione el tipo de transporte</string>
+    <string name="info">Información</string>
+    <string name="both_up_and_down_amount_will_be_applicable_for_one_way_trip">Se aplicará tanto el aumento como el descenso para el viaje de ida</string>
+    <string name="select_package">Seleccionar paquete</string>
+    <string name="select_cab">Seleccionar transporte</string>
+    <string name="cab_name">Nombre de transporte</string>
+    <string name="pickup_location">Lugar de recogida</string>
+    <string name="approx_ride_fare">Tarifa aproximada de viaje</string>
+    <string name="use_wallet">Usar Wallet</string>
+    <string name="searching_for_nearby_driver">Buscando conductor cercano ......</string>
+
+    <string name="set_date">Establece la fecha</string>
+    <string name="set_time">Seleccione la hora</string>
+    <string name="waiting_time">Tiempo de espera</string>
+    <string name="time_Fares">Tarifa de tiempo</string>
+    <string name="base_fares">Tarifa base</string>
+    <string name="hill_station_fee">Hill station Fee</string>
+    <string name="call">Llamar</string>
+    <string name="message">Mensaje</string>
+    <string name="cancel">Cancelar</string>
+    <string name="share">Compartir</string>
+    <string name="are_you_sure_you_want_to_logout">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="logout">Cierre sesión</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="driver_has_accepted_your_trip_request">El conductor ha aceptado su solicitud de viaje</string>
+    <string name="your_driver_is_on_the_way">Su conductor está en camino</string>
+    <string name="driver_has_arrived">El conductor ha llegado</string>
+    <string name="welcome_happy_ride">Bienvenido feliz VIAJE</string>
+    <string name="your_trip_has_eded">Su viaje ha terminado</string>
+    <string name="ride_later">Reserve su viaje</string>
+    <string name="request_now">Solicitar ahora</string>
+    <string name="no_vehicle">No vehiculo</string>
+    <string name="send">Enviar</string>
+    <string name="enter_invoice_email_address">Ingrese su correo electrónico</string>
+    <string name="enter_email_address">Ingrese su correo electrónico</string>
+    <string name="cancel_trip">Cancelar viaje</string>
+    <string name="are_you_sure_wanna_cancel_trip">¿Está seguro que desea cancelar el viaje?</string>
+    <string name="enter_password_minimum">Ingrese su contraseña Mínimo 6 caracteres</string>
+    <string name="enter_Valid_confirmation_password">Ingrese su contraseña válida </string>
+    <string name="enter_your_otp">Ingrese su OTP</string>
+    <string name="enter_valid_otp">Ingrese su OTP válida</string>
+    <string name="minimum_fare">Tarifa mínima</string>
+    <string name="booking_id">ID de reserva:</string>
+    <string name="vehilce_type">Tipo de vehiculo :</string>
+    <string name="toll_fee">Peaje</string>
+    <string name="day_fare">Tarifa diurna</string>
+    <string name="google_fare">Cobro de Google</string>
+    <string name="night_fare">Tarifa nocturna</string>
+    <string name="send_invoice">Enviará la factura</string>
+    <string name="d_taxi_functioning_under_the_control_of_department_of_industries_amp_commerce"><![CDATA[D-Taxi Functioning Under the Control of Department of Industries & Commerce]]></string>
+    <string name="government_of_tamil_nadu">Gobierno</string>
+    <string name="booking">Tarifa de reserva</string>
+    <string name="gateway_charge">Cobro de enlace</string>
+    <string name="sorry_no_cabs_are_available">No se encontró ningún conductor, póngase en contacto con el servicio de asistencia para realizar la reserva</string>
+
+    <string name="logouts">Cerrar sesión</string>
+    <string name="versions">\" ( Versión :\"</string>
+    <string name="logings">Cargando</string>
+    <string name="wait_while_loading">Espere mientras carga…</string>
+    <string name="add_location">Añadir lugar</string>
+    <string name="please_choose_your_profile_picture">Por Favor Elija Una Foto De perfil</string>
+    <string name="credit_amp_debit_card_fee_4_0_30_cents_per_transaction_for_card_payment">Recargo por pago con tarjeta de crédito y débito 4% + 0,30 </string>
+    <string name="remove">Eliminar</string>
+    <string name="no_data">Sin datos</string>
+
+    <string name="agora_app_id">ba6c4bfd46af4a40b11458e191e0d54b</string>
+    <string name="agora_access_token">#YOUR ACCESS TOKEN#</string>
+    <string name="search_destination">Destino de búsqueda</string>
+    <string name="ride">Conducir</string>
+    <string name="hourly">Cada hora</string>
+    <string name="two_driver">conductor</string>
+    <string name="where_to">¿A donde?</string>
+    <string name="now">Ahora</string>
+    <string name="ride_to_home">Viaje a casa</string>
+    <string name="request_now_home">Solicitar ahora</string>
+    <string name="vehicle_number">Número de vehículo</string>
+    <string name="vehicle_make_amp_model">Marca del vehículo</string>
+    <string name="car_deliver_location">Ubicación de entrega de automóviles</string>
+    <string name="vehicle_model">Modelo de vehículo</string>
+    <string name="vehicle_color">Color del vehículo</string>
+    <string name="skip">Evitar</string>
+    <string name="tips">Ingrese el monto de su propina</string>
+    <string name="add_stop">Añadir parada</string>
+    <string name="completed">finalizado</string>
+
+    <string name="male">Masculina</string>
+    <string name="female">Femenino</string>
+    <string name="choose_driver_type">elegir conductor</string>
+    <string name="choose_driver_type_male">Conductor seleccionado No disponible</string>
+    <string name="no_female_driver_available">No hay conductor femenino disponible , ¡Elija amablemente conductores masculinos! </string>
+    <string name="choose_driver">No hay mujeres conductoras disponibles</string>
+
+</resources>

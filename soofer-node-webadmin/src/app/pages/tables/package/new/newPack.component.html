@@ -1,0 +1,216 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-8">
+          Driver Payment Package List
+        </div>
+        <div class="col-md-2">
+          <select *ngIf="showCity == true" name="servicecity" [(ngModel)]="list.servicecity" class="form-control"
+            (change)="FilterRes(list.servicecity)">
+            <option value="undefined" selected hidden>Service Availale City</option>
+            <option [value]=city.label *ngFor="let city of ServiceCity">{{city.label}}</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="button" (click)="Addnewbutton();" class="btn btn-danger ">Add New Package</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>
+          Add New Package
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>Name Of the Package</label>
+              <input type="text" [(ngModel)]="list.name" #name="ngModel" name="name" required placeholder="Name"
+                class="form-control" />
+              <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                Package name is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Package Type</label>
+              <select class="form-control" #type="ngModel" name="type" [(ngModel)]="list.type" required>
+                <option value="undefined" selected hidden>Select a Package Type</option>
+                <option *ngFor="let sp of packageType" [value]="sp">{{sp | titlecase}}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="list.type=='subscription'">
+              <label>Select Vehicle Type</label>
+              <select class="form-control" #vehicletype="ngModel" name="vehicletype" [(ngModel)]="list.vehicletype"
+                required>
+                <option value="undefined" selected hidden>Select a Vehicle Type</option>
+                <option *ngFor="let sp of vehicleType" [value]="sp.type">{{sp.type | titlecase}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="list.type === 'subscription'">
+              <div class="form-group">
+                <label>Amount Of the Package</label>
+                <input type="number" [(ngModel)]="list.amount" #amount="ngModel" name="amount" required
+                  placeholder="Amount" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty)" class="form-text error">
+                  Package amount is required!
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>Package Validity (Number of Days)</label>
+                <input type="number" [(ngModel)]="list.PackageValidity" #PackageValidity="ngModel"
+                  name="PackageValidity" required placeholder="Validity (Number of Days)" class="form-control" />
+                <small *ngIf="PackageValidity.invalid && (PackageValidity.dirty)" class="form-text error">
+                  Package Validity is required!
+                </small>
+              </div>
+              <div class="form-group" *ngIf="servicecity==true">
+                <label>Service Available City</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="cities" [data]="dropdownList"
+                  required [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="form-control">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+
+            <div *ngIf="list.type === 'topup' || list.type === 'commission'">
+              <div class="form-group">
+                <label>Amount Of the Package</label>
+                <input type="number" [(ngModel)]="list.amount" #amount="ngModel" name="amount" required
+                  placeholder="Amount" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty)" class="form-text error">
+                  Package amount is required!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Credits for the Package</label>
+                <input type="number" [(ngModel)]="list.credit" #credit="ngModel" name="credit" required
+                  placeholder="Credit" class="form-control" />
+                <small *ngIf="credit.invalid && (credit.dirty)" class="form-text error">
+                  Package credit is required!
+                </small>
+              </div>
+              <div class="form-group" *ngIf="servicecity==true">
+                <label>Service Available City</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="cities" [data]="dropdownList"
+                  required [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="form-control">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="AddNewDoc(list)" [disabled]="!dataForm1.form.valid"
+            class="btn btn-success">Submit</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>
+          Edit Package
+          <button (click)="btnClick(0)" class="btn btn-primary pull-right">go back</button>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>Name Of the Package</label>
+              <input type="text" [(ngModel)]="selectedDoc.name" #name="ngModel" name="name" required placeholder="Name"
+                class="form-control" />
+              <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                Package name is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Package Type</label>
+              <select class="form-control" #type="ngModel" name="type" [(ngModel)]="selectedDoc.type" required>
+                <option value="undefined" selected hidden>Select a Package Type</option>
+                <option *ngFor="let sp of packageType" [value]="sp">{{sp | titlecase}}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="selectedDoc.type === 'subscription'">
+              <label>Select Vehicle Type</label>
+              <select class="form-control" #vehicletype="ngModel" name="vehicletype"
+                [(ngModel)]="selectedDoc.vehicletype" required>
+                <option value="undefined" selected hidden>Select a Vehicle Type</option>
+                <option *ngFor="let sp of vehicleType" [value]="sp.type">{{sp.type | titlecase}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="selectedDoc.type === 'subscription'">
+              <div class="form-group">
+                <label>Amount Of the Package</label>
+                <input type="number" [(ngModel)]="selectedDoc.amount" #amount="ngModel" name="amount" required
+                  placeholder="Amount" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty)" class="form-text error">
+                  Package amount is required!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Package Validity (Number of Days)</label>
+                <input type="number" [(ngModel)]="selectedDoc.PackageValidity" #PackageValidity="ngModel"
+                  name="PackageValidity" required placeholder="Validity (Number of Days)" class="form-control" />
+                <small *ngIf="PackageValidity.invalid && (PackageValidity.dirty)" class="form-text error">
+                  Package Validity is required!
+                </small>
+              </div>
+              <div class="form-group" *ngIf="servicecity==true">
+                <label>Service Available City</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="cities" [data]="dropdownList"
+                  required [(ngModel)]="selectedDoc.scIds" [settings]="dropdownSettings" class="form-control">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <!-- // commission -->
+            <div *ngIf="selectedDoc.type === 'topup' || selectedDoc.type === 'commission'">
+              <div class="form-group">
+                <label>Amount Of the Package</label>
+                <input type="number" [(ngModel)]="selectedDoc.amount" #amount="ngModel" name="amount" required
+                  placeholder="Amount" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty)" class="form-text error">
+                  Package amount is required!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Credits for the Package</label>
+                <input type="number" [(ngModel)]="selectedDoc.credit" #credit="ngModel" name="credit" required
+                  placeholder="Credit" class="form-control" />
+                <small *ngIf="credit.invalid && (credit.dirty)" class="form-text error">
+                  Package credit is required!
+                </small>
+              </div>
+              <div class="form-group" *ngIf="servicecity==true">
+                <label>Service Available City</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="cities" [data]="dropdownList"
+                  required [(ngModel)]="selectedDoc.scIds" [settings]="dropdownSettings" class="form-control">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" (click)="UpdateNewDoc(selectedDoc)" [disabled]="!dataForm1.form.valid"
+            class="btn btn-success">Submit</button> &nbsp;
+          &nbsp;
+          <button type="button" (click)="DeleteDoc(selectedId);" class="btn btn-danger">Delete</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+    <!-- [disabled]="!dataForm.form.valid"  -->
+  </div>
+</ng-template>

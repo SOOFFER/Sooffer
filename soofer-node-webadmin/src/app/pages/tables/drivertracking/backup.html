@@ -1,0 +1,150 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+          Drivers Tracking
+      </div>
+      <div class="col-md-2">
+        <select *ngIf="showCity == true" class="form-control" name="servicecity" [(ngModel)]="list.servicecity" (change)="FilterRes(list.servicecity)" >
+          <option value="undefined" selected hidden>Service Available City</option>
+          <option [value]="city.label" *ngFor = "let city of ServiceCity">{{city.label}}</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div class="col=md-2">
+        <button type="button" class="btn btn-info pull-right" (click)="refVehicle()">Vehicle Refresh</button>
+      </div>
+      <div class="col-md-2">
+          <button (click)="ReloadPage()"  type="button"
+          class="btn btn-primary pull-right">Refresh</button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Vehicle Type </label>
+          <select class="form-control custom-select" name="serviceTypeId" (change)="getAPI(list.serviceTypeId)" required
+            placeholder="Vehicle Type" [(ngModel)]="list.serviceTypeId" #serviceTypeId="ngModel">
+            <option value="undefined" selected="selected" hidden> Select Vehicle Type </option>
+            <option value="ALL">All</option>
+            <option *ngFor="let vehicle of vehicleary" [value]="vehicle.type">
+              {{vehicle.type}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="col-md-3">
+        <div class="form-group">
+          <label> Driver Status </label>
+          <select class="form-control custom-select" name="driverStatus"
+            (change)="getDriverStatus($event,list.driverStatus)" required placeholder="Driver Status"
+            [(ngModel)]="list.driverStatus" #serviceTypeId="ngModel">
+            <option [ngValue]="undefined" hidden selected> Select Driver Status </option>
+            <option *ngFor="let drvst of driverStatusArr" [value]="drvst.value">
+              {{drvst.label}}
+            </option>
+          </select>
+        </div>
+      </div> -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Search Driver </label>
+          <div class="input-group mb-4">
+            <input nbInput fieldSize="small" class="form-control" type="text" [(ngModel)]="inputsearch"
+              name="inputsearch" required placeholder="Phone Number or Driver Code" />
+            <div class="input-group-append ">
+              <button (click)="search()" nbButton size="xsmall" [disabled]="!inputsearch" type="button"
+                class="btn btn-primary">search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Search Location </label>
+          <div class="input-group mb-3">
+            <input nbInput fieldSize="small" places-auto-complete (place_changed)="listenDropLocation($event)"
+              [types]="['geocode']" [(ngModel)]="dropLocation" name="dropLocation"
+              [componentRestrictions]="{country: 'in'}" placeholder="Search Location" class="form-control" />
+            <div class="input-group-append ">
+              <button class="btn btn-primary" nbButton size="xsmall" type="button" [disabled]="!dropLocation"
+                (click)="getfare();">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ngui-map center={{location}} zoom={{zoom}} style="height:600px; width:100%;" scrollwheel="true">
+      <marker *ngFor="let pos of positions;let item of resList" (click)="clicked($event,pos.coords)"
+        [position]="pos.coords" [icon]="{
+                        url: pos.image,
+                        anchor: [16,16],
+                       size: [36,48],
+                        scaledSize: [29,47]
+                      }">
+        <info-window id="iw">
+          <div *ngIf="marker">
+            <b>
+              <h5>Name: {{marker.fname}},
+                <br> Phone: {{ marker.phone }},
+                <br> Code: {{ marker.code }},
+                <br> Make Name: {{ marker.makename}}
+                <br> Model : {{ marker.model }}
+                <br> <span *ngIf="marker.curTrip">Trip No: {{ marker.curTrip }} </span> </h5>
+            </b>
+          </div>
+        </info-window>
+      </marker>
+    </ngui-map>
+  </nb-card-body>
+  <nb-card-footer>
+    <table class="table" style="text-align: center;">
+      <tbody>
+        <tr>
+          <td>Free (Online)</td>
+          <td>Free (Offline)</td>
+          <td>Accepted</td>
+          <td>onPickup (Active)</td>
+          <td>Arrived</td>
+          <td>In Trip</td>
+        </tr>
+        <tr>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('free')" src="assets/images/active.png"></td>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('offline')" src="assets/images/inactive.png"></td>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('Accept')" src="assets/images/onpick.png"></td>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('onPickup')" src="assets/images/onpick.png"></td>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('Arrived')" src="assets/images/onpick.png"></td>
+          <td><img style="cursor: pointer" (click)="getDriverStatus('Progress')" src="assets/images/progress.png"></td>
+        </tr>
+        <tr>
+          <td>{{freeOnlineDrv}} Drivers</td>
+          <td>{{freeOfflineDrv}} Drivers</td>
+          <td>{{acceptDrv}} Drivers</td>
+          <td>{{pickupDrv}} Drivers</td>
+          <td>{{arrivedDrv}} Drivers</td>
+          <td>{{inTripDrv}} Drivers</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-footer>
+</nb-card>
+
+<style>
+  select.custom-select {
+    height: calc(2rem + 5px) !important;
+    padding: 2px 15px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  table>tbody>tr>td {
+    border: none;
+  }
+
+</style>

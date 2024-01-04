@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>
+    Car Make and Model
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="updateRecord($event)"
+      (createConfirm)="addRecord($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

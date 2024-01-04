@@ -1,0 +1,48 @@
+<div class="col-md-6">
+    <nb-card>
+        <nb-card-header>
+            Office Details
+        </nb-card-header> 
+        <nb-card-body>
+            <form #DataForm ="ngForm">
+                    <div class="form-group">
+                            <label> Office Address (<span class="red">*</span>)</label>
+                            <input type="text" class="form-control" name="address" [(ngModel)]="list.address" #address="ngModel"
+                            required placeholder =" Enter Office Address">
+                            <small *ngIf="address.invalid && (address.dirty)" class="form-text error" >
+                                Office Address is Required!
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>Office Mail (<span class="red">*</span>) </label>
+                            <input type="text" class="form-control" pattern={{valid}} name="mail" [(ngModel)]="list.mail" #mail="ngModel"
+                            required placeholder="Enter Office Mail">
+                            <small *ngIf="mail.invalid && (mail.dirty)" class="form-text error">
+                                Office Mail is invalid!
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>Support Number (<span class="red">*</span>)</label>
+                            <input type="number" class="form-control" name="phone" [(ngModel)]="list.phone" #phone="ngModel" 
+                            required placeholder="Enter Support Number">
+                            <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                                Support Number is Required!
+                            </small>
+                        </div>
+                        <div class="form-group" *ngIf="this.servicecity == true">
+                            <label>Servie Avaliable City(<span class="red">*</span>) </label>
+                            <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+                            [(ngModel)]="list.scIds" required [settings]="dropdownSettings" class="form-control">
+                          </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                            <nb-checkbox status="info" name="isSupportNoEnable" [(ngModel)]="list.isSupportNoEnable">Support Number Enable for Mobile</nb-checkbox>
+                        </div>
+            </form>
+               
+        </nb-card-body>
+        <nb-card-body>
+            <button type="submit" (click)="AddData(list)" [disabled]="!DataForm.valid" class="btn btn-info">Add</button>
+        </nb-card-body>
+    </nb-card>
+</div>

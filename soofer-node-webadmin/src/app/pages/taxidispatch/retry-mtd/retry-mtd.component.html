@@ -1,0 +1,551 @@
+<ngx-spinner></ngx-spinner>
+<form #dataForm="ngForm">
+  <nb-card>
+    <nb-card-header>Retry MTD</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Phone Number (<span class="red">*</span>)</label>
+            <div class="input-group mb-3">
+              <input type="tel" [(ngModel)]="list.phone" disabled name="phone" id="phone" #phone="ngModel"
+                placeholder="Phone Number" class="form-control" />
+              <div class="input-group-append ">
+                <button class="btn btn-primary" type="button" disabled tabindex="-1">Check</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Name (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="list.name" name="name" disabled placeholder="Enter Name"
+              class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Email ID</label>
+            <div class="input-group mb-3">
+              <input type="email" [(ngModel)]="list.email" disabled name="email" placeholder="Enter Email"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="required">Trip Type (<span class="red">*</span>)</label>
+            <ng-select name="TripTypeComboBox" #tripTypeComboBox placeholder="Select a Trip type"
+              filterPlaceholder="Type to search a Trip type" notFoundMsg="No Trip types found." disabled
+              [noFilter]="noFilterThreshold" [(ngModel)]="list.tripType" [options]="TripType"
+              (selected)="tripTypeDoAssignSelected($event);" (deselected)="tripTypeDoUnassignDeselected($event);"
+              class="">
+              <ng-template #optionTemplate let-option="option">
+                <span class="{{option.value}}">{{option.label}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="list.name && list.phone">
+        <div class="col-md-6" *ngIf="list.tripType!=='rental'">
+          <div class="form-group">
+            <label class="form-control-label" for="pickupLocation">Pickup Location (<span class="red">*</span>)</label>
+            <input places-auto-complete [disabled]="disableFields" (place_changed)="listenPickupLocation($event);"
+              [types]="['geocode']" [(ngModel)]="list.pickupLocation" #pickupLocation="ngModel"
+              [componentRestrictions]="{country: 'in'}" name="pickupLocation" placeholder="Pickup Location"
+              class="form-control" />
+            <div>
+              <span class="form-text error" *ngIf="!list.pickupLocation">
+                Please select a pickup location.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="list.tripType==='daily'">
+          <div class="form-group">
+            <label class="form-control-label" for="dropLocation">Drop Location (<span class="red">*</span>)</label>
+            <div class="input-group mb-3">
+              <input places-auto-complete (place_changed)="listenDropLocation($event);" [types]="['geocode']"
+                [(ngModel)]="list.dropLocation" name="dropLocation" [componentRestrictions]="{country: 'in'}"
+                #dropLocation="ngModel" placeholder="Drop Location" class="form-control" />
+              <div class="input-group-append ">
+                <button class="btn btn-primary" type="button" [disabled]="!list.dropLocation || !list.pickupLocation"
+                  (click)="getfare();">Get Available Vehicles</button>
+              </div>
+            </div>
+            <div>
+              <span class="form-text error" *ngIf="!list.dropLocation">
+                Please select a drop location.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="list.tripType==='rental'">
+          <div class="form-group">
+            <label class="form-control-label" for="pickupLocation">Pickup Location (<span class="red">*</span>)</label>
+            <div class="input-group mb-3">
+              <input places-auto-complete [disabled]="disableFields" (place_changed)="listenPickupLocation($event);"
+                [types]="['geocode']" [(ngModel)]="list.pickupLocation" #pickupLocation="ngModel"
+                [componentRestrictions]="{country: 'in'}" name="pickupLocation" placeholder="Pickup Location"
+                class="form-control" />
+              <div class="input-group-append">
+                <!-- [disabled]="!list.pickupLocation" -->
+                <button class="btn btn-primary" type="button" [disabled]="disableFields" (click)="getPack();">Get
+                  Package</button>
+              </div>
+            </div>
+            <div>
+              <span class="form-text error" *ngIf="!list.pickupLocation">
+                Please select a pickup location.
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="list.tripType==='rental'">
+          <div class="form-group">
+            <label class="required" for="rentalPackageBox">Select a Package (<span class="red">*</span>)</label>
+            <select name="rentalPackage" [disabled]="disableFields" class="form-control"
+              (change)="rentalPackageDoAssignSelected($event)" [(ngModel)]="list.rentalPackage" #rentalPackage>
+              <option value="undefined" selected hidden>Select a Package</option>
+              <option *ngFor="let item of PackageList" [value]="item._id">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="list.tripType==='outstation'">
+          <div class="form-group">
+            <label class="form-control-label" for="dropLocation">Drop Location (<span class="red">*</span>)</label>
+            <div class="input-group mb-3">
+              <input places-auto-complete [disabled]="disableFields" (place_changed)="listenDropLocation($event);"
+                [types]="['geocode']" [(ngModel)]="list.dropLocation" name="dropLocation"
+                [componentRestrictions]="{country: 'in'}" #dropLocation="ngModel" placeholder="Drop Location"
+                class="form-control" />
+              <div class="input-group-append ">
+                <button class="btn btn-primary" type="button" [disabled]="disableFields"
+                  (click)="checkOutStationAddr();">Select
+                  Journey</button>
+              </div>
+            </div>
+            <div>
+              <span class="form-text error" *ngIf="!list.dropLocation">
+                Please select a drop location.
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card *ngIf="list.tripType==='outstation' && showJourneyCard">
+    <nb-card-header>
+      <div class="row">
+        <div class="col-xs-12 col-md-2">
+          Select Journey
+        </div>
+        <div class="col-xs-12 col-md-10">
+          <div class="form-check-inline">
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" [disabled]="disableFields" [(ngModel)]="list.journeyTrip"
+                (change)="handleChange1('oneway');" name="journeyTrip" value="oneway">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">One Way </span>
+            </label>
+          </div>
+          <div class="form-check-inline" *ngIf="list.journeyTrip === 'roundtrip'">
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" [disabled]="disableFields" [(ngModel)]="list.journeyTrip"
+                (change)="handleChange1('roundTrip');" name="journeyTrip" value="roundtrip">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Round Trip</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row" *ngIf="list.tripType=='outstation'">
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group">
+            <label> Depart Date (<span class="red">*</span>)</label>
+            <input type="text" class="form-control" [disabled]="disableFields" name="departDate" placeholder="Date "
+              [(ngModel)]="list.departDate" #departDate="ngModel">
+            <!-- <select class="form-control" name="departDate" (change)="SetDepartType($event,list)" required
+              placeholder="Date " [(ngModel)]="list.departDate" #departDate="ngModel">
+              <option value="today" selected>Today</option>
+              <option value="tomorrow">Tomorrow</option>
+              <option *ngFor="let depart of departArray" [value]="depart.value">
+                {{depart.label}}
+              </option>
+            </select> -->
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <label> Depart Time (<span class="red">*</span>)</label>
+          <div class="control-section sample">
+            <div class="control_wrapper">
+              <div class="tabs-wrap">
+                <div class="wrap">
+                  <ejs-timepicker [disabled]="disableFields" [min]='minDate' [max]='maxDate' id="timepicker" name="time"
+                    [(ngModel)]="list.time" #time="ngModel" width="100%">
+                  </ejs-timepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6" *ngIf="list.journeyTrip === 'roundtrip'">
+          <div class="form-group">
+            <label> Return Date (<span class="red">*</span>)</label>
+            <input type="text" class="form-control" [disabled]="disableFields" name="returnDate" placeholder="Date "
+              [(ngModel)]="list.returnDate" #returnDate="ngModel">
+            <!-- <select class="form-control" name="returnDate" (change)="setReturnType($event,list)" required
+              placeholder="Date " [(ngModel)]="list.returnDate" #returnDate="ngModel">
+              <option *ngFor="let return of returnArray" [value]="return.value">
+                {{return.label}}
+              </option>
+            </select> -->
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6" *ngIf="list.journeyTrip === 'roundtrip'">
+          <label> Return Time (<span class="red">*</span>)</label>
+          <div class="control-section sample">
+            <div class="control_wrapper">
+              <div class="tabs-wrap">
+                <div class="wrap">
+                  <ejs-timepicker [disabled]="disableFields" [min]='returnMinDate' [max]='returnMaxDate' id="timepicker"
+                    name="returnTime" [(ngModel)]="list.returnTime" #returnTime="ngModel" width="100%">
+                  </ejs-timepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+</form>
+
+<div class="row">
+  <div class="col-md-6">
+    <form #secondForm="ngForm">
+      <nb-card>
+        <nb-card-header>
+          Trip Settings
+        </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> Select Vehicle (<span class="red">*</span>)</label>
+                <select class="form-control" name="serviceTypeId" (change)="SetVehicleType($event,list)" required
+                  placeholder="Vehicle Type" [disabled]="disableFields" [(ngModel)]="list.serviceTypeId"
+                  #serviceTypeId="ngModel">
+                  <option [value]="undefined" selected hidden> Select a Vehicle Type</option>
+                  <option *ngFor="let vehicle of vehicleArray" [value]="vehicle._id">
+                    {{vehicle.type}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-control-label" for="bookingTypeComboBox">Booking Type (<span
+                    class="red">*</span>)</label>
+                <ng-select name="bookingTypeComboBox" [disabled]="disableFields" id="bookingTypeComboBox"
+                  #bookingTypeComboBox placeholder="Select a booking type"
+                  filterPlaceholder="Type to search a booking type" notFoundMsg="No booking types found."
+                  [(ngModel)]="list.bookingType" [options]="bookingTypes" (selected)="bookType($event)"
+                  [noFilter]="noFilterThreshold" class="" required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="list.bookingType === 'rideLater' && list.tripType === 'daily'">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Select Trip Date and Time (<span class="red">*</span>)</label>
+                <input class="form-control" [min]="min" required placeholder="Click to Select Trip Date and Time"
+                  [(ngModel)]="list.tripTime" name="tripTime" #tripTime="ngModel" [owlDateTimeTrigger]="dt1"
+                  [owlDateTime]="dt1">
+                <owl-date-time #dt1></owl-date-time>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="list.bookingType === 'rideLater' && list.tripType === 'rental'">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> Trip Date (<span class="red">*</span>)</label>
+                <input type="text" class="form-control" [disabled]="disableFields" name="rideLaterDate"
+                  placeholder="Date " [(ngModel)]="list.rideLaterDate" #rideLaterDate="ngModel">
+                <!-- <select class="form-control" name="rideLaterDate" (change)="changeRideLaterDate($event,list)" required
+                  placeholder="Date " [(ngModel)]="list.rideLaterDate" #rideLaterDate="ngModel">
+                  <option value="today" selected>Today</option>
+                  <option value="tomorrow">Tomorrow</option>
+                  <option *ngFor="let return of rideLaterDateArray" [value]="return.value">
+                    {{return.label}}
+                  </option>
+                </select> -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label> Trip Time (<span class="red">*</span>)</label>
+              <div class="control-section sample">
+                <div class="control_wrapper">
+                  <div class="tabs-wrap">
+                    <div class="wrap">
+                      <ejs-timepicker [min]='rideLaterMinDate' [disabled]="disableFields"
+                        (change)="changeRideLaterTime($event)" [max]='rideLaterMaxDate' id="timepicker"
+                        name="rideLaterTime" [(ngModel)]="list.rideLaterTime" #rideLaterTime="ngModel" width="100%"
+                        required>
+                      </ejs-timepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="requestType==1">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-control-label" for="driverAssignmentTypeComboBox">Driver Assignment Type (<span
+                    class="red">*</span>)</label>
+                <ng-select name="driverAssignmentTypeComboBox" id="driverAssignmentTypeComboBox"
+                  #driverAssignmentTypeComboBox placeholder="Select a type to assign a driver"
+                  filterPlaceholder="Type to search a type to assign a driver" notFoundMsg="No types found."
+                  [noFilter]="noFilterThreshold" [(ngModel)]="list.driverAssignmentType"
+                  [options]="driverAssignmentTypes" (selected)="selectedDriverType($event)" class="" required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" *ngIf="list.driverAssignmentType === 'manual-assign'">
+                <br>
+                <div class="form-control" style="height: 55px;margin-top: 4px">
+                  <input style="margin-top: 8px" type="checkbox" name="showNearByDriversList"
+                    (change)="getNearByDrivers(showNearByDriversList);" [(ngModel)]="showNearByDriversList"> &nbsp; Show
+                  Near by Drivers
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" *ngIf="list.driverAssignmentType === 'manual-assign' && showNearByDriversList">
+                <label>Near by Drivers (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="list.driver" (change)="manuallySelectedDriver($event)"
+                  name="driver" #driver="ngModel" placeholder="Type to search a driver" required>
+                  <option [value]="undefined" selected hidden> Select a driver</option>
+                  <option *ngFor="let driver of driverArray" [value]="driver._id">
+                    {{driver.code}} &nbsp; | &nbsp; {{driver.fname}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" *ngIf="list.driverAssignmentType === 'manual-assign' && !showNearByDriversList">
+                <label class="form-control-label" for="driversComboBox">Assign a driver (<span
+                    class="red">*</span>)</label>
+                <ng-select name="driversComboBox" id="driversComboBox" #driversComboBox placeholder="Select a driver"
+                  filterPlaceholder="Type to search a driver" notFoundMsg="No drivers found."
+                  [(ngModel)]="list.driverId" [options]="drivers" [noFilter]="noFilterThreshold"
+                  (selected)="selectedDriver($event)" [allowClear]="true" class="" required>
+                  <ng-template #optionTemplate let-option="option">
+                    <span class="{{option.value}}">{{option.label}}</span>
+                  </ng-template>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <div class="row">
+        <div class="col-md-6" *ngIf="showPickupCharge">
+          <nb-card>
+            <nb-card-header>
+              Manually Add Call Centre Booking Charge
+            </nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-md-12" *ngIf="!blockPickup">
+                  <div class="form-group">
+                    <label> Enter Call Centre Booking Charge </label>
+                    <input type="number" [(ngModel)]="pickupChargeValues.pickupCharge" [disabled]="blockPickup"
+                      name="pickupCharge" placeholder="Enter Call Centre Booking Charge" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-12" *ngIf="blockPickup">
+                  Call Centre Booking Charge: {{pickupChargeValues.pickupCharge}} {{list.fareDetails.currency}} - Added
+                </div>
+              </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <button *ngIf="!blockPickup" nbButton size="small" status="danger"
+                (click)="setPickupCharge(pickupChargeValues)" [disabled]="!pickupChargeValues.pickupCharge"
+                class="btn btn-danger" type="submit">Submit</button>
+              <button *ngIf="blockPickup" nbButton size="small" status="danger" (click)="changePickup()"
+                class="btn btn-danger" type="submit">Edit</button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="col-md-6">
+    <nb-card *ngIf="showEstimatedFare">
+      <nb-card-header>
+        Fare Estimation
+      </nb-card-header>
+      <nb-card-body *ngIf="showFareDetails">
+        <table class="table">
+          <tbody *ngIf="showFareConfig && list.tripType==='daily'">
+            <tr *ngFor="let item of fareListCopy">
+              <td>{{item.label}}
+                <span *ngIf="item.sideVal">({{item.sideVal}} {{item.sideValUnit}})</span>:
+              </td>
+              <td> <span *ngIf="item.currency">{{item.currency}}</span> {{item.value}}
+                <span *ngIf="item.unit">{{item.unit}}</span> &nbsp;
+                <span *ngIf="item.type">({{item.typeValue}})</span>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="showFareConfig && list.tripType==='outstation'">
+            <tr>
+              <td>Selected Package:</td>
+              <td>{{list.fareDetails.packageName}}</td>
+            </tr>
+            <tr>
+              <td>Total Distance:</td>
+              <td>{{list.fareDetails.packageDistance}}</td>
+            </tr>
+            <tr>
+              <td>Estimated Time:</td>
+              <td>{{list.fareDetails.packageDuration}} </td>
+            </tr>
+            <tr>
+              <td>Package Base Fare:</td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.baseFare}}</td>
+            </tr>
+            <tr>
+              <td>Additional Mile Fare ({{list.fareDetails.additionalFareLabel}} {{list.fareDetails.currency}}):</td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.bkm }}</td>
+            </tr>
+            <tr>
+              <td>Additional Ride Time Fare ({{list.fareDetails.additionalTimeLabel}} {{list.fareDetails.currency}}):
+              </td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.timeFare }}</td>
+            </tr>
+            <tr>
+              <td>Total Fare:</td>
+              <td *ngIf="!showSecondCurrency">
+                {{list.fareDetails.currency}} {{list.fareDetails.fare}}
+              </td>
+              <td *ngIf="showSecondCurrency">{{list.fareDetails?.currency}} {{list.fareDetails?.totalFare}}
+                &nbsp;
+                &nbsp;
+                ({{list.fareDetails.inSecondaryCur}}
+                {{secondCurrecny}})</td>
+            </tr>
+          </tbody>
+
+          <tbody *ngIf="showFareConfig && list.tripType==='rental'">
+            <tr *ngIf="list.tripType==='rental'">
+              <td>Selected Package:</td>
+              <td>{{list.fareDetails.packageName}} </td>
+            </tr>
+            <tr>
+              <td>Total Distance:</td>
+              <td>{{list.fareDetails.packageDistance}} {{list.unit}}</td>
+            </tr>
+            <tr>
+              <td>Estimated Time:</td>
+              <td>{{list.fareDetails.packageDuration}} Hrs </td>
+            </tr>
+            <tr>
+              <td>Package Base Fare:</td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.fare}}</td>
+            </tr>
+            <tr *ngIf="list.tripType=='rental'">
+              <td>Additional Mile Fare ( After first {{list.fareDetails.packageDistance}} miles):</td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.bkm}}</td>
+            </tr>
+            <tr *ngIf="list.tripType=='rental'">
+              <td>Additional Ride Time Fare (After first {{list.fareDetails.packageDuration}} Hrs):</td>
+              <td>{{list.fareDetails.currency}} {{list.fareDetails.timeFare}}/Hr</td>
+            </tr>
+            <tr *ngIf="list.tripType=='rental'">
+              <td>Total Fare:</td>
+              <td *ngIf="!showSecondCurrency">
+                {{list.fareDetails.currency}} {{list.fareDetails.fare}}
+              </td>
+              <td *ngIf="showSecondCurrency">{{list.fareDetails?.currency}} {{list.fareDetails?.totalFare}}
+                &nbsp;
+                &nbsp;
+                ({{list.fareDetails.inSecondaryCur}}
+                {{secondCurrecny}})</td>
+            </tr>
+          </tbody>
+
+        </table>
+      </nb-card-body>
+      <nb-card-body *ngIf="!showFareDetails">
+        <span style="color:red"><b>{{showError}}</b></span>
+      </nb-card-body>
+      <nb-card-footer>
+        <button class="btn btn-primary" nbButton size="small" status="primary" [disabled]="!secondForm.form.valid"
+          [hidden]="!showEstimatedFare || !showFareDetails" (click)="BookMyTrip();" type="submit">Resend
+          Request</button>
+        &nbsp;
+        <!-- <button class="btn btn-danger" nbButton size="small" status="danger" (click)="resetlist();"
+          type="reset">Reset</button>
+        &nbsp; -->
+        <button class="btn btn-danger" nbButton size="small" status="info" (click)="routeBack();" type="reset">Go
+          Back</button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+
+</div>
+
+<style>
+  td {
+    width: 50%;
+    border: none;
+    font-weight: bold;
+  }
+
+  .cross-validation-error {
+    border: 1px solid red;
+  }
+
+  .control_wrapper {
+    display: block;
+    padding: 4% 0;
+  }
+
+  #description {
+    margin: 30px;
+  }
+
+  .e-bigger .control-section {
+    margin-top: 60px;
+  }
+</style>

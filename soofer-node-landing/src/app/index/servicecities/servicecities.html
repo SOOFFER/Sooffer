@@ -1,0 +1,99 @@
+<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="main-container">
+    <div class="sub-main-div">
+      <div class="container">
+        <div class="paragraph-section">
+          <h2>{{'COMMON.TITLE' | translate}}</h2>
+          &nbsp;
+
+          <!-- <script type="text/javascript" src="http://10.1.1.29:3001/adminapi/serviceCities"></script>  -->
+          <table st-table="rowCollection" class="table table-striped">
+            <tbody *ngFor="let main of catary">
+              <thead>
+                <tr>
+                  <th>
+                    <h4><b>{{main.city}}</b></h4>
+                  </th>
+                </tr>
+              </thead>
+              <tr>
+                <td *ngFor="let sub of main.nearby">{{sub.city}}</td>
+              </tr>
+              <!-- <tr ng-repeat="row in rowCollection">
+		    <td>Tiruchi</td>
+		    <td>Hosur</td>
+		    <td>Vellore</td>
+		
+				</tr>
+				<tr ng-repeat="row in rowCollection">
+					<td>Cuddalore</td>
+					<td>Kanchipuram</td>
+					<td>Kumbakonam</td>
+			
+					</tr> -->
+            </tbody>
+          </table>
+          <!-- <div class="servicecity-top-part"> 
+					<ul>
+
+						<li *ngFor="let item of catary">
+							<a [routerLink]="" (click)="getservicecCity(item._id);">{{item.city}}</a>
+						</li>
+
+					</ul>
+				</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section> 
+	<div class="main-container">
+		<div class="sub-main-div">
+			<div class="paragraph-section">
+				<h2>{{title}}</h2>
+				<div class="servicecity-container mrgn-top mrgn-botm">
+					<div class="faq-page col-xs-12 col-sm-12 col-md-12">
+						<div class="servicecity-top-part">
+							<ul>
+
+								<li *ngFor="let item of catary">
+									<a [routerLink]="" (click)="getCity(item._id);">{{item.vTitle_EN}}</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					<div *ngFor='let qes of AnsAry'>
+						<div class="panel-group panelgroup col-xs-12 col-sm-12 col-md-12" id="accordion" role="tablist"
+						 aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title ">
+										<a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapseOne"
+										 class="orange">
+											<i class="more-less  fa fa-plus"></i> 
+											<div>
+												<label>Q.&nbsp;</label>
+												<span [innerHtml]="qes.vTitle_EN"></span>
+											</div>
+										</a>
+									</h4>
+								</div>
+								<div>
+									<div class="panel-body">
+										<h4>
+											<div [innerHtml]="qes.English"></div>
+										</h4>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div><panel-group 
+			</div>< container 
+		</div>
+	</div>
+</section> -->

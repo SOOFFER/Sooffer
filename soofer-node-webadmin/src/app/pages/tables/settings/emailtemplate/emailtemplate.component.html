@@ -1,0 +1,118 @@
+<div *ngIf="initial; then list; else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-3">Email Templates</div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-2">Select Language</div>
+        <div class="col-sm-1">
+          <nb-actions
+            size="medium"
+            [class.right]="position === 'normal'"
+            [class.left]="position === 'inverse'"
+          >
+            <nb-action
+              size="medium"
+              [class.right]="position === 'normal'"
+              [class.left]="position === 'inverse'"
+              *ngIf="showTransOption"
+            >
+              <select
+                #langSelect
+                (change)="translate.use(langSelect.value)"
+                (click)="getLang(langSelect.value)"
+              >
+                <option
+                  *ngFor="let list of translate.getLangs()"
+                  [value]="list"
+                  [selected]="list === translate.currentLang"
+                >
+                  {{ list }}
+                </option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <!-- <button  [routerLink]="['../../../tables','create-email']" class="btn btn-danger" >Create Email</button> -->
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (custom)="route($event)"
+        *ngIf="source"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      Edit Email Template: {{ selectedDocs.description }}
+    </nb-card-header>
+    <nb-card-body>
+      <form (ngSubmit)="editTemplate(selectedDocs)" #dataForm="ngForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="emailsubject">Subject</label>
+              <input
+                type="text"
+                [(ngModel)]="selectedDocs.subject"
+                #subject="ngModel"
+                name="subject"
+                required
+                class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="emailbody">Email Body</label>
+              <!-- <input type="text"  [(ngModel)]="selectedDocs.body" #lname="ngModel" name="lname" placeholder="Last Name" class="form-control"/> -->
+              <tinymce
+                [config]="config"
+                [(ngModel)]="selectedDocs.body"
+                #body="ngModel"
+                name="body"
+                required
+              ></tinymce>
+            </div>
+          </div>
+        </div>
+      </form>
+      <br />
+      <button
+        type="submit"
+        (click)="editTemplate(selectedDocs)"
+        [disabled]="!dataForm.form.valid"
+        class="btn btn-primary"
+      >
+        Edit
+      </button>
+    </nb-card-body>
+  </nb-card>
+
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+</ng-template>
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+</style>

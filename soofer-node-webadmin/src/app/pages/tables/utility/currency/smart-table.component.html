@@ -1,0 +1,84 @@
+<ng-template [ngIf]="initial==0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-10">
+          {{title}}
+        </div>
+        <div class="col-sm-2">
+          <button type="button" (click)="btBack(1)" class="btn btn-danger pull-right">Add Currency</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial==1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Add Currency</nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>
+                Currency
+              </label>
+              <input type='text' placeholder="Enter the Currency" required [(ngModel)]="list.currency" #currency="ngModel"
+                name="currency" class="form-control" />
+
+              <small class="form-text error" *ngIf="currency.invalid && (currency.dirty)">Currency is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="AddCurrency(list)" [disabled]="!dataForm1.form.valid" type="submit" class="btn btn-success">
+            Add
+          </button> &nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial==2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Currency</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label>
+                Currency
+              </label>
+              <input type='text' required placeholder="Enter the Currency" [(ngModel)]="selectedDocs.currency"
+                #currency="ngModel" name="currency" class="form-control" />
+              <small class="form-text error" *ngIf="currency.invalid && (currency.dirty)">Currency is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="updateCurrency(selectedDocs)" [disabled]="!dataForm2.form.valid" type="submit" class="btn btn-primary">
+            Update
+          </button>&nbsp;
+          <button (click)="deleteCurrency(selectedid)" type="button" class="btn btn-danger">
+            Delete
+          </button>&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+
+  </div>
+</ng-template>

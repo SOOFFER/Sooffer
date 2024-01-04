@@ -1,0 +1,123 @@
+<ng-template [ngIf]="index == 2">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Add Menus</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+            <div class="form-group" *ngIf="isCityWise">
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required="">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option *ngFor="let menu of citywiseAdminMenus" [value]="menu.value">
+                  {{menu.label}}
+                </option>
+                <!-- //   <option value="HotelAdmin">Restaurant  Admin</option> -->
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+            <div class="form-group" *ngIf="!isCityWise">
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required="">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option *ngFor="let menu of normalAdminMenus" [value]="menu.value">
+                  {{menu.label}}
+                </option>
+                <!-- //   <option value="HotelAdmin">Restaurant  Admin</option> -->
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Pages (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Types'" [ngModel]="pagesArray" name="pagesArray"
+                [data]="dropdownList" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelectAll)="onDeSelectAll($event)">
+              </ng-multiselect-dropdown>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" [disabled]="!dataForm.form.valid" class="btn btn-success"
+            (click)="AddAdmin(list)">Add</button> &nbsp;
+          <button type="button" class="btn btn-danger" (click)="changeTemplate(1)">back</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="index ==1">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-10">
+          View Admin Menus Permissions
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-success" (click)="changeTemplate(2)">Add</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="index == 3">
+  <div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Edit Menus</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+            <div class="form-group" *ngIf="isCityWise">
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="UpadteList.group" disabled name="group" #group="ngModel"
+                required="">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option *ngFor="let menu of citywiseAdminMenus" [value]="menu.value">
+                  {{menu.label}}
+                </option>
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+            <div class="form-group" *ngIf="!isCityWise">
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="UpadteList.group" disabled name="group" #group="ngModel"
+                required="">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option *ngFor="let menu of normalAdminMenus" [value]="menu.value">
+                  {{menu.label}}
+                </option>
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Pages (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Types'" [ngModel]="pagesArray" name="pagesArray"
+                [data]="dropdownList" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" [disabled]="!dataForm.form.valid" class="btn btn-success"
+            (click)="editMenus(UpadteList)">Update</button> &nbsp;
+          <button type="button" class="btn btn-danger" (click)="changeTemplate(1)">goback</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

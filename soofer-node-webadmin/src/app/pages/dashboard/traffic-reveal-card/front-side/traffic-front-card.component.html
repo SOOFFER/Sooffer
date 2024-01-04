@@ -1,0 +1,12 @@
+<nb-card-body>
+  <ul class="traffic-list">
+    <li *ngFor="let item of frontCardData; trackBy: trackByDate">
+      <div class="date" style="font-size: 15px;color: black"><b>{{ item.title }}</b></div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="value">{{ item.value }}</div>
+      <!-- <div class="delta" [class.up]="item.delta.up" [class.down]="!item.delta.up">
+        {{ item.delta.value }}%
+      </div> -->
+    </li>
+  </ul>
+</nb-card-body>

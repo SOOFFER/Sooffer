@@ -1,0 +1,825 @@
+<!-- <div *ngIf="initial=='list'; then lists; else  detail"></div> -->
+<!-- <div *ngIf="initial === list; then lists; initial === detail; then detail else docs"></div> -->
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <ng-template [ngIf]="index == 1">
+        <section>
+          <div class="container my-profile mrgn-t-50 pading-btm">
+            <h3>{{'COMMON.MYTAXIS' | translate}}</h3>
+            <div
+              class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12"
+            >
+              
+              <!-- <div align="right">
+                                        <input name="save" type="button" (click)="addMyTaxi()" value="Add Your Taxi"
+                                                class="sc-butn m-r-10">
+                                </div> -->
+              <br />
+              <div class="mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource" multiTemplateDataRows class="">
+                  <ng-container matColumnDef="makename">
+                      <mat-header-cell *matHeaderCellDef>Make Name</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                              {{element.makename}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="model">
+                      <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                              {{element.model}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="taxistatus">
+                      <mat-header-cell *matHeaderCellDef>Taxi Status</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                              {{element.taxistatus}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="color">
+                      <mat-header-cell *matHeaderCellDef>Color</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                              {{element.color}} </mat-cell>
+              </ng-container>
+              <!-- <div align='justify'>
+        <button class="form-control" (click)='changInitail(element)'
+        type="button" class="btn btn-primary">Edit</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="form-control " (click)='deleteModel(element)'
+        type="button" class="btn btn-primary">Delete
+        </button>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="form-control" (click)='editTaxiDocs(element)'
+        type="button" class="btn btn-primary">EditDoc </button>
+</div> -->
+              
+              <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+              <mat-row
+              *matRowDef="let row; columns: columnsToDisplay;">
+              </mat-row>
+              </mat-table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="0" [pageSize]="5"
+              showFirstLastButtons></mat-paginator>
+            </div>
+              <br />
+            </div>
+          </div>
+          <!--end-->
+          <!--start of edit -->
+        </section>
+      </ng-template>
+      <!--end -->
+      <ng-template [ngIf]="index == 2">
+        <div class="container my-profile mrgn-t-50 pading-btm">
+          <div
+            class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12"
+          >
+            <h4>{{'TAXI.EDITTAXI' | translate}}</h4>
+
+            <form #dataForm="ngForm">
+              <div class="form-group">
+                <label>{{'TAXI.MAKE' | translate}}</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.make"
+                  (change)="GetModel($event)"
+                  #make="ngModel"
+                  required
+                  name="make"
+                  placeholder="Make"
+                >
+                  <option value="undefined" selected hidden>
+                    {{'COMMON.SELECTCARMAKE' | translate}}
+                  </option>
+                  <option *ngFor="let make of makeary" [value]="make.make">
+                    {{make.make}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="make.invalid && (make.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.MAKE' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.MODEL' | translate}}</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.model"
+                  name="model"
+                  #model="ngModel"
+                  required
+                  placeholder="Model"
+                >
+                  <option value="undefined" selected hidden>
+                    {{'TAXI.SELECTCARMODEL' | translate}}
+                  </option>
+                  <option *ngFor="let model of modelary" [value]="model">
+                    {{model}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="model.invalid && (model.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.YEAR' | translate}}</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.year"
+                  name="year"
+                  #year="ngModel"
+                  required
+                  placeholder="Year"
+                >
+                  <option *ngFor="let year of yearary" [value]="year.id">
+                    {{year.name}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="year.invalid && (year.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.LICENSE' | translate}}</label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.licence"
+                  name="licence"
+                  #licence="ngModel"
+                  required
+                  placeholder="License Plate"
+                  class="form-control"
+                />
+                <small
+                  *ngIf="licence.invalid && (licence.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.VEHICLECOLOR' | translate}}</label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.color"
+                  name="color"
+                  placeholder="{{'TAXI.VEHICLECOLOR' | translate}}"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="custom-control-label"
+                  >{{'DASHBOARD.VEHICLETYPE' | translate}}
+                </label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.vehicletype"
+                  name="vehicletype"
+                  placeholder="{{'DASHBOARD.VEHICLETYPE' | translate}}"
+                  class="form-control"
+                />
+
+                <!-- <mat-checkbox class="example-margin" [(ngModel)]="list.basic" name="basic">Basic</mat-checkbox>
+                                        <mat-checkbox class="example-margin" [(ngModel)]="list.normal" name="normal">Normal</mat-checkbox>
+                                        <mat-checkbox class="example-margin" [(ngModel)]="list.luxury" name="luxury">Luxurious</mat-checkbox> -->
+              </div>
+
+              <div class="">
+                <label class="custom-control-label"
+                  >{{'TAXI.TAXITYPE' | translate}}
+                </label>
+                <!-- <input type="text" [(ngModel)]="list.vehicletype" name="color" placeholder="Vehicle Color" class="form-control" /> -->
+
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.basic"
+                  name="basic"
+                  >{{'TAXI.BASIC' | translate}}</mat-checkbox
+                >
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.normal"
+                  name="normal"
+                  >{{'TAXI.NORMAL' | translate}}</mat-checkbox
+                >
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.luxury"
+                  name="luxury"
+                  >{{'TAXI.LUXURIOUS' | translate}}</mat-checkbox
+                >
+              </div>
+              <div align="left">
+                <button
+                  type="submit"
+                  class="sc-butn"
+                  (click)="editDrvDetails(list)"
+                  [disabled]="!dataForm.form.valid"
+                >
+                  {{'DASHBOARD.SUBMIT' | translate}}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="sc-butn" (click)="goback()">
+                  {{'COMMON.GOBACK' | translate}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="index == 3">
+        <section>
+          <div class="container mrgn-t-90 mrgn-b-50 edit-profile-epm">
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+              <div class="mobilnum-box">
+                <h4>{{'TAXI.VEHICLEINSURANCE' | translate}}</h4>
+                <div *ngIf="list.insurance;else no_insurance">
+                  <div class=" ">
+                    {{'PROFILE.EXPIREDATE' | translate}} :
+                    {{list.insuranceexpdate}}
+                  </div>
+                  <hr />
+                  <div class=" ">
+                    <div>
+                      <b>
+                        <a href="{{baseurl}}{{list.insurance}}" target="_blank"
+                          >{{'PROFILE.VIEW' | translate}}</a
+                        >
+                      </b>
+                    </div>
+                    <i
+                      class="fa fa-pencil pencil-postn"
+                      data-toggle="modal"
+                      data-target="#insuranceModal"
+                    ></i>
+                  </div>
+                </div>
+
+                <ng-template #no_insurance>
+                  <div class=" ">
+                    <div class="form-group">
+                      <label
+                        >{{'PROFILE.INSURANCENOTFOUND' | translate}}
+                      </label>
+                      <input
+                        class="form-control"
+                        type="file"
+                        (change)="fileEvent($event)"
+                        value="Insurance"
+                      />
+                      <br />
+                      <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="selectedDate"
+                        (change)="logDate($event)"
+                      />
+                      <br />
+                      <button
+                        class="form-control"
+                        (click)="submitDriverTaxiDoc('Insurance')"
+                        type="submit"
+                        class="btn btn-primary"
+                      >
+                        {{'DASHBOARD.SUBMIT' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+              <div class="mobilnum-box">
+                <h4>{{'TAXI.PERMIT' | translate}}</h4>
+                <div *ngIf="list.permit;else no_Permit">
+                  <div class=" ">
+                    {{'PROFILE.EXPIREDATE' | translate}} :
+                    {{list.permitexpdate}}
+                  </div>
+                  <hr />
+                  <div class=" ">
+                    <div>
+                      <b>
+                        <a href="{{baseurl}}{{list.permit}}" target="_blank"
+                          >View</a
+                        >
+                        <i
+                          class="fa fa-pencil pencil-postn"
+                          data-toggle="modal"
+                          data-target="#permitModal"
+                        ></i>
+                      </b>
+                    </div>
+                  </div>
+                </div>
+
+                <ng-template #no_Permit>
+                  <div class=" ">
+                    <div class="form-group">
+                      <label>{{'TAXI.PERMITNOTFOUND' | translate}} </label>
+                      <input
+                        class="form-control"
+                        type="file"
+                        (change)="fileEvent($event)"
+                        value="Passing"
+                      />
+                      <br />
+                      <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="selectedDate"
+                        (change)="logDate($event)"
+                      />
+                      <br />
+                      <button
+                        class="form-control"
+                        (click)="submitDriverTaxiDoc('permit')"
+                        type="submit"
+                        class="btn btn-primary"
+                      >
+                        {{'DASHBOARD.SUBMIT' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+              <div class="mobilnum-box">
+                <h4>{{'TAXI.REGISTRATIONCERTIFICATE' | translate}}</h4>
+
+                <div *ngIf="list.registration;else no_licence">
+                  <div class=" ">
+                    {{'PROFILE.EXPIREDATE' | translate}} :
+                    {{list.registrationexpdate}}
+                  </div>
+                  <hr />
+                  <div class=" ">
+                    <div>
+                      <b>
+                        <a
+                          href="{{baseurl}}{{list.registration}}"
+                          target="_blank"
+                          >{{'PROFILE.VIEW' | translate}}</a
+                        >
+                        <i
+                          class="fa fa-pencil pencil-postn"
+                          data-toggle="modal"
+                          data-target="#registartionModal"
+                        ></i>
+                      </b>
+                    </div>
+                  </div>
+                </div>
+
+                <ng-template #no_licence>
+                  <div class=" ">
+                    <div class="form-group">
+                      <label
+                        >{{'TAXI.TAXIREGISTRATIONNOTFOUND' | translate}}
+                      </label>
+                      <input
+                        class="form-control"
+                        type="file"
+                        (change)="fileEvent($event)"
+                        value="Driving Licence"
+                      />
+                      <br />
+                      <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="selectedDate"
+                        (change)="logDate($event)"
+                      />
+                      <br />
+                      <button
+                        class="form-control"
+                        (click)="submitDriverTaxiDoc('register')"
+                        type="submit"
+                        class="btn btn-primary"
+                      >
+                        {{'DASHBOARD.SUBMIT' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                  <div class=" "></div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade model-hide"
+            id="insuranceModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content modal-content-popup">
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{'TAXI.VEHICLEINSURANCE' | translate}}
+                  </h5>
+                </div>
+                <div class="modal-body">
+                  <strong>
+                    <div>{{documentMessage}}</div>
+                  </strong>
+
+                  <div class="form-group">
+                    <label>Insurance </label>
+                    <input
+                      class="form-control"
+                      type="file"
+                      (change)="fileEvent($event)"
+                      value="Insurance"
+                    />
+                    <br />
+                    <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                    <input
+                      class="form-control"
+                      type="date"
+                      name="selectedDate"
+                      (change)="logDate($event)"
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer text-center">
+                  <div class="form-group">
+                    <button
+                      (click)="submitDriverTaxiDoc('Insurance')"
+                      type="submit"
+                      class="btn btn-secondary savepopup"
+                    >
+                      {{'DASHBOARD.SUBMIT' | translate}}
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    <button
+                      type="button"
+                      class="btn btn-primary cancelpopup"
+                      data-dismiss="modal"
+                    >
+                      {{'PROFILE.CANCEL' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end -->
+          <!--  popup model License end here -->
+          <div
+            class="modal fade model-hide"
+            id="permitModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content modal-content-popup">
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{'TAXI.PERMIT' | translate}}
+                  </h5>
+                </div>
+                <div class="modal-body">
+                  <strong>
+                    <div>{{documentMessage}}</div>
+                  </strong>
+
+                  <div class="form-group">
+                    <label>{{'TAXI.PERMIT' | translate}} </label>
+                    <input
+                      class="form-control"
+                      type="file"
+                      (change)="fileEvent($event)"
+                      value="Driving Licence"
+                    />
+                    <br />
+                    <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                    <input
+                      class="form-control"
+                      type="date"
+                      name="selectedDate"
+                      (change)="logDate($event)"
+                    />
+                  </div>
+
+                  <div class="modal-footer text-center">
+                    <div class="form-group">
+                      <button
+                        (click)="submitDriverTaxiDoc('permit')"
+                        type="submit"
+                        class="btn btn-secondary savepopup"
+                      >
+                        {{'DASHBOARD.SUBMIT' | translate}}
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        type="button"
+                        class="btn btn-primary cancelpopup"
+                        data-dismiss="modal"
+                      >
+                        {{"PROFILE.CANCEL" | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end -->
+          <!--  popup model Passing end here -->
+          <div
+            class="modal fade model-hide"
+            id="registartionModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content modal-content-popup">
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{'TAXI.REGISTRATIONCERTIFICATE' | translate}}
+                  </h5>
+                </div>
+                <div class="modal-body">
+                  <strong>
+                    <div>{{documentMessage}}</div>
+                  </strong>
+                  <div class="form-group">
+                    <label>{{'TAXI.REGISTRATION' | translate}}</label>
+                    <input
+                      class="form-control"
+                      type="file"
+                      (change)="fileEvent($event)"
+                      value="Taxi Passing"
+                    />
+                    <br />
+                    <label>{{'PROFILE.EXPIREDATE' | translate}} </label>
+                    <input
+                      class="form-control"
+                      type="date"
+                      name="selectedDate"
+                      (change)="logDate($event)"
+                    />
+                  </div>
+                  <div class="modal-footer text-center">
+                    <div class="form-group">
+                      <button
+                        (click)="submitDriverTaxiDoc('register')"
+                        type="submit"
+                        class="btn btn-secondary savepopup"
+                      >
+                        {{'DASHBOARD.SUBMIT' | translate}}
+                      </button>
+                    </div>
+                    <div class="form-group">
+                      <button
+                        type="button"
+                        class="btn btn-primary cancelpopup"
+                        data-dismiss="modal"
+                      >
+                        {{'PROFILE.CANCEL' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <button type="submit" class="sc-butn" (click)="goback()">
+            {{'COMMON.GOBACK' | translate}}
+          </button>
+          <br />
+        </section>
+      </ng-template>
+      <ng-template [ngIf]="index == 4">
+        <div class="container my-profile mrgn-t-50 pading-btm">
+          <div
+            class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12"
+          >
+            <h4>{{'TAXI.ADDTAXI' | translate}}</h4>
+            <br />
+            <form #dataForm="ngForm">
+              <div class="form-group">
+                <label>{{'TAXI.MAKE' | translate}}</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.make"
+                  (change)="GetAddModel($event)"
+                  #make="ngModel"
+                  required
+                  name="make"
+                  placeholder="Make"
+                >
+                  <option value="undefined" selected hidden>
+                    Select Car Make
+                  </option>
+                  <option *ngFor="let make of makeary" [value]="make._id">
+                    {{make.make}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="make.invalid && (make.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.MAKE' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.MODEL' | translate}}</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.model"
+                  name="model"
+                  #model="ngModel"
+                  required
+                  placeholder="Model"
+                >
+                  <option value="undefined" selected hidden>
+                    Select Car Model
+                  </option>
+                  <option *ngFor="let model of modelary" [value]="model">
+                    {{model}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="model.invalid && (model.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>Year</label>
+                <select
+                  class="form-control"
+                  [(ngModel)]="list.year"
+                  name="year"
+                  #year="ngModel"
+                  required
+                  placeholder="Year"
+                >
+                  <option value="undefined" selected hidden>Select Year</option>
+                  <option *ngFor="let year of yearary" [value]="year.id">
+                    {{year.name}}
+                  </option>
+                </select>
+                <small
+                  *ngIf="year.invalid && (year.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>Licence</label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.licence"
+                  name="licence"
+                  #licence="ngModel"
+                  required
+                  placeholder="License Plate"
+                  class="form-control"
+                />
+                <small
+                  *ngIf="licence.invalid && (licence.dirty)"
+                  class="form-text error"
+                >
+                  {{'TAXI.NAME' | translate}} {{'COMMON.ISREQUIRED' |
+                  translate}}
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label>{{'TAXI.VEHICLECOLOR' | translate}}</label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.color"
+                  name="color"
+                  placeholder="{{'TAXI.VEHICLECOLOR' | translate}}"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="custom-control-label"
+                  >{{'DASHBOARD.VEHICLETYPE' | translate}}
+                </label>
+                <input
+                  type="text"
+                  [(ngModel)]="list.vehicletype"
+                  name="vehicletype"
+                  placeholder="{{'DASHBOARD.VEHICLETYPE' | translate}}"
+                  class="form-control"
+                />
+
+                <!-- <mat-checkbox class="example-margin" [(ngModel)]="list.basic" name="basic">Basic</mat-checkbox>
+                                        <mat-checkbox class="example-margin" [(ngModel)]="list.normal" name="normal">Normal</mat-checkbox>
+                                        <mat-checkbox class="example-margin" [(ngModel)]="list.luxury" name="luxury">Luxurious</mat-checkbox> -->
+              </div>
+
+              <div class="">
+                <label class="custom-control-label"
+                  >{{'TAXI.TAXITYPE' | translate}}
+                </label>
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.basic"
+                  name="basic"
+                  >{{'TAXI.BASIC' | translate}}</mat-checkbox
+                >
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.normal"
+                  name="normal"
+                  >{{'TAXI.NORMAL' | translate}}</mat-checkbox
+                >
+                <mat-checkbox
+                  class="example-margin"
+                  [(ngModel)]="list.luxury"
+                  name="luxury"
+                  >{{'TAXI.LUXURIOUS' | translate}}</mat-checkbox
+                >
+              </div>
+
+              <br />
+              <div align="left">
+                <button
+                  type="submit"
+                  class="sc-butn"
+                  (click)="addDrvDetails(list)"
+                  [disabled]="!dataForm.form.valid"
+                >
+                  {{'DASHBOARD.SUBMIT' | translate}}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="sc-butn" (click)="goback()">
+                  {{'COMMON.GOBACK' | translate}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

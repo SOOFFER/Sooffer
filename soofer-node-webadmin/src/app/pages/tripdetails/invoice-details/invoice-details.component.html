@@ -1,0 +1,1088 @@
+<ngx-spinner>
+</ngx-spinner>
+<ng-template [ngIf]="showDetails">
+  <nb-card>
+    <nb-card-header>
+      Trip Invoice : {{tripdetails.status}}
+      <span *ngIf="tripdetails.status === 'canceled'">({{tripdetails.review}})</span>
+      <button *ngIf="showRefreshBtn" (click)="clrDriver(tripdetails.tripno)" class="pull-right" nbButton status="danger"
+        size="xsmall">Clear Driver</button>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-control-label"> <b>Your Trip : {{tripdspdetails.tripno}} On {{tripdetails.date}}
+              </b></label>
+            <!-- <div class="tripmap" style="height: 300px;" *ngIf="tripdetails.status != 'Finished'">
+              <ngui-map zoom="13" center="{{tripdspdetails.pLat}},{{tripdspdetails.pLng}}" mapTypeId="terrain"
+                scrollwheel="false">
+                <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'"
+                  [strokeOpacity]="1" [strokeWeight]="2"></polyline>
+              </ngui-map>
+            </div> -->
+            <div class="tripmap" style="height: 300px;" *ngIf="tripdetails.status != 'Finished'">
+              <div style="height: 140px"></div>
+              <div style="height: 20px">
+                <h5 style="text-align: center">Map not Available for {{tripdetails.status}} Trip</h5>
+              </div>
+              <div style="height: 140px"></div>
+            </div>
+            <div *ngIf="tripdetails.status == 'Finished'">
+              <img src={{tripdspdetails.map}} height="300px" width="670px">
+            </div>
+          </div>
+          <!-- <hr> -->
+          <nb-card>
+            <nb-card-body>
+              <div class="form-group">
+                <table class="table trip-loc">
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="2">
+                        <h5>Trip Location</h5>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" width="25%">Pickup Time:</th>
+                      <td width="75%"><b>{{tripdetails.startTime}}</b></td>
+                    </tr>
+                    <tr>
+                      <th scope="row" width="25%">Pickup Location:</th>
+                      <td width="75%"><b>{{tripdetails.from}}</b></td>
+                    </tr>
+                    <tr>
+                      <th scope="row" width="25%">Drop Time:</th>
+                      <td width="75%"><b>{{tripdetails.endTime}}</b></td>
+                    </tr>
+                    <tr>
+                      <th scope="row" width="25%">Drop Location:</th>
+                      <td width="75%"><b>{{tripdetails.to}}</b></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="text-align: center" *ngIf="tripdetails.isMultiLocation == true"
+                  (click)="open(MultiLocation)"> Multi Stop Details</div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+
+          <!-- <hr> -->
+          <nb-card>
+            <nb-card-body>
+              <div class="form-group">
+                <div class="row show-grid">
+                  <div class="col-4 col-md-4">
+                    <div align="center">Vehicle Type</div>
+                    <div align="center">
+                      <p><b>{{tripdetails.vehicle}}</b></p>
+                    </div>
+                  </div>
+
+                  <div class="col-4 col-md-4" *ngIf="!showNoResponse">
+                    <div align="center">Distance</div>
+                    <div align="center">
+                      <p><b>({{fareDetails.dist}} {{defaultUnit}})</b></p>
+                    </div>
+                  </div>
+
+                  <div class="col-4 col-md-4" *ngIf="showNoResponse">
+                    <div align="center">Distance</div>
+                    <div align="center">
+                      <p><b>({{tripdspdetails.distanceKM}} <span>{{defaultUnit}}</span>)</b></p>
+                    </div>
+                  </div>
+
+                  <div class="col-4 col-md-4">
+                    <div align="center">Trip time (Min)</div>
+                    <div align="center">
+                      <p><b>{{tripcspdetails.time}}</b></p>
+                    </div>
+                  </div>
+                  <div class="col-4 col-md-4">
+                    <div align="center">OTP</div>
+                    <div align="center">
+                      <p><b>{{tripdetails.tripOTP[0]}}</b></p>
+                    </div>
+                  </div>
+
+                  <div class="col-4 col-md-4">
+                    <div align="center">Request From</div>
+                    <div align="center">
+                      <p><b>{{tripdetails.request}}</b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="rem-marg form-group">
+                <div class="row">
+                  <div class="col-xs-6 col-md-6">
+                    <div class="card mb-3" style="max-width: 540px;">
+                      <div class="row no-gutters">
+                        <div class="col-md-4 col-xs-4">
+                          <img src="assets/images/driver.png" class="card-img mx-auto d-block" alt="...">
+                        </div>
+                        <div class="col-md-8 col-xs-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Driver</h5>
+                            <p class="card-text">Name: {{tripdetails.dvr}}</p>
+                            <p class="card-text">Contact: {{DriverAcceptedPhone}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-6">
+                    <div class="card mb-3" style="max-width: 540px;">
+                      <div class="row no-gutters">
+                        <div class="col-md-4 col-xs-4">
+                          <img src="assets/images/rider.png" class="card-img mx-auto d-block" alt="...">
+                        </div>
+                        <div class="col-md-8 col-xs-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Rider</h5>
+                            <p class="card-text">Name: {{tripdetails.rid}}</p>
+                            <p class="card-text">Contact: {{RiderPhone}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="col-md-6">
+          <ng-template #contentEmail let-modal let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Send Invoice</h4>
+              <button type="button" class="close" aria-label="Close" (click)="submitted2(d)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #EMailFormTemp="ngForm">
+                <label>Email (<span class="red">*</span>) </label>
+                <input type="text" [(ngModel)]="EMailTemp.email" #email="ngModel" name="email"
+                  placeholder="Enter Email Id" class="form-control" required />
+                <br>
+              </form>
+              <button type="submit" class="btn btn-info pull-" [disabled]="!EMailFormTemp.valid"
+                (click)="testHeader(EMailTemp);closed2(d)">Send</button>
+            </div>
+
+          </ng-template>
+          <nb-card>
+            <nb-card-header>
+              Fare Breakdown For Ride No : {{tripdetails.tripno}} &nbsp; | &nbsp; Trip Type :
+              {{tripdetails.triptype | titlecase }} &nbsp; | &nbsp; Booking Type : {{tripdetails.bookingType}}
+            </nb-card-header>
+            <!-- daily -->
+            <nb-card-body *ngIf="showFareFor === 'daily'">
+              <table class="table table-bordered fare-det" style="text-align: right">
+                <tbody>
+                  <tr>
+                    <td>Fare Type</td>
+                    <td>{{fareDetails.fareType | uppercase }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Actual Cost</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.actualcost}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>Distance Fare ({{fareDetails.dist}} {{defaultUnit}})</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.distfare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Booking Fare</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.booking}}</td>
+                  </tr>
+                  <tr>
+                    <td>Base Fare</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.base}}</td>
+                  </tr>
+                  <tr>
+                    <td>Waiting Charge ({{fareDetails.currency}} {{fareDetails.waitingRate}}/Min) *
+                      ({{fareDetails.waitingTime}} Min)</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.waitingCharge}}</td>
+                  </tr>
+                  <tr>
+                    <td>Time Fare ({{fareDetails.currency}} {{fareDetails.timeRate}}/Min) * ({{fareDetails.time}} Min)
+                    </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.timefare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Minimum Fare ({{fareDetails.currency}} {{fareDetails.minFare}}) </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.minFareAdded}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Booking Fare </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.booking}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>{{taxLabel}} ({{fareDetails.taxPercentage}} %)</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.tax}}</td>
+                  </tr>
+                  <tr *ngIf="isDTS==true">
+                    <td>TDS Tax Amount ({{fareDetails.taxTDSPercentage}}%):
+                    </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.taxTDS }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Google Charge </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.googleCharge}}</td>
+                  </tr> -->
+
+                  <tr>
+                    <td>Toll Fee </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.tollFee}}</td>
+                  </tr>
+                  <tr>
+                    <td>Old Balance</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.oldBalance}}</td>
+                  </tr>
+                  <tr>
+                    <!-- <td *ngIf="nightChargeApplied != true">Night Charge Applied</td>
+                    <td *ngIf="nightChargeApplied == true">Night Charge Applied (*{{fareDetails.nightChargeRate}})</td>
+                    <td>{{fareDetails.nightCharge}}</td> -->
+                    <td *ngIf="nightChargeApplied != true">Night Charge Applied</td>
+                    <td *ngIf="nightChargeApplied != true">0</td>
+                    <td *ngIf="nightChargeApplied == true">
+                      Night Charge Applied ({{fareDetails.nightPer}}%)</td>
+                    <td *ngIf="nightChargeApplied == true">{{fareDetails.surgeAmt}} {{fareDetails.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>Gateway Charge</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.gatewayCharge}}</td>
+                  </tr>
+                  <tr>
+                    <td *ngIf="peakchargechargeApplied != true">Peak Charge Applied</td>
+                    <td *ngIf="peakchargechargeApplied == true">Peak Charge Applied (*{{fareDetails.peakPer}})</td>
+                    <td *ngIf="peakchargechargeApplied != true">0</td>
+                    <td *ngIf="peakchargechargeApplied == true">{{fareDetails.surgeAmt}} {{fareDetails.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>Surge Reason</td>
+                    <td>{{fareDetails.surgeReason}}</td>
+                  </tr>
+                  <tr *ngIf="pickupcharge==true">
+                    <td>Pick Up Charge</td>
+                    <td>{{fareDetails.currency}} {{fareDetails.conveyance}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Discount ({{fareDetails.discountName}} - {{fareDetails.discountPercentage}}%)
+                    </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.detect}}</td>
+                  </tr>
+
+                  <!-- <tr *ngIf="fareDetails.gatewayCharge!=null">
+                    <td>Gateway Charge </td>
+                    <td>{{fareDetails.currency}} {{fareDetails.gatewayCharge}}</td>
+                  </tr> -->
+                  <tr *ngIf="showAdditionalCharge">
+                    <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                    </td>
+                    <td>{{fareDetails.currency}} {{totalAdditionalChar}}</td>
+                  </tr>
+                  <tr>
+                    <th class="totalFare" scope="row">Total Fare (Payment Mode: {{fareDetails.via}})</th>
+                    <th class="totalFare" scope="row">{{fareDetails.currency}} {{fareDetails.cost}}</th>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- Zone Fare:{{ZoneFare}} -->
+            </nb-card-body>
+            <!-- rental -->
+            <nb-card-body *ngIf="showFareFor === 'rental'">
+              <table class="table table-bordered fare-det" style="text-align: left">
+                <tbody>
+                  <tr>
+                    <td>Base Package</td>
+                    <td>{{packageDetails.packageName}}</td>
+                  </tr>
+                  <tr>
+                    <td>Package {{defaultUnit}} Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.distfare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Booking Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.booking}}</td>
+                  </tr>
+                  <tr>
+                    <td>Base Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.base}}</td>
+                  </tr>
+                  <tr>
+                    <td>Fare for Remaining {{defaultUnit}} ({{packageDetails.currency}}
+                      {{packageDetails.perKmRate}}/{{defaultUnit}})
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.fareForExtraKM}}</td>
+                  </tr>
+                  <tr>
+                    <td>Remaining Time Fare ({{packageDetails.currency}} {{packageDetails.timefare}}/Min)</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.fareForExtraTime}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Time Fare ({{packageDetails.currency}} {{packageDetails.timeRate}}/Min) *
+                      ({{packageDetails.time}} Min)
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.timefare}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>{{taxLabel}} ({{packageDetails.taxPercentage}} %)</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.tax}}</td>
+                  </tr>
+
+                  <tr *ngIf="isDTS==true">
+                    <td>TDS Tax Amount this({{packageDetails.taxTDSPercentage}}%):
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.taxTDS }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Google Charge </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.googleCharge}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>Toll Fee </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.tollFee}}</td>
+                  </tr>
+                  <tr *ngIf="packageDetails.conveyance!== '0.00'">
+                    <td>Pick Up Charge</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.conveyance}}</td>
+                  </tr>
+                  <tr *ngIf="packageDetails.hillFare !== '0.00'">
+                    <td>Hill Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.hillFare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Discount ({{packageDetails.discountName}} - {{packageDetails.discountPercentage}}%)
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.detect}}</td>
+                  </tr>
+                  <tr *ngIf="showAdditionalCharge">
+                    <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                    </td>
+                    <td>{{packageDetails.currency}} {{totalAdditionalChar}}</td>
+                  </tr>
+                  <tr>
+                    <td>Gateway Charge </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.gatewayCharge}}</td>
+                  </tr>
+                  <tr>
+                    <th class="totalFare" scope="row">Total Fare (Payment Mode: {{packageDetails.via}})</th>
+                    <th class="totalFare" scope="row">{{packageDetails.currency}} {{packageDetails.cost}}</th>
+                  </tr>
+                </tbody>
+              </table>
+            </nb-card-body>
+            <!-- outstation -->
+            <nb-card-body *ngIf="showFareFor === 'outstation'">
+              <table class="table table-bordered fare-det" style="text-align: left">
+                <tbody>
+                  <tr>
+                    <td>Base Package</td>
+                    <td>{{packageDetails.packageName}}</td>
+                  </tr>
+                  <tr>
+                    <td>Booking Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.booking}}</td>
+                  </tr>
+                  <tr>
+                    <td>Base Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.base}}</td>
+                  </tr>
+                  <tr>
+                    <td>Package Mile Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.distfare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Fare for Remaining {{defaultUnit}} ({{packageDetails.currency}}
+                      {{packageDetails.perKmRate}}/{{defaultUnit}})
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.fareForExtraKM}}</td>
+                  </tr>
+                  <tr>
+                    <td>Remaining Time Fare ({{packageDetails.currency}} {{packageDetails.timefare}}/Hr)</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.fareForExtraTime}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Time Fare ({{packageDetails.currency}} {{packageDetails.timeRate}}/Min) *
+                      ({{packageDetails.time}} Min)
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.timefare}}</td>
+                  </tr> -->
+
+                  <tr>
+                    <td>Toll Fee </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.tollFee}}</td>
+                  </tr>
+                  <tr *ngIf="tripdetails.status == 'Finished'">
+                    <td>Day Fare ({{packageDetails.noOfDays}} * {{packageDetails.currency}} {{packageDetails.dayRate}})
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.dayFare }}</td>
+                  </tr>
+
+                  <tr *ngIf="tripdetails.status == 'Finished'">
+                    <td>Night Fare ({{packageDetails.noOfNights}} * {{packageDetails.currency}}
+                      {{packageDetails.nightRate}})
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.nightFare }}</td>
+                  </tr>
+
+                  <tr>
+                    <td>{{taxLabel}} ({{packageDetails.taxPercentage}} %)</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.tax}}</td>
+                  </tr>
+
+                  <tr *ngIf="isDTS==true">
+                    <td>TDS Tax Amount ({{packageDetails.taxTDSPercentage}}%):
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.taxTDS }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Google Charge </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.googleCharge}}</td>
+                  </tr> -->
+                  <tr *ngIf="packageDetails.conveyance!== '0.00'">
+                    <td>Pick Up Charge</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.conveyance}}</td>
+                  </tr>
+                  <tr *ngIf="packageDetails.hillFare !== '0.00'">
+                    <td>Hill Fare</td>
+                    <td>{{packageDetails.currency}} {{packageDetails.hillFare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Discount ({{packageDetails.discountName}} - {{packageDetails.discountPercentage}}%)
+                    </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.detect}}</td>
+                  </tr>
+                  <tr *ngIf="showAdditionalCharge">
+                    <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                    </td>
+                    <td>{{packageDetails.currency}} {{totalAdditionalChar}}</td>
+                  </tr>
+                  <tr>
+                    <td>Gateway Charge </td>
+                    <td>{{packageDetails.currency}} {{packageDetails.gatewayCharge}}</td>
+                  </tr>
+                  <tr>
+                    <th class="totalFare" scope="row">Total Fare (Payment Mode: {{packageDetails.via}})</th>
+                    <th class="totalFare" scope="row">{{packageDetails.currency}} {{packageDetails.cost}}</th>
+                  </tr>
+                </tbody>
+              </table>
+            </nb-card-body>
+
+            <nb-card-footer>
+              <div align="right">
+                <button class="btn btn-danger" [hidden]="!showNoResponse" nbButton size="small" status="danger"
+                  (click)="retryBooking()">Retry Booking</button> &nbsp;
+                <button class="btn btn-success" nbButton size="small" [hidden]="!showStartButton" status="success"
+                  (click)="changeTemplate('showStart')">Start
+                  Trip</button> &nbsp;
+                <button class="btn btn-danger" nbButton size="small" [hidden]="!showCancelButton" status="danger"
+                  (click)="openVerticallyCentered(content)">Cancel
+                  Trip</button> &nbsp;
+                <button class="btn btn-danger" nbButton size="small" status="danger" [hidden]="!showEndButton"
+                  (click)="changeTemplate('showEnd')">End
+                  Trip</button> &nbsp;
+                <button class="btn btn-primary" [hidden]="!showEmail" nbButton size="small" status="primary"
+                  (click)="openVerticallyCenteredForEmail(contentEmail)">E-Mail</button> &nbsp;
+                <!-- <button class="btn btn-danger" nbButton size="small" status="danger"
+                  (click)="deleteATripDetails()">Delete</button> -->
+              </div>
+            </nb-card-footer>
+          </nb-card>
+
+          <!-- Cancel Reasons -->
+          <ng-template #content let-modal let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Cancel A Trip</h4>
+              <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #cancelForm="ngForm">
+                <label>Reason</label>
+                <input type="text" [(ngModel)]="cancelTripDetails.reason" #reason="ngModel" name="reason"
+                  placeholder="Enter the Reason to Cancel A Trip" class="form-control" required />
+                <br>
+              </form>
+              <button type="submit" class="btn btn-info" [disabled]="!cancelForm.valid"
+                (click)="cancelTrip(cancelTripDetails);closed(d)">Submit</button>
+            </div>
+          </ng-template>
+          <hr>
+          <nb-card *ngIf="showFareFor !== 'daily'">
+            <nb-card-body>
+              <div class="rem-marg form-group">
+                <div class="row show-grid">
+                  <div class="col-6 col-md-6">
+                    <div class="div-marg" align="center">Start Meter</div>
+                    <div class="div-marg" align="center">
+                      <p><b>{{tripdetails.startMeter}}</b></p>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-6">
+                    <div class="div-marg" align="center">End Meter</div>
+                    <div class="div-marg" align="center">
+                      <p><b>{{tripdetails.endMeter}}</b></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+          <hr>
+          <nb-card>
+            <nb-card-body>
+              <div class="form-group">
+                <table class="table trip-loc">
+                  <thead>
+                    <tr>
+                      <th scope="col" colspan="2">
+                        <h5>Estimated Location</h5>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" width="7%">Pickup:</th>
+                      <td width="93%"><b>{{tripdetails['dsp'].start}}</b></td>
+                    </tr>
+                    <tr>
+                      <th scope="row" width="7%">Drop:</th>
+                      <td width="93%"><b>{{tripdetails['dsp'].end}}</b></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </nb-card-body>
+            <button class="btn btn-info" *ngIf="tripdetails.status == 'Finished'" (click)="EstimationFare(Popup)">View
+              Estimation Fare</button>
+            <ng-template #Popup let-modal let-d="dismiss">
+              <nb-card>
+                <nb-card-header>
+                  Estimation Fare
+                </nb-card-header>
+                <nb-card-body *ngIf="showFareFor === 'rental' || showFareFor === 'outstation'">
+                  <table class="table table-bordered fare-det" style="text-align: right">
+                    <tbody>
+                      <tr>
+                        <td>Base Package</td>
+                        <td>{{tripCspDetails.packageName}}</td>
+                      </tr>
+                      <tr>
+                        <td>Package Mile Fare</td>
+                        <td>{{packageDetails.currency}} {{tripCspDetails.distfare}}</td>
+                      </tr>
+                      <tr>
+                        <td>Fare for Remaining {{defaultUnit}} ({{packageDetails.currency}}
+                          {{tripCspDetails.perKmRate}}/{{defaultUnit}}) </td>
+                        <td>{{packageDetails.currency}} {{tripCspDetails.fareForExtraKM}}</td>
+                      </tr>
+                      <tr>
+                        <td>Remaining Time Fare ({{packageDetails.currency}} {{tripCspDetails.timefare}}/Hr) </td>
+                        <td>{{packageDetails.currency}} {{tripCspDetails.fareForExtraTime}}</td>
+                      </tr>
+                      <tr>
+                        <td>Discount (N/A - 0%) </td>
+                        <td>{{packageDetails.currency}} {{tripCspDetails.promoamt}} </td>
+                      </tr>
+                      <tr>
+                        <th class="totalFare" scope="row">Total Fare (Payment Mode: {{tripCspDetails.via}})</th>
+                        <th class="totalFare" scope="row">{{packageDetails.currency}} {{tripCspDetails.cost}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-card-body>
+                <nb-card-body *ngIf="showFareFor === 'daily'">
+                  <table class="table table-bordered fare-det" style="text-align: right">
+                    <tbody>
+                      <tr>
+                        <td>Fare Type</td>
+                        <td>N/A</td>
+                      </tr>
+                      <!-- <tr>
+                      <td>Actual Cost</td>
+                      <td>{{fareDetails.currency}} {{tripCspDetails.cost}}</td>
+                    </tr> -->
+                      <tr>
+                        <td>Distance Fare ({{tripDspDetails.distanceKM}} {{defaultUnit}})</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.distfare}}</td>
+                      </tr>
+                      <tr>
+                        <td>Base Fare</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.base}}</td>
+                      </tr>
+                      <tr>
+                        <td>Booking Fare</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.booking}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Waiting Charge ({{fareDetails.currency}} {{fareDetails.waitingRate}}/Min)</td>
+                        <td>{{fareDetails.currency}} {{fareDetails.waitingCharge}}</td>
+                      </tr> -->
+                      <tr>
+                        <!-- <td>Time Fare ({{fareDetails.currency}} {{fareDetails.time}}/Min)</td>
+                        <td>{{fareDetails.currency}} {{fareDetails.timefare}}</td> -->
+                        <td>Time Fare ({{fareDetails.currency}} {{tripCspDetails.travelRate}}/Min) *
+                          ({{tripDspDetails.estTime}})
+                        </td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.travelFare}}</td>
+                      </tr>
+                      <tr>
+                        <td>Tax</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.tax}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <td>Old Balance</td>
+                        <td>{{fareDetails.currency}} {{fareDetails.oldBalance}}</td>
+                      </tr> -->
+                      <tr>
+                        <td>Night Charge Applied</td>
+                        <td *ngIf="estNightChargeApplied != true">{{fareDetails.currency}} {{tripCspDetails.nightCharge}}</td>
+                        <td *ngIf="estNightChargeApplied == true">{{fareDetails.currency}} {{tripCspDetails.nightChargeRate}} </td>
+                      </tr>
+                      <tr *ngIf="pickupcharge==true">
+                        <td>Pick Up Charge</td>
+                        <td>{{fareDetails.currency}} {{fareDetails.conveyance}}</td>
+                      </tr>
+                      <tr *ngIf="tripCspDetails.promo === ''">
+                        <!-- <td>Discount ({{fareDetails.discountName}} - {{fareDetails.discountPercentage}}%)
+                        </td>
+                        <td>{{fareDetails.currency}} {{fareDetails.detect}}</td> -->
+                        <td>Promocode (N/A)</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.promoamt}}</td>
+                      </tr>
+                      <tr *ngIf="tripCspDetails.promo != ''">
+
+                        <td>Promocode({{tripCspDetails.promo}})</td>
+                        <td>{{fareDetails.currency}} {{tripCspDetails.promoamt}}</td>
+                      </tr>
+                      <tr *ngIf="showAdditionalCharge">
+                        <td *ngFor="let dt of additionalChargeData">Additional Fee {{dt.name}}: {{dt.amount}}
+                        </td>
+                        <td>{{fareDetails.currency}} {{totalAdditionalChar}}</td>
+                      </tr>
+                      <tr>
+                        <th class="totalFare" scope="row">Total Fare (Payment Mode: {{fareDetails.via}})</th>
+                        <th class="totalFare" scope="row">{{fareDetails.currency}} {{tripCspDetails.cost}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-card-body>
+                <nb-card-footer>
+                  <button nbButton size="small" status="danger" (click)="closed1(d)">
+                    Go Back
+                  </button>
+                </nb-card-footer>
+              </nb-card>
+            </ng-template>
+          </nb-card>
+
+          <!-- If Fare Type -> India -->
+
+          <nb-card *ngIf="showFare">
+            <nb-card-header>
+              Tax Invoice
+            </nb-card-header>
+            <nb-card-body>
+              <table class="table table-bordered fare-det" style="text-align: left">
+                <tbody>
+                  <tr>
+                    <td>Ride Fee</td>
+                    <td>{{rideFeeDetails.rideFare}}</td>
+                  </tr>
+                  <tr>
+                    <td>CGST ({{Amountdetails.taxper1 + '%'}})</td>
+                    <td>{{rideFeeDetails.cgst}}</td>
+                  </tr>
+                  <tr>
+                    <td>SGST ({{Amountdetails.taxper1 + '%'}})</td>
+                    <td>{{rideFeeDetails.sgst}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Customer Ride Fare</td>
+                    <td>{{rideFeeDetails.totalFare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Convenience Fee (Ride)</td>
+                    <td>{{convenienceFeeDetails.rideFee}}</td>
+                  </tr>
+                  <tr>
+                    <td>CGST ({{Amountdetails.taxper2 + '%'}})</td>
+                    <td>{{convenienceFeeDetails.cgst}}</td>
+                  </tr>
+                  <tr>
+                    <td>SGST ({{Amountdetails.taxper2 + '%'}})</td>
+                    <td>{{convenienceFeeDetails.sgst}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Convenience Fee Fare</td>
+                    <td>{{convenienceFeeDetails.totalFare}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Fare
+                    </td>
+                    <td>{{rideFeeDetails.total}} {{Amountdetails.currency}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>
+          Request Drivers List
+        </nb-card-header>
+        <nb-card-body>
+          <table class="table table-bordered table-responsive-md" style="text-align: center">
+            <thead>
+              <tr>
+                <th>Driver Code</th>
+                <th>Driver name</th>
+                <th>Phone No.</th>
+                <th>Current Service</th>
+                <th>Current Status</th>
+                <th>Status</th>
+                <th>Distance *({{defaultUnit}})</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let drv of driverDetails" border="1">
+                <td>{{drv.code}}</td>
+                <td>{{drv.fname}}</td>
+                <td>{{drv.phone}}</td>
+                <td>{{drv.curService}}</td>
+                <td>{{drv.curStatus}}</td>
+                <td>{{drv.called}}</td>
+                <td>{{drv.distVal}}</td>
+              </tr>
+              <tr *ngIf="driverDetails.length === 0">
+                <td colspan="7">No data found</td>
+              </tr>
+            </tbody>
+          </table>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="goBack()" nbButton size="small" status="danger" type="button" class="btn btn-danger">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #MultiLocation let-modal let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Multi Stop Location</h4>
+    <button type="button" class="close" aria-label="Close" (click)="CloseMulLoc(d)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngFor="let m of MultiLoc; let i = index">
+    {{i+1}}. {{m.strAddress}}
+
+  </div>
+
+</ng-template>
+
+<!-- End Trip -->
+
+<ng-template [ngIf]="endTrip">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <nb-card>
+        <nb-card-header>
+          End A Trip
+        </nb-card-header>
+        <nb-card-body>
+          <form #cancelForm="ngForm" autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pickup Location</label>
+                  <input places-auto-complete (keyup)="checkLoc($event)" (place_changed)="listenPickupLocation($event);"
+                    [types]="['geocode']" type="text" [(ngModel)]="endTripDetails.startAddress" #startAddress="ngModel"
+                    [componentRestrictions]="{country: 'in'}" name="startAddress" placeholder="Pickup Location" required
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Drop Location</label>
+                  <input places-auto-complete (keyup)="checkLoc($event)" (place_changed)="listenDropLocation($event);"
+                    [types]="['geocode']" [(ngModel)]="endTripDetails.endAddress" name="endAddress"
+                    [componentRestrictions]="{country: 'in'}" placeholder="Search Location" required
+                    class="form-control" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Trip Start Time</label>
+                  <input class="form-control" required placeholder="Click to Select a Time"
+                    [(ngModel)]="endTripDetails.startTime" name="startTime" #startTime="ngModel"
+                    [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6">
+                  <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt6></owl-date-time>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Trip Ended Time</label>
+                  <input class="form-control" required placeholder="Click to Select a Time"
+                    [(ngModel)]="endTripDetails.endTime" name="endTime" [min]="endTripDetails.startTime"
+                    #endTime="ngModel" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5">
+                  <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt5></owl-date-time>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="endTripDetails.tripType === 'daily'">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Total Trip Distance (In Mile)</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.distance" #distance="ngModel" name="distance"
+                    placeholder="Total Trip Distance In Mile" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Total Trip Time (In Minutes)</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.duration" #duration="ngModel" name="duration"
+                    placeholder="Total Trip Time in Minutes" class="form-control" required />
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="endTripDetails.tripType === 'daily'">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Total Trip Waiting Time (In Minutes)</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.waitingSecond" #waitingSecond="ngModel"
+                    name="waitingSecond" placeholder="Total Trip Waiting Time In Minutes" class="form-control"
+                    required />
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="endTripDetails.tripType !== 'daily'">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Trip Start Meter (In Mile)</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.startMeter" #startMeter="ngModel"
+                    name="startMeter" placeholder="Trip Start Meter In Mile" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Trip End Meter (In Mile)</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.endMeter" #endMeter="ngModel" name="endMeter"
+                    placeholder="Trip End Meter In Mile" class="form-control" required />
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="endTripDetails.tripType === 'outstation'">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Hill Mile</label>
+                  <input type="number" min="0" [(ngModel)]="endTripDetails.hillKm" #hillKm="ngModel" name="hillKm"
+                    placeholder="Hill Mile" class="form-control" required />
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <!-- [disabled]="!cancelForm.form.valid" -->
+          <button type="submit" class="btn btn-info" nbButton size="small" status="info"
+            (click)="getFareBeforeEndTrip(endTripDetails)">Get Fare
+            Estimation</button> &nbsp;
+          <button (click)="changeTemplate('')" type="button" nbButton size="small" status="danger"
+            class="btn btn-danger">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+    <div class="col-xs-12 col-md-6" *ngIf="showEndTripFare">
+      <nb-card>
+        <nb-card-header>
+          Trip Invoice
+        </nb-card-header>
+        <nb-card-body>
+          <table class="table table-bordered fare-det end-trip" style="text-align: left">
+            <tbody *ngIf="endTripDetails.tripType === 'daily'">
+              <!-- <tr>
+                <td>Actual Cost</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.actualCost}}</td>
+              </tr> -->
+              <tr>
+                <td>Distance Fare ({{endTripFareForDaily.dist}} {{defaultUnit}})</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.distanceFare}}</td>
+              </tr>
+              <tr>
+                <td>Base Fare</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.baseFare}}</td>
+              </tr>
+              <tr>
+                <td>Waiting Charge ({{defaultCur}} {{endTripFareForDaily.waitingCharge}}/Min)</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.waitingFare}}</td>
+              </tr>
+              <tr>
+                <td>Time Fare ({{defaultCur}} {{endTripFareForDaily.travelRate}}/Min)</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.travelFare}}</td>
+              </tr>
+              <tr>
+                <td>Tax</td>
+                <td>{{defaultCur}} {{endTripFareForDaily.tax}}</td>
+              </tr>
+              <tr>
+                <td *ngIf="endTripFareForDaily.nightChargeApplied != true">Night Charge Applied</td>
+                <td *ngIf="endTripFareForDaily.nightChargeApplied == true">Night Charge Applied(*1.5)</td>
+                <td>{{endTripFareForDaily.nightCharge}}</td>
+              </tr>
+              <tr>
+                <td>Discount </td>
+                <td>{{defaultCur}} {{endTripFareForDaily.discount}}</td>
+              </tr>
+              <tr>
+                <th class="totalFare" scope="row">Total Fare (Payment Mode: {{endTripFareForDaily.paymentmode}})</th>
+                <th class="totalFare" scope="row">{{defaultCur}} {{endTripFareForDaily.totalFare}}</th>
+              </tr>
+            </tbody>
+            <tbody *ngIf="endTripDetails.tripType === 'rental'">
+              <tr *ngFor="let item of endTripFareForRental">
+                <td>{{item.label}} <span *ngIf="item.desc">( {{item.desc}} )</span></td>
+                <td>{{item.value}}</td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="endTripDetails.tripType === 'outstation'">
+              <tr *ngFor="let item of endTripFareForOutstation">
+                <td>{{item.label}} <span *ngIf="item.desc">( {{item.desc}} )</span></td>
+                <td>{{item.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </nb-card-body>
+        <nb-card-footer>
+          <button type="submit" class="btn btn-info pull-right" (click)="endTripDet(endTripDetails)" nbButton
+            size="small" status="primary">End Trip</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<!-- Start Trip -->
+
+<ng-template [ngIf]="startTrip">
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header>
+          Start Trip
+        </nb-card-header>
+        <nb-card-body>
+          <form #startForm="ngForm" autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Pickup Location</label>
+                  <input places-auto-complete (keyup)="checkStartTripLoc($event)"
+                    (place_changed)="listenStartLoc($event);" [types]="['geocode']" type="text"
+                    [(ngModel)]="startTripDetails.startAddress" #startAddress="ngModel"
+                    [componentRestrictions]="{country: 'in'}" name="startAddress" placeholder="Pickup Location" required
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Trip Start Time</label>
+                  <input class="form-control" required placeholder="Click to Select a Time"
+                    [(ngModel)]="startTripDetails.startTime" name="startTime" #startTime="ngModel"
+                    [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6">
+                  <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt6></owl-date-time>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" *ngIf="startTripDetails.tripType !== 'daily'">
+                <div class="form-group">
+                  <label>Trip Start Meter (In Mile)</label>
+                  <input type="number" min="0" [(ngModel)]="startTripDetails.startMeter" #startMeter="ngModel"
+                    name="startMeter" placeholder="Trip Start Meter In Mile" class="form-control" required />
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="startTripBtn(startTripDetails)" [disabled]="!startForm.form.valid" type="button" nbButton
+            size="small" status="primary" class="btn btn-primary">
+            Submit
+          </button> &nbsp;
+          <button (click)="changeTemplate('')" type="button" nbButton size="small" status="danger"
+            class="btn btn-danger">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<style>
+  .trip-loc td,
+  .trip-loc th {
+    border: none !important;
+  }
+
+  .fare-det {
+    border: 1px solid black;
+  }
+
+  .fare-det td {
+    border: none !important;
+  }
+
+  .totalFare:nth-child(1) {
+    width: 50%;
+    text-indent: 20%;
+    border: 1px solid black !important
+  }
+
+  .totalFare:nth-child(2) {
+    text-indent: 35%;
+    width: 50%;
+    border: 1px solid black !important
+  }
+
+  .fare-det td:nth-child(1) {
+    width: 50%;
+    text-indent: 20%;
+    border-right: 1px solid black !important
+  }
+
+  .fare-det td:nth-child(2) {
+    text-indent: 35%;
+    width: 50%
+  }
+</style>

@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>Add a Country</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <div class="form-group">
+            <label>Country Name</label>
+            <input type="text" [(ngModel)]="list.name" #name="ngModel" name="name" required placeholder="Country Name"
+              class="form-control" />
+            <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+              Country Name is required!
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Country Code</label>
+            <input type="text" [(ngModel)]="list.sortname" #sortname="ngModel" name="sortname" required placeholder="Country Code"
+              class="form-control" />
+            <small *ngIf="sortname.invalid && (sortname.dirty)" class="form-text error">
+              Country Code is required!
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Code</label>
+            <input type="text" [(ngModel)]="list.phoneCode" name="phoneCode" #phoneCode="ngModel" placeholder="Phone Code"
+              class="form-control" required />
+            <small *ngIf="phoneCode.invalid && (phoneCode.dirty)" class="form-text error">
+              Phone is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Currency Name</label>
+            <input type="text" [(ngModel)]="list.currencyName" name="currencyName" #currencyName="ngModel" placeholder="Currency Name"
+              class="form-control" required />
+            <small *ngIf="currencyName.invalid && (currencyName.dirty)" class="form-text error">
+              Currency Name is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Currency Code</label>
+            <input type="text" [(ngModel)]="list.currencyCode" name="currencyCode" #currencyCode="ngModel" placeholder="Currency Code"
+              class="form-control" required />
+            <small *ngIf="currencyCode.invalid && (currencyCode.dirty)" class="form-text error">
+              Currency Code is required!
+            </small>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="AddNewDoc(list)" [disabled]="!dataForm.form.valid" class="btn btn-success btn-block">
+          ADD </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

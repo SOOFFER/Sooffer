@@ -1,0 +1,172 @@
+<div *ngIf="initial ; then table else Detail"></div>
+<ng-template #table>
+    <nb-card>
+            <nb-card-header>Citywise Config</nb-card-header>
+            <nb-card-body>
+                    <ng2-smart-table [source]="source" [settings]="settings" (custom)="route($event)" >
+                        </ng2-smart-table>
+            </nb-card-body>
+          
+    </nb-card>
+  
+</ng-template>
+
+<ng-template #Detail>
+ <!-- <div class ="col-md-6"> -->
+    <nb-card>
+        <nb-card-header>
+         Citywise Config
+        </nb-card-header>
+        <nb-card-body>
+            <form #dataForm="ngForm">
+            
+                <div class="row">
+                    <!-- <div class="col-md-6">
+                            <div class="form-group">
+                                    <label>Driver Minimum Balance to Maintain (<span class="red">*</span>)</label>
+                                    <input type="number" class="form-control" name="minBalance" [(ngModel)]="list.minBalance" 
+                                    #minBalance="ngModel" required placeholder="Driver Minimum Balance to Maintain"  >
+                                </div>
+                    </div> -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Driver Minimum Balance to Maintain (Pre Paid) </label>
+                            <input type="number" class="form-control" name="prepaidMinBal" [(ngModel)]="list.prepaidMinBal"
+                            #prepaidMinBal="ngModel" placeholder="Driver Minimum Balance to Maintain (Pre Paid)">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Driver Minimum Balance to Maintain (Post Paid) </label>
+                                <input type="number" class="form-control" name="postpaidMinBal" [(ngModel)]="list.postpaidMinBal" 
+                                #postpaidMinBal="ngModel" placeholder="Driver Minimum Balance to Maintain (Post Paid)">
+                            </div>
+                        </div>
+                    <!-- <div class="col-md-6">
+                            <div class="form-group">
+                                    <label>Package Type</label>
+                                    <select class="form-control" #type="ngModel" name="type" [(ngModel)]="list.type" required>
+                                        <option value="undefined" selected hidden>Selecte a Package Type</option>
+                                       
+                                        <option selected="select" value="postpaid" >Post Paid</option>
+                                        <option selected="select" value="prepadi">Pre Paid</option>
+                                    </select>                     
+                                </div>
+                    </div> -->
+            
+                </div>
+                <div class="row">
+         
+                    <div class="col-md-6">
+                            <div class="form-group" *ngIf="this.servicecity == true">
+                                    <label>Servie Avaliable City(<span class="red">*</span>) </label>
+                                    <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+                                    [(ngModel)]="list.scIds" required [settings]="dropdownSettings" class="form-control">
+                                  </ng-multiselect-dropdown>
+                          </div>
+                    </div>
+               
+                </div>
+           
+            </form>
+        </nb-card-body>
+ 
+    <nb-card>
+        <nb-card-header>
+            Request Config
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-6">
+                    <nb-card>
+                        <nb-card-header>
+                                <div class="form-group">
+                                        <label><b> Max Request Radius(In Miles) (Distance b/t Pickup point and Driver Location) </b></label>
+                                     
+                                    </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <div class="row">
+                                    <div class="col-md-4">
+                                            <label>
+                                                Daily
+                                            </label>
+                                            <input type="number" class="form-control" placeholder="Daily" name="maxDistBtRiderAndDriver" 
+                                            [(ngModel)]="list.maxDistBtRiderAndDriver" #maxDistBtRiderAndDriver="ngModel">
+                                        </div>
+                                        <div class="col-md-4">
+                                             <label>Outstation</label>
+                                             <input type="number" class="form-control" placeholder="Outstation" name="maxDistBtRiderAndDriverOutsation" 
+                                             [(ngModel)]="list.maxDistBtRiderAndDriverOutsation" #maxDistBtRiderAndDriverOutsation >
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Rental</label>
+                                            <input type="number" class="form-control" placeholder="Rental" name="maxDistBtRiderAndDriverRental" 
+                                            [(ngModel)]="list.maxDistBtRiderAndDriverRental" #maxDistBtRiderAndDriverRental="ngModel"> 
+                                        </div>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+
+                </div>
+                <div class="col-md-6">
+                        <nb-card>
+                            <nb-card-header>
+                                    <div class="form-group">
+                                            <label><b>Request Time for Single Driver To Accept/Decline (seconds)</b> </label>
+                                        
+                                        </div>
+                            </nb-card-header>
+                            <nb-card-body>
+                                <div class="row">
+                                        <div class="col-md-4">
+                                                <label>Daily</label>
+                                                <input type="number" class="form-control" placeholder="Daily" name="requestTime"
+                                                [(ngModel)]="list.requestTime" #requestTime="ngModel">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Outstation</label>
+                                                <input type="number" class="form-control" placeholder="Outstation" name="requestTimeOutsation"
+                                                [(ngModel)]="list.requestTimeOutsation" #requestTimeOutsation="ngModel"> 
+                                                
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Rental</label>
+                                                <input type="number" class="form-control" placeholder="Rental" name='requestTimeRental'
+                                                [(ngModel)]="list.requestTimeRental" #requestTimeRental="ngModel"> 
+                                            </div>     
+                                </div>
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+            </div>
+            <br>
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <label>No Of Drivers to be Cancelled Nearby Pickup Point</label>
+                        <input type="number" name="driversNeedToCallForATrip" #driversNeedToCallForATrip="ngModel"
+                        [(ngModel)]="list.driversNeedToCallForATrip" placeholder="No of Drivers to be Called Nearby Pickup Point"
+                        class="form-control"> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Requesting Time For Rider To Search for Nearby Driver (seconds) </label>
+                        <input type="number" name="useCancelTime" #userCancelTime="ngModel" [(ngModel)]="list.userCancelTime"
+                        placeholder="Requesting Time For Rider to Search for Nearby Drivers" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+  
+        </nb-card-body>
+        <nb-card-footer>
+                <button type="submit" [disabled]="!dataForm.valid" class="btn btn-info" (click)="UpdateData(list)">Update</button>&nbsp;&nbsp;&nbsp;
+                <button type="submit" class="btn btn-danger" (click)="DeleteData()">Delete</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" (click)="goBack()">Go Back</button> 
+            </nb-card-footer>
+        </nb-card>
+    </nb-card>
+
+</ng-template>

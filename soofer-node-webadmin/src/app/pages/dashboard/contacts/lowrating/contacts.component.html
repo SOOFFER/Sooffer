@@ -1,0 +1,18 @@
+<nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="Low Rated Drivers">
+      <div class="contact" *ngFor="let c of contacts">
+        <nb-user  style="cursor:pointer" (click)="RouteToDrivers(c._id)" [picture]=temp+c.profile [name]="c.fname" size="large"></nb-user>
+        <!-- <span style="font-size:18px;color: #2a2a2a;text-transform: capitalize">{{c.dvr}}</span> -->
+        <i>{{ c.rating?.rating }}</i>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Low Rated Riders">
+      <div class="contact" *ngFor="let c of recent">
+        <nb-user [picture]=temp+c.profile  style="cursor:pointer" (click)="RouteToRider(c._id)" [name]="c.fname" size="large"></nb-user>
+        <!-- <span style="font-size:18px;color: #2a2a2a;text-transform: capitalize">{{c.rid}}</span> -->
+        <i>{{ c.rating?.rating }}</i>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

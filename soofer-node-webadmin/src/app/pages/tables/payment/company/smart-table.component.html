@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-sm-10">
+        {{title}}
+      </div>
+      <!-- <div class="col-sm-2">
+        <button (click)="applyBulkAction()" type="button" class="btn btn-primary">Mark As Settled</button>
+      </div> -->
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" (userRowSelect)="onUserRowSelect($event)" [source]="source" (custom)="route($event)"
+      *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

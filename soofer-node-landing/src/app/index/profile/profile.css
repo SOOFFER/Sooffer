@@ -1,0 +1,107 @@
+@media screen and (max-width: 768px) {
+    .drve-profil-detail .edit-button {
+        float: left;
+        margin-top: 20px;
+    }
+
+    .drve-profil-detail .edit-button.log {
+        float: right;
+        margin-top: 20px;
+        margin: 0;
+        margin-bottom: 16px !important;
+    }
+
+    .pading-btm {
+        margin-top: 10px !important;
+        padding-bottom: 0px;
+    }
+    .pencil-postn-0 {
+        font-size: 15px;
+        /* position: absolute; */
+        left: -4px;
+        top: 26px;
+        background: var(--homePage-color);
+        padding: 8px;
+        color: var(--btn-text-color);
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+
+
+}
+
+@media screen and (min-width: 768px) {
+    .set-pad{
+        padding-left: 40px;
+    }
+}
+
+.box_2 {
+    position: relative;
+    top: 50px;
+}
+
+.pwd-box-1 .postn-arrow {
+    position: absolute;
+    top: -17px;
+    left: unset;
+    right: 70px;
+}
+
+.box_2 .postn-arrow-phone {
+    top: -17px;
+}
+
+.no-pad {
+    padding: 0px;
+}
+
+/* .phone-box-1 {
+    position: relative;
+} */
+
+.top-rel-phone {
+    top: -50px;
+}
+
+.pwd_email_box {
+    position: relative;
+    margin-top: 40px;
+}
+
+.pwd_email_box .postn-arrow {
+    top: -17px;
+
+}
+
+.custom-box {
+    top: 45px;
+}
+
+
+.postn-arrow-phone {
+    right: 22%;
+}
+.pading-btm {
+    padding-bottom: 40px;
+    border-bottom: unset;
+}
+
+.mat-elevation-z8{
+    overflow: auto;
+ }
+ .table{
+    margin-bottom: unset !important;
+ }
+ .pencil-postn-0 {
+    font-size: 20px;
+    /* position: absolute; */
+    left: -4px;
+    top: 26px;
+    background: var(--homePage-color);
+    padding: 11px;
+    color:var(--btn-text-color);
+    cursor: pointer;
+    border-radius: 4px; 
+}

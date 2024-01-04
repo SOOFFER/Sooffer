@@ -1,0 +1,240 @@
+apply plugin: 'com.android.application'
+
+
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 21
+        applicationId "com.soofer.app"
+        targetSdkVersion 30
+        versionCode 9
+        versionName "1.8"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "razorpay", "rzp_live_FJL6nFRfE93YK1"
+            buildConfigField "String", "Stripe", '"pk_live_51JvLMsD9LszUmsLxvA3vVVqJPXPCncqNSqE2RTiWDqaj0TvQPXTtyG4OqopDu68z6GEMlhcdea0HkmXsdc7pWtXM00xVZJANuo"'
+        }
+        debug {
+            resValue "string", "razorpay", "rzp_live_FJL6nFRfE93YK1"
+            buildConfigField "String", "Stripe", '"pk_test_51JvLMsD9LszUmsLxMrARz8Aag0y5XeOMUnUNGzZ4oKfiyfSjnkGkGkntDJQvH3Z2nisIuNe1VsTGwJu5jPFIYljW008c1M23tQ"'
+
+        }
+
+    }
+    dataBinding{
+        enabled true
+    }
+    compileOptions {
+        // targetCompatibility 1.8
+        //sourceCompatibility 1.8
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false // Add this
+        abortOnError false
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+}
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.0.0'
+            }
+        }
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url "https://maven.google.com" // Google's Maven repository
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs "libs"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //multidex grdle
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //dp and sp common grdle
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    //butternife gradle
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    //cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+   //rayzor pay
+    implementation 'com.razorpay:checkout:1.5.16'
+
+    //material edittext
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //google map and location gradle
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation "com.google.android.gms:play-services-location:17.1.0"
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+
+    //sms retriver
+    implementation 'com.google.android.gms:play-services-base:17.5.0'
+    implementation 'com.google.android.gms:play-services-identity:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
+
+    //recycleview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //retrofit gson convertor
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //ui validation gradle
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    //stripe
+    implementation 'com.stripe:stripe-android:2.0.2'
+    //braintree card form
+    implementation 'com.braintreepayments:card-form:5.1.0'
+
+    //jwt decoder
+    implementation 'com.auth0.android:jwtdecode:1.1.1'
+
+    //ripple effect
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+
+    //material datetime picker
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+
+
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1' // google direction gradle
+
+    //Firebase & GeoFire
+    implementation 'com.google.firebase:firebase-core:18.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.5'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    //remote config
+    implementation 'com.google.firebase:firebase-config:20.0.0'
+
+    implementation 'com.firebase:geofire-android:3.0.0'
+
+    //country code picker
+    implementation 'com.github.yesterselga:CountryPickerAndroid:1.0.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    //event bus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    //alert gradle
+    implementation 'com.tapadoo.android:alerter:4.0.2'
+
+    //rx java
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    //latto loader
+    implementation 'com.airbnb.android:lottie:3.0.0'
+
+    /*//opt picker
+    implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'*/
+
+
+    //mobile number
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.17'
+
+    //font gradle
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    //paypal
+    // implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
+
+    //rx network listioner
+    implementation 'com.laimiux.rxnetwork:rxnetwork:0.0.4'
+
+
+    //otp picker
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
+
+    //date and time picker
+    implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
+
+    //html textview
+    implementation 'org.sufficientlysecure:html-textview:3.8'
+
+    //in app update
+    implementation 'com.google.android.play:core:1.9.0'
+
+    //life cycle
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+
+    //shimmer textview
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+
+
+    //google place new api
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+
+    //rayzor pay
+    implementation 'com.razorpay:checkout:1.6.12'
+
+    implementation 'com.github.GwonHyeok:StickySwitch:0.0.16'
+
+    //google with firebase loginhelpers
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    //facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+    //sinch call
+   implementation(name: "sinch-android-rtc-3.12.3", ext: "aar")
+   // implementation(name: "sinch-android-rtc-4.11.11", ext: "aar")
+
+    //Agora Voice Call
+    implementation 'io.agora.rtc:voice-sdk:3.0.0'
+
+}
+apply plugin: 'com.google.gms.google-services'
+
+

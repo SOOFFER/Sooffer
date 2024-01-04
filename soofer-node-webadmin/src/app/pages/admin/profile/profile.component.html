@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Profile Details</nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="EditAdmin(selectedDocs)" #dataForm="ngForm" autocomplete="off">
+          <div class="form-group">
+            <label for="fname">First Name (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="selectedDocs.fname" minlength={{validation.fnameValid.minlength}}
+              maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}} #fname="ngModel"
+              placeholder="First Name" name="fname" id="fname" required class="form-control" />
+            <small *ngIf="fname.invalid && (fname.dirty)" class="form-text error">
+              First Name is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" minlength={{validation.lnameValid.minlength}}
+              maxlength={{validation.lnameValid.maxlength}} pattern={{validation.lnameValid.pattern}}
+              [(ngModel)]="selectedDocs.lname" #lname="ngModel" placeholder="Last Name" name="lname"
+              class="form-control" />
+            <small *ngIf="lname.invalid && (lname.dirty)" class="form-text error">
+              Last Name is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Email address (<span class="red">*</span>)</label>
+            <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="selectedDocs.email" name="email"
+              #email="ngModel" required placeholder="Email" class="form-control" />
+            <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+              Email is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Phone Number (<span class="red">*</span>)</label>
+            <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+              maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.phone" name="phone"
+              #phone="ngModel" required placeholder="Phone" class="form-control" />
+            <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+              Phone is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Service Available City</label>
+            <input type="text" [(ngModel)]="selectedDocs.scId" name="scIds" #scIds="ngModel" disabled
+              placeholder="Service Available City" class="form-control" />
+            <small *ngIf="scIds.invalid && (scIds.dirty)" class="form-text error">
+              Service Available City is required!
+            </small>
+          </div>
+          <button type="submit" [disabled]="!dataForm.form.valid" class="btn btn-success btn-block">Update</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

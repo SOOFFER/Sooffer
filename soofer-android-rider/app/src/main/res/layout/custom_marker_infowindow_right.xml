@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/_5sdp"
+        android:id="@+id/ll_marker_right"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@string/app_font"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:text="Address Madurai india Tamil nadu"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+</LinearLayout>

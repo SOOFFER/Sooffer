@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="@dimen/_10sdp"
+        android:clickable="false"
+        android:focusable="false"
+        android:id="@+id/language_radio"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_15sdp"
+        android:text="tex"/>
+
+</RelativeLayout>

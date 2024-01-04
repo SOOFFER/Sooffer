@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:background="@android:color/transparent"
+    android:textSize="@dimen/_15sdp"
+    android:padding="@dimen/_10sdp"
+    android:text="name"
+    android:fontFamily="@string/app_font"
+    android:paddingStart="@dimen/_10sdp"
+    android:textColor="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:singleLine="true" />

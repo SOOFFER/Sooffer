@@ -1,0 +1,67 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-7">
+        Driver Notifications
+      </div>
+      <div class="col-md-2">
+        <select *ngIf="showCity == true" name="servicecity" [(ngModel)]="list.servicecity"
+          (change)="dispDriver(list.servicecity)" class="form-control">
+          <option value="undefined" selected hidden>Service Available City</option>
+          <option [value]="city.label" *ngFor="let city of ServiceCity">{{city.label}}</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button (click)="BlockDriver()" type="button" class="btn btn-danger pull-right">Block</button>
+      </div>
+      <div class="col-md-2">
+        <button (click)="SendDriverNotifications()" type="button" class="btn btn-info ">Send Notification</button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="driverSettings" [source]="driverSource" *ngIf="driverSource">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-7">
+        Driver Taxi Notifications
+      </div>
+      <div class="col-md-2">
+        <select *ngIf="showCity == true" name="servicecity" [(ngModel)]="li.servicecity"
+          (change)="dispTaxi(li.servicecity)" class="form-control">
+          <option value="undefined" selected hidden>Service Available City</option>
+          <option [value]="city.label" *ngFor="let city of ServiceCity">{{city.label}}</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button (click)="BlockTaxi()" type="button" status="danger" class="btn btn-danger">Block</button>
+      </div>
+      <div class="col-md-2">
+        <button (click)="SendTaxiNotifications()" status="primary" type="button" class="btn btn-info">Send
+          Notification</button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="taxiSettings" [source]="taxiSource" *ngIf="taxiSource">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+</style>

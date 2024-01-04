@@ -1,0 +1,386 @@
+.header-banner
+{
+	background-image: url(../images/AdobeStock_115245840.jpeg);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    background-size: cover;
+        height: 466px;
+        position: relative;
+}
+.iphone-image
+{
+background-image: url(../images/iphoneframe.png);
+    background-repeat: no-repeat;
+    background-position: center;
+       background-size:;       
+
+}
+.ipne-postion
+{
+    position: absolute;
+    top: 2px;
+    left: 33px;
+    width: 81%;
+}
+.fslider-margin
+{
+     margin-top: 20%;
+    margin-left: -7px;   
+}
+.center-banner
+{
+	background-image: url(../images/AdobeStock_192670838.jpeg);
+	background-repeat: no-repeat;
+    background-position: center ;
+    background-attachment: scroll;
+    background-size: cover;
+    height: 640px;
+        position: relative;
+}
+.postion-rel{position: relative;}
+.margin-t{    margin-top: 23px;}
+.margin-b{    margin-bottom: 20px;}
+.no_pad
+{
+	padding-left: 0px!important;
+	padding-right: 0px!important;
+}
+.iphone-width
+{
+	/*width: 89%;*/
+   /* margin-left: 7px;*/
+    
+}
+.header-banner h2
+{
+    text-align: center;
+    font-size: 60px;
+    color: #ffffff;
+    line-height: 1.4;
+    letter-spacing: 0px;
+    font-weight: bold;
+     padding-top: 13px;
+}
+.header-banner p
+{
+       text-align: center;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: 0px;
+    color: #ffffff;
+    font-weight: bold;
+    padding-top: 17px;
+}
+.iphone-margin
+{
+       margin-top: -355px;	
+}
+.text-center
+{
+	text-align: center;
+}
+.yellow-background
+{
+   background-color: rgba(242,182,26, 0.6);
+   height: 100%;
+}
+.black-background
+{
+  background-color: rgba(0,0,0, 0.5);
+  height: 100%;
+}
+
+.m-top{ 
+	margin-top: 9%;
+    margin-left: 18%; 
+     }
+.spyn-logo
+{
+    margin-top: -3px;
+    margin-left: 1px;	
+}
+.cardigital p
+{
+font-size: 13px;
+    color: #4d4d4d;
+    padding-top: 20px;
+        max-width: 96px;
+        margin: auto;
+}
+@media only screen  and (max-width: 768px)
+{
+.m-top{ margin-left: 0%; }.no_pad{padding-left: 15px;padding-right: 15px;}
+.iphone-margin{margin-top: 0px;}.cardigital p{max-width: none;}
+.form-padding{padding-right: 0%!important;padding-left: 0%!important;}
+.ipne-postion { position: absolute;top: 22px;left: 0; right: 0; margin: auto;width: 44%;}
+.fslider-margin{margin-left: -1px;}.mobile-margin{margin-top: 19%;}
+.header-banner h2 {font-size: 36px;}.colomwidth{margin-top: 35px;}
+}
+@media (min-width: 1200px)
+{
+.colomwidth .col-lg-2 {
+    width: 17.666667%;
+}}
+.cardigital
+{
+	text-align: center;
+}
+/*@media only screen (min-width: 280px) and (max-width: 300px){
+.ipne-postion {top: 24px;width: 44%;}}*/
+{
+  color: #48c4de;
+ text-align: center;
+ font-size: 21px;
+ font-weight: 900;
+     padding-right: 3%;
+     clear: both;
+}
+.butn-image
+{
+	padding-right: 5%;
+    cursor: pointer;
+    clear: both;
+    padding-top: 70px;
+    clear: both;
+    padding-bottom: 31px;
+
+}
+.border-btm
+{
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 10px;
+}
+.moreride h3
+{
+    color: #df5c26;
+    text-align: center;
+    font-size: 34px;
+        padding-bottom: 20px;
+}
+.moreride p
+{
+       color: #87c140;
+    font-size: 13px;
+        padding-top: 6%;
+    padding-bottom: 2%;
+    text-align: center;
+}
+.moreride b
+{
+    font-size: 13px;
+    color: #4d4d4d;   
+    text-align: left; 
+}
+.moreride-pading
+{
+       padding: 0 7%!important; 
+}
+.footer-logo
+{
+    background-color: rgba(26,26,26, 1);
+          padding-top: 65px;
+    padding-bottom: 29px;
+        box-sizing: border-box;
+
+}
+.bottomlogo p
+{
+   font-size: 12px;
+   color: #b3b3b3;
+       padding-top: 42px;
+}
+.bottomlogo b
+{
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: normal;
+}
+.form-talk h3
+{
+        color: #48c4de;
+       text-align: center;
+    font-size: 34px;
+        letter-spacing: 0px;
+        font-weight: bold;
+}
+.padding-talk{padding-top: 40px;padding-bottom: 40px;}
+.form-talk .send-butn
+{
+    color: #ffffff;
+    background-color: rgba(72, 196, 222, 1);
+    border: 1px solid #48c4de;
+    border-radius: 2px;
+    padding:12px 45px ;
+        margin-top: 15px;
+}
+.form-padding
+{
+    padding-right: 28%;
+    padding-left: 28%;
+}
+.form-talk input::focus
+{
+color:#f2b61a; 
+}
+.form-talk input::placeholder {
+  color: #f2b61a;
+}
+.form-talk input::-webkit-input-placeholder {
+color: #f2b61a !important;
+}
+ 
+.form-talk input:-moz-placeholder { /* Firefox 18- */
+color: #f2b61a !important;  
+}
+ 
+.form-talk input::-moz-placeholder {  /* Firefox 19+ */
+color: #f2b61a !important;  
+}
+ 
+.form-talk input:-ms-input-placeholder {  
+color: #f2b61a !important;  
+}
+.form-talk textarea::-webkit-input-placeholder {
+color: #f2b61a !important;
+}
+ 
+.form-talk textarea:-moz-placeholder { /* Firefox 18- */
+color: #f2b61a !important;  
+}
+ 
+.form-talk textarea::-moz-placeholder {  /* Firefox 19+ */
+color: #f2b61a !important;  
+}
+ 
+.form-talk textarea:-ms-input-placeholder {  
+color: #f2b61a !important;  
+}
+.form-talk input:focus,.form-talk textarea:focus{
+  border-color: #fff; 
+  outline: 0 none;
+
+ } 
+.form-talk .form-control {
+    display: block;
+    width: 100%;
+    height:auto;   
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #f2b61a;  
+    background-image: none;     
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: none!important;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+     border: 0px;
+    background: transparent;
+    border-bottom: 2px solid #ffffff;
+    padding-left: 0px!important;
+    padding: 10px;
+    border-radius: 0px!important;    
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px)
+{
+.iphone-width {width: 109%!important;margin-left: 0px!important;}
+.ipne-postion { position: absolute; top: 16px; left: -15px; width: 81%;}
+.header-banner h2{font-size: 56px;}.m-top {margin-left: 31%;}
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px)
+{
+.ipne-postion {position: absolute;top: 1px;left: 5px;width: 96%;}    
+}
+/* The container */
+.container-check {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    line-height: 17px;
+    color: #fff;
+}
+
+/* Hide the browser's default radio button */
+.container-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+       position: absolute;
+    top: 0;
+    left: 0;
+    height: 14px;
+    width: 14px;   
+    border-radius: 50%;
+    border: 2px solid #fff;
+        background: #fff;
+}
+
+.container-check:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background-color: #f2b61a;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container-check input:checked ~ .checkmark:after {
+    /*display: block;*/
+}
+
+.container-check .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.custom-checkbox
+{
+     display: flex;
+    justify-content: center; 
+        margin-top: 17%;
+}
+.mt-labl{ margin-right: 11%;}
+.iphone-slider
+{
+    position: absolute;
+    top: 70px;
+    left: 18px;  
+}
+.btn-primary {
+    color: #fff;
+    background-color: #f7a523;
+    border-color: #ffffff;
+    /* margin-left: 19px; */
+    border-radius: -21;
+   
+  }
+/*.ipne-postion {
+    position: absolute;
+    top: 23px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 41%;
+} */

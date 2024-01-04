@@ -1,0 +1,167 @@
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6bLY-fTqUOVMxrNKdWMleBskkjMLPcOs" ></script>
+<script src="https://www.gstatic.com/firebasejs/5.4.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- <script src="./config.js"></script> -->
+  <script>
+    var firebaseKey = {
+        "appName": "taximandu-251211",
+        "authDomain": "taximandu-251211.firebaseapp.com",
+        "databaseURL": "https://taximandu-251211.firebaseio.com/",
+        "storageBucket": "taximandu-251211.appspot.com"
+      };
+    var baseUrl = "http://taximandu.com:3001/test/shareMyLocation/" ;
+  </script>
+  <script src="./app.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<div id="dvMap" style="width: 100%; height: 100%"></div>
+<div id="statusFalse"></div>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="container defalult-continer">
+    <div class="well well-sm driver-section">
+
+      <div class="row">
+ 
+        <div class="col-xs-8 col-sm-8 col-md-8 pad-right">
+          <h4 >Driver</h4>
+          <ul class="details_sect">
+            <!-- <li>
+              <div class="question"><i class="glyphicon glyphicon-transfer"></i></div>
+              <div class="answer">5b5c7fff0c0b8f2cbe3c994e</div>
+            </li> -->
+            <li>
+              <div class="question"><i class="glyphicon glyphicon-user"></i></div>
+              <div class="answer" id="driverName"></div>
+            </li>
+            <li>
+              <div class="question"><i class="glyphicon glyphicon-envelope"></i>
+              <span id="driveremail"></span>
+            </div>
+            </li>
+            <li>
+              <div class="question"><i class="glyphicon glyphicon-phone"></i>
+              <span id="driverphone"></span>
+            </div>
+            </li> 
+            <li>
+              <div class="question"><i class="glyphicon glyphicon-road"></i>
+              <span id="drivercurService"></span>
+            </div>
+            </li>
+            <!-- <li>
+              <div class="question">Taxi Id:</div>
+              <div class="answer">5b5c7fff0c0b8f2cbe3c994f"</div>
+            </li>
+          </ul> -->
+
+        </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+            <h4>Driver</h4>
+              <div id="Driverimage_inner_container">
+               
+              </div>
+            </div>
+          
+
+
+          </div>
+        </div>
+        <div class="well well-sm rider-section">
+
+          <div class="row">
+            
+              <div class="col-xs-8 col-sm-8 col-md-8">
+                <h4>Rider</h4>
+                <ul class="details_sect">
+                  <!-- <li>
+                    <div class="question"><i class="glyphicon glyphicon-transfer"></i></div>
+                    <div class="answer">5b5c7fff0c0b8f2cbe3c994e</div>
+                  </li> -->
+                  <li>
+                    <div class="question"><i class="glyphicon glyphicon-user"></i></div>
+                    <div class="answer" id="riderName"></div>
+                  </li>
+                  <li>
+                    <div class="question"><i class="glyphicon glyphicon-envelope"></i>
+                    <span id="rideremail"></span>
+                  </div>
+                  </li>
+                  <li>
+                    <div class="question"><i class="glyphicon glyphicon-phone"></i>
+                    <span id="riderphone"></span>
+                  </div>
+                  </li>
+
+                </ul>
+
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                <h4>Rider</h4>
+                <div id="riderimage_inner_container">
+                
+                </div>
+              </div>
+          
+          </div>
+        </div>
+
+        <div class="well well-sm detail-section">
+
+          <div class="row">
+            
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <h4 class="name">Trip Details</h4>
+              <ul class="details_sect">
+                <li>
+                <div class="question">Trip No:</div>
+                  <div class="answer" id="TripNo"></div>
+                </li>
+                <li> 
+                  <small><span style="color:#000;padding-right:5px;">Pickup</span><span id="TripPickup"></span></small>
+                </li>
+                <li>
+                  <small><span style="color:#000;padding-right: 15px;">Drop</span><span id="TripDropAt"></span></small>
+                </li>
+                <li>
+                  <div class="question">StartAt:
+                  <span id="TripStartAt"></span>
+                </div>
+                </li>
+                <li>
+                  <div class="question">EndAt:
+                  <span id="TripEndAt"></span>
+                </div>
+                </li>
+                <li>
+                  <div class="question">Status:
+                  <span id="TripStatus"></span>
+                </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="well well-sm rider-section support-div">
+
+          <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <h4 >Support</h4>
+            <div class=""><span style="padding-right: 35px;">Mail Id</span> :<span id="SupportEmail"></span></div>
+            <div class=""><span style="padding-right: 6px;">Contact Us</span> :<span id="Supportnumber"></span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<span class="sidenavbtn" onclick="openNav()">&#9776;</span>

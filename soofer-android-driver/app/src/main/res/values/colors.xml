@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary1">#131313</color>
+    <color name="colorPrimaryDark1">#1F1A17</color>
+    <color name="colorAccent1">#1F1A17</color>
+
+    <color name="colorPrimary">#131313</color>
+    <color name="colorPrimaryDark">#131313</color>
+    <color name="colorAccent">#1D77BD</color>
+
+
+    <color name="actionbar">#CC841C</color>
+    <color name="black">#000</color>
+    <color name="white">#FFF</color>
+    <color name="darkgreen">#3E8269</color>
+    <color name="grey">#737171</color>
+    <color name="light_grey">#44737171</color>
+    <color name="textGrey">#777777</color>
+    <color name="lite_grey">#2d2b2b</color>
+    <color name="redcolor">#ED2B2B</color>
+    <!--<color name="green">#91DC5A</color>-->
+    <color name="green">#0A393F</color>
+    <color name="card_view_color">#E8E8E8</color>
+    <color name="rating_bg">#09091A</color>
+    <color name="skyblue">#3DDCC6</color>
+
+    <color name="gold">#EBC002</color>
+    <color name="background_ub">#bae3e9</color>
+    <color name="background">#dedede</color>
+    <color name="car_unselect">#adadad</color>
+    <color name="car_select">#3c9ec5</color>
+    <color name="light_blue">#0000ffff</color>
+</resources>

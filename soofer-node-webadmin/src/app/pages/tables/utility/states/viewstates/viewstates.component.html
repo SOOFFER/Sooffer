@@ -1,0 +1,87 @@
+<div *ngIf="initial; then list else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-2">View All States</div>
+        <div class="col-sm-5">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label for="sel1">Select Country:</label>
+                <select class="form-control" [(ngModel)]="selectedval" name="selectedval" id="sel1">
+                  <option *ngFor="let getcon of dropcountry" value="{{getcon.id}}">{{getcon.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <button type="submit" class="btn btn-success btn-block" (click)=getstatesval(selectedval);>Filter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit a State</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+
+            <div class="form-group">
+              <label class="required">Country Name</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.countryId" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);"
+                required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+            <br>
+            <div *ngIf="showStateTextBox()">
+              <div class="form-group">
+                <label class="required">State Name</label>
+                <input type="text" [(ngModel)]="selectedDocs.name" #name="ngModel" name="name" required placeholder="State Name"
+                  class="form-control" />
+                <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                  State Name is required!
+                </small>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control" [(ngModel)]="selectedDocs.status" name="status">
+                      <option value=true>Active</option>
+                      <option value=false>Inactive</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <button class="btn btn-primary" [hidden]="spinner">
+                <div class="fa fa-spinner fa-spin"></div>
+              </button>
+              <button type="submit" class="btn btn-primary" (click)="UpdateNewDoc(selectedDocs)" [disabled]="formDisableState === undefined && (!dataForm.form.valid)"
+                [hidden]="!spinner">Update</button> &nbsp; &nbsp;
+              <button type="button" class="btn btn-primary" (click)="deleteRecord(selectedid)" [hidden]="!spinner">Delete</button>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+      <button (click)="goback()" [disabled]="!spinner" class="btn btn-danger">go back</button>
+    </div>
+  </div>
+</ng-template>

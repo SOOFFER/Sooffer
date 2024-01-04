@@ -1,0 +1,430 @@
+<form #dataFormRider="ngForm">
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header>Driver Home Page</nb-card-header>
+        <nb-card-body>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Driver Banner Image</label>
+                <input type="file" class='form-control' name="HBImage" (change)="fileEvent($event)"
+                  value="Taxi App Image" />
+              </div>
+              <div class="col-md-6">
+                <div *ngIf="riderPage.HBImage != ''">
+                  <img src="{{baseurl}}{{riderPage.HBImage}}" style="
+    height: 81px;
+" class="img-thumbnail">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Enter Banner Text </label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.banner_text"
+              #banner_text="ngModel" name="banner_text" required />
+            <small *ngIf="banner_text.invalid && ( banner_text.dirty)" class="form-text error">
+            Banner Text  is mandatory!!
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label> About Content- I</label>
+            <tinymce [config]="" [(ngModel)]="riderPage.aboutContent_first" #aboutContent_first="ngModel"
+              name="aboutContent_first" required>
+            </tinymce>
+            <small *ngIf="aboutContent_first.invalid && (aboutContent_first.dirty)" class="form-text error">
+              About Content First Is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Enter Rider Footer Text </label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.footer_banner_text"
+              #footer_banner_text="ngModel" name="footer_banner_text" required />
+            <small *ngIf="footer_banner_text.invalid && ( footer_banner_text.dirty)" class="form-text error">
+              Rider Footer Texto is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> About Content- II</label>
+            <tinymce [config]="" [(ngModel)]="riderPage.aboutContent_second" #aboutContent_second="ngModel"
+              name="aboutContent_second" required>
+            </tinymce>
+            <small *ngIf="aboutContent_second.invalid && (aboutContent_second.dirty)" class="form-text error">
+              About Content Is mandatory!!
+            </small>
+          </div>
+
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-6">
+
+      <nb-card>
+        <nb-card-header> Second Middle Section -II</nb-card-header>
+        <nb-card-body>
+          <div class="form-group">
+            <label> Title</label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.serviceContent_second_title"
+              #serviceContent_second_title="ngModel" name="serviceContent_second_title" required />
+            <small *ngIf="serviceContent_second_title.invalid && ( serviceContent_second_title.dirty)"
+              class="form-text error">
+              Text is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Content </label>
+            <textarea class="form-control" [(ngModel)]="riderPage.serviceContent_second"
+              #serviceContent_second="ngModel" name="serviceContent_second" required>
+                    </textarea>
+            <small *ngIf="serviceContent_second.invalid && (serviceContent_second.dirty)" class="form-text error">
+              Content Is mandatory!!
+
+            </small>
+          </div>
+        </nb-card-body>
+      </nb-card>
+      <nb-card>
+        <nb-card-header> Second Middle Section -I</nb-card-header>
+        <nb-card-body>
+          <div class="form-group">
+            <label> Title</label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.serviceContent_first_title"
+              #serviceContent_first_title="ngModel" name="serviceContent_first_title" required />
+            <small *ngIf="serviceContent_first_title.invalid && ( serviceContent_first_title.dirty)"
+              class="form-text error">
+              Rider Footer Texto is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Content </label>
+            <textarea class="form-control" [(ngModel)]="riderPage.serviceContent_first" #serviceContent_first="ngModel"
+              name="serviceContent_first" required>
+                    </textarea>
+            <small *ngIf="serviceContent_first.invalid && (serviceContent_first.dirty)" class="form-text error">
+              Second Middle Section -I Is mandatory!!
+            </small>
+          </div>
+        </nb-card-body>
+      </nb-card>
+      <nb-card>
+        <nb-card-header> Second Middle Section -III</nb-card-header>
+        <nb-card-body>
+          <div class="form-group">
+            <label> Title</label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.serviceContent_third_title"
+              #serviceContent_third_title="ngModel" name="serviceContent_third_title" required />
+            <small *ngIf="serviceContent_third_title.invalid && ( serviceContent_third_title.dirty)"
+              class="form-text error">
+              Text is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Content </label>
+            <textarea class="form-control" [(ngModel)]="riderPage.serviceContent_third" #serviceContent_third="ngModel"
+              name="serviceContent_third" required>
+                    </textarea>
+            <small *ngIf="serviceContent_third.invalid && (serviceContent_third.dirty)" class="form-text error">
+              Content Is mandatory!!
+            </small>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <div class="form-group">
+            <button class="form-control" (click)="submitFooter(riderPage);" [disabled]="!dataFormRider.form.valid"
+              type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+
+    </div>
+
+
+  </div>
+  <!-- <div class="row">
+    <div class="col-md-6">
+
+      <nb-card>
+        <nb-card-header> Second Middle Section -I</nb-card-header>
+        <nb-card-body>
+          <div class="form-group">
+            <label> Title</label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.serviceContent_first_title"
+              #serviceContent_first_title="ngModel" name="serviceContent_first_title" required />
+            <small *ngIf="serviceContent_first_title.invalid && ( serviceContent_first_title.dirty)"
+              class="form-text error">
+              Rider Footer Texto is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Content </label>
+            <textarea class="form-control" [(ngModel)]="riderPage.serviceContent_first" #serviceContent_first="ngModel"
+              name="serviceContent_first" required>
+                    </textarea>
+            <small *ngIf="serviceContent_first.invalid && (serviceContent_first.dirty)" class="form-text error">
+              Second Middle Section -I Is mandatory!!
+            </small>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-6">
+
+      <nb-card>
+        <nb-card-header> Second Middle Section -III</nb-card-header>
+        <nb-card-body>
+          <div class="form-group">
+            <label> Title</label>
+            <input type="text" class="form-control" [(ngModel)]="riderPage.serviceContent_third_title"
+              #serviceContent_third_title="ngModel" name="serviceContent_third_title" required />
+            <small *ngIf="serviceContent_third_title.invalid && ( serviceContent_third_title.dirty)"
+              class="form-text error">
+              Text is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Content </label>
+            <textarea class="form-control" [(ngModel)]="riderPage.serviceContent_third" #serviceContent_third="ngModel"
+              name="serviceContent_third" required>
+                    </textarea>
+            <small *ngIf="serviceContent_third.invalid && (serviceContent_third.dirty)" class="form-text error">
+              Content Is mandatory!!
+            </small>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div> -->
+
+
+
+
+
+</form>
+
+<div class="col-md-6">
+     <nb-card>
+      <nb-card-header>Home Page -How its Works (Home First Middle Section)</nb-card-header>
+      <nb-card-body>
+        <nb-stepper orientation="horizontal">
+          <nb-step label="First step">
+            <form id="howItsFirst" #dataForm1="ngForm">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>App Image </label>
+
+                    <input type="file" class='form-control' name="HFMSappImage"
+                      (change)="HowItWorksFirstfileEvent($event)" value="Taxi App Image" />
+                  </div>
+                  <div class="col-md-6">
+                    <div *ngIf="firstlist.HFMSappImage != ''">
+                      <img src="{{baseurl}}{{firstlist.HFMSappImage}}" style="
+    height: 81px;
+" class="img-thumbnail">
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="form-group">
+                <label>
+                  App Image Title </label>
+                <input type="text" class="form-control" [(ngModel)]="firstlist.home_first_middle_app_title_first"
+                  #home_first_middle_app_title_first="ngModel" name="home_first_middle_app_title_first"
+                  form="howItsFirst" required />
+                <small *ngIf="home_first_middle_app_title_first.invalid && (home_first_middle_app_title_first.dirty)"
+                  class="form-text error">
+                  Home First Middle Title is mandatory!!
+
+
+                </small>
+              </div>
+              <div class="form-group">
+                <label>
+                  App Image Description</label>
+                <textarea class="form-control" [(ngModel)]="firstlist.home_first_middle_app_desc_first"
+                  #home_first_middle_app_desc_first="ngModel" name="home_first_middle_app_desc_first" required>
+                </textarea>
+                <small *ngIf="home_first_middle_app_desc_first.invalid && (home_first_middle_app_desc_first.dirty)"
+                  class="form-text error">
+                  Home Taxi App Section Left Description is mandatory!!
+
+                </small>
+              </div>
+            </form>
+
+            <div style="padding-bottom: 5px !important;"><button size="xsmall" nbButton
+                [disabled]="((dataForm1.form.invalid)||(HFMSappImage=='')==true)" nbStepperNext>next</button></div>
+          </nb-step>
+          <nb-step label="Second step">
+            <form id="howItstwo" #dataForm2="ngForm">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>App Image </label>
+                    <input type="file" class='form-control' name="HFMSappSecondImage"
+                      (change)="HowItWorksSecondtfileEvent($event)" value="Taxi App Image" />
+                  </div>
+                  <div class="col-md-6">
+                    <div *ngIf="secondlist.HFMSappSecondImage != ''">
+                      <img src="{{baseurl}}{{secondlist.HFMSappSecondImage}}" style="
+    height: 81px;
+" class="img-thumbnail">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>
+                  App Image Title </label>
+                <input type="text" class="form-control" [(ngModel)]="secondlist.home_first_middle_app_title_second"
+                  #home_first_middle_app_title_second="ngModel" name="home_first_middle_app_title_second"
+                  form="howItstwo" required />
+                <small *ngIf="home_first_middle_app_title_second.invalid && (home_first_middle_app_title_second.dirty)"
+                  class="form-text error">
+                  Home First Middle Title is mandatory!!
+
+
+                </small>
+              </div>
+              <div class="form-group">
+                <label> App Image Description</label>
+                <!-- <tinymce [config]="config" [(ngModel)]="secondlist.home_first_middle_app_desc_second"  form="howItstwo" id="home_first_middle_app_desc_second" #home_first_middle_app_desc_second="ngModel"
+                  name="home_first_middle_app_desc_second" required></tinymce> -->
+                <textarea class="form-control" [(ngModel)]="secondlist.home_first_middle_app_desc_second"
+                  #home_first_middle_app_desc_second="ngModel" form="howItstwo" name="home_first_middle_app_desc_second"
+                  required>
+                </textarea>
+                <!-- <small *ngIf="home_first_middle_app_desc_second.invalid && (home_first_middle_app_desc_second.dirty)"
+                  class="form-text error">
+                  Home Taxi App Section Left Description is mandatory!!
+
+                </small> -->
+              </div>
+              <div style="padding-bottom: 5px !important;">
+                <button nbButton size="xsmall" nbStepperPrevious>prev</button>
+              </div>
+              <div style="padding-bottom: 5px !important;">
+                <button nbButton size="xsmall" [disabled]="((dataForm2.form.invalid)||(HFMSappSecondImage=='')==true)"
+                  nbStepperNext>next</button>
+              </div>
+            </form>
+
+          </nb-step>
+          <nb-step label="Third step">
+            <form id="howItsthree" #dataForm3="ngForm">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>App Image </label>
+                    <input type="file" class='form-control' name="HFMSappThirdImage"
+                      (change)="HowItWorksThirdfileEvent($event)" value="Taxi App Image" />
+                  </div>
+                  <div class="col-md-6">
+                    <div *ngIf="thirdlist.HFMSappThirdImage != ''">
+                      <img src="{{baseurl}}{{thirdlist.HFMSappThirdImage}}" style="
+    height: 81px;
+" class="img-thumbnail">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  App Image Title </label>
+                <input type="text" class="form-control" [(ngModel)]="thirdlist.home_first_middle_app_title_third"
+                  #home_first_middle_app_title_third="ngModel" name="home_first_middle_app_title_third" required />
+                <small *ngIf="home_first_middle_app_title_third.invalid && (home_first_middle_app_title_third.dirty)"
+                  class="form-text error">
+                  Home First Middle Title is mandatory!!
+
+
+                </small>
+              </div>
+              <div class="form-group">
+                <label> App Image Description</label>
+                <textarea class="form-control" [(ngModel)]="thirdlist.home_first_middle_app_desc_third"
+                  form="howItsthree" #home_first_middle_app_desc_third="ngModel" name="home_first_middle_app_desc_third"
+                  required>
+                </textarea>
+                <small *ngIf="home_first_middle_app_desc_third.invalid && (home_first_middle_app_desc_third.dirty)"
+                  class="form-text error">
+                  Home Taxi App Section Left Description is mandatory!!
+                </small>
+              </div>
+              <div style="padding-bottom: 5px !important;">
+                <button size="xsmall" nbButton nbStepperPrevious>prev</button>
+              </div>
+              <div style="padding-bottom: 5px !important;">
+                <button size="xsmall" nbButton type="submit"
+             
+                  [disabled]="((dataForm3.form.invalid)||(HFMSappThirdImage=='')==true)" nbStepperNext>next
+                </button>
+              </div>
+            </form>
+
+          </nb-step>
+            <nb-step label="Fourt step">
+            <form id="howItsFirst" #dataForm4="ngForm">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>App Image </label>
+
+                    <input type="file" class='form-control' name="HFMSappImageFourth"
+                      (change)="HowItWorksFourthfileEvent($event)" value="Taxi App Image" />
+                  </div>
+                  <div class="col-md-6">
+                    <div *ngIf="fourthlist.HFMSappImageFourth != ''">
+                      <img src="{{baseurl}}{{fourthlist.HFMSappImageFourth}}" style="
+    height: 81px;
+" class="img-thumbnail">
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="form-group">
+                <label>
+                  App Image Title </label>
+                <input type="text" class="form-control" [(ngModel)]="fourthlist.home_first_middle_app_title_fourth"
+                  #home_first_middle_app_title_fourth="ngModel" name="home_first_middle_app_title_fourth"
+                  form="howItsFirst" required />
+                <small *ngIf="home_first_middle_app_title_fourth.invalid && (home_first_middle_app_title_fourth.dirty)"
+                  class="form-text error">
+                  Home First Middle Title is mandatory!!
+
+
+                </small>
+              </div>
+              <div class="form-group">
+                <label>
+                  App Image Description</label>
+                <textarea class="form-control" [(ngModel)]="fourthlist.home_first_middle_app_desc_fourth"
+                  #home_first_middle_app_desc_fourth="ngModel" name="home_first_middle_app_desc_fourth" required>
+                </textarea>
+                <small *ngIf="home_first_middle_app_desc_fourth.invalid && (home_first_middle_app_desc_fourth.dirty)"
+                  class="form-text error">
+                  Home Taxi App Section Left Description is mandatory!!
+
+                </small>
+              </div>
+            </form>
+             <div style="padding-bottom: 5px !important;">
+                <button size="xsmall" nbButton nbStepperPrevious>prev</button>
+              </div>
+            <div style="padding-bottom: 5px !important;"><button size="xsmall" nbButton   
+               (click)="submitHowItWorksBlock(fourthlist,thirdlist,secondlist,firstlist);"
+                [disabled]="((dataForm4.form.invalid)||(HFMSappImageFourth=='')==true)" nbStepperNext>Submit</button></div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+</div>

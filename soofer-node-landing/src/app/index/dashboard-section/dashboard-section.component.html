@@ -1,0 +1,1263 @@
+<ngx-spinner bdOpacity="0.9" bdColor="#333" size="medium" color="#fff" type="ball-clip-rotate-multiple">
+</ngx-spinner>
+
+<div class="main-container">
+  <div class="sub-main-div">
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'tripBookingScreen'">
+      <ul class="nav nav-tabs nav_booking_tabs" (click)="onClick($event)">
+        <li class="col-xs-12 col-sm-4 text-center" *ngIf="availableservice.includes('daily')">
+          <a data-name="daily" data-toggle="tab" href="#daily">{{ 'COMMON.RIDE' |
+            translate}}</a>
+        </li>
+        <li class="col-xs-12 col-sm-4 text-center" *ngIf="availableservice.includes('rental')">
+          <a data-name="rental" data-toggle="tab" href="#rentals">{{"COMMON.HOUR" | translate}}</a>
+        </li>
+        <li class="col-xs-12 col-sm-4 text-center" *ngIf="availableservice.includes('outstation')">
+          <a data-name="outstation" data-toggle="tab" href="#outstation">{{ 'COMMON.DRIVER' |
+            translate}}</a>
+        </li>
+      </ul>
+
+      <!-- Outstation booking starts -->
+
+      <div id="outstation" class="tab-pane fade" *ngIf="availableservice.includes('outstation')">
+        <div class="driver_section_container">
+          <br />
+          <form #dataForm="ngForm">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.PICKUPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_1.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.PICKUPLOCATION' | translate
+                    }}" name="origin-input" [(ngModel)]="list1.pick"  #searchpickup places-auto-complete (place_changed)="placeChangedP($event)" id="outstation-origin-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.DROPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_2.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.DROPLOCATION' | translate
+                    }}" name="destination-input" [(ngModel)]="list1.drop"  #searchdrop places-auto-complete (place_changed)="dropplaceChangedP($event)"id="outstation-destination-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary available_veh"
+                  [disabled]="!list1.pick || !list1.drop || hideBook" (click)="getFareEstimation()">
+                  {{ "DASHBOARD.GETAVAILABLEVEHICLE" | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTVEHICLE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="serviceTypeId" (change)="SetVehicleType($event, list1)"
+                  [disabled]="hideBook" required placeholder="Vehicle Type" [(ngModel)]="list1.serviceTypeId"
+                  #serviceTypeId="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEVEHICLE" | translate }}
+                  </option>
+                  <option *ngFor="let vehicle of vehicleAry" [value]="vehicle._id">
+                    {{ vehicle.type }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.BOOKINGTYPE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="bookingType" required [disabled]="hideBook"
+                  placeholder="Vehicle Type" [(ngModel)]="list1.bookingType" #bookingType="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEBOOKINGTYPE" | translate }}
+                  </option>
+                  <option *ngFor="let bt of bookingTypes" [value]="bt.value">
+                    {{ bt.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="list1.bookingType === 'rideLater'">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTTRIPDATEANDTIME" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <input class="form-control" [min]="min" required [disabled]="hideBook" placeholder="{{
+                    'DASHBOARD.CLICKTOSELECTTRIPDATE' | translate
+                  }}" [(ngModel)]="list1.tripTime" name="tripTime" #tripTime="ngModel" [owlDateTimeTrigger]="dt1"
+                  [owlDateTime]="dt1" />
+                <owl-date-time #dt1></owl-date-time>
+              </div>
+            </div>
+
+            <div *ngIf="showFareBook">
+              <div class="form-group">
+                <div class="col-md-12 col-sm-12" style="text-align: center" *ngIf="showBasic == true">
+                  <div class="position_rel destination">
+                    <img [src]="icon" width="50" height="50" />
+                  </div>
+                  <br />
+                  <label class="form-control-label"><b>{{ "DASHBOARD.FAREESTIMATION" | translate }}</b></label>
+                  <hr />
+                  <div class="row col-md-12" *ngIf="!ToggleFare">
+                    <table class="mrg-tab" style="width: 100%; margin-left: 50px">
+                      <tr>
+                        <td>{{ "DASHBOARD.TOTALDISTANEC" | translate }}:</td>
+                        <td>({{ distanceList.distanceLable }})</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>{{ "DASHBOARD.DISTANCEFARE" | translate }}:</td>
+                        <td>
+                          {{ defaultCurr }} {{ NewList.KMFare }} ({{
+                          NewList.fareType
+                          }})
+                        </td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.ESTIMATETIME" | translate }}:</td>
+                        <td>{{ distanceList.timeLable }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>
+                          {{ "DASHBOARD.TIMEFARE" | translate }} ({{
+                          NewList.travelRate
+                          }}
+                          {{ defaultCurr }}/Min):
+                        </td>
+                        <td>{{ defaultCurr }} {{ NewList.travelFare }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.PICKUPCHARGE" | translate }}:</td>
+                        <td>{{ defaultCurr }} {{ NewList.pickupCharge }}</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>{{ "DASHBOARD.TAXAMOUNT" | translate }}:</td>
+                        <td>{{ defaultCurr }} {{ NewList.tax }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.TOTALFARE" | translate }}:</td>
+                        <td *ngIf="!showSecondCurrency">
+                          {{ defaultCurr }} {{ NewList.totalFare }}
+                        </td>
+                        <td *ngIf="showSecondCurrency">
+                          {{ defaultCurr }} {{ NewList.totalFare }} &nbsp;
+                          &nbsp; ({{ NewList.inSecondaryCur }}
+                          {{ secondCurrecny }})
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="row col-md-12" *ngIf="ToggleFare">
+                    <span style="color: red">{{ showError }}</span>
+                  </div>
+                </div>
+              </div>
+              <br />
+              &nbsp;
+              <br />
+              &nbsp; <br />
+              &nbsp;
+              <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" class="btn btn-danger top-btn" [disabled]="!dataForm.form.valid || hideBook"
+                    (click)="bookDriverTrip(list1)" *ngIf="showBasic && !ToggleFare">
+                    {{ "DASHBOARD.BOOKNOW" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="driverNotAvailable">
+              <div class="driver_section_container">
+                <mat-card style="
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    margin-top: 75px;
+                  ">
+                  <h4 class="text-center">
+                    {{ "DASHBOARD.TRIPSUCCESSFULLY" | translate }}
+                  </h4>
+                  <hr />
+                  <div class="form-group row">
+                    <label class="col-sm-12 input-group mrg">
+                      <h5 class="text-center">
+                        {{ "DASHBOARD.TRIPSTATUS" | translate }}: &nbsp;
+                        <span style="color: red">
+                          {{ riderTrip.tripstatus }}
+                        </span>
+                      </h5>
+                    </label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" class="btn btn-danger" (click)="clearAllData()">
+                        {{ "DASHBOARD.RESET" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </form>
+          <!-- <form #outstationBook="ngForm">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.PICKUPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_1.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.PICKUPLOCATION' | translate
+                    }}" name="origin-input" [disabled]="disableOutstationAfterBooking"
+                    [(ngModel)]="outstationList.pick" id="outstation-origin-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" #searchpickup places-auto-complete />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.DROPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_2.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.DROPLOCATION' | translate
+                    }}" name="destination-input" [disabled]="disableOutstationAfterBooking"
+                    [(ngModel)]="outstationList.drop" id="outstation-destination-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" #searchdrop places-auto-complete />
+                  <div class="input-group-addon">
+                    <button class="btn_arrow" (click)="checkOutstationLoc()">
+                      <i class="fa fa-long-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="form-row" *ngIf="showJourneyCard">
+              <div class="form-group col-xs-12 col-md-3">
+                <label for="inputCity">{{
+                  "COMMON.SELECTJOURNEY" | translate
+                  }}</label>
+              </div>
+              <div class="form-group col-xs-12 col-md-4">
+                <input type="radio" [disabled]="disableOutstationAfterBooking" id="test1"
+                  [(ngModel)]="outstationList.journeyTrip" name="journeyTrip" value="oneway"
+                  (change)="handleChange1('oneway')" name="radio-group" checked />
+                <label for="test1">{{ "COMMON.ONEWAY" | translate }}</label>
+              </div>
+              <div class="form-group col-xs-12 col-md-3">
+                <input type="radio" [disabled]="disableOutstationAfterBooking" id="test2"
+                  [(ngModel)]="outstationList.journeyTrip" (change)="handleChange1('roundTrip')" name="journeyTrip"
+                  value="roundtrip" name="radio-group" />
+                <label for="test2">{{ "COMMON.ROUNDTRIP" | translate }}</label>
+              </div>
+            </div>
+            <br />
+            <div class="form-group row overflow" *ngIf="showJourneyCard && departArray.length != 0">
+              <div class="col-md-6 text-left">
+                <label>{{ "TRIP.DEPARTDATE" | translate }}</label>
+                <select class="form-control" name="departDate" [disabled]="disableOutstationAfterBooking"
+                  (change)="SetDepartType($event, list)" required placeholder="Date "
+                  [(ngModel)]="outstationList.departDate" #departDate="ngModel">
+                  <option value="today" selected>
+                    {{ "TRIP.TODAY" | translate }}
+                  </option>
+                  <option value="tomorrow">
+                    {{ "TRIP.TOMORROW" | translate }}
+                  </option>
+                  <option *ngFor="let depart of departArray" [value]="depart.value">
+                    {{ depart.label }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-6 text-left">
+                <label>{{ "TRIP.DEPARTTIME" | translate }}</label>
+                <div class="control-section sample">
+                  <div class="control_wrapper">
+                    <div class="tabs-wrap">
+                      <div class="wrap">
+                        <ejs-timepicker [min]="minDate" (open)="onOpen($event)" (close)="onClose($event)"
+                          strictMode="true" [disabled]="disableOutstationAfterBooking"
+                          (change)="changeDepartTime($event)" [max]="maxDate" id="timepicker" name="time"
+                          [(ngModel)]="outstationList.time" #time="ngModel" width="100%" required>
+                        </ejs-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="
+                showJourneyCard && outstationList.journeyTrip === 'roundtrip'
+              ">
+              <div class="col-md-6 text-left">
+                <div class="form-group">
+                  <label>{{ "TRIP.RETURNDATE" | translate }}</label>
+                  <select class="form-control" [disabled]="disableOutstationAfterBooking" name="returnDate"
+                    (change)="setReturnType($event, outstationList)" required placeholder="Date "
+                    [(ngModel)]="outstationList.returnDate" #returnDate="ngModel">
+                    <option *ngFor="let return of returnArray" [value]="return.value">
+                      {{ return.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 text-left">
+                <label>{{ "TRIP.RETURNTIME" | translate }}</label>
+                <div class="control-section sample">
+                  <div class="control_wrapper">
+                    <div class="tabs-wrap">
+                      <div class="wrap">
+                        <ejs-timepicker [min]="returnMinDate" (open)="onOpen($event)" (close)="onClose($event)"
+                          strictMode="true" [disabled]="disableOutstationAfterBooking"
+                          (change)="changeReturnTime($event)" [max]="returnMaxDate" id="timepicker" name="returnTime"
+                          [(ngModel)]="outstationList.returnTime" #returnTime="ngModel" width="100%" required>
+                        </ejs-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showJourneyCard && showOutstationVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTVEHICLE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="serviceTypeId"
+                  (change)="changeOutstationVehicle($event, outstationList)" [disabled]="disableOutstationAfterBooking"
+                  required placeholder="Vehicle Type" [(ngModel)]="outstationList.serviceTypeId"
+                  #serviceTypeId="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEVEHICLE" | translate }}
+                  </option>
+                  <option *ngFor="let vehicle of outStationVehicles" [value]="vehicle._id">
+                    {{ vehicle.type }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="row rental-card" *ngIf="showJourneyCard && showOutstationFare">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered" style="text-align: center; font-size: 14px">
+                    <thead>
+                      <tr>
+                        <td colspan="2" class="text-center">
+                          <span>{{ "TRIP.SELECTEDPACKAGE" | translate }}:
+                            &nbsp;</span>
+                          <span class="text-bold">{{
+                            outStationFare.packageName
+                            }}</span>
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="2">
+                          <br />
+                          <div class="position_rel destination">
+                            <img [src]="outStationVehicleicon" width="50" height="50" />
+                          </div>
+                          <br />
+                          <label class="form-control-label"><b>{{
+                              "DASHBOARD.FAREESTIMATION" | translate
+                              }}</b></label>
+                          <hr />
+                          <table style="
+                              text-align: center;
+                              font-size: 14px;
+                              width: 100%;
+                            ">
+                            <tr>
+                              <td class="col-md-6 text-bold">
+                                {{ "DASHBOARD.TOTALDISTANEC" | translate }}:
+                              </td>
+                              <td class="col-md-6">
+                                <span class="text-bold">{{
+                                  outStationFare.packageDistance
+                                  }}</span>
+                              </td>
+                            </tr>
+                            &nbsp;
+                            <tr>
+                              <td class="col-md-6 text-bold">
+                                {{ "DASHBOARD.ESTIMATETIME" | translate }}:
+                              </td>
+                              <td class="col-md-6">
+                                <span class="text-bold">{{
+                                  outStationFare.packageDuration
+                                  }}</span>
+                              </td>
+                            </tr>
+                            &nbsp;
+                            <tr>
+                              <td class="col-md-6 text-bold">
+                                {{ "TRIP.PACKAGEBASEFARE" | translate }}:
+                              </td>
+                              <td class="col-md-6">
+                                <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                  outStationFare.baseFare
+                                  }}</span>
+                              </td>
+                            </tr>
+                            &nbsp;
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                outStationFare.bkm
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ "TRIP.ADDITIONKMFARE" | translate }}
+                            </div>
+                            <div>
+                              ({{ outStationFare.additionalFareLabel }}
+                              {{ defaultCurr }})
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                outStationFare.timeFare
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ "TRIP.ADDITIONALRIDETIMEFARE" | translate }}
+                            </div>
+                            <div>
+                              ({{ outStationFare.additionalTimeLabel }}
+                              {{ defaultCurr }})
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="2" class="text-center">
+                          <span class="text-bold">{{ "DASHBOARD.TOTALFARE" | translate }}:
+                            &nbsp;</span>
+                          <span class="text-bold">
+                            {{ defaultCurr }} {{ outStationFare.fare }}</span>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="book-btn" *ngIf="showOutstationFare">
+              <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" (click)="bookOutstation(outstationList)"
+                    [disabled]="disableOutstationAfterBooking" class="btn btn-danger top-btn">
+                    {{ "FARE.REQUESTNOW" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="disableOutstationAfterBooking">
+              <div class="driver_section_container">
+                <mat-card style="
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    margin-top: 75px;
+                  ">
+                  <h4 class="text-center">
+                    {{ "DASHBOARD.TRIPSUCCESSFULLY" | translate }}
+                  </h4>
+                  <hr />
+                  <div class="form-group row">
+                    <label class="col-sm-12 input-group mrg">
+                      <h5 class="text-center">
+                        {{ "DASHBOARD.TRIPID" | translate }}: &nbsp;
+                        <span style="color: red"> {{ reqTripID }} </span>
+                      </h5>
+                    </label>
+                    <br />
+                    <label [ngStyle]="
+                        tripNotBooked ? { color: 'red' } : { color: 'green' }
+                      " class="form-control-label"><b>{{ responseText }}</b></label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6 text-center">
+                      <button type="submit" class="btn btn-primary" (click)="routeToMyTrips()">
+                        {{ "DASHBOARD.TRACK" | translate }}
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <button type="submit" class="btn btn-danger" (click)="clearAllData()">
+                        {{ "DASHBOARD.RESET" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </form> -->
+        </div>
+      </div>
+
+      <!-- outstation booking ends -->
+
+      <!-- rentals booking starts -->
+
+      <div id="rentals" class="tab-pane fade" *ngIf="availableservice.includes('rental')">
+        <div class="driver_section_container">
+          <br />
+          <form #rentalBook="ngForm">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.PICKUPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_1.png" />
+                  </div>
+                  <input placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.PICKUPLOCATION' | translate
+                    }}" class="form-control" name="origin-input" #searchpickup places-auto-complete (place_changed)="placeChangedP($event)" [(ngModel)]="list1.pick"
+                    id="rental-origin-input" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+                     />
+                  <div class="input-group-addon">
+                    <button class="btn_arrow" (click)="getPackageForRental()">
+                      <i class="fa fa-long-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="showPackage">
+              <label class="col-sm-2 col-form-label">
+                {{ "TRIP.SELECTPACKAGE" | translate }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="packageId" (change)="selectedPackage($event, rentalList)"
+                  [disabled]="disableRentalAfterBooking" required placeholder="Vehicle Type"
+                  [(ngModel)]="rentalList.packageId" #packageId="ngModel">
+                  <option value="undefined" hidden selected>
+                    Choose Package
+                  </option>
+                  <option *ngFor="let pack of packageList" [value]="pack._id">
+                    {{ pack.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showRentalVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTVEHICLE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="vehicleId" (change)="selectedRentalVehi($event, rentalList)"
+                  [disabled]="disableRentalAfterBooking" required placeholder="Vehicle Type"
+                  [(ngModel)]="rentalList.vehicleId" #vehicleId="ngModel">
+                  <option value="undefined" hidden selected>
+                    Choose Vehicle
+                  </option>
+                  <option *ngFor="let vehicle of rentalVehicles" [value]="vehicle._id">
+                    {{ vehicle.type }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showPackage && rentalList.vehicleId">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.BOOKINGTYPE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="bookingType" required [disabled]="disableRentalAfterBooking"
+                  placeholder="Vehicle Type" [(ngModel)]="rentalList.bookingType" #bookingType="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEBOOKINGTYPE" | translate }}
+                  </option>
+                  <option *ngFor="let bt of rentalBookingTypes" [value]="bt.value">
+                    {{ bt.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="
+                rentalList.bookingType === 'rideLater' && rentalList.vehicleId
+              ">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>{{
+                    "DASHBOARD.SELECTTRIPDATEANDTIME" | translate
+                    }}</label>
+                  <select class="form-control" name="rideLaterDate" (change)="changeRideLaterDate($event, rentalList)"
+                    required placeholder="Click to select time and date" [(ngModel)]="rentalList.rideLaterDate"
+                    #rideLaterDate="ngModel">
+                    <option value="today" selected>
+                      {{ "TRIP.TODAY" | translate }}
+                    </option>
+                    <option value="tomorrow">
+                      {{ "TRIP.TOMORROW" | translate }}
+                    </option>
+                    <option *ngFor="let return of rideLaterDateArray" [value]="return.value">
+                      {{ return.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label> {{ "TRIP.TRIPTIME" | translate }} </label>
+                <div class="control-section sample">
+                  <div class="control_wrapper">
+                    <div class="tabs-wrap">
+                      <div class="wrap">
+                        <ejs-timepicker strictMode="true" (open)="onOpen($event)" (close)="onClose($event)"
+                          [min]="rideLaterMinDate" (change)="changeRideLaterTime($event)" [max]="rideLaterMaxDate"
+                          step="15" id="timepicker" name="rideLaterTime" [(ngModel)]="rentalList.rideLaterTime"
+                          #rideLaterTime="ngModel" width="100%" required>
+                        </ejs-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="row rental-card" *ngIf="showRentalFare">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered" style="text-align: center; font-size: 14px">
+                    <thead>
+                      <tr>
+                        <td colspan="2" class="text-center">
+                          <span>
+                            {{ "TRIP.SELECTEDPACKAGE" | translate }}:
+                            &nbsp;</span>
+                          <span class="text-bold">{{
+                            rentalFare.packageName
+                            }}</span>
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="2">
+                          <div class="position_rel destination">
+                            <img [src]="rentalVehicleicon" width="50" height="50" />
+                          </div>
+                          <label class="form-control-label"><b></b></label>
+                          <hr />
+                          <table style="
+                              text-align: center;
+                              font-size: 14px;
+                              width: 100%;
+                            ">
+                            <tr>
+                              <td class="col-md-6 text-bold">
+                                {{ "TRIP.PACKAGEBASEFARE" | translate }}:
+                              </td>
+                              <td class="col-md-6">
+                                <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                  rentalFare.fare
+                                  }}</span>
+                              </td>
+                            </tr>
+                            &nbsp;
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                rentalFare.bkm
+                                }}</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ "TRIP.ADDITIONKMFARE" | translate }}
+                            </div>
+                            <div>
+                              (After first {{ rentalFare.packageDistance }}
+                              {{ defaultUnit }})
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="h-100 info-spacing">
+                            <div class="pad-15 text-center">
+                              <span class="text-bold">{{ defaultCurr }} </span><span class="text-bold">{{
+                                rentalFare.timeFare }}/Hr</span>
+                            </div>
+                            <div class="text-center f-12" style="padding-top: 5px; padding-bottom: 3px">
+                              {{ "TRIP.ADDITIONALRIDETIMEFARE" | translate }}
+                            </div>
+                            <div>
+                              (After first
+                              {{ rentalFare.packageDuration }} Hours)
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="2" class="text-left description_far" style="padding: 20px 0px 15px 10px">
+                          <span class="text-bold">{{ "COMMON.DESCRIPTION" | translate }}:
+                            &nbsp;</span>
+                          <div class="" [innerHTML]="rentalDescription"></div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="book-btn" *ngIf="showRentalFare">
+              <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" (click)="bookRental(rentalList,list1)" [disabled]="
+                      !rentalBook.form.valid || disableRentalAfterBooking
+                    " class="btn btn-danger top-btn">
+                    {{ "FARE.REQUESTNOW" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="disableRentalAfterBooking">
+              <div class="driver_section_container">
+                <mat-card style="
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    margin-top: 75px;
+                  ">
+                  <h4 class="text-center">
+                    {{ "DASHBOARD.TRIPSUCCESSFULLY" | translate }}
+                  </h4>
+                  <hr />
+                  <div class="form-group row">
+                    <label class="col-sm-12 input-group mrg">
+                      <h5 class="text-center">
+                        {{ "DASHBOARD.TRIPID" | translate }}: &nbsp;
+                        <span style="color: red"> {{ reqTripID }} </span>
+                      </h5>
+                    </label>
+                    <br />
+                    <label [ngStyle]="
+                        tripNotBooked ? { color: 'red' } : { color: 'green' }
+                      " class="form-control-label"><b>{{ responseText }}</b></label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-6 text-center">
+                      <button type="submit" class="btn btn-primary" (click)="routeToMyTrips()">
+                        {{ "DASHBOARD.TRACK" | translate }}
+                      </button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <button type="submit" class="btn btn-danger" (click)="clearAllData()">
+                        {{ "DASHBOARD.RESET" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- rentals booking ends -->
+
+      <div id="daily" class="tab-pane fade" *ngIf="availableservice.includes('daily')">
+        <div class="driver_section_container">
+          <!-- <h3 class="text-center"> Get a Fare Estimation</h3> -->
+          <br />
+          <form #dataForm="ngForm">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.PICKUPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_1.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.PICKUPLOCATION' | translate
+                    }}" name="origin-input" [(ngModel)]="list1.pick"  #searchpickup places-auto-complete (place_changed)="placeChangedP($event)" id="origin-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.DROPLOCATION" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_2.png" />
+                  </div>
+                  <input class="form-control" placeholder="{{ 'DASHBOARD.ENTER' | translate }} {{
+                      'DASHBOARD.DROPLOCATION' | translate
+                    }}" name="destination-input" [(ngModel)]="list1.drop"  #searchdrop places-auto-complete (place_changed)="dropplaceChangedP($event)"id="destination-input" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary available_veh"
+                  [disabled]="!list1.pick || !list1.drop || hideBook" (click)="getFareEstimation()">
+                  {{ "DASHBOARD.GETAVAILABLEVEHICLE" | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTVEHICLE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="serviceTypeId" (change)="SetVehicleType($event, list1)"
+                  [disabled]="hideBook" required placeholder="Vehicle Type" [(ngModel)]="list1.serviceTypeId"
+                  #serviceTypeId="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEVEHICLE" | translate }}
+                  </option>
+                  <option *ngFor="let vehicle of vehicleAry" [value]="vehicle._id">
+                    {{ vehicle.type }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.BOOKINGTYPE" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="bookingType" required [disabled]="hideBook"
+                  placeholder="Vehicle Type" [(ngModel)]="list1.bookingType" #bookingType="ngModel">
+                  <option value="undefined" hidden selected>
+                    {{ "DASHBOARD.CHOOSEBOOKINGTYPE" | translate }}
+                  </option>
+                  <option *ngFor="let bt of bookingTypes" [value]="bt.value">
+                    {{ bt.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="list1.bookingType === 'rideLater'">
+              <label class="col-sm-2 col-form-label">{{
+                "DASHBOARD.SELECTTRIPDATEANDTIME" | translate
+                }}</label>
+              <div class="col-sm-10">
+                <input class="form-control" [min]="min" required [disabled]="hideBook" placeholder="{{
+                    'DASHBOARD.CLICKTOSELECTTRIPDATE' | translate
+                  }}" [(ngModel)]="list1.tripTime" name="tripTime" #tripTime="ngModel" [owlDateTimeTrigger]="dt1"
+                  [owlDateTime]="dt1" />
+                <owl-date-time #dt1></owl-date-time>
+              </div>
+            </div>
+
+            <div *ngIf="showFareBook">
+              <div class="form-group">
+                <div class="col-md-12 col-sm-12" style="text-align: center" *ngIf="showBasic == true">
+                  <div class="position_rel destination">
+                    <img [src]="icon" width="50" height="50" />
+                  </div>
+                  <br />
+                  <label class="form-control-label"><b>{{ "DASHBOARD.FAREESTIMATION" | translate }}</b></label>
+                  <hr />
+                  <div class="row col-md-12" *ngIf="!ToggleFare">
+                    <table class="mrg-tab" style="width: 100%; margin-left: 50px">
+                      <tr>
+                        <td>{{ "DASHBOARD.TOTALDISTANEC" | translate }}:</td>
+                        <td>({{ distanceList.distanceLable }})</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>{{ "DASHBOARD.DISTANCEFARE" | translate }}:</td>
+                        <td>
+                          {{ defaultCurr }} {{ NewList.KMFare }} ({{
+                          NewList.fareType
+                          }})
+                        </td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.ESTIMATETIME" | translate }}:</td>
+                        <td>{{ distanceList.timeLable }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>
+                          {{ "DASHBOARD.TIMEFARE" | translate }} ({{
+                          NewList.travelRate
+                          }}
+                          {{ defaultCurr }}/Min):
+                        </td>
+                        <td>{{ defaultCurr }} {{ NewList.travelFare }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.PICKUPCHARGE" | translate }}:</td>
+                        <td>{{ defaultCurr }} {{ NewList.pickupCharge }}</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>{{ "DASHBOARD.TAXAMOUNT" | translate }}:</td>
+                        <td>{{ defaultCurr }} {{ NewList.tax }}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>{{ "DASHBOARD.TOTALFARE" | translate }}:</td>
+                        <td *ngIf="!showSecondCurrency">
+                          {{ defaultCurr }} {{ NewList.totalFare }}
+                        </td>
+                        <td *ngIf="showSecondCurrency">
+                          {{ defaultCurr }} {{ NewList.totalFare }} &nbsp;
+                          &nbsp; ({{ NewList.inSecondaryCur }}
+                          {{ secondCurrecny }})
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="row col-md-12" *ngIf="ToggleFare">
+                    <span style="color: red">{{ showError }}</span>
+                  </div>
+                </div>
+              </div>
+              <br />
+              &nbsp;
+              <br />
+              &nbsp; <br />
+              &nbsp;
+              <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" class="btn btn-danger top-btn" [disabled]="!dataForm.form.valid || hideBook"
+                    (click)="bookTrip(list1)" *ngIf="showBasic && !ToggleFare">
+                    {{ "DASHBOARD.BOOKNOW" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="driverNotAvailable">
+              <div class="driver_section_container">
+                <mat-card style="
+                    margin-left: 50px;
+                    margin-right: 50px;
+                    margin-top: 75px;
+                  ">
+                  <h4 class="text-center">
+                    {{ "DASHBOARD.TRIPSUCCESSFULLY" | translate }}
+                  </h4>
+                  <hr />
+                  <div class="form-group row">
+                    <label class="col-sm-12 input-group mrg">
+                      <h5 class="text-center">
+                        {{ "DASHBOARD.TRIPSTATUS" | translate }}: &nbsp;
+                        <span style="color: red">
+                          {{ riderTrip.tripstatus }}
+                        </span>
+                      </h5>
+                    </label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" class="btn btn-danger" (click)="clearAllData()">
+                        {{ "DASHBOARD.RESET" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+          </form>
+          <br />
+        </div>
+      </div>
+    </section>
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'trackingScreen'">
+      <div class="driver_section_container">
+        <mat-card>
+          <h4 class="text-center">
+            {{ "DASHBOARD.TRIPID" | translate }}:
+            {{ riderTrip.current_tripid }} | OTP: {{ overallBooked.startOTP }}
+          </h4>
+        </mat-card>
+        <br />
+        <mat-card>
+          <h5 class="text-center">
+            <b>
+              {{ "DASHBOARD.TRIPSTATUS" | translate }}:
+              {{ riderTrip.tripstatus }}
+            </b>
+          </h5>
+        </mat-card>
+        <br />
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.PICKUP" | translate }}:
+            </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{ bookedLocationDetails.start }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DROP" | translate }}:</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{ bookedLocationDetails.end }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.VEHICLE" | translate }}:</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <span> {{ bookedTaxiDetails.taxiDet }}</span>
+              </div>
+            </div>
+            <img class="col-sm-2 img" src="{{ temp }}{{ bookedTaxiDetails.image }}" />
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DRIVER" | translate }}:</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <span>{{ bookedDriverDetails.drivDet }}</span>
+              </div>
+            </div>
+            <img class="col-sm-2 img" src="{{ bookedDriverDetails.profileurl }}" />
+          </div>
+        </mat-card>
+        <br />
+        <br />
+      </div>
+    </section>
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'completedTripScreen'">
+      <div class="driver_section_container">
+        <mat-card>
+          <h4 class="text-center">
+            <b>
+              {{ "DASHBOARD.TRIPSTATUS" | translate }}:
+              {{ riderTrip.tripstatus }}
+            </b>
+          </h4>
+        </mat-card>
+        <br />
+
+        <mat-card>
+          <h4 class="text-center">
+            <b>{{ "DASHBOARD.TOTALFARE" | translate }}:
+              {{ tripfinalDet.total_fare }}
+            </b>
+          </h4>
+          <hr />
+          <div class="form-group row">
+            <label class="col-sm-6">{{ "DASHBOARD.BILLDATE" | translate }}: &nbsp;
+              {{ tripfinalDet.datetime }}</label>
+            <label class="col-sm-6">{{ "DASHBOARD.DISCOUNTAPPLIED" | translate }}: &nbsp;
+              {{ tripfinalDet.discount }}</label>
+          </div>
+        </mat-card>
+
+        <br />
+
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.PICKUP" | translate }}:
+            </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{ tripfinalDet.pickup_address }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ "DASHBOARD.DROP" | translate }}:
+            </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{ tripfinalDet.Drop_address }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+
+        <br />
+
+        <mat-card>
+          <div class="row show-grid">
+            <table style="width: 100%; margin-left: 20px">
+              <tr>
+                <td>{{ "DASHBOARD.DISTANCE" | translate }}:</td>
+                <td>{{ tripfinalDet.distance }} {{ defaultUnit }}</td>
+              </tr>
+              &nbsp;
+              <tr>
+                <td>{{ "DASHBOARD.TIME" | translate }}:</td>
+                <td>{{ tripfinalDet.time }} {{ deafultTime }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.BASEFARE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.basefare }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.WAITINGTIME" | translate }}:</td>
+                <td>{{ tripfinalDet.waitingTime }} {{ deafultTime }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.TIMEFARE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.time_fare }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.WAITTINGFARE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.waiting_fare }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.PICKUPFEE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.convance_fare }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.DISTANCEFARE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.distance_fare }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.ACCESSFEE" | translate }}:</td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.tax }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>
+                  {{ "DASHBOARD.DISCOUNT" | translate }}: ({{
+                  tripfinalDet.discountName
+                  }}
+                  - {{ tripfinalDet.discountPercentage }}%)
+                </td>
+                <td>{{ defaultCurr }} {{ tripfinalDet.discount }}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>{{ "DASHBOARD.PAYMENTMETHOD" | translate }}:</td>
+                <td>{{ tripfinalDet.pay_type | titlecase }}</td>
+              </tr>
+              &nbsp;
+            </table>
+          </div>
+        </mat-card>
+        <br />
+      </div>
+
+      <mat-card>
+        <form #feedback="ngForm">
+          <h5 class="text-center">
+            <b> {{ "DASHBOARD.HOWWASYOURRIDE" | translate }} </b>
+          </h5>
+          <ngx-input-star-rating class="text-center" style="display: inherit" name="rating"
+            [(ngModel)]="feedBackDetails.rating" #rating="ngModel">
+          </ngx-input-star-rating>
+          <br />
+          <textarea rows="3" cols="150" maxlength="300" style="resize: none" required
+            placeholder="{{ 'DASHBOARD.ENTERYOURCOMMENT' | translate }}" name="comments" #comments="ngModel"
+            [(ngModel)]="feedBackDetails.comments" class="form-control">
+          </textarea>
+          <br />
+          <br />
+        </form>
+        <button type="submit" (click)="sendFeedback(feedBackDetails)" class="btn btn-danger btn-block">
+          {{ "DASHBOARD.SUBMIT" | translate }}
+        </button>
+      </mat-card>
+      <br />
+    </section>
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section">
+      <div style="height: 935px" #mapElement class="map"></div>
+      <br />
+    </section>
+  </div>
+</div>

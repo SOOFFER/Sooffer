@@ -1,0 +1,56 @@
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <div class="paragraph-section">
+        <h2>{{ "COMMON.OTHERCITIES" | translate }}</h2>
+        &nbsp;
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div
+            class="panel-group"
+            *ngFor="let dt of data"
+            id="accordion"
+            role="tablist"
+            aria-multiselectable="true"
+          >
+            <!-- <app-example [data]="data" class="panel panel-default"></app-example> -->
+            <div class="panel-heading" role="tab" [id]="'heading'+dt.num">
+              <h4 class="panel-title">
+                <a
+                  role="button"
+                  data-toggle="collapse"
+                  data-parent="#accordion"
+                  [href]="'#collapse'+dt.num"
+                  aria-expanded="true"
+                  [attr.aria-controls]="'collapse'+data.id"
+                >
+                  <ul>
+                    <li><b>{{dt.name}}</b></li>
+                  </ul>
+                </a>
+              </h4>
+            </div>
+            <div
+              [id]="'collapse'+dt.num"
+              class="panel-collapse collapse"
+              role="tabpanel"
+              [attr.aria-labelledby]="'heading'+dt.num"
+            >
+              <div class="panel-body">
+                <ul class="contactus">
+                  <li>
+                    <i class="f_pin"></i>
+                    <div [innerHTML]="dt.Address"></div>
+                  </li>
+                  <br />
+                  <li><i class="f_phone"></i>{{dt.phone}}</li>
+                  <br />
+                  <li><i class="f_mail"></i>{{dt.mail}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

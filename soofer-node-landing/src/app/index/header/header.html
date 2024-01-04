@@ -1,0 +1,249 @@
+<div *ngIf="Menu == 0">
+  <header>
+      <div class="main-container">
+          <div class="sub-main-div">
+              <div class="">
+                  <nav class="navbar">
+                      <div class="collapse navbar-collapse p-0" id="myNavbar">
+                          <div class="navbar-header">
+                              <button type="button" class="navbar-toggle" (click)="menuoption(1)"  data-toggle="collapse" >
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                              </button>
+                              <a class="navbar-brand" routerLink=""><img height="{{logoHeight}}" width="{{logoWidth}}"
+                                src="{{logoURL}}" /></a>
+                                <section>
+                                  <div class="">
+                                    <ul class="nav navbar-nav navbar-center">
+                                      <li class="app_link" title="Download Android APP For Rider">
+                                        <a href="{{list.rider_link_Android}}" target="_blank"><img src="assets/images/android.svg" /></a>
+                                      </li>
+                                      <li class="app_link" title="Download IOS APP For Rider">
+                                        <a href="{{list.rider_link_Ios}}" target="_blank"><img src="assets/images/apple-logo.svg" /></a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </section>
+                          </div>
+                          <section>
+                              <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+                              <div class="leftlogin-sidbar {{menuclass}}">
+                                  <div class="back-img">
+                                      <h4><i class="closefilter" (click)="menuoption(2)"></i></h4>
+                                          <span>
+                                              <a class="navbar-brand"><img height={{logoHeight}} width={{logoWidth}} src={{logoURL}}></a>
+                                          </span>
+                                  </div>
+                                  <ul class="nav navbar-nav navbar-right flex-row mg">
+                                      <li>
+                                          <a routerLink="" (click)="menuoption(2)"  routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>{{'COMMON.HOME' | translate}}</a>
+                                      </li>
+                                      <li>
+                                        <a routerLink="about" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.ABOUTUS' | translate}}</a>
+                                      </li>
+                                      <li *ngIf="showServiceCity">
+                                        <a routerLink="servicecities" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.SERVICECITY' | translate}}</a>
+                                      </li>
+                                      <li>
+                                          <a routerLink="contact" (click)="menuoption(2)"  routerLinkActive="active">{{'COMMON.CONTACTUS' | translate}}</a>
+                                      </li>
+                                      <li>
+                                          <a routerLink="help" (click)="menuoption(2)" routerLinkActive="active">{{'COMMON.HELP' | translate}}</a>
+                                      </li>
+                                      <li>
+                                        <a routerLink="sign-in" (click)="menuoption(2)" routerLinkActive="active">{{'COMMON.SIGNIN' | translate}}</a>
+                                      </li>
+                                      <li>
+                                      <select class="home-lang" #langSelect (click)="clickMe(langSelect.value)">
+                                        <option value="" selected hidden>Language</option>
+                                        <option *ngFor="let list of translate.getLangs()" [value]="list"
+                                          [selected]="list === translate.currentLang">
+                                          {{ list }}
+                                        </option>
+                                      </select>
+                                    </li>
+                                  </ul>
+                          
+                              </div>
+                          </section>
+                      </div>    
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+
+</div>
+<div *ngIf="Menu == 1">
+  <header>
+      <div class="main-container">
+          <div class="sub-main-div">
+              <div class="">
+                  <nav class="navbar">
+
+                      <div class="collapse navbar-collapse p-0" id="myNavbar">
+                          <div class="navbar-header">
+                              <!-- <div class="line-icon" (click)="menuoption(1)" ng-model="myCheck">
+                                  <div class="head-line"></div>
+                                  <div class="head-line"></div>
+                                  <div class="head-line"></div>
+                              </div> -->
+                              <button type="button" class="navbar-toggle" (click)="menuoption(1)" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+                              <a class="navbar-brand" routerLink=""><img height="80" src={{logoURL}}></a>
+                              <!-- <h6 class="logo-content">Alo</h6> -->
+                          </div>
+                          <section>
+                              <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+                              <div class="leftlogin-sidbar {{menuclass}}">
+                                  <div class="back-img">
+                                      <h4><i class="closefilter" (click)="menuoption(2)"></i></h4>
+                                      <span>
+                                          <a class="navbar-brand"><img height={{logoHeight}} width={{logoWidth}} src={{logoURL}}></a>
+                                      </span>
+                                  </div>
+                                  <ul class="nav navbar-nav navbar-right flex-row">
+                                    <li>
+                                        <a routerLink="" (click)="menuoption(2)"  routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>{{'COMMON.HOME' | translate}}</a>
+                                    </li>
+                                    <li>
+                                      <a routerLink="about" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.ABOUTUS' | translate}}</a>
+                                    </li>
+                                    <li *ngIf="showServiceCity">
+                                      <a routerLink="servicecities" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.SERVICECITY' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="contact" (click)="menuoption(2)"  routerLinkActive="active">{{'COMMON.CONTACTUS' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="help" (click)="menuoption(2)" routerLinkActive="active">{{'COMMON.HELP' | translate}}</a>
+                                    </li>
+                                    <li class="drop">
+                                      <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                                          <ul class="dropdown-menu position-absolute" id="list-group" (click)="menuoption(2)">
+                                            <li>
+                                              <a routerLink="profile"><i class="fa fa-user"></i>{{'COMMON.MYPROFILE' | translate}}</a>
+                                            </li>
+                                            <li>
+                                              <a routerLink="taxi"><i class="fa fa-car"></i>{{'COMMON.MYTAXIS' | translate}}</a>
+                                            </li>
+                                            <li>
+                                              <a routerLink="trips"><i class="fa fa-location-arrow"></i>{{'COMMON.MYTRIP' |
+                                                translate}}</a>
+                                            </li>
+                                            <!-- <li><a routerLink="earnings"><i class="fa fa-money"></i> My Earning</a></li> -->
+                                            <li>
+                                              <a (click)="MYLogout()"> <i
+                                                class="fa fa-inbox btn_link"></i>{{'COMMON.LOGOUT' |translate}}
+                                              </a>
+                                            </li>
+                  
+                                          </ul>
+                                    </li>
+                                    <!-- <select class="home-lang" #langSelect (click)="clickMe(langSelect.value)">
+                                      <option value="" selected hidden>Language</option>
+                                      <option *ngFor="let list of translate.getLangs()" [value]="list"
+                                        [selected]="list === translate.currentLang">
+                                        {{ list }}
+                                      </option>
+                                    </select> -->
+                                </ul>
+                               
+                              </div>
+                          </section>
+                      
+                      </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+ 
+</div>
+<div *ngIf="Menu == 3">
+  <header>
+      <div class="main-container">
+          <div class="sub-main-div">
+              <div class="">
+                  <nav class="navbar">
+
+                      <div class="collapse navbar-collapse p-0" id="myNavbar">
+                          <div class="navbar-header">
+                              
+                              <!-- <div class="line-icon" (click)="menuoption(2)" ng-model="myCheck">
+                                  <div class="head-line"></div>
+                                  <div class="head-line"></div>
+                                  <div class="head-line"></div>
+                              </div> -->
+                              <button type="button" class="navbar-toggle" (click)="menuoption(1)" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                              </button>
+                              <a class="navbar-brand" routerLink=""><img height="50" src={{logoURL}}></a>
+                              <!-- <h6 class="logo-content">Alo</h6> -->
+                          </div>
+                          <section>
+                              <div class="overlay-back" *ngIf="openoverly" (click)="menuoption(2)"></div>
+                              <div class="leftlogin-sidbar {{menuclass}}">
+                                  <div class="back-img">
+                                      <h4><i class="closefilter" (click)="menuoption(2)"></i></h4>
+                                      <span>
+                                          <a class="navbar-brand"><img height={{logoHeight}} width={{logoWidth}} src={{logoURL}}></a>
+                                      </span>
+                                  </div>
+                                  <ul class="nav navbar-nav navbar-right flex-row">
+                                    <li>
+                                        <a routerLink="" (click)="menuoption(2)"  routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>{{'COMMON.HOME' | translate}}</a>
+                                    </li>
+                                    <li>
+                                      <a routerLink="about" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.ABOUTUS' | translate}}</a>
+                                    </li>
+                                    <li *ngIf="showServiceCity">
+                                      <a routerLink="servicecities" (click)="menuoption(2)"   routerLinkActive="active">{{'COMMON.SERVICECITY' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="contact" (click)="menuoption(2)"  routerLinkActive="active">{{'COMMON.CONTACTUS' | translate}}</a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="help" (click)="menuoption(2)" routerLinkActive="active">{{'COMMON.HELP' | translate}}</a>
+                                    </li>
+                                    <li class="drop">
+                                      <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                                          <ul class="dropdown-menu position-absolute" id="list-group" (click)="menuoption(2)">
+                                            <li>
+                                              <a routerLink="dashboard-section"><i class="fa fa-tachometer" aria-hidden="true"></i>{{'COMMON.MYDASHBOARD' |
+                                                translate}}</a>
+                                            </li>
+                                            <li>
+                                              <a routerLink="riderprofile"><i class="fa fa-user" aria-hidden="true"></i>{{'COMMON.MYPROFILE' |
+                                                translate}}</a>
+                                            </li>
+                                            <li>
+                                              <a routerLink="processing-trips"><i class="fa fa-car" aria-hidden="true"></i>{{'COMMON.MYTRIP' |
+                                                translate}}</a>
+                                            </li>
+                                            <!-- <li><a routerLink="riderwallet"><i class="fa fa-location-arrow" aria-hidden="true"></i> My Wallet</a>
+                                                    </li> -->
+                                            <li>
+                                              <a (click)="MYLogout()"> <i
+                                                class="fa fa-inbox btn_link"></i>{{'COMMON.LOGOUT' |translate}}
+                                              </a>
+                                            </li>
+                                          </ul>
+                                    </li>
+                                </ul>
+                              </div>
+                          </section>
+                      </div>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </header>
+ 
+</div>

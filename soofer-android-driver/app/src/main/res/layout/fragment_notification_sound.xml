@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:vikram="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    tools:context=".TripflowFragment.BottomSheetDialogFragment.NotificationSoundFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center"
+            vikram:lottie_autoPlay="true"
+            vikram:lottie_fileName="notification.json"
+            vikram:lottie_loop="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:text="@string/need_to_access_your_device_notificaton_permission"
+            android:layout_marginEnd="@dimen/_10sdp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="@string/access"
+            android:id="@+id/need_access_btn"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,109 @@
+package com.bismillah.app.Fragment;
+
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.bismillah.app.Adapter.WalletAdapter;
+import com.bismillah.app.CommonClass.BaseFragment;
+import com.bismillah.app.CommonClass.FontChangeCrawler;
+import com.bismillah.app.CommonClass.Utiles;
+import com.bismillah.app.Model.WalletTransactionCreditModel;
+import com.bismillah.app.Presenter.WalletCreditPresenter;
+
+import com.bismillah.app.R;
+import com.bismillah.app.View.WalletCreditView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import retrofit2.Response;
+
+public class WallletMoneyIn extends BaseFragment implements WalletCreditView {
+    List<WalletTransactionCreditModel.Transaction> walletModels = new ArrayList<>();
+    WalletAdapter walletTransactionAdapter;
+    @BindView(R.id.wallet_transactin_recycleview)
+    RecyclerView walletTransactinRecycleview;
+    @BindView(R.id.nodata_txt)
+    TextView nodataTxt;
+    Unbinder unbinder;
+    Context context;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    Activity activity;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_wallet_all, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        context = getContext();
+        activity = getActivity();
+        FontChangeCrawler fontChanger = new FontChangeCrawler(activity.getAssets(), getString(R.string.app_font));
+        fontChanger.replaceFonts((ViewGroup) activity.findViewById(android.R.id.content));
+        WalletCreditPresenter walletTransactionPresenter = new WalletCreditPresenter(activity, this);
+        walletTransactionPresenter.getWalletBalance();
+        return view;
+    }
+
+    public void setAdapter() {
+        if (walletModels != null && !walletModels.isEmpty()) {
+
+            walletTransactinRecycleview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            walletTransactinRecycleview.setItemAnimator(new DefaultItemAnimator());
+            walletTransactinRecycleview.setHasFixedSize(true);
+            walletTransactionAdapter = new WalletAdapter(walletModels, activity);
+            walletTransactinRecycleview.setAdapter(walletTransactionAdapter);
+            nodataTxt.setVisibility(View.GONE);
+            walletTransactinRecycleview.setVisibility(View.VISIBLE);
+        } else {
+            walletTransactinRecycleview.setVisibility(View.GONE);
+            nodataTxt.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onTransactionSuccessfully(Response<WalletTransactionCreditModel> Response) {
+        assert Response.body() != null;
+        if (Response.body().getSuccess()) {
+            if (Response.body().getTransaction() != null) {
+                    walletModels.clear();
+                    walletModels.addAll(Response.body().getTransaction());
+            }
+
+        }
+        setAdapter();
+    }
+
+    @Override
+    public void onTransactionFailure(Response<WalletTransactionCreditModel> Response) {
+        Utiles.displayMessage(getView(), context, "Something Went Wrong");
+    }
+}

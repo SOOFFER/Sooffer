@@ -1,0 +1,56 @@
+<section>
+  <div class="main-container">
+    <div class="sub-main-div">
+      <div class="container">
+        <h1 class="text-left">{{'FOOTER.FAQ' | translate}}</h1>
+
+        <div class="faq-container mrgn-top mrgn-botm row mt-3">
+
+          <section>
+            <div class="faq-page col-xs-12 col-lg-12 col-sm-12 col-md-12">
+              <div class="faq-top-part">
+                <ul class="faq-list" style="margin-top: 5px;">
+                  <li *ngFor="let item of catary;">
+                    <a [routerLink]="" style="cursor: pointer;" (click)="getQuestions(item._id);">{{item.vTitle_EN}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="text-center">{{ AnsAry[4].ifaqcategorytitle}}</h2>
+            <div *ngFor="let qes of AnsAry">
+              <div class="panel-group panelgroup col-xs-12 col-sm-12 col-md-12" id="accordion" role="tablist"
+                aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true"
+                        aria-controls="collapseOne" class="orange">
+                        <!-- <i class="more-less  fa fa-plus"></i> -->
+                        <div>
+                          <label>Q.&nbsp;</label>
+                          <span [innerHtml]="qes.vTitle_EN"></span>
+                        </div>
+                      </a>
+                    </h4>
+                  </div>
+                  <div>
+                    <div class="panel-body">
+                      <h4>
+                        <div [innerHtml]="qes.English"></div>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- panel-group -->
+      </div>
+      <!-- container -->
+    </div>
+  </div>
+</section>

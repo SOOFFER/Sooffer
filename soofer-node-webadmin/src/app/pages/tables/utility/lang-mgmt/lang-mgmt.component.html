@@ -1,0 +1,33 @@
+<ngx-spinner></ngx-spinner>
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-9">
+        Language Management
+      </div>
+      <div class="col-md-3">
+        <select class="form-control custom-select" (change)="changelang($event)" [(ngModel)]="list.lang" #lang="ngModel"
+          name="lang" required placeholder="Vehicle Type">
+          <!-- <option [ngValue]="undefined" hidden selected> Select Vehicle Type </option> -->
+          <option *ngFor="let lang of langArray" [value]="lang">
+            {{lang}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (createConfirm)="updateRecord($event)"
+      (editConfirm)="updateRecord($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<style>
+  select.custom-select {
+    height: calc(2rem + 5px) !important;
+    padding: 2px 15px;
+    width: 30%;
+  }
+
+</style>

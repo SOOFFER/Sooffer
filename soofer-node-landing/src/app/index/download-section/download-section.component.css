@@ -1,0 +1,29 @@
+.Download_link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    /* cursor: pointer; */
+    /* background: #f1f1f1; */
+    color: black;
+    border-radius: 8px;
+    box-shadow: 1px 1px 44px 0 rgb(214 214 214);
+    padding: 15px;
+}
+.scaner{
+    width: auto;
+    height: auto;
+}
+.content{
+    /* padding: 30px; */
+    display: flex;
+    align-items: center;
+    height: 150px;
+    justify-content: space-around;
+}
+.Download_link i{
+    font-size: 20px;
+}
+.Download_link:hover i{
+    transform: translatex(10px);
+}

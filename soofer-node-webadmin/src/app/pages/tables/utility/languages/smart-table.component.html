@@ -1,0 +1,101 @@
+<ng-template [ngIf]="initial==0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-9">
+          {{title}}
+        </div>
+        <div class="col-sm-3">
+          <button type="button" (click)="btBack(1)" class="btn btn-danger pull-right">Add
+            Languages</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial==1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Add Languages</nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label>
+                Symbol
+              </label>
+              <input type='text' required placeholder="Enter the Symbol" [(ngModel)]="list.sym" #sym="ngModel" name="sym"
+                class="form-control" />
+              <small class="form-text error" *ngIf="sym.invalid && (sym.dirty)">Symbol is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>
+                Languages
+              </label>
+              <input type='text' placeholder="Enter the Language" required [(ngModel)]="list.languages" #languages="ngModel"
+                name="languages" class="form-control" />
+              <small class="form-text error" *ngIf="languages.invalid && (languages.dirty)">Languages is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="AddLanguages(list)" [disabled]="!dataForm1.form.valid" type="submit" class="btn btn-success">
+            Add
+          </button> &nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial==2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Languages</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label>
+                Symbol
+              </label>
+              <input type='text' placeholder="Enter the Symbol" required [(ngModel)]="selectedDocs.sym" #sym="ngModel"
+                name="sym" class="form-control" />
+              <small class="form-text error" *ngIf="sym.invalid && (sym.dirty)">Symbol is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>
+                Languages
+              </label>
+              <input type='text' placeholder="Enter the Language" required [(ngModel)]="selectedDocs.languages"
+                #languages="ngModel" name="languages" class="form-control" />
+              <small class="form-text error" *ngIf="languages.invalid && (languages.dirty)">Languages is Mandatory!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="updateLanguages(selectedDocs)" [disabled]="!dataForm2.form.valid" type="submit" class="btn btn-primary">
+            Update
+          </button>&nbsp;
+          <button (click)="deleteLanguages(selectedid)" type="button" class="btn btn-danger">
+            Delete
+          </button>&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,455 @@
+<nb-card>
+  <nb-card-header>
+    Server Config Settings
+  </nb-card-header>
+</nb-card>
+<nb-card>
+  <nb-card-header>
+    General Settings
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>App Name</label>
+          <input type="text" name="appName" #appName="ngModel" [(ngModel)]="generalsettingsInput.appName"
+            placeholder="App Name" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Default Password</label>
+          <input type="text" name="resetPasswordTo" #resetPasswordTo="ngModel"
+            [(ngModel)]="generalsettingsInput.resetPasswordTo" placeholder="Reset Password" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Timezone offset</label>
+          <input type="text" name="utcOffset" #utcOffset="ngModel" [(ngModel)]="generalsettingsInput.utcOffset"
+            placeholder="Timezone" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Default Phone Code</label>
+          <input type="text" name="phoneCode" #phoneCode="ngModel" [(ngModel)]="generalsettingsInput.phoneCode"
+            placeholder="Pin Code" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Company Address</label>
+          <input type="text" name="companyaddress" #companyaddress="ngModel"
+            [(ngModel)]="generalsettingsInput.companyaddress" placeholder="Company Address" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Company Mail</label>
+          <input type="text" name="companymail" #companymail="ngModel" [(ngModel)]="generalsettingsInput.companymail"
+            placeholder="Company Mail" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Max Request Radius(In Miles) (Distance b/t Pickup point and Driver location)</label>
+          <input type="text" name="requestRadius" #requestRadius="ngModel"
+            [(ngModel)]="generalsettingsInput.requestRadius" placeholder="Max Request Radius(In Miles)"
+            class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>No Of Driver Canceled Allowed Per Day (No - 1)</label>
+          <input type="number" name="noOfDriverCancelAllowed" #noOfDriverCancelAllowed="ngModel"
+            [(ngModel)]="generalsettingsInput.noOfDriverCancelAllowed"
+            placeholder="No Of Driver Canceled Allowed Per Day (No - 1)" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>No Of Rider Canceled Allowed Per Day(No - 1)</label>
+          <input type="number" name="noOfRiderCancelAllowed" #noOfRiderCancelAllowed="ngModel"
+            [(ngModel)]="generalsettingsInput.noOfRiderCancelAllowed"
+            placeholder="No Of Rider Canceled Allowed Per Day(No - 1)" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>No Of Drivers To be Called Nearby Pickup Point</label>
+          <input type="number" name="driversNeedToCallForATrip" #driversNeedToCallForATrip="ngModel"
+            [(ngModel)]="generalsettingsInput.driversNeedToCallForATrip"
+            placeholder="No Of Drivers To be Called Nearby Pickup Point" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Request Time For Single Driver To Accept/Decline (seconds)</label>
+          <input type="number" name="requestTime" #requestTime="ngModel" [(ngModel)]="generalsettingsInput.requestTime"
+            placeholder="Request Time For Single Driver To Accept/Decline" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Requesting Time For Rider To Search for Nearby Driver (seconds)</label>
+          <input type="number" name="userCancelTime" #userCancelTime="ngModel"
+            [(ngModel)]="generalsettingsInput.userCancelTime"
+            placeholder="Requesting Time For Rider To Search for Nearby Driver" class="form-control">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Currency Symbol</label>
+          <input type="text" name="currencySymbol" #currencySymbol="ngModel"
+            [(ngModel)]="generalsettingsInput.currencySymbol" placeholder="Currency Symbol" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Currency Label</label>
+          <input type="text" name="currency" #currency="ngModel" [(ngModel)]="generalsettingsInput.currency"
+            placeholder="Currency Label" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Distance Unit Symbol</label>
+          <input type="text" name="distanceSymbol" #distanceSymbol="ngModel"
+            [(ngModel)]="generalsettingsInput.distanceSymbol" placeholder="Distance Unit Symbol" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Distance Unit Label</label>
+          <input type="text" name="distanceUnit" #distanceUnit="ngModel" [(ngModel)]="generalsettingsInput.distanceUnit"
+            placeholder="Distance Unit Label" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <nb-checkbox name="Enable Rider Verification Flow"
+            [(ngModel)]="generalsettingsInput.isRiderEmailVerifyNeeded">Enable
+            Rider Email Verification
+          </nb-checkbox><br><br><br>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <nb-checkbox name="Enable Driver Verification Flow"
+            [(ngModel)]="generalsettingsInput.isDriverEmailVerifyNeeded">Enable
+            Driver Email Verification
+          </nb-checkbox><br><br><br>
+        </div>
+      </div>
+    </div>
+
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord('generalSettings',generalsettingsInput)" type="submit"
+      class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Firebase Settings
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Project ID</label>
+          <input type="text" name="project_id" #project_id="ngModel" [(ngModel)]="firebaseSettingsInput.project_id"
+            placeholder="Project ID" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Default App Name</label>
+          <input type="text" name="appName" #appName="ngModel" [(ngModel)]="firebaseSettingsInput.appName"
+            placeholder="Default App Name" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Auth Domain</label>
+          <input type="text" name="authDomain" #authDomain="ngModel" [(ngModel)]="firebaseSettingsInput.authDomain"
+            placeholder="Auth Domain" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Database URL</label>
+          <input type="text" name="databaseURL" #databaseURL="ngModel" [(ngModel)]="firebaseSettingsInput.databaseURL"
+            placeholder="Database URL" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Storage Bucket</label>
+          <input type="text" name="storageBucket" #storageBucket="ngModel"
+            [(ngModel)]="firebaseSettingsInput.storageBucket" placeholder="Storage Bucket" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>FCM Server</label>
+          <input type="text" name="fcmServer" #fcmServer="ngModel" [(ngModel)]="firebaseSettingsInput.fcmServer"
+            placeholder="FCM Server" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Google API KEY</label>
+          <input type="text" name="googleApi" #googleApi="ngModel" [(ngModel)]="firebaseSettingsInput.googleApi"
+            placeholder="Google API KEY" class="form-control">
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord('firebaseSettings',firebaseSettingsInput)" type="submit"
+      class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Email Configuration
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email Gateway</label>
+          <!--           <input type="text" name="emailGateway" #emailGateway="ngModel" [(ngModel)]="emailSettingsInput.emailGateway"
+            placeholder="Email Gateway" class="form-control"> -->
+          <select class="form-control" [(ngModel)]="emailSettingsInput.emailGateway" name="emailGateway"
+            #emailGateway="ngModel" placeholder="Email Gateway">
+            <option [value]="undefined" selected hidden>Select Email Gateway</option>
+            <option *ngFor="let emails of emailgatewayArray" [value]="emails.value">{{emails.label}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>SMTP Email User Name</label>
+          <input type="text" name="authUser" #authUser="ngModel" [(ngModel)]="emailSettingsInput.authUser"
+            placeholder="SMTP Email User Name" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>SMTP Email Password</label>
+          <input type="text" name="authPass" #authPass="ngModel" [(ngModel)]="emailSettingsInput.authPass"
+            placeholder="SMTP Email Password" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>SendGrid Key</label>
+          <input type="text" name="sgAcessKey" #sgAcessKey="ngModel" [(ngModel)]="emailSettingsInput.sgAcessKey"
+            placeholder="SendGrid Key" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Mail From Address</label>
+          <input type="text" name="mailFrom" #mailFrom="ngModel" [(ngModel)]="emailSettingsInput.mailFrom"
+            placeholder="Mail From Address" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>App Support Number</label>
+          <input type="text" name="supportNo" #supportNo="ngModel" [(ngModel)]="emailSettingsInput.supportNo"
+            placeholder="App Support Number" class="form-control">
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord('emailconfig',emailSettingsInput)" type="submit"
+      class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    SMS Configuration
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>SMS Gateway</label>
+          <select class="form-control" [(ngModel)]="smsSettingsInput.smsGatewayName" name="smsGatewayName"
+            #smsGatewayName="ngModel" placeholder="SMS Gateway">
+            <option [value]="undefined" selected hidden>Select SMS Gateway</option>
+            <option *ngFor="let ft of smsgatewayArray" [value]="ft.value">{{ft.label}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Twilio Account Sid</label>
+          <input type="text" name="twilioaccountSid" #twilioaccountSid="ngModel"
+            [(ngModel)]="smsSettingsInput.twilioaccountSid" placeholder="Twilio Account Sid" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Twilio Auth Token</label>
+          <input type="text" name="twilioauthToken" #twilioauthToken="ngModel"
+            [(ngModel)]="smsSettingsInput.twilioauthToken" placeholder="Twilio Auth Token" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Twilio No</label>
+          <input type="text" name="twilioNo" #twilioNo="ngModel" [(ngModel)]="smsSettingsInput.twilioNo"
+            placeholder="Twilio No" class="form-control">
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nexmo API Key</label>
+          <input type="text" name="nexmoapiKey" #nexmoapiKey="ngModel" [(ngModel)]="smsSettingsInput.nexmoapiKey"
+            placeholder="Nexmo API Key" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nexmo API Secret</label>
+          <input type="text" name="nexmoapisecret" #nexmoapisecret="ngModel"
+            [(ngModel)]="smsSettingsInput.nexmoapisecret" placeholder="Nexmo API Secret" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nexmo API Number</label>
+          <input type="text" name="nexmoapiNumber" #nexmoapiNumber="ngModel"
+            [(ngModel)]="smsSettingsInput.nexmoapiNumber" placeholder="Nexmo API Number" class="form-control">
+        </div>
+      </div>
+    </div> -->
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord('smsConfig',smsSettingsInput)" type="submit" class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Payment Gateway Configuration
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Payment Gateway</label>
+          <select class="form-control" [(ngModel)]="paymentSettingsInput.paymentGatewayName" name="paymentGatewayName"
+            #paymentGatewayName="ngModel" placeholder="Payment">
+            <option [value]="undefined" selected hidden>Select Form Type</option>
+            <option *ngFor="let ft of paymentnameArray" [value]="ft.value">{{ft.label}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Payment Gateway Currency</label>
+          <input type="text" name="paymentGatewayCurrency" #paymentGatewayCurrency="ngModel"
+            [(ngModel)]="paymentSettingsInput.paymentGatewayCurrency" placeholder="Payment Gateway Currency"
+            class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Stripe Secret Key</label>
+          <input type="text" name="stripeSk" #stripeSk="ngModel" [(ngModel)]="paymentSettingsInput.stripeSk"
+            placeholder="Stripe Secret Key" class="form-control">
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="form-group">
+          <label>Braintree Environment</label>
+          <input type="text" name="braintreeEnvironment" #braintreeEnvironment="ngModel"
+            [(ngModel)]="paymentSettingsInput.braintreeEnvironment" placeholder="Braintree Environment"
+            class="form-control">
+        </div>
+      </div> -->
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Braintree MerchantId</label>
+          <input type="text" name="braintreeMerchantId" #braintreeMerchantId="ngModel"
+            [(ngModel)]="paymentSettingsInput.braintreeMerchantId" placeholder="Braintree MerchantId"
+            class="form-control">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Braintree PublicKey</label>
+          <input type="text" name="braintreePublicKey" #braintreePublicKey="ngModel"
+            [(ngModel)]="paymentSettingsInput.braintreePublicKey" placeholder="Braintree PublicKey"
+            class="form-control">
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Braintree PrivateKey</label>
+          <input type="text" name="braintreePrivateKey" #braintreePrivateKey="ngModel"
+            [(ngModel)]="paymentSettingsInput.braintreePrivateKey" placeholder="Braintree PrivateKey"
+            class="form-control">
+        </div>
+      </div>
+    </div> -->
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord('paymentSettings',paymentSettingsInput)" type="submit"
+      class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>

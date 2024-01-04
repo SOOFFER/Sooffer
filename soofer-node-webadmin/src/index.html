@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title id="title"></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.2.7/css/dx.common.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.2.7/css/dx.dark.css" />
+</head>
+
+<body style="position: relative;">
+
+  <div class="translator">
+    <div id="google_translate_element"></div>
+  </div>
+
+
+  <ngx-app>Loading...</ngx-app>
+  <style>
+    @-webkit-keyframes spin {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes spin {
+      0% {
+        -moz-transform: rotate(0);
+      }
+
+      100% {
+        -moz-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1003;
+      background: #000000;
+      overflow: hidden;
+    }
+
+    .spinner div:first-child {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      box-shadow: 0 3px 3px 0 rgba(255, 56, 106, 1);
+      transform: translate3d(0, 0, 0);
+      animation: spin 2s linear infinite;
+    }
+
+    .spinner div:first-child:after,
+    .spinner div:first-child:before {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .spinner div:first-child:before {
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      box-shadow: 0 3px 3px 0 rgb(255, 228, 32);
+      -webkit-animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite;
+    }
+
+    .spinner div:first-child:after {
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      box-shadow: 0 3px 3px 0 rgba(61, 175, 255, 1);
+      animation: spin 1.5s linear infinite;
+    }
+
+    .translator {
+      width: 160px;
+      position: absolute;
+      z-index: 9999;
+      right: 29%;
+      top: 12px;
+    }
+  </style>
+
+
+
+
+  <div id="nb-global-spinner" class="spinner">
+    <div class="blob blob-0"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+  </div>
+
+  <!-- <span class="created-by"><b> 24HrTruckFix </b> 2018</span> -->
+
+  <!--
+<div class="socials">
+</div>   -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+        },
+        "google_translate_element"
+      );
+    }
+  </script>
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script type="text/javascript"
+    src="https://maps.google.com/maps/api/js?key=AIzaSyDWpHDxOetTD3v7dVzOGsyJ98OBDevnVI0&libraries=visualization,places,drawing&language=en-US"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("firebase-messaging-sw.js")
+        .then(function (registration) {
+          // Registration was successful
+          console.log(
+            "ServiceWorker registration successful with scope: ",
+            registration.scope
+          );
+        })
+        .catch(function (err) {
+          // registration failed :(
+          console.log("ServiceWorker registration failed: ", err);
+        });
+    }
+  </script>
+
+  <!-- <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&key=AIzaSyBMIRPoXJpMsWxPLiXP4XYYuh-1D9nylX8&libraries=visualization,places,drawing&language=en-US"></script>  -->
+
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en' },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+</body>
+
+</html>

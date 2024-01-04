@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                Add OutStation Packages
+            </nb-card-header>
+            <nb-card-body>
+                <form #dataForm="ngForm" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Package Name(<span class="red">*</span>)</label>
+                                <input type="text" name="name" [(ngModel)]="list.name" #name="ngModel" required
+                                    placeholder="Enter Package Name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Package Distance(<span class="red">*</span>)</label>
+                                <input type="text" name="distance" [(ngModel)]="list.distance" #distance="ngModel"
+                                    required placeholder="Enter Package Distance" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Package Duration(<span class="red">*</span>)</label>
+                                <input type="text" name="duration" [(ngModel)]="list.duration" #duration="ngModel"
+                                    required placeholder="Enter Package Duration" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" *ngIf="this.servicecity==true">
+                                <label>Service Available City(<span class="red">*</span>)</label>
+                                <ng-multiselect-dropdown (onSelect)="onItemSelect($event)" required
+                                    [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+                                    [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="custom-drop">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" *ngIf="vehiclesList.length > 0">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    Listed Vehicles are - {{listedVehiclesArray}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- One Way -->
+                                </div>
+                            </div>
+                            <!-- {{vehiclesList | json}} -->
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let item of vehiclesList">
+                                    <div class="form-group">
+                                        <label>Fixed Rate For Vehicle Type - {{item.type}} (<span
+                                                class="red">*</span>)</label>
+                                        <input type="number" min="0" name="fixedRate" [(ngModel)]="item.fixedRate"
+                                            #fixedRate="ngModel" required
+                                            placeholder="Enter Fixed Rate For Vehicle Type - {{item.type}}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Select Journey Type (<span class="red">*</span>)</label>
+                                        <select class="form-control" [(ngModel)]="list.jouneyType" name="jouneyType"
+                                            #jouneyType="ngModel" required>
+                                            <option value="undefined" hidden selected>Select Journey Type</option>
+                                            <option value="oneway">OneWay</option>
+                                            <option value="round">Round</option>
+                                        </select>
+                                        <small *ngIf="jouneyType.invalid && (jouneyType.dirty)" class="form-text error">
+                                            Journey Type is required!
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="card" *ngIf="vehiclesList.length > 0">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    Listed Vehicles are - {{listedVehiclesArray}}
+                                </div>
+                                <div class="col-sm-4">
+                                    One Way
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6" *ngFor="let item of vehiclesList">
+                                        <div class="form-group">
+                                            <label>Fixed Rate For Vehicle Type - {{item.type}} (<span
+                                                    class="red">*</span>)</label>
+                                            <input type="number" min="0" name="fixedRate" [(ngModel)]="item.fixedRate"
+                                                #fixedRate="ngModel" required
+                                                placeholder="Enter Fixed Rate For Vehicle Type - {{item.type}}"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <!-- <div class="card" *ngIf="roundTripVehicleList.length > 0">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        Listed Vehicles are - {{listedVehiclesArray}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        Round Trips
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6" *ngFor="let nitem of roundTripVehicleList">
+                                        <div class="form-group">
+                                            <label>Fixed Rate For Vehicle Type - {{nitem.type}} (<span
+                                                    class="red">*</span>)</label>
+                                            <input type="number" min="0" name="fixedRateforRoundTrip"
+                                                [(ngModel)]="nitem.fixedRateforRoundTrip" #fixedRateforRoundTrip="ngModel" required
+                                                placeholder="Enter Fixed Rate For Vehicle Type - {{nitem.type}}"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                </form>
+            </nb-card-body>
+            <nb-card-footer>
+                <!-- !checkVistingLocd(roundTripVehicleList) -->
+                <button type="submit" (click)="AddNewDoc(list)"
+                    [disabled]="!dataForm.form.valid  || !checkVistingLoc(vehiclesList) "
+                    class="btn btn-success">Add</button>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+</div>

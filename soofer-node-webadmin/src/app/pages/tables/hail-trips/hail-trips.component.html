@@ -1,0 +1,552 @@
+<div *ngIf="trip; then triplist else tripinvoice"></div>
+<ng-template #triplist>
+  <nb-card>
+    <div class="row" style="margin: 15px 0px">
+      <div class="col-sm-12" style="float:right">
+        <button type="button" class="btn btn-primary pull-right" (click)="ExportAsCSV();">Export</button>
+      </div>
+    </div>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-8">
+          Hail Trips
+        </div>
+
+        <div class="col-sm-4" *ngIf="showCity==true">
+          <form class="form-row">
+
+            <div class="col-md-6">
+
+              <select class="form-control" [(ngModel)]=" Doc.servicecity" name="servicecity" #servicecity="ngModel"
+                required placeholder="Service">
+                <option [value]="undefined" selected hidden>
+                  Search ServiceCity</option>
+                <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                  {{city.label}}
+                </option>
+                <option value="all" selected>
+                  All</option>
+              </select>
+
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" (click)="SerachForCity(Doc);">Filter</button>
+
+            </div>
+          </form>
+
+        </div>
+
+
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #tripinvoice>
+  <nb-card>
+    <nb-card-header>
+      Trip Invoice : {{tripdetails.status}}
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <label class="form-control-label">Your Trip : {{tripdspdetails.tripno}} On {{tripdetails.date}} </label>
+          <div class="tripmap" style="height: 300px;">
+            <ngui-map zoom="13" center="{{tripdspdetails.pLat}},{{tripdspdetails.pLng}}" mapTypeId="terrain"
+              scrollwheel="false">
+              <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'" [strokeOpacity]="1"
+                [strokeWeight]="2"></polyline>
+            </ngui-map>
+          </div>
+          <br />
+          <br />
+          <div class="form-group">
+            <label>Start :</label>
+            <p><b>{{tripdspdetails.start}}</b><br />
+            </p>
+            <label>End :</label>
+            <p><b>{{tripdspdetails.end}}</b><br />
+            </p>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row show-grid">
+              <div class="col-4 col-md-4">
+                <div align="center">vehicle Type</div>
+                <div align="center">
+                  <p><b>{{tripdetails.vehicle}}</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4" *ngIf="!showNoResponse">
+                <div align="center">Distance</div>
+                <div align="center">
+                  <p><b>({{Amountdetails.dist}} {{defaultUnit}})</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4" *ngIf="showNoResponse">
+                <div align="center">Distance</div>
+                <div align="center">
+                  <p><b>({{tripdspdetails.distanceKM}} {{defaultUnit}})</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4">
+                <div align="center">Trip time (Min)</div>
+                <div align="center">
+                  <p><b>{{tripcspdetails.time}}</b></p>
+                </div>
+              </div>
+              <div class="col-4 col-md-4">
+                <div align="center">OTP</div>
+                <div align="center">
+                  <p><b>{{tripdetails.tripOTP[0]}}</b></p>
+                </div>
+              </div>
+
+              <div class="col-4 col-md-4">
+                <div align="center">Request From</div>
+                <div align="center">
+                  <p><b>{{tripdetails.request}}</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <hr>
+          </div>
+          <div class="form-group">
+            <div class="row show-grid">
+              <div class="col-6 col-md-6">
+                <img alt="img" class="user-picture image" align="center" height="42" width="42"
+                  src="assets/images/driver.png">
+                <div align="center">Driver</div>
+                <div align="center">
+                  <p><b>{{tripdetails.dvr}}</b></p>
+                  <span>{{DriverAcceptedPhone}}</span>
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <img _ngcontent-c3="" alt="img" class="user-picture image" align="center" height="42"
+                  src="assets/images/rider.png" width="42">
+                <div align="center">Rider</div>
+                <div align="center">
+                  <p><b>{{tripdetails.rid}}</b></p>
+                  <span>{{RiderPhone}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+						<div class="row show-grid">
+							<div class="col-6 col-md-6">
+								<div>ROUTE</div>
+								<p><b>{{tripdetails.adsp.dLat}}</b></p>
+							</div>
+							<div class="col-6 col-md-6">
+								<div>Rider</div>
+								<p><b>{{tripdetails.adsp.dLng}}</b></p>
+							</div>
+						</div>
+					</div>  -->
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <br>
+          <b><label class="form-control-label">Fare Breakdown For Ride No : {{tripdetails.tripno}} </label> </b>
+          <hr>
+          <div class="row show-grid" *ngIf="isCspData!=true">
+            <div class="col-md-4">
+              <div>Fare Type</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.fareType}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>Actual cost</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.actualcost}}</div>
+            </div>
+            <br />
+            <div class="col-md-5">
+              <div>Distance Fare ({{Amountdetails.dist}} {{defaultUnit}})</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.distfare}}</div>
+            </div>
+            <br />
+            <div class="col-md-5">
+              <div>Base Fare</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.base}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>Waiting Charge ({{Amountdetails.waitingTime}} {{Amountdetails.currency}}/Min)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.waitingCharge}}</div>
+            </div>
+            <div class="col-md-4">
+              <div>Time Fare ({{Amountdetails.time}} {{Amountdetails.currency}}/Min)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.timefare}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>{{taxLabel}}</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.tax}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>Old Balance</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.oldBalance}}</div>
+            </div>
+            <div class="col-md-4">
+              <div *ngIf="nightChargeApplied != true">Night Charge Applied</div>
+              <div *ngIf="nightChargeApplied == true">Night Charge Applied(*1.5)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.nightCharge}}</div>
+            </div>
+            <br />
+            <div class="col-md-4" *ngIf="pickupcharge==true">
+              <div>Pick Up Charge</div>
+            </div>
+            <div class="col-md-4 offset-md-4" *ngIf="pickupcharge==true">
+              <div>{{Amountdetails.conveyance}}</div>
+            </div>
+            <br />
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+            <div class="col-md-4">
+              <div><b>Total Fare (Payment Mode: {{Amountdetails.via}})</b></div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div><b>{{Amountdetails.actualcost}} {{Amountdetails.currency}}</b></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <div class="row show-grid" *ngIf="isCspData==true && showNoResponse==false">
+            <!-- <div class="col-md-4">
+								<div>Fare Type</div>
+							</div>
+							<div class="col-md-4 offset-md-4">
+								<div>{{Amountdetails.fareType}}</div>
+							</div> -->
+            <div class="col-md-4">
+              <div>Actual cost</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.cost}}</div>
+            </div>
+            <br />
+            <div class="col-md-5">
+              <div>Distance Fare({{Amountdetails.dist}} {{defaultUnit}})</div>
+            </div>
+            <div class="col-md-3 offset-md-3">
+              <div> {{Amountdetails.distfare}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>{{taxLabel}}</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.tax}}</div>
+            </div>
+            <br />
+            <div class="col-md-4">
+              <div>Old Balance</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.oldBalance}}</div>
+            </div>
+            <div class="col-md-4">
+              <div>Waiting Charge ({{Amountdetails.timefare}} {{Amountdetails.currency}}/Min)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.waitingCharge}}</div>
+            </div>
+            <div class="col-md-4">
+              <div *ngIf="nightChargeApplied != true">Night Charge Applied</div>
+              <div *ngIf="nightChargeApplied == true">Night Charge Applied(*1.5)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.nightCharge}}</div>
+            </div>
+            <div class="col-md-4" *ngIf="pickupcharge==true">
+              <div>Pick Up Charge</div>
+            </div>
+            <div class="col-md-4 offset-md-4" *ngIf="pickupcharge==true">
+              <div>{{Amountdetails.conveyance}}</div>
+            </div>
+            <br />
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+            <div class="col-md-4">
+              <div><b>Total Fare (Payment Mode: {{Amountdetails.via}})</b></div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div><b>{{Amountdetails.cost}} {{Amountdetails.currency}}</b></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <!-- show NoResponse -->
+          <div class="row show-grid" *ngIf="showNoResponse">
+            <div class="col-md-4">
+              <div>Booking Fee</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.base}}</div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <div>Distance Fare ({{tripdspdetails.distanceKM}} {{defaultUnit}})</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.distfare}}</div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <div>Time Fare ({{tripcspdetails.time}} Mins)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.timefare}}</div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <div>Waiting Fare</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.waitingCharge}}</div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <div>Pickup Fare</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.conveyance}}</div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <div>{{taxLabel}}</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.tax}}</div>
+            </div>
+            <br>
+            <!-- <div class="col-md-4">
+              <div>Actual cost</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div>{{Amountdetails.cost}}</div>
+            </div>
+            <br /> -->
+            <!-- <div class="col-md-4">
+              <div>Old Balance</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.oldBalance}}</div>
+            </div> -->
+            <!-- <div class="col-md-4">
+              <div>Waiting Charge ({{Amountdetails.timefare}} {{Amountdetails.currency}}/Min)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.waitingCharge}}</div>
+            </div> -->
+            <div class="col-md-4">
+              <div *ngIf="nightChargeApplied != true">Night Charge Applied</div>
+              <div *ngIf="nightChargeApplied == true">Night Charge Applied(*1.5)</div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div> {{Amountdetails.nightCharge}}</div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+            <div class="col-md-4">
+              <div><b>Total Fare (Payment Mode: {{Amountdetails.via}})</b></div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+              <div><b>{{Amountdetails.cost}} {{Amountdetails.currency}}</b></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+          </div>
+          <!-- No Response Ends -->
+          <br />
+          <!-- Cancel Reasons -->
+          <ng-template #content let-modal let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title">Cancel A Trip</h4>
+              <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #cancelForm="ngForm">
+                <label>Reason</label>
+                <input type="text" [(ngModel)]="cancelTripDetails.reason" #reason="ngModel" name="reason"
+                  placeholder="Enter the Reason to Cancel A Trip" class="form-control" required />
+                <br>
+              </form>
+              <button type="submit" class="btn btn-info" [disabled]="!cancelForm.valid"
+                (click)="cancelTrip(cancelTripDetails);closed(d)">Submit</button>
+            </div>
+          </ng-template>
+          <div align="right">
+            <button class="btn btn-danger" [hidden]="!showCancelButton" (click)="openVerticallyCentered(content)">Cancel
+              Trip</button> &nbsp;
+            <button class="btn btn-primary" (click)="testHeader()">E-Mail</button> &nbsp;
+            <button class="btn btn-danger" (click)="deleteATripDetails()">Delete</button>
+          </div>
+          <!-- If Fare Type -> India -->
+          <br>
+          <hr>
+          <div *ngIf="showFare">
+            <b>Tax Invoice</b>
+            <hr>
+            <div class="row show-grid">
+              <div class="col-md-4">
+                <div>Ride Fee</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div>{{rideFeeDetails.rideFare}}</div>
+              </div>
+              <br />
+              <div class="col-md-4">
+                <div>CGST ({{Amountdetails.taxper1 + '%'}})</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div>{{rideFeeDetails.cgst}}</div>
+              </div>
+              <br />
+              <div class="col-md-4">
+                <div>SGST ({{Amountdetails.taxper1 + '%'}})</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div> {{rideFeeDetails.sgst}}</div>
+              </div>
+              <br />
+              <div class="col-md-12 col-sm-12">
+                <hr>
+              </div>
+              <div class="col-md-4">
+                <div><b>Total Customer Ride Fare</b></div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div><b>{{rideFeeDetails.totalFare}}</b></div>
+              </div>
+              <br>
+              <div class="col-md-12 col-sm-12">
+                <hr>
+              </div>
+              <div class="col-md-4">
+                <div>Convenience Fee (Ride)</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div>{{convenienceFeeDetails.rideFee}}</div>
+              </div>
+              <br />
+              <div class="col-md-4">
+                <div>CGST ({{Amountdetails.taxper2 + '%'}})</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div>{{convenienceFeeDetails.cgst}}</div>
+              </div>
+              <br />
+              <div class="col-md-4">
+                <div>SGST ({{Amountdetails.taxper2 + '%'}})</div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div> {{convenienceFeeDetails.sgst}}</div>
+              </div>
+              <br />
+              <div class="col-md-12 col-sm-12">
+                <hr>
+              </div>
+              <div class="col-md-4">
+                <div><b>Total Convenience Fee Fare</b></div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div><b>{{convenienceFeeDetails.totalFare}}</b></div>
+              </div>
+              <br>
+              <div class="col-md-12 col-sm-12">
+                <hr>
+              </div>
+              <div class="col-md-4">
+                <div><b>Total Fare</b></div>
+              </div>
+              <div class="col-md-4 offset-md-4">
+                <div><b>{{rideFeeDetails.total}} {{Amountdetails.currency}}</b></div>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card>
+    <nb-card-header>
+      Request Drivers List
+    </nb-card-header>
+    <nb-card-body>
+      <table class="table table-bordered table-responsive-md">
+        <thead>
+          <tr>
+            <th>Driver Code</th>
+            <th>Driver name</th>
+            <th>Phone No.</th>
+            <th>Current Service</th>
+            <th>Current Status</th>
+            <th>Status</th>
+            <th>Distance *({{defaultUnit}})</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="
+			 let drv of driverDetails" border="1">
+          <tr>
+            <td>{{drv.code}}</td>
+            <td>{{drv.fname}}</td>
+            <td>{{drv.phone}}</td>
+            <td>{{drv.curService}}</td>
+            <td>{{drv.curStatus}}</td>
+            <td>{{drv.called}}</td>
+            <td>{{drv.distVal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+  </nb-card>
+  <nb-card-footer>
+    <button (click)="goBack()" type="button" class="btn btn-danger">
+      Go Back
+    </button>
+  </nb-card-footer>
+</ng-template>

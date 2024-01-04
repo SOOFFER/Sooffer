@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Add Admin </nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm" autocomplete="off">
+          <div class="form-group" *ngIf='citywiseAdmin==true && UserType== false'>
+            <label> Admin Type (<span class="red">*</span>)</label>
+            <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required=""
+              (focusout)="adminTypeChecker($event)">
+              <option value="undefined" hidden selected>Select an Admin Type</option>
+              <option *ngFor="let menu of citywiseAdminMenus" [value]="menu.value">
+                {{menu.label}}
+              </option>
+            </select>
+            <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+              Admin Type is required!
+            </small>
+          </div>
+
+          <div class="form-group" *ngIf='citywiseAdmin==true && UserType== true'>
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required=""
+                (focusout)="adminTypeChecker($event)">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option value="dispatcher">Dispatcher Admin</option>
+                <option value="billing">Billing Admin</option>
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+
+          <div class="form-group" *ngIf='citywiseAdmin==false && UserType== false'>
+            <label> Admin Type (<span class="red">*</span>)</label>
+            <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required=""
+              (focusout)="adminTypeChecker($event)">
+              <option value="undefined" hidden selected>Select an Admin Type</option>
+              <option *ngFor="let menu of normalAdminMenus" [value]="menu.value">
+                {{menu.label}}
+              </option>
+            </select>
+            <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+              Admin Type is required!
+            </small>
+          </div>
+
+          <div class="form-group" *ngIf='citywiseAdmin==false && UserType== true'>
+              <label> Admin Type (<span class="red">*</span>)</label>
+              <select class="form-control" [(ngModel)]="list.group" name="group" #group="ngModel" required=""
+                (focusout)="adminTypeChecker($event)">
+                <option value="undefined" hidden selected>Select an Admin Type</option>
+                <option value="dispatcher">Dispatcher Admin</option>
+                <option value="billing">Billing Admin</option>
+              </select>
+              <small *ngIf="group.invalid && (group.dirty)" class="form-text error">
+                Admin Type is required!
+              </small>
+            </div>
+
+          <div class="form-group">
+            <label for="fname">First Name (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="list.fname" minlength={{validation.fnameValid.minlength}}
+              maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}} #fname="ngModel"
+              name="fname" id="fname" required placeholder="First Name" class="form-control" />
+            <small *ngIf="fname.invalid && (fname.dirty)" class="form-text error">
+              First Name is invalid!
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="fname">Last Name </label>
+            <input type="text" minlength={{validation.lnameValid.minlength}}
+              maxlength={{validation.lnameValid.maxlength}} pattern={{validation.lnameValid.pattern}}
+              [(ngModel)]="list.lname" #lname="ngModel" name="lname" placeholder="Last Name" class="form-control" />
+            <small *ngIf="lname.invalid && (lname.dirty)" class="form-text error">
+              Last Name is invalid!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Email address (<span class="red">*</span>)</label>
+            <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="list.email" name="email"
+              #email="ngModel" required placeholder="Email" class="form-control" autocomplete="off" />
+            <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+              Valid Emailid is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Phone Number (<span class="red">*</span>)</label>
+            <input type="number" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+              maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="list.phone" name="phone" #phone="ngModel"
+              required placeholder="Phone" class="form-control" />
+            <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+              Valid Phone Number is required!
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Password (<span class="red">*</span>)</label>
+            <input type="password" minlength={{validation.pwdValid.minlength}}
+              maxlength={{validation.pwdValid.maxlength}} [(ngModel)]="list.password" name="password"
+              #password="ngModel" required autocomplete="new-password" placeholder="Password" class="form-control" />
+            <small *ngIf="password.invalid && (password.dirty)" class="form-text error">
+              Valid Password is required!
+            </small>
+          </div>
+
+          <div class="form-group" *ngIf="admintoken == 0"> 
+            <!-- && UserType == false -->
+            <label>Service Available City  (<span class="red">*</span>)</label>
+            <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+              notFoundMsg="No Cities Found" [(ngModel)]="list.scId" [options]="supercities" [allowClear]="true"
+              (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);" required disabled>
+              <ng-template #optionTemplate let-option="option">
+                <span class="{{option.value}}">{{option.label}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+
+          <div class="form-group" *ngIf="admintoken == 1">
+              <!-- && UserType == false -->
+            <label>Service Available City (<span class="red">*</span>)</label>
+            <!-- <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+              [(ngModel)]="list.scIds" [settings]="dropdownSettings" required class="form-control">
+            </ng-multiselect-dropdown> -->
+            <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+            notFoundMsg="No Cities Found" [(ngModel)]="list.scId" [options]="commontypecities" [allowClear]="true"
+            (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);" required>
+            <ng-template #optionTemplate let-option="option">
+              <span class="{{option.value}}">{{option.label}}</span>
+            </ng-template>
+          </ng-select>
+          </div>
+
+          <div class="form-group" *ngIf="admintoken == 2">
+              <!-- && UserType == false -->
+            <label>Service Available City  (<span class="red">*</span>)</label>
+            <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+              notFoundMsg="No Cities Found" [(ngModel)]="list.scId" [options]="commontypecities" [allowClear]="true"
+              (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);" required>
+              <ng-template #optionTemplate let-option="option">
+                <span class="{{option.value}}">{{option.label}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+          <div *ngIf="UserType == false" class="form-group">
+            <label>Pages</label>
+            <ng-multiselect-dropdown class="form-control" [placeholder]="'Types'" [ngModel]="pagesArray" name="pagesArray"
+            [data]="dropdownList1" [settings]="dropdownSettings1" (onSelect)="onItemSelect($event)"
+            (onDeSelect)="onItemDeSelect($event)" required (onSelectAll)="onSelectAll($event)">
+          </ng-multiselect-dropdown>
+          </div>
+          <div *ngIf="UserType == true" class="form-group">
+            <label>Pages </label>
+            <ng-multiselect-dropdown class="form-control" [placeholder]="'Types'" [ngModel]="pagesArray" name="pagesArray"
+            [data]="Pagedropdown" [settings]="dropdownSettings1" (onSelect)="onItemSelect($event)"
+            (onDeSelect)="onItemDeSelect($event)" required (onSelectAll)="onSelectAll($event)">
+          </ng-multiselect-dropdown>
+          </div>
+          <button type="submit" [disabled]="!dataForm.form.valid" class="btn btn-success btn-block"
+            (click)="AddAdmin(list)">Add</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

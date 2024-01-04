@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_17sdp"
+                android:layout_marginTop="@dimen/_17sdp"
+                android:layout_toEndOf="@+id/back_img"
+                android:text="@string/select_document"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/next_btn"
+            android:fillViewport="true"
+            android:layout_below="@+id/header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:background="@color/light_grey"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/driving_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/driving_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/waring_img"
+                                android:text="@string/driver_licence"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/driving_txt"
+                                android:layout_toStartOf="@+id/img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                 />
+
+                            <LinearLayout
+                                android:id="@+id/manag_lyt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <ImageView
+                                    android:id="@+id/download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                    />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/driverlic_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/driverlic_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/driverlic_waring_img"
+                                android:text="@string/driver_licence_back"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/driverlic_waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/driverlic_img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/driverlic_img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/driverlic_missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/driverlic_txt"
+                                android:layout_toLeftOf="@+id/driverlic_img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/driverlic_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/driverlic_upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/driverlic_upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                 />
+
+                            <LinearLayout
+                                android:id="@+id/driverlic_manag_lyt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/driverlic_download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/driverlic_manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                    />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/insurance_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/insurance_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/ins_waring_img"
+                                android:text="@string/owner_address_proof_font"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/ins_waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/ins_img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/ins_img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/ins_missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/insurance_txt"
+                                android:layout_toLeftOf="@+id/ins_img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/ins_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/ins_upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/ins_upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                 />
+
+                            <LinearLayout
+                                android:id="@+id/ins_manag_lyt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/ins_download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/ins_manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                  />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/ownerback_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/ownerback_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/ownerback_waring_img"
+                                android:text="@string/owner_address_proof_back"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/ownerback_waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/ownerback_img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/ownerback_img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/ownerback_missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/ownerback_txt"
+                                android:layout_toLeftOf="@+id/ownerback_img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/ownerback_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/ownerback_upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/ownerback_upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/ownerback_manag_lyt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/ownerback_download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/ownerback_manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                     />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="visible"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/taxi_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/taxi_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/taxi_waring_img"
+                                android:text="@string/driver_address_proof_front"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/taxi_waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/taxi_img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/taxi_img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/taxi_missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/taxi_txt"
+                                android:layout_toStartOf="@+id/taxi_img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/taxi_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/taxi_upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/taxi_upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                />
+
+                            <LinearLayout
+                                android:id="@+id/taxi_manag_lyt"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/taxi_download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/taxi_manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                     />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="visible"
+                    app:cardCornerRadius="@dimen/_5sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/driveraddress_lyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/driveraddress_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/driveraddress_waring_img"
+                                android:text="@string/driver_address_proof_back"
+                                android:textSize="@dimen/_14sdp" />
+
+                            <ImageView
+                                android:id="@+id/driveraddress_waring_img"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_toStartOf="@+id/driveraddress_img_expn"
+                                app:srcCompat="@drawable/ic_info" />
+
+                            <ImageView
+                                android:id="@+id/driveraddress_img_expn"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                app:srcCompat="@drawable/ic_expand" />
+
+                            <TextView
+                                android:id="@+id/driveraddress_missing_txt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/driveraddress_txt"
+                                android:layout_toStartOf="@+id/driveraddress_img_expn"
+                                android:text="@string/missing"
+                                android:textColor="@color/redcolor"
+                                android:textSize="@dimen/_12sdp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/driveraddress_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.8dp"
+                            android:background="@color/light_grey"
+                            android:visibility="gone" />
+
+                        <RelativeLayout
+                            android:id="@+id/driveraddress_upload_rlyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:visibility="gone">
+
+                            <Button
+                                android:id="@+id/driveraddress_upload_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lite_grey"
+                                android:text="@string/upload_document"
+                                android:textColor="@color/white"
+                                 />
+
+                            <LinearLayout
+                                android:id="@+id/driveraddress_manag_lyt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:id="@+id/driveraddress_download_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_70sdp"
+                                    app:srcCompat="@drawable/ic_inbox" />
+
+                                <Button
+                                    android:id="@+id/driveraddress_manage_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:background="@color/lite_grey"
+                                    android:gravity="center"
+                                    android:text="@string/manage"
+                                    android:textColor="@color/white"
+                                    />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/colorPrimary"
+            android:text="@string/next"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</FrameLayout>

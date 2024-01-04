@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>Add Driver Taxi</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Driver Name</label>
+                <input type="text" [(ngModel)]="list.driverName" disabled name="driverName" pattern="[a-zA-Z ]*"
+                  #driverName="ngModel" required placeholder="Driver Name" class="form-control" />
+                <small *ngIf="driverName.invalid && (driverName.dirty)" class="form-text error">
+                  Driver Name is invalid!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Vehicle No / License Plate No (<span class="red">*</span>)</label>
+                <input type="text" pattern="[A-Za-z0-9]*" [(ngModel)]="list.licence" name="licence" #licence="ngModel"
+                  required placeholder="Vehicle No / License Plate No" class="form-control" />
+                <small *ngIf="licence.invalid && (licence.dirty)" class="form-text error">
+                  Vehicle No / License Plate No is invalid!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Make (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="list.make" (change)="GetModel($event)" #make="ngModel"
+                  required name="make" placeholder="Make">
+                  <option value="undefined" selected hidden> Select a Car Make</option>
+                  <option *ngFor="let make of makeary" [value]="make._id">
+                    {{make.make}}
+                  </option>
+                </select>
+                <small *ngIf="make.invalid && (make.dirty)" class="form-text error">
+                  Make is required!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Model (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="list.model" name="model" #model="ngModel" required
+                  placeholder="Model">
+                  <option value="undefined" selected hidden> Select a Car Model</option>
+                  <option *ngFor="let model of modelary" [value]="model">
+                    {{model}}
+                  </option>
+                </select>
+                <small *ngIf="model.invalid && (model.dirty)" class="form-text error">
+                  Name is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Vehicle / Service Type (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="list.vehicletype" name="vehicletype" required
+                  placeholder="Vehicle / Service Type">
+                  <option value="undefined" selected hidden> Select a Vehicle / Service Type</option>
+                  <option *ngFor="let vehicle of vehicleary" [value]="vehicle.type">
+                    {{vehicle.type}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Vehicle Color (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="list.color" name="color" #color="ngModel" required
+                  placeholder="Vehicle Color" class="form-control" />
+                <small *ngIf="color.invalid && (color.dirty)" class="form-text error">
+                  Vehicle Color is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Year (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="list.year" name="year" #year="ngModel" required
+                  placeholder="Year">
+                  <option value="undefined" selected hidden> Select a Car Model Year</option>
+                  <option *ngFor="let year of yearary" [value]="year.id">
+                    {{year.name}}
+                  </option>
+                </select>
+                <small *ngIf="year.invalid && (year.dirty)" class="form-text error">
+                  Name is required!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="showCompany">
+              <div class="form-group">
+                <label>Company</label>
+                <select class="form-control" [(ngModel)]="list.cpy" #cpy="ngModel" [disabled]="companyadded"
+                  (change)="GetDrivers(list.cpy)" name="cpy" placeholder="Company">
+                  <option value="undefined" selected hidden> Select a Company</option>
+                  <option *ngFor="let company of companyary" [value]="company._id">
+                    {{company.name}}
+                  </option>
+                </select>
+                <small *ngIf="cpy.invalid && (cpy.dirty)" class="form-text error">
+                  Name is required!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vehicle Image ( width:150px , height 150px )</label>
+                  <input type="file" class="form-control" #fileupload (change)="fileEvent($event)"
+                    value="Vehicle Image" />
+                </div>
+              </div>
+              <div class="col-md-6" *ngIf="uploadedFileName !== undefined && uploadedFileName !== ''">
+                <div class="form-group">
+                  <label>Vehicle Image ( width:150px , height 150px )</label>
+                  <div *ngIf="uploadedFileName !== undefined && uploadedFileName !== ''" class="form-control">
+                    <b>
+                      <a href='{{baseurl}}{{uploadedFileName}}' target="_blank">View</a>
+                    </b>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          <div class="row" *ngIf="showtaxiLabel">
+            <div class="col-md-6" *ngFor="let field of otherList | slice:0:half">
+              <div class="form-group">
+                <label>{{field.label}} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="list[field.value]" name={{field.value}} #{{field.value}}="ngModel"
+                  required placeholder={{field.label}} class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6" *ngFor="let field of otherList | slice:half">
+              <div class="form-group">
+                <label>{{field.label}} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="list[field.value]" name={{field.value}} #{{field.value}}="ngModel"
+                  required placeholder={{field.label}} class="form-control" />
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="AddNewDoc(list);" [disabled]="!dataForm.form.valid"
+          class="btn btn-success">Add</button> &nbsp;
+        <button (click)="goBack()" type="button" class="btn btn-danger">
+          Go Back
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

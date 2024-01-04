@@ -1,0 +1,20 @@
+<ng-container *ngIf="checkActiveOption">
+  <button class="btn btn-primary" (click)="renderCall()" *ngIf="checkActiveOption" nbButton status="primary"
+    size="xsmall">
+    Activate
+  </button>
+</ng-container>
+
+
+<ng-container *ngIf="checkDeactiveOption">
+  <button class="btn btn-primary" (click)="renderDeactivateCall()" *ngIf="checkDeactiveOption" nbButton status="danger"
+  size="xsmall">
+  Deactivate
+</button>
+</ng-container>
+
+
+<ng-container *ngIf="notAvailableOption">
+  <span>N/A</span>
+</ng-container>
+

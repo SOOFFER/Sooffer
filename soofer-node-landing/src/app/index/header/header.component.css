@@ -1,0 +1,96 @@
+/* <link href="icon" href="images/favicon.ico" type="image/x-icon">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="css/abserve.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+	@media (min-width: 768px) */
+
+div>ul.custom-nav {
+    margin-top: 40px;
+    margin-left: 120px;
+}
+
+/* @media (max-width:567px) {
+    .nav .navbar-nav .navbar-center {
+        display: flex;
+        margin-left: 110px;
+    }
+} */
+
+#myNavbar .drop ul li a{
+    font-size: 15px;
+}
+#myNavbar .drop ul li a i{
+    margin-right: 10px;
+}
+#myNavbar .drop ul li a.active{
+background: var(--homePage-color);
+    color: white!important;
+}
+ul.nav .navbar-nav .custom-nav {
+    margin-top: 40px;
+    margin-left: 120px;
+}
+
+/* .navbar-collapse.collapse {
+    display: block !important;
+    height: 110px;
+    padding-bottom: 0;
+    overflow: visible !important;
+
+    width: 1348px;
+} */
+.navbar-collapse {
+    height: auto!important;
+}
+
+/* .banner a,
+img {
+    max-width: 92%;
+    max-height: 66px;
+} */
+
+.line-icon {
+    cursor: pointer;
+    float: left;
+    margin: 35px 10px;
+    background-color: black;
+}
+.set_flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-nav {
+    display: flex;
+    /* flex-direction: column; */
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.flex-row {
+    flex-direction: row!important;
+}
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 15px 80px; */
+}
+.navbar-collapse.collapse {
+    display: block!important;
+    height: 110px;
+    padding-bottom: 0;
+    overflow: visible!important;
+}
+
+.navbar-collapse {
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+}
+.mg{
+    margin: 20px;
+}

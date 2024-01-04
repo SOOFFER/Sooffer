@@ -1,0 +1,18 @@
+{
+  "parameters": {
+    "test": {
+      "defaultValue": {
+        "value": "tes"
+      }
+    }
+  },
+  "version": {
+    "versionNumber": "16",
+    "updateTime": "2019-01-08T13:24:32.535Z",
+    "updateUser": {
+      "email": "firebase-adminsdk-imjxi@rebustar-d96c1.iam.gserviceaccount.com"
+    },
+    "updateOrigin": "REST_API",
+    "updateType": "INCREMENTAL_UPDATE"
+  }
+}

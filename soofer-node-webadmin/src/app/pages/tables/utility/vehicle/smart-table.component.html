@@ -1,0 +1,393 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-3">{{ title }}</div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <button
+            type="button"
+            (click)="btBack(1)"
+            class="btn btn-danger pull-right"
+          >
+            Add Slider
+          </button>
+        </div>
+        <div class="col-sm-1">Select Language</div>
+        <div class="col-sm-1">
+          <nb-actions
+            size="medium"
+            [class.right]="position === 'normal'"
+            [class.left]="position === 'inverse'"
+          >
+            <nb-action
+              size="medium"
+              [class.right]="position === 'normal'"
+              [class.left]="position === 'inverse'"
+              *ngIf="showTransOption"
+            >
+              <select
+                #langSelect
+                (change)="translate.use(langSelect.value)"
+                (click)="getLang(langSelect.value)"
+              >
+                <option
+                  *ngFor="let list of translate.getLangs()"
+                  [value]="list"
+                  [selected]="list === translate.currentLang"
+                >
+                  {{ list }}
+                </option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (custom)="route($event)"
+        *ngIf="source"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-sm-5">Add Slider Details</div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">Select Language</div>
+            <div class="col-sm-1">
+              <nb-actions
+                size="medium"
+                [class.right]="position === 'normal'"
+                [class.left]="position === 'inverse'"
+              >
+                <nb-action
+                  size="medium"
+                  [class.right]="position === 'normal'"
+                  [class.left]="position === 'inverse'"
+                  *ngIf="showTransOption"
+                >
+                  <select #langSelect (click)="getLangs(langSelect.value)">
+                    <option
+                      *ngFor="let list of translate.getLangs()"
+                      [value]="list"
+                      [selected]="list === translate.currentLang"
+                    >
+                      {{ list }}
+                    </option>
+                  </select>
+                </nb-action>
+              </nb-actions>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm">
+            <div class="form-group">
+              <label> Frontend Image </label> &nbsp;
+              <input
+                type="file"
+                (change)="fileEvent($event)"
+                value="Driver Profile Image"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label> Slider Name </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Name"
+                [(ngModel)]="list.name"
+                #name="ngModel"
+                name="name"
+                class="form-control"
+              />
+              <small class="form-text error" *ngIf="name.invalid && name.dirty"
+                >Name is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Frontend Description</label>
+              <tinymce
+                [config]=""
+                [(ngModel)]="list.description"
+                #description="ngModel"
+                name="description"
+                required
+              >
+              </tinymce>
+              <small
+                class="form-text error"
+                *ngIf="description.invalid && description.dirty"
+                >Description is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Price Tag</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Price Tag"
+                [(ngModel)]="list.priceTag"
+                #priceTag="ngModel"
+                name="priceTag"
+                class="form-control"
+              />
+              <small
+                class="form-text error"
+                *ngIf="priceTag.invalid && priceTag.dirty"
+                >Price Tag is Mandatory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Package Details</label>
+              <textarea
+                [(ngModel)]="list.packageDetails"
+                name="packageDetails"
+                #packageDetails="ngModel"
+                class="form-control"
+              ></textarea>
+              <small
+                class="form-text error"
+                *ngIf="packageDetails.invalid && packageDetails.dirty"
+                >Package Details is Mandotory!</small
+              >
+            </div>
+            <!-- (change)="dosomething($event.target.value)" -->
+            <div class="form-group">
+              <label>Outstation Details</label>
+              <textarea
+                [(ngModel)]="list.outstationDetails"
+                name="outstationDetails"
+                #outstationDetails="ngModel"
+                class="form-control"
+              ></textarea>
+              <small
+                class="form-text error"
+                *ngIf="packageDetails.invalid && packageDetails.dirty"
+                >Outstation Details is Mandotory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Display Order</label>
+              <input
+                type="number"
+                [(ngModel)]="list.displayorder"
+                name="displayorder"
+                #displayorder="ngModel"
+                required
+                placeholder="Enter Display Order"
+                class="form-control"
+              />
+              <small
+                class="form-text error"
+                *ngIf="displayorder.invalid && displayorder.dirty"
+                >Display Order is Mandotory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Slider Section</label>
+              <select
+                class="form-control"
+                #sliderSection="ngModel"
+                name="sliderSection"
+                [(ngModel)]="list.sliderSection"
+                required
+              >
+                <option value="undefined" selected hidden>
+                  Select Slider Section
+                </option>
+                <option value="first">First</option>
+                <option value="second">Second</option>
+              </select>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            (click)="AddDriver(list)"
+            [disabled]="!dataForm1.form.valid"
+            type="submit"
+            class="btn btn-danger"
+          >
+            Add</button
+          >&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Slider Details</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm">
+            <div class="form-group">
+              <label> Frontend Image </label> &nbsp;
+              <input
+                type="file"
+                (change)="fileEvent($event)"
+                value="Driver Profile Image"
+              />
+            </div>
+            <div class="form-group">
+              <img
+                src="{{ baseurl }}{{ selectedDocs.file }}"
+                required
+                height="50"
+                width="50"
+              />
+            </div>
+            <hr />
+            <div class="form-group">
+              &nbsp;
+              <label> Slider Name </label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Name"
+                [(ngModel)]="selectedDocs.name"
+                #name="ngModel"
+                name="name"
+                class="form-control"
+              />
+              <small class="form-text error" *ngIf="name.invalid && name.dirty"
+                >Name is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label> Frontend Description</label>
+              <tinymce
+                [config]=""
+                [(ngModel)]="selectedDocs.description"
+                #description="ngModel"
+                name="description"
+                required
+              ></tinymce>
+              <small
+                class="form-text error"
+                *ngIf="description.invalid && description.dirty"
+                >Description is Mandatory!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Price Tag</label>
+              <input
+                type="text"
+                required
+                placeholder="Enter Price Tag"
+                [(ngModel)]="selectedDocs.priceTag"
+                name="priceTag"
+                #priceTag="ngModel"
+                class="form-control"
+              />
+              <small
+                class="form-text error"
+                *ngIf="priceTag.invalid && priceTag.dirty"
+                >Price Tag is Mandatory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Package Details</label>
+              <textarea
+                [(ngModel)]="selectedDocs.packageDetails"
+                #packageDetails="ngModel"
+                name="packageDetails"
+                class="form-control"
+              >
+              </textarea>
+              <small
+                class="form-control error"
+                *ngIf="packageDetails.invalid && packageDetails.dirty"
+                >Package Details is Mandotory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Outstation Details</label>
+              <textarea
+                [(ngModel)]="selectedDocs.outstationDetails"
+                #outstationDetails="ngModel"
+                name="packageDetails"
+                class="form-control"
+              >
+              </textarea>
+              <small
+                class="form-text error"
+                *ngIf="outstationDetails.invalid && outstationDetails.dirty"
+                >Outstation Details is Mandotory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Display Order</label>
+              <input
+                type="number"
+                required
+                placeholder="Enter Display Order"
+                [(ngModel)]="selectedDocs.displayorder"
+                name="displayorder"
+                #displayorder="ngModel"
+                class="form-control"
+              />
+              <small
+                class="form-text error"
+                *ngIf="displayorder.invalid && displayorder.dirty"
+                >Display Order is Mandotory!</small
+              >
+            </div>
+            <div class="form-group">
+              <label>Slider Section</label>
+              <select
+                class="form-control"
+                #sliderSection="ngModel"
+                name="sliderSection"
+                [(ngModel)]="selectedDocs.sliderSection"
+                required
+              >
+                <option value="undefined" selected hidden>
+                  Select Slider Section
+                </option>
+                <option value="first">First</option>
+                <option value="second">Second</option>
+              </select>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button
+            (click)="EditDriver(selectedDocs)"
+            [disabled]="!dataForm2.form.valid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Update</button
+          >&nbsp;
+          <button
+            (click)="deleteDriver(selectedDocs._id)"
+            type="button"
+            class="btn btn-danger"
+          >
+            Delete</button
+          >&nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Go Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

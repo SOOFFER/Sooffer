@@ -1,0 +1,366 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-sm-3">Home Page Banner and First Block</div>
+          <div class="col-sm-6"></div>
+          <div class="col-sm-2">Select Language</div>
+          <div class="col-sm-1">
+            <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+              <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+                *ngIf="showTransOption">
+                <select #langSelect (change)="translate.use(langSelect.value)" (click)="getLang(langSelect.value)">
+                  <option *ngFor="let list of translate.getLangs()" [value]="list"
+                    [selected]="list === translate.currentLang">
+                    {{ list }}
+                  </option>
+                </select>
+              </nb-action>
+            </nb-actions>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm" id="edithome">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>First Label On Banner </label>
+                <input type="text" [(ngModel)]="list.header_first_label" name="header_first_label"
+                  #header_first_label="ngModel" class="form-control" />
+                <small *ngIf="header_first_label.invalid && header_first_label.dirty" class="form-text error">
+                  Home Header First Label is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Second Label On Banner</label>
+                <input type="text" [(ngModel)]="list.header_second_label" name="header_second_label"
+                  #header_second_label="ngModel" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Home Banner Image </label>
+                <input type="file" name="home_banner_image" (change)="fileEvent($event)" value="Banner image" />
+                <div *ngIf="bannerImg != 0">
+                  <img src="{{ baseurl }}{{ bannerImg }}" class="img-thumbnail" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Home First Block Title</label>
+                <input type="text" class="form-control" [(ngModel)]="list.home_second_title"
+                  #home_second_title="ngModel" name="home_second_title" form="edithome" />
+              </div>
+              <div class="form-group">
+                <label>Home First Middle Section Title</label>
+                <input type="text" class="form-control" [(ngModel)]="list.third_mid_title_one"
+                  #third_mid_title_one="ngModel" name="third_mid_title_one" form="edithome" required />
+                <small *ngIf="
+                    third_mid_title_one.invalid && third_mid_title_one.dirty
+                  " class="form-text error">
+                  Home First Middle Section Title is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Home First Middle Section Description</label>
+                <tinymce [config]="" [(ngModel)]="list.third_mid_desc_one" #third_mid_desc_one="ngModel"
+                  name="third_mid_desc_one" required form="edithome"></tinymce>
+                <small *ngIf="third_mid_desc_one.invalid && third_mid_desc_one.dirty" class="form-text error">
+                  Home First Middle Section Description is mandatory!!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Home Second Middle Section Title</label>
+                <input type="text" class="form-control" [(ngModel)]="list.third_mid_title_two"
+                  #third_mid_title_two="ngModel" name="third_mid_title_two" form="edithome" required />
+                <small *ngIf="
+                    third_mid_title_two.invalid && third_mid_title_two.dirty
+                  " class="form-text error">
+                  Home Second Middle Section is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Home Second Middle Section Description</label>
+                <tinymce [config]="" [(ngModel)]="list.third_mid_desc_two" #third_mid_desc_two="ngModel"
+                  name="third_mid_desc_two" required form="edithome"></tinymce>
+                <small *ngIf="third_mid_desc_two.invalid && third_mid_desc_two.dirty" class="form-text error">
+                  Home Second Middle Section Description is mandatory!!
+                </small>
+              </div>
+              <br />
+              <div class="form-group">
+                <label>Home Third Middle Section Title</label>
+                <input type="text" class="form-control" [(ngModel)]="list.third_mid_title_three"
+                  #third_mid_title_three="ngModel" name="third_mid_title_three" form="edithome" required />
+                <small *ngIf="
+                    third_mid_title_three.invalid && third_mid_title_three.dirty
+                  " class="form-text error">
+                  Home Third Middle Section Title is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Home Third Middle Section Description</label>
+                <tinymce [config]="" [(ngModel)]="list.third_mid_desc_three" #third_mid_desc_three="ngModel"
+                  name="third_mid_desc_three" form="edithome" required></tinymce>
+                <small *ngIf="
+                    third_mid_desc_three.invalid && third_mid_desc_three.dirty
+                  " class="form-text error">
+                  Home Third Middle Section Description is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Banner Right Yellow Label</label>
+                <input type="text" class="form-control" [(ngModel)]="list.home_yellow_one" #home_yellow_one="ngModel"
+                  name="home_yellow_one" form="edithome" />
+              </div>
+              <div class="form-group">
+                <label>Banner Left Yellow Label</label>
+                <input type="text" class="form-control" [(ngModel)]="list.home_yellow_two" #home_yellow_two="ngModel"
+                  name="home_yellow_two" form="edithome" />
+              </div>
+            </div>
+            <div class="form-group">
+              &nbsp;&nbsp;&nbsp;
+              <button class="form-control" (click)="submitFirstBlock(list)" type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Home Mobile App Section Before Map</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <!-- <div class="form-group">
+              <label> Home Mobile App Section Background Image </label>
+              <br/>
+              <input type="file" [(ngModel)]="list.mobile_app_bg_img" #mobile_app_bg_img="ngModel" name="mobile_app_bg_img" required form="edithome"/>
+              <small *ngIf="mobile_app_bg_img.invalid && ( mobile_app_bg_img.dirty)" class="form-text error">
+                Home Mobile App Section Background Image is mandatory!!
+
+              </small>
+            </div> -->
+          <div class="form-group">
+            <label>Home Mobile App Section Left Image</label>
+            <br />
+            <input type="file" name="mobile_app_left_image" (change)="fileEvent($event)" value="Mobile App image" />
+            <div *ngIf="appImg != 0">
+              <img src="{{ baseurl }}{{ appImg }}" class="img-thumbnail" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Home Mobile App Section Right Title </label>
+            <input type="text" class="form-control" [(ngModel)]="list.mobile_app_right_title"
+              #mobile_app_right_title="ngModel" name="mobile_app_right_title" form="edithome" required />
+            <small *ngIf="
+                mobile_app_right_title.invalid && mobile_app_right_title.dirty
+              " class="form-text error">
+              Home Mobile App Section Right Title is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>More InFo Link</label>
+            <br />
+
+            <select class="form-control" [(ngModel)]="list.mobile_app_moreinfo" #mobile_app_moreinfo="ngModel" required
+              name="mobile_app_moreinfo" placeholder="Driver">
+              <option *ngFor="let driver of pages" [value]="driver.link">
+                {{ driver.title }}
+              </option>
+            </select>
+            <small *ngIf="mobile_app_moreinfo.invalid && mobile_app_moreinfo.dirty" class="form-text error">
+              More Info is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Home Mobile App Section Right Description</label>
+            <tinymce [config]="" [(ngModel)]="list.mobile_app_right_desc" #mobile_app_right_desc="ngModel"
+              name="mobile_app_right_desc" required form="edithome"></tinymce>
+            <small *ngIf="
+                mobile_app_right_desc.invalid && mobile_app_right_desc.dirty
+              " class="form-text error">
+              Home Mobile App Section Right Description is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <button class="form-control" (click)="submitSecondBlock(list)" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>Home Taxi App Section After Map</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <div class="form-group">
+            <label>Home Taxi App Section Background Image</label>
+            <br />
+            <input type="file" name="taxi_app_bg_img" (change)="fileEvent($event)" value="Taxi App Image" />
+            <div *ngIf="taxiImg != 0">
+              <img src="{{ baseurl }}{{ taxiImg }}" class="img-thumbnail" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label> Home Taxi App Section Left Title</label>
+            <input type="text" class="form-control" [(ngModel)]="list.taxi_app_right_title"
+              #taxi_app_right_title="ngModel" name="taxi_app_right_title" form="edithome" required />
+            <small *ngIf="taxi_app_right_title.invalid && taxi_app_right_title.dirty" class="form-text error">
+              Home Taxi App Section Left Title is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>More InFo Link</label>
+            <br />
+
+            <select class="form-control" [(ngModel)]="list.taxi_app_moreinfo" #taxi_app_moreinfo="ngModel" required
+              name="taxi_app_moreinfo" placeholder="Driver">
+              <option *ngFor="let driver of pages" [value]="driver.link">
+                {{ driver.title }}
+              </option>
+            </select>
+            <small *ngIf="taxi_app_moreinfo.invalid && taxi_app_moreinfo.dirty" class="form-text error">
+              More Info is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <label> Home Taxi App Section Left Description</label>
+            <tinymce [config]="" [(ngModel)]="list.taxi_app_right_desc" #taxi_app_right_desc="ngModel"
+              name="taxi_app_right_desc" required form="edithome"></tinymce>
+            <small *ngIf="taxi_app_right_desc.invalid && taxi_app_right_desc.dirty" class="form-text error">
+              Home Taxi App Section Left Description is mandatory!!
+            </small>
+          </div>
+          <div class="form-group">
+            <button class="form-control" (click)="submitThirdBlock(list)" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<form #dataForm1="ngForm">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>Footer Section</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Enter Address</label>
+                <tinymce [config]="" [(ngModel)]="listFoot.contactAdd" #contactAdd="ngModel" name="contactAdd" required>
+                </tinymce>
+                <small *ngIf="contactAdd.invalid && contactAdd.dirty" class="form-text error">
+                  Contact Address Is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Enter Contact No </label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.contactNo" #contactNo="ngModel"
+                  name="contactNo" required />
+                <small *ngIf="contactNo.invalid && contactNo.dirty" class="form-text error">
+                  Contact No is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter Contact Email Address</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.contactEmail" #contactEmail="ngModel"
+                  name="contactEmail" required />
+                <small *ngIf="contactEmail.invalid && contactEmail.dirty" class="form-text error">
+                  Contact Email is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Enter driver App Link for Android</label>
+                <br />
+                <input type="text" class="form-control" [(ngModel)]="listFoot.driver_link_Android"
+                  #driver_link_Android="ngModel" name="driver_link_Android" required />
+                <small *ngIf="
+                    driver_link_Android.invalid && driver_link_Android.dirty
+                  " class="form-text error">
+                  Driver App Link for Android is mandatory!!
+                </small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> Enter rider App Link for Android</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.rider_link_Android"
+                  #rider_link_Android="ngModel" name="rider_link_Android" required />
+                <small *ngIf="rider_link_Android.invalid && rider_link_Android.dirty" class="form-text error">
+                  Rider App Link for Android is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter Driver App Link for IOS</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.driver_link_Ios"
+                  #driver_link_Ios="ngModel" name="driver_link_Ios" required />
+                <small *ngIf="driver_link_Ios.invalid && driver_link_Ios.dirty" class="form-text error">
+                  Driver App Link for IOS is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter rider App Link for IOS</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.rider_link_Ios" #rider_link_Ios="ngModel"
+                  name="rider_link_Ios" required />
+                <small *ngIf="rider_link_Ios.invalid && rider_link_Ios.dirty" class="form-text error">
+                  Rider App Link for IOS is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter Social Link For Facebook</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.social_link_facebook"
+                  #social_link_facebook="ngModel" name="social_link_facebook" required />
+                <small *ngIf="
+                    social_link_facebook.invalid && social_link_facebook.dirty
+                  " class="form-text error">
+                  Social Link For Facebook is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter Social Link For Twitter</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.social_link_twitter"
+                  #social_link_twitter="ngModel" name="social_link_twitter" required />
+                <small *ngIf="
+                    social_link_twitter.invalid && social_link_twitter.dirty
+                  " class="form-text error">
+                  Social Link For Twitter is mandatory!!
+                </small>
+              </div>
+              <div class="form-group">
+                <label> Enter Social Link For Instagram</label>
+                <input type="text" class="form-control" [(ngModel)]="listFoot.driver_link_Google"
+                  #driver_link_Google="ngModel" name="driver_link_Google" required />
+                <small *ngIf="driver_link_Google.invalid && driver_link_Google.dirty" class="form-text error">
+                  Social Link For Instagram is mandatory!!
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="form-control" (click)="submitFooter(listFoot)" [disabled]="!dataForm1.form.valid"
+              type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</form>

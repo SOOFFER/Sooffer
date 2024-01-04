@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        Cancellation Settings
+      </nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+
+          <!-- <div class="form-group">
+            <label>Cancellation Limit For Days</label>
+            <input type="number" [(ngModel)]="selectedDocs.cancelLimitForDays" #cancelLimitForDays="ngModel"
+              name="cancelLimitForDays" placeholder="Rider Referral Amount" class="form-control" />
+          </div> -->
+
+          <div class="form-group">
+            <label>Cancellation Exists</label>
+            <ng-select name="cancelExists" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.cancelExists" placeholder="Cancellation Exists" required>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <label>No of Cancellation Allowed Per Driver</label>
+            <input type="number" [(ngModel)]="selectedDocs.noOfDriverCancelAllowed" #noOfDriverCancelAllowed="ngModel"
+              name="noOfDriverCancelAllowed" placeholder="Rider Referral Amount" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>No of Cancellation Allowed Per Rider</label>
+            <input type="number" [(ngModel)]="selectedDocs.noOfRiderCancelAllowed" #noOfRiderCancelAllowed="ngModel"
+              name="noOfRiderCancelAllowed" placeholder="Rider Referral Amount" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label>Charge User For Cancellation</label>
+            <ng-select name="ifcanceledAddCharge" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.ifcanceledAddCharge" placeholder="Charge If Cancelled" required>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <label>Block User If Cancelled Limit Exceeds</label>
+            <ng-select name="ifcanceledBlockUser" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.ifcanceledBlockUser" placeholder="Block User If Cancelled" required>
+            </ng-select>
+          </div>
+
+          <div class="form-group">
+            <label>Block User Upto this no of days If Cancellation Limit Exceeds (In Days)</label>
+            <input type="number" [(ngModel)]="selectedDocs.ifcancelExceedsBlockUserFor"
+              #ifcancelExceedsBlockUserFor="ngModel" name="ifcancelExceedsBlockUserFor"
+              placeholder="Block User If Cancellation Exists (In Days)" class="form-control" />
+          </div>
+
+          <button type="submit" [disabled]="!dataForm.form.valid" (click)="editTemplate(selectedDocs)"
+            class="btn btn-success btn-block">UPDATE</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+
+</style>

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Add a Car Make & Model</nb-card-header>
+      <nb-card-body>
+        <form (ngSubmit)="AddNewDoc(list)" #dataForm="ngForm">
+          <div class="form-group">
+            <label class="required">Car Make</label>
+            <input type="text" [(ngModel)]="list.make" #make="ngModel" name="make" required placeholder="Car Make"
+              class="form-control" />
+            <small *ngIf="make.invalid && (make.dirty)" class="form-text error">
+              Make is required!
+            </small>
+          </div>
+
+          <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let carm of carmodel" [selectable]="selectable" [removable]="removable" (removed)="remove(carm)">
+                {{carm.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Car Model..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" required>
+            </mat-chip-list>
+          </mat-form-field>
+
+
+          <button class="btn btn-success" [hidden]="spinner">
+            <div class="fa fa-spinner fa-spin"></div>
+          </button>
+          <button type="submit" class="btn btn-success btn-block" [hidden]="!spinner" [disabled]="(!dataForm.form.valid || carmodel.length === 0)">ADD</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

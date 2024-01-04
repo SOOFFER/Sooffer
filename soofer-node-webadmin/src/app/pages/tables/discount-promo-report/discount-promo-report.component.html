@@ -1,0 +1,67 @@
+<nb-card *ngIf="initial == 'order'"> 
+    <nb-card-header>
+        <div class="row">
+            <div class="col-md-2">Trip Promo Discounts</div>
+           
+            <div class="col-md-10">
+            <form class="form-inline">
+                From : &nbsp;
+                <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" name="fromDate" [(ngModel)]="list.fromDate" class="form-control"  placeholder="Click to Select a Date">
+               <owl-date-time #dt1 pickerType="calendar"></owl-date-time> &nbsp;&nbsp;
+               To : &nbsp;
+               <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" name="toDate" [(ngModel)]="list.toDate" class="form-control"  placeholder="Click to Select a Date">
+            <owl-date-time #dt2 pickerType="calendar"></owl-date-time> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <select *ngIf="showCity == true" class="form-control" name='servicecity' [(ngModel)]="list.servicecity">
+                  <option value="undefined" selected hidden>Service Available City</option>
+                  <option [value]="city.label" *ngFor="let city of serviceCity">{{city.label}}</option>
+                  <option value="all" >All</option>
+              </select>&nbsp;&nbsp;&nbsp;
+              <button type="submit" class="btn btn-primary" (click)="FilterRes(list)">Submit</button> &nbsp;&nbsp;&nbsp;
+              <select class="form-control" name="exp" [(ngModel)]="list.exp" (click)="export($event)">
+                  <option selected hidden value="undefined">Export</option>
+                  <option value="csv">CSV</option>
+                  <option value="excel">Excel</option>
+              </select>
+            </form>
+        </div>
+    </div>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table (custom)="route($event)" [settings]="settings" [source]="source"></ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+<nb-card *ngIf = "initial == 'data'">
+        <nb-card-header>
+                <div class="row">
+                    <div class="col-md-3">Trip Promo Discounts</div>
+                   
+                    <div class="col-md-9">
+                    <form class="form-inline">
+                        From : &nbsp;
+                        <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" name="fromDate" [(ngModel)]="selDocs.fromDate" class="form-control"  placeholder="Click to Select a Date">
+                       <owl-date-time #dt1 pickerType="calendar"></owl-date-time> &nbsp;&nbsp;
+                       To : &nbsp;
+                       <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" name="toDate" [(ngModel)]="selDocs.toDate" class="form-control"  placeholder="Click to Select a Date">
+                    <owl-date-time #dt2 pickerType="calendar"></owl-date-time> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <!-- <select *ngIf="showCity == true" class="form-control" name='servicecity' [(ngModel)]="list.servicecity">
+                          <option value="undefined" selected hidden>Service Available City</option>
+                          <option [value]="city.label" *ngFor="let city of serviceCity">{{city.label}}</option>
+                          <option value="all" >Alls</option>
+                      </select>&nbsp;&nbsp;&nbsp; -->
+                      <button type="submit" class="btn btn-primary" (click)="FilterRes1(selDocs)">Submit</button> &nbsp;&nbsp;&nbsp;
+                      <!-- <select class="form-control" name="exp" [(ngModel)]="list.exp" (click)="export($event)">
+                          <option selected hidden value="undefined">Export</option>
+                          <option value="csv">CSV</option>
+                          <option value="excel">Excel</option>
+                      </select> -->
+                    </form>
+                </div>
+            </div>
+            </nb-card-header>
+            <nb-card-body>
+                    <ng2-smart-table (custom)="route1($event)" [settings]="settings1" [source]="source1"></ng2-smart-table>
+                </nb-card-body>
+            <nb-card-footer>
+                <button type="button" class="btn btn-danger" (click)="goBack()"> Go Back</button> 
+            </nb-card-footer>
+</nb-card>

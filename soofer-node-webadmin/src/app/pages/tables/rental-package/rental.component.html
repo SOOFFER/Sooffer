@@ -1,0 +1,154 @@
+<ng-template [ngIf]="initial == 0">
+    <nb-card>
+        <nb-card-header>
+            <div class="row">
+                <div class="col-sm-10">
+                    Rental Package List
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" (click)="btnClick(1);" class="btn btn-danger">Activate New Package</button>
+                </div>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+            </ng2-smart-table>
+        </nb-card-body>
+    </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+    <form (ngSubmit)="addRentalPackage(Doc);" #dataForm1="ngForm">
+        <div class="row">
+            <div class="col-lg-6">
+                <nb-card>
+                    <nb-card-header>Add Package</nb-card-header>
+
+                    <nb-card-body>
+
+                        <div class="form-group">
+                            <label>Choose Servcie </label>
+                            <select class="form-control" [(ngModel)]=" Doc.servicecity" (change)="getNameAndValue($event)"name="servicecity" #servicecity="ngModel"
+                                required placeholder="Service">
+                                <option [value]="undefined" selected hidden>
+                                    Select a ServiceCity</option>
+                                <option *ngFor="let city of serviceCityArray" [value]="city.value">
+                                    {{city.label}}
+                                </option>
+                               
+                            </select>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Package Name</label>
+                                <input type="text" [(ngModel)]="Doc.Package_Name" #Package_Name="ngModel" name="Package_Name"
+                                    required placeholder="Package_Name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental Total Price</label>
+                                <input type="number" [(ngModel)]="Doc.Rental_Total_Price" #Rental_Total_Price="ngModel"
+                                    name="Rental_Total_Price" required placeholder="Rental_Total_Price" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental {{distanceUnit}}</label>
+                                <input type="number" [(ngModel)]="Doc.Rental_Miles" #Rental_Miles="ngModel" name="Rental_Miles"
+                                    required placeholder="Rental_Miles" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental Hour</label>
+                                <input type="number" [(ngModel)]="Doc.Rental_Hour" #Rental_Hour="ngModel" name="Rental_Hour"
+                                    required placeholder="Rental_Hour" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <button type="submit" [disabled]="!dataForm1.form.valid" class="btn btn-success">Submit</button>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button (click)="btnClick(0)" class="btn btn-primary">go back</button>
+
+
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template [ngIf]="initial == 2">
+    <form (ngSubmit)="updateRentalPackage(UpDoc);" #dataForm1="ngForm">
+        <div class="row">
+            <div class="col-lg-6">
+                <nb-card>
+                    <nb-card-header>Edit  Package</nb-card-header>
+
+                    <nb-card-body>
+
+                        <div class="form-group">
+                            <label>Choose Servcie </label>
+                            <select class="form-control" [(ngModel)]=" UpDoc.servicecity" (change)="editNameAndValue($event)"name="servicecity" #servicecity="ngModel"
+                                required placeholder="Service">
+                                <option [value]="undefined" selected hidden>
+                                    Select a ServiceCity</option>
+                                <option *ngFor="let city of serviceCityArray" [value]="city.value">
+                                    {{city.label}}
+                                </option>
+                               
+                            </select>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Package Name</label>
+                                <input type="text" [(ngModel)]="UpDoc.Package_Name" #Package_Name="ngModel" name="Package_Name"
+                                    required placeholder="Package_Name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental Total Price</label>
+                                <input type="number" [(ngModel)]="UpDoc.Rental_Total_Price" #Rental_Total_Price="ngModel"
+                                    name="Rental_Total_Price" required placeholder="Rental_Total_Price" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental {{distanceUnit}}</label>
+                                 
+                                <input type="number" [(ngModel)]="UpDoc.Rental_Miles" #Rental_Miles="ngModel" name="Rental_Miles"
+                                    required placeholder="Rental_Miles" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Rental Hour</label>
+                                <input type="number" [(ngModel)]="UpDoc.Rental_Hour" #Rental_Hour="ngModel" name="Rental_Hour"
+                                    required placeholder="Rental_Hour" class="form-control" />
+                            </div>
+                        </div>
+
+                        <button (click)="deleteRentalPackage(UpDoc)" class="btn btn-primary">Delete Package</button>
+                        &nbsp;    &nbsp;    &nbsp;    &nbsp;    &nbsp;    &nbsp;    &nbsp;
+
+                        <button type="submit" [disabled]="!dataForm1.form.valid" class="btn btn-success">Submit</button>
+                    </nb-card-body>
+                    <nb-card-footer>
+                        <button (click)="btnClick(0)" class="btn btn-primary">go back</button>
+
+
+
+                    </nb-card-footer>
+                </nb-card>
+            </div>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,180 @@
+<div *ngIf="trip; then triplist else tripinvoice"></div>
+
+<ng-template #triplist>
+	<nb-card>
+		<nb-card-header>
+			Ride Later Bookings
+		</nb-card-header>
+
+		<nb-card-body>
+			<ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+			</ng2-smart-table>
+		</nb-card-body>
+
+	</nb-card>
+</ng-template>
+
+<ng-template #tripinvoice>
+	<nb-card>
+
+		<nb-card-header>
+			Trip Invoice
+		</nb-card-header>
+
+		<nb-card-body>
+
+			<div class="row">
+
+				<div class="col-md-6 col-sm-12">
+
+					<label class="form-control-label">Your Trip : {{tripdspdetails.pLng}} On {{tripdetails.date}}
+					</label>
+
+					<div class="tripmap" style="height: 300px;">
+
+						<ngui-map zoom="13" center="{{tripdspdetails.pLat}},{{tripdspdetails.pLng}}" mapTypeId="terrain"
+							scrollwheel="false">
+							<polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'"
+								[strokeOpacity]="1" [strokeWeight]="2"></polyline>
+						</ngui-map>
+
+					</div>
+					<br />
+					<br />
+					<div class="form-group">
+						<p><b>{{tripdspdetails.start}}</b><br />
+							{{tripdspdetails.from}}
+						</p>
+						<p><b>{{tripdspdetails.end}}</b><br />
+							{{tripdspdetails.to}}
+						</p>
+						<div class="col-md-12 col-sm-12">
+							<hr>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row show-grid">
+							<div class="col-4 col-md-4">
+								<div align="center">Car</div>
+								<div align="center">
+									<p><b>{{tripdetails.taxi}}</b></p>
+								</div>
+							</div>
+							<div class="col-4 col-md-4">
+								<div align="center">Distance</div>
+								<div align="center">
+									<p><b>{{tripcspdetails.dist}}</b></p>
+								</div>
+							</div>
+							<div class="col-4 col-md-4">
+								<div align="center">Trip time</div>
+								<div align="center">
+									<p><b>{{tripcspdetails.time}}</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12">
+						<hr>
+					</div>
+					<div class="form-group">
+						<div class="row show-grid">
+							<div class="col-6 col-md-6">
+								<img alt="img" class="user-picture image" height="42" width="42"
+									src="assets/images/driver.png">
+								<div align="center">Driver</div>
+								<div align="center">
+									<p><b>{{tripdetails.dvr}}</b></p>
+								</div>
+							</div>
+							<div class="col-6 col-md-6">
+								<img _ngcontent-c3="" alt="img" class="user-picture image" height="42"
+									src="assets/images/rider.png" width="42">
+								<div align="center">Rider</div>
+								<div align="center">
+									<p><b>{{tripdetails.rid}}</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="form-group">
+						<div class="row show-grid">
+							<div class="col-6 col-md-6">
+								<div>ROUTE</div>
+								<p><b>{{tripdetails.adsp.dLat}}</b></p>
+							</div>
+							<div class="col-6 col-md-6">
+								<div>Rider</div>
+								<p><b>{{tripdetails.adsp.dLng}}</b></p>
+							</div> 
+						</div>
+					</div>  -->
+
+				</div>
+
+				<div class="col-md-6 col-sm-12">
+					<br>
+					<b><label class="form-control-label">Fare Breakdown For Ride No : {{tripdetails.tripno}} </label>
+					</b>
+					<hr>
+
+					<div class="row show-grid">
+						<div class="col-md-4">
+							<div>Base Fare</div>
+						</div>
+						<div class="col-md-4 offset-md-4">
+							<div>{{tripcspdetails.base}}</div>
+						</div>
+						<div class="col-md-4">
+							<div>Distance ({{tripcspdetails.dist}} mile)</div>
+						</div>
+						<div class="col-md-4 offset-md-4">
+							<div>{{tripcspdetails.distfare}}</div>
+						</div>
+						<div class="col-md-4">
+							<div>Time ({{tripcspdetails.time}} seconds)</div>
+						</div>
+						<div class="col-md-4 offset-md-4">
+							<div>{{tripcspdetails.timefare}}</div>
+						</div>
+						<div class="col-md-4">
+							<div>Commision</div>
+						</div>
+						<div class="col-md-4 offset-md-4">
+							<div> - {{tripcspdetails.comison}}</div>
+						</div>
+						<div class="col-md-12 col-sm-12">
+							<hr>
+						</div>
+						<div class="col-md-4">
+							<div><b>Total Fare (Via {{tripcspdetails.via}})</b></div>
+						</div>
+						<div class="col-md-4 offset-md-4">
+							<div><b>{{tripcspdetails.cost}}</b></div>
+						</div>
+						<div class="col-md-12 col-sm-12">
+							<hr>
+						</div>
+					</div>
+					<br /><br /><br /><br />
+					<div align="right">
+						<button class="btn btn-primary" (click)="testHeader()">E-Mail</button>
+						<button class="btn btn-danger" (click)="deleteATripDetails()">Delete</button>
+					</div>
+				</div>
+
+
+			</div>
+		</nb-card-body>
+
+		<nb-card-footer>
+			<button (click)="goBack()" type="button" class="btn btn-danger">
+				Go Back
+			</button>
+		</nb-card-footer>
+
+	</nb-card>
+
+</ng-template>

@@ -1,0 +1,1383 @@
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+</style>
+
+<div *ngIf="initial; then list else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">
+          View Other Online Drivers
+        </div>
+      </div>
+
+
+    </nb-card-header>
+
+    <nb-card-body>
+      <ng2-smart-table (userRowSelect)="onUserRowSelect($event)" [settings]="settings" [source]="source"
+        (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="pagegoBack()" type="button" nbButton size="small" status="danger" class="pull-right">
+        Go Back
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      DRIVER PROFILE : {{selectedUser}} &nbsp; | &nbsp; Code : {{selectedDocs.code}}
+      <button (click)="goBack()" type="button" nbButton size="small" status="danger" class="pull-right">
+        Go Back
+      </button>
+    </nb-card-header>
+    <nb-card-body>
+      <form #dataForm="ngForm" autocomplete="off">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <div class="form-group">
+                    <label>Upload Profile Image</label>
+                    <input type='file' (change)="profileEve($event)" id="logo" name="logo" class="form-control" />
+                  </div>
+                </div>
+                <!-- <br/> -->
+                <br />
+                <div class="form-group">
+                  <label for="inputFirstName">First Name (<span class="red">*</span>)</label>
+                  <input type="text" minlength={{validation.fnameValid.minlength}}
+                    maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                    [(ngModel)]="selectedDocs.fname" #fname="ngModel" name="fname" required placeholder="First Name"
+                    class="form-control" />
+                  <small *ngIf="fname.invalid && (fname.dirty)" class="form-text error">
+                    Valid Name is required!
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="container" style="width: 187px;">
+                  <b>Profile Image</b>
+                </div>
+                <div class="form-group">
+                  <img [src]="baseurl+selectedDocs.profile" height="125" width="140"
+                    style="border-radius: 50%;margin-top: 25px;margin-left: 18px;">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Date Of Birth</label>
+              <ng-datepicker [(ngModel)]="selectedDocs.DOB" [options]="visibleDateOptions" #DOB="ngModel" name="DOB"
+                class="form-control" required></ng-datepicker>
+              <small *ngIf="DOB.invalid && (DOB.dirty)" class="form-text error">
+                Date Of Birth is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail">Email </label>
+              <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="selectedDocs.email"
+                #email="ngModel" name="email" required placeholder="Email" class="form-control" />
+              <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+                Valid Email is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Country</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.cnty" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);"
+                required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="selectedDocs.city" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="form-group">
+              <label> Wallet Type</label>
+              <div class="input-group mb-3">
+                <select name="walletType" [(ngModel)]="selectedDocs.walletType" placeholder="Select Type"
+                  class="form-control">
+                  <option value="undefined" selected hidden class="form-control">Select Type</option>
+                  <option value='postpaid' class="form-control">Post Paid</option>
+                  <option value="prepaid" class="form-control">Pre Paid</option>
+                </select>
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary"
+                    (click)="UpdateWallet(selectedDocs.walletType)">Update</button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-sm-6">
+
+                <div class="form-group">
+                  <label for="inputWebsite">Phone (<span class="red">*</span>)</label>
+                  <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+                    maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.phone" name="phone" #phone="ngModel"
+                    placeholder="Phone" class="form-control" required />
+                  <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                    Valid Phone is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-sm-6">
+
+                <div class="form-group">
+                  <label for="inputWebsite">Alternate Phone No</label>
+                  <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+                    maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.alternatePhnNo" name="alternatePhnNo"
+                    #alternatePhnNo="ngModel" placeholder="Alternate Phone Number" class="form-control"   />
+                  <small *ngIf="alternatePhnNo.invalid && (alternatePhnNo.dirty)" class="form-text error">
+                    Valid Phone is required!
+                  </small>
+                </div>
+              </div>
+
+            </div>
+            <!-- <div class="form-group">
+              <label for="inputWebsite">Phone (<span class="red">*</span>)</label>
+              <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+                maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.phone" name="phone"
+                #phone="ngModel" placeholder="Phone" class="form-control" required />
+              <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                Valid Phone is required!
+              </small>
+            </div> -->
+            <div class="form-group">
+              <label for="inputLastName">Last Name (<span class="red">*</span>)</label>
+              <input type="text" minlength={{validation.lnameValid.minlength}}
+                maxlength={{validation.lnameValid.maxlength}} pattern={{validation.lnameValid.pattern}}
+                [(ngModel)]="selectedDocs.lname" #lname="ngModel" name="lname" placeholder="Last Name"
+                class="form-control" />
+              <small *ngIf="lname.invalid && (lname.dirty)" class="form-text error">
+                Valid Name is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Male">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Male</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.gender" name="gender"
+                  value="Female">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Female</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="selectedDocs.state" [options]="states" [allowClear]="true"
+                (selected)="selectedState($event);" (deselected)="deSelectedState($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="form-group" *ngIf="showCompany">
+              <label>Company</label>
+              <select class="form-control" [(ngModel)]="selectedDocs.cmpy" name="cmpy" #cmpy="ngModel"
+                placeholder="Company" required>
+                <option [value]="undefined" selected hidden>
+                  Select a Company</option>
+                <option *ngFor="let company of companyary" [value]="company._id">
+                  {{company.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>NIC Number</label>
+              <input type="text" [(ngModel)]="selectedDocs.nic" name="nic" placeholder="NIC Number"
+                class="form-control" />
+            </div>
+
+            <div class="form-group" *ngIf="showservicecity==true">
+              <label>Service Available City (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="loc" [data]="servicecites"
+                [(ngModel)]="selectedDocs.scIds" [settings]="dropdownSettings" required
+                (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" class="form-control">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="row custom-switches">
+              <div class="col-12">
+                <h5>Availablity Status</h5>
+                <p>
+                  <ui-switch switchColor="white" (click)="setDriver(selectedDocs._id,selectedDocs.online)"
+                    [(ngModel)]="selectedDocs.online" name="online" style="color: white" [checked]="chV"></ui-switch>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+    </nb-card-body>
+
+    <ng-template #content let-modal let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Change Password</h4>
+        <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #diverForm="ngForm">
+          <label>New Password</label>
+          <input type="text" [(ngModel)]="diver.password" name="password" placeholder="New Password"
+            class="form-control" required />
+          <br>
+        </form>
+        <button type="submit" class="btn btn-info pull-" [disabled]="!diverForm.valid"
+          (click)="passwordchange();closed(d)">Change
+          Password</button>
+      </div>
+
+    </ng-template>
+    <nb-card-footer>
+      <button (click)="updateRecord(selectedDocs)" nbButton size="small" status="primary" type="submit">Update</button>
+      &nbsp;
+      <button [disabled]="driverAccepted" *ngIf="!restrictProvider" nbButton size="small" status="info" type="submit"
+        (click)="approveDriver(selectedDocs._id)">{{selectedDocsStatus}}</button>
+      &nbsp;
+      <button [disabled]="!driverAccepted" *ngIf="!restrictProvider" type="submit" nbButton size="small" status="info"
+        (click)="Status(selectedid)">Reject</button>
+      &nbsp;
+      <button type="submit" nbButton size="small" status="info" (click)="resetMyPwd(selectedid)">Reset
+        Password</button> &nbsp;
+      <button type="submit" *ngIf="!restrictProvider" nbButton size="small" status="danger" [hidden]="!showactiveDriver"
+        (click)="deleteDvr(selectedid)">Inactive
+        Driver</button> &nbsp;
+      <button type="submit" *ngIf="!restrictProvider" nbButton size="small" status="danger"
+        (click)="activeDriver(selectedid)" [hidden]="showactiveDriver">Active
+        Driver</button> &nbsp;
+      <button nbButton size="small" status="primary" (click)="openVerticallyCentered(content)">Change Password</button>
+    </nb-card-footer>
+
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Bank Details
+    </nb-card-header>
+    <nb-card-body>
+      <form #bankDet="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Holder Name</label>
+              <input type="text" minlength={{validation.fnameValid.minlength}}
+                maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                [(ngModel)]="bankDocs.holdername" #holdername="ngModel" name="holdername"
+                placeholder="Account Holder Name" class="form-control" />
+              <small *ngIf="holdername.invalid && (holdername.dirty)" class="form-text error">
+                Name is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Number</label>
+              <input type="text" [(ngModel)]="bankDocs.acctNo" name="acctNo" placeholder="Account Number"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name of Bank</label>
+              <input type="text" [(ngModel)]="bankDocs.bankname" name="bankname" placeholder="Name of Bank"
+                class="form-control" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Bank Location</label>
+              <input type="text" [(ngModel)]="bankDocs.banklocation" name="banklocation" placeholder="Bank Location"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Payment Email</label>
+              <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="bankDocs.email" name="email"
+                placeholder="Payment Email" #email="ngModel" class="form-control" />
+              <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+                Valid Email is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>IFSC Code / SWIFT Code</label>
+              <input type="text" [(ngModel)]="bankDocs.swiftCode" name="swiftCode" placeholder="IFSC Code / SWIFT Code"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="updateBankDet(bankDocs)" nbButton size="small" status="primary" type="submit">Update</button>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      DOCUMENTS : {{selectedUser}}
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <!-- Multiple   -->
+
+        <div class="col-md-4 col-sm-12" *ngFor="let multidrdoc of multipleDoc; let i=index">
+          <label class="form-control-label">
+            <div> <b>{{multidrdoc.label}} </b>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="selectedDocs[multidrdoc.value[0]]||selectedDocs[multidrdoc.value[1]]"
+                (click)="taxiFirstDocset[i]=true " style="cursor: pointer; color: red">
+                Edit
+              </a> </div>
+          </label>
+
+
+          <div class="row show-grid">
+            <div *ngIf="selectedDocs[multidrdoc.value[0]]&&taxiFirstDocset[i]==false;else no_Lic">
+              <hr>
+              <div class="col-md-12">
+                <table class="table table-bordered" style="text-align: center;width: 343px;">
+                  <tr>
+                    <td> Expire Date :</td>
+                    <td> {{selectedDocs[multidrdoc.value[0] + 'exp'] | date}} </td>
+                  </tr>
+                  <tr *ngIf="selectedDocs[multidrdoc.value[0]]">
+                    <td>
+                      <b>Front Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[multidrdoc.value[0]]}}' target="_blank"
+                        (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="selectedDocs[multidrdoc.value[1]]">
+                    <td>
+                      <b>Back Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[multidrdoc.value[1]]}}' target="_blank"
+                        (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <ng-template #no_Lic>
+              <div class="col-md-8">
+                <br>
+                <!-- {{multiDocs.label}} not found -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Front Image</label>
+                    <input class="form-control" type="file" name={{multidrdoc.value[0]}}
+                      (change)="multipleDriverFile($event);" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Back Image</label>
+                    <input class="form-control" type="file" name={{multidrdoc.value[1]}}
+                      (change)="multipleDriverFile($event)" />
+                  </div>
+                </div>
+                <br>
+                <label>Expire Date </label>
+                <input class="form-control" [min]="startAt" placeholder="Click to Select a Date"
+                  name={{multidrdoc.value[0]}} (dateTimeInput)="multipleDriverDate($event)" [owlDateTimeTrigger]="dt2"
+                  [owlDateTime]="dt2">
+                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="form-control" (click)="submitMultipleDriverDoc(multidrdoc.value,i)" type="submit"
+                      nbButton size="xsmall" status="primary">Submit</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button class="form-control" *ngIf="taxiFirstDocset[i]==true" (click)="taxiFirstDocset[i]=false"
+                      type="button" nbButton size="xsmall" status="primary">Back</button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-2">
+              </div>
+            </ng-template>
+          </div>
+          <hr>
+        </div>
+
+        <!-- without Expiry with Multiple Image -->
+
+        <div class="col-md-4 col-sm-12" *ngFor="let multiDocWithoutExp of drivDocWithMultiWithoutExp; let i=index">
+          <label class="form-control-label">
+            <div> <b>{{multiDocWithoutExp.label}} </b>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="selectedDocs[multiDocWithoutExp.value[0]]||selectedDocs[multiDocWithoutExp.value[1]]"
+                (click)="taxiSixthDocset[i]=true " style="cursor: pointer; color: red">
+                Edit
+              </a> </div>
+          </label>
+
+
+          <div class="row show-grid">
+            <div *ngIf="selectedDocs[multiDocWithoutExp.value[0]]&&taxiSixthDocset[i]==false;else no_Lic">
+              <hr>
+              <div class="col-md-12">
+                <table class="table table-bordered" style="text-align: center;width: 343px;">
+                  <tr *ngIf="selectedDocs[multiDocWithoutExp.value[0]]">
+                    <td>
+                      <b>Front Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[multiDocWithoutExp.value[0]]}}' target="_blank"
+                        (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="selectedDocs[multiDocWithoutExp.value[1]]">
+                    <td>
+                      <b>Back Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[multiDocWithoutExp.value[1]]}}' target="_blank"
+                        (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <ng-template #no_Lic>
+              <div class="col-md-8">
+                <br>
+                <!-- {{multiDocs.label}} not found -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Front Image</label>
+                    <input class="form-control" type="file" name={{multiDocWithoutExp.value[0]}}
+                      (change)="multipleDriverFile($event);" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label>Back Image</label>
+                    <input class="form-control" type="file" name={{multiDocWithoutExp.value[1]}}
+                      (change)="multipleDriverFile($event)" />
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="form-control" (click)="submitMultipleImageWithoutExp(multiDocWithoutExp.value,i)"
+                      type="submit" nbButton size="xsmall" status="primary">Submit</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button class="form-control" *ngIf="taxiSixthDocset[i]==true" (click)="taxiSixthDocset[i]=false"
+                      type="button" nbButton size="xsmall" status="primary">Back</button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-2">
+              </div>
+            </ng-template>
+          </div>
+          <hr>
+        </div>
+
+        <!-- normal -->
+        <div class="col-md-4 col-sm-12" *ngFor="let docs of driverDocument; let i=index">
+          <label class="form-control-label">
+            <div> <b>{{docs.label}} </b>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="selectedDocs[docs.value]||selectedDocs[docs.value]" (click)="taxiThirdDocset[i]=true"
+                style="cursor: pointer; color: red">
+                Edit
+              </a> </div>
+          </label>
+
+
+          <div class="row show-grid">
+            <div *ngIf="selectedDocs[docs.value]&&taxiThirdDocset[i]==false;else no_licence">
+              <hr>
+              <div class="col-md-4">
+
+                <img [src]=baseurl+selectedDocs[docs.value] style="height:100px;width: 193px;">
+              </div>
+              <br />
+              <br />
+
+              <div class="col-md-8">
+                <table class="table table-bordered" style="text-align: center;width:250px;">
+                  <tr>
+                    <td> Expire Date :</td>
+                    <td> {{selectedDocs[docs.value + 'exp'] | date}} </td>
+                  </tr>
+
+                  <tr *ngIf="selectedDocs[docs.value]">
+                    <td>
+                      <b> Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[docs.value]}}' target="_blank" (click)="docDoc('label')"
+                        style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+              </div>
+
+            </div>
+
+            <ng-template #no_licence>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label *ngIf="!selectedDocs[docs.value]">{{docs.label}} not found </label>
+                  <!-- <input class="form-control" type="file" name={{docs.value}} (change)="fileEvent($event)" /> -->
+                  <!-- <div class="row">
+                    <div class="col-md-12">
+                      <label>Front Image</label>
+                      <input class="form-control" type="file" name={{docs.value[0]}} (change)="fileEvent($event)" />
+                    </div>
+                  </div> -->
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label> Image</label>
+                      <input class="form-control" type="file" name={{docs.value}} (change)="fileEvent($event)" />
+                    </div>
+                  </div>
+                  <br>
+                  <label>Expire Date </label>
+                  <!-- <input class="form-control" type="date" name={{docs.value}} (change)="logDate($event)" /> -->
+                  <input class="form-control" [min]="startAt" placeholder="Click to Select a Date" name={{docs.value}}
+                    (dateTimeInput)="logDate($event)" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
+                  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button class="form-control" (click)="submitDriverDoc(docs.value,i)" type="submit" nbButton
+                        size="xsmall" status="primary">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="form-control" *ngIf="taxiThirdDocset[i]==true" (click)="taxiThirdDocset[i]=false"
+                        type="button" nbButton size="xsmall" status="primary">Back</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </ng-template>
+          </div>
+          <hr>
+        </div>
+
+        <!-- withoutExpiry -->
+
+        <div class="col-md-4 col-sm-12" *ngFor="let docs of driDocWithoutExpiry; let i=index">
+          <label class="form-control-label">
+            <div> <b>{{docs.label}} </b>&nbsp;&nbsp;&nbsp;
+              <a *ngIf="selectedDocs[docs.value]||selectedDocs[docs.value]" (click)="taxiFourthDocset[i]=true"
+                style="cursor: pointer; color: red">
+                Edit
+              </a> </div>
+          </label>
+
+
+          <div class="row show-grid">
+            <div *ngIf="selectedDocs[docs.value]&&taxiFourthDocset[i]==false;else no_licence">
+              <hr>
+              <div class="col-md-4">
+                <img [src]=baseurl+selectedDocs[docs.value] style="height:100px;width: 193px;">
+              </div>
+              <br />
+              <br />
+              <div class="col-md-8">
+                <table class="table table-bordered" style="text-align: center;width:250px;">
+                  <tr *ngIf="selectedDocs[docs.value]">
+                    <td>
+                      <b> Image</b>
+                    </td>
+                    <td>
+                      <a href='{{baseurl}}{{selectedDocs[docs.value]}}' target="_blank" (click)="docDoc('label')"
+                        style="cursor: pointer; color: #5c97d2">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <ng-template #no_licence>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label *ngIf="!selectedDocs[docs.value]">{{docs.label}} not found </label>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label> Image</label>
+                      <input class="form-control" type="file" name={{docs.value}} (change)="fileEvent($event)" />
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button class="form-control" (click)="submitDrvDocWithoutExp(docs.value,i)" type="submit" nbButton
+                        size="xsmall" status="primary">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="form-control" *ngIf="taxiFourthDocset[i]==true" (click)="taxiFourthDocset[i]=false"
+                        type="button" nbButton size="xsmall" status="primary">Back</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </ng-template>
+          </div>
+          <hr>
+        </div>
+
+        <hr>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="goBack()" type="button" nbButton size="xsmall" status="danger">
+        Go Back
+      </button>
+    </nb-card-footer>
+  </nb-card>
+
+
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">
+          DRIVER TAXIS : {{selectedUser}}
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="pull-right" nbButton status="info" (click)="routeToSendNotifi()">Send
+            Notification</button>
+        </div>
+        <div class="col-md-2">
+          <button (click)="routetoCredit()" class="pull-right" nbButton size="small" status="primary" type="button">Add
+            Driver
+            Credit</button>
+        </div>
+        <div class="col-md-2">
+          <button (click)="routetoAddTaxi()" class="pull-right" type="button" nbButton size="small" status="danger">Add
+            New Driver
+            Taxi</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng-container *ngIf="list2;else make_details">
+        <table class="table table-bordered" style="text-align: center">
+          <tr>
+            <th>Action</th>
+            <th>Car Make</th>
+            <th>Vehicle / Service Type</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let taxi of selectedTaxis;let i = index">
+            <td>
+              <a (click)="makeDetails(taxi)" style="cursor: pointer; color: red">
+                Edit
+              </a>
+            </td>
+            <td>{{taxi.makename}}</td>
+            <td>{{taxi.vehicletype}}</td>
+            <td>{{taxi.taxistatus}}</td>
+          </tr>
+          <tr *ngIf="selectedTaxis.length === 0 || selectedTaxis==='' ">
+            <td colspan="4">No data found</td>
+          </tr>
+        </table>
+
+      </ng-container>
+
+      <ng-template #make_details>
+        <form #dataForm="ngForm">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Make (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.makename" #makename="ngModel" name="makename"
+                  (change)="GetModel($event)" required name="makename">
+                  <option value="undefined" hidden selected>Select Make Name</option>
+                  <option *ngFor="let make of makeary" [value]="make.make">
+                    {{make.make}}
+                  </option>
+                </select>
+
+                <!-- <input type="text" [(ngModel)]="singleTaxi.makename" #fname="ngModel" name="makename" required placeholder="Make" class="form-control"
+								/> -->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Model (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.model" name="model" #model="ngModel" required
+                  placeholder="Model">
+                  <option value="undefined" hidden selected>Select Model Name</option>
+                  <option *ngFor="let model of modelary" [value]="model">
+                    {{model}}
+                  </option>
+                </select>
+                <small *ngIf="model.invalid && (model.dirty)" class="form-text error">
+                  model is required!
+                </small>
+              </div>
+            </div>
+            <!-- <div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputFirstName">Model</label>
+								<input type="text" [(ngModel)]="singleTaxi.model" #fname="ngModel" name="model" required placeholder="Model" class="form-control"
+								/>
+							</div>
+						</div>-->
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Year (<span class="red">*</span>)</label>
+                <select class="form-control" [(ngModel)]="singleTaxi.year" name="year" #year="ngModel" required
+                  placeholder="Year">
+                  <option value="undefined" hidden selected>Select Year</option>
+                  <option *ngFor="let year of yearary" [value]="year.name">
+                    {{year.name}}
+                  </option>
+                </select>
+                <small *ngIf="year.invalid && (year.dirty)" class="form-text error">
+                  Name is required!
+                </small>
+
+                <!-- <input type="text" [(ngModel)]="singleTaxi.year" #fname="ngModel" name="year" required placeholder="Year" class="form-control"
+								/> -->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Vehicle No / License Plate No (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi.licence" #fname="ngModel" name="licence" required
+                  placeholder="Vehicle No / License Plate No" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Vehicle / Service Type (<span class="red">*</span>)</label>
+              <select class="form-control" required placeholder="Vehicle / Service Type"
+                [(ngModel)]="singleTaxi.vehicletype" name="vehicletype">
+                <option value="undefined" selected hidden>Select Vehicle / Service Type</option>
+                <option *ngFor="let vehicle of vehicleary" [value]="vehicle.type">
+                  {{vehicle.type}}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputFirstName">Vehicle Color (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi.color" #color="ngModel" name="color" required
+                  placeholder="Vehicle Color" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Upload Vehicle Front Image</label>
+                <input type="file" class="form-control" #fileupload (change)="vehiclePicUpload($event)"
+                  value="Vehicle Image" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Upload Vehicle Back Image</label>
+                <input type="file" class="form-control" #fileupload1 (change)="vehiclePicUpload1($event)"
+                  value="Vehicle Image" />
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="uploadedFileName !== undefined && uploadedFileName !== ''">
+              <div class="form-group">
+                <label>View Vehicle Front Image</label>
+                <div *ngIf="uploadedFileName !== undefined && uploadedFileName !== ''" class="form-control">
+                  <b>
+                    <a href='{{baseurl}}{{uploadedFileName}}' style="cursor: pointer; color: #5c97d2"
+                      target="_blank">View</a>
+                  </b>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="uploadedFileName1 !== undefined && uploadedFileName1 !== ''">
+              <div class="form-group">
+                <label>View Vehicle Back Image</label>
+                <div *ngIf="uploadedFileName1 !== undefined && uploadedFileName1 !== ''" class="form-control">
+                  <b>
+                    <a href='{{baseurl}}{{uploadedFileName1}}' style="cursor: pointer; color: #5c97d2"
+                      target="_blank">View</a>
+                  </b>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="showTaxiLabel">
+            <div class="col-md-6" *ngFor="let field of otherList | slice:0:half">
+              <div class="form-group">
+                <label>{{field.label}} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi[field.value]" name={{field.value}} #{{field.value}}="ngModel"
+                  required placeholder={{field.label}} class="form-control" />
+              </div>
+            </div>
+            <div class="col-md-6" *ngFor="let field of otherList | slice:half">
+              <div class="form-group">
+                <label>{{field.label}} (<span class="red">*</span>)</label>
+                <input type="text" [(ngModel)]="singleTaxi[field.value]" name={{field.value}} #{{field.value}}="ngModel"
+                  required placeholder={{field.label}} class="form-control" />
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <br>
+
+        <nb-card>
+          <nb-card-body>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card custom-margin">
+                  <div class="card-body">
+                    <div class="form-group" style="text-align: center;margin-top: 1rem;font-size: 16px;">
+                      <label>
+                        <h5>Services Enabled : (<span class="red">*</span>)</h5>
+                      </label>
+                      <br>
+                      <div class="example-items-rows" style="align-items: center;">
+                        <nb-checkbox readonly disabled name="isDaily" [value]="singleTaxi.isDaily" status="success">
+                          Daily
+                        </nb-checkbox>
+                        <nb-checkbox readonly disabled name="isRental" [value]="singleTaxi.isRental" status="success">
+                          Rental
+                        </nb-checkbox>
+                        <nb-checkbox readonly disabled name="isOutstation" [value]="singleTaxi.isOutstation"
+                          status="success">
+                          OutStation
+                        </nb-checkbox>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card custom-margin">
+                  <div class="card-body">
+                    <div class="form-group" style="text-align: center;margin-top: 1rem;font-size: 16px;">
+                      <label>
+                        <h5 style="text-decoration: underline;">Low Category Options</h5>
+                      </label>
+                      <br>
+                      <div class="example-items-rows" style="align-items: center;">
+                        <p style="font-weight: bold;">
+                          {{ singleTaxi.lowCategoryOptions
+                            ? singleTaxi?.lowCategoryOptions.join(', ')
+                          : 'N/A'
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </nb-card-body>
+        </nb-card>
+
+        <hr /> <br>
+
+        <div class="row">
+
+          <!-- without Expiry -->
+
+          <div class="col-md-4 col-sm-12" *ngFor="let docs of taxiDocWithoutExpiry; let i=index">
+            <label class="form-control-label">
+              <div> <b>{{docs.label}} </b>&nbsp;&nbsp;&nbsp;
+                <span class="label label-danger" style="background-color: red;color: white;"
+                  *ngIf="!singleTaxi[docs.value]">Missing</span>
+                <a *ngIf="singleTaxi[docs.value]||singleTaxi[docs.value]" (click)="taxiSeventhDocset[i]=true"
+                  style="cursor: pointer; color: red">
+                  Edit
+                </a> </div>
+            </label>
+
+
+            <div class="row show-grid">
+              <div *ngIf="singleTaxi[docs.value]&&taxiSeventhDocset[i]==false;else no_licence">
+                <hr>
+                <div class="col-md-4">
+                  <!-- <img [src]=baseurl+singleTaxi[docs.value] style="height:100px;width: 193px;"> -->
+                </div>
+                <br />
+                <br />
+                <div class="col-md-8">
+                  <table class="table table-bordered" style="text-align: center;width:250px;">
+                    <tr *ngIf="singleTaxi[docs.value]">
+                      <td>
+                        <b> Image</b>
+                      </td>
+                      <td>
+                        <a href='{{baseurl}}{{singleTaxi[docs.value]}}' target="_blank"
+                          style="cursor: pointer; color: #5c97d2">
+                          View
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <ng-template #no_licence>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label *ngIf="!singleTaxi[docs.value]">{{docs.label}} not found </label>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label> Image</label>
+                        <input class="form-control" type="file" name={{docs.value}} (change)="taxiFileEvent($event)" />
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button class="form-control" (click)="submitTaxiDocWithoutExp(docs.value,i)" type="submit"
+                          nbButton size="xsmall" status="primary">Submit</button>
+                      </div>
+                      <div class="col-md-6">
+                        <button class="form-control" *ngIf="taxiSeventhDocset[i]==true"
+                          (click)="taxiSeventhDocset[i]=false" type="button" nbButton size="xsmall"
+                          status="primary">Back</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+              </ng-template>
+            </div>
+            <hr>
+          </div>
+
+          <!-- Multiple -->
+
+          <div class="col-md-4 col-sm-12" *ngFor="let multiDocs of multipleTaxiDoc; let i=index">
+            <label class="form-control-label">
+              <div> <b>{{multiDocs.label}}</b>&nbsp;&nbsp;&nbsp;
+                <a *ngIf="singleTaxi[multiDocs.value[0]]||singleTaxi[multiDocs.value[1]]"
+                  (click)="taxiFifthDocset[i]=true " style="cursor: pointer; color: red">
+                  Edit
+                </a> </div>
+            </label>
+
+
+            <div class="row show-grid">
+              <div *ngIf="singleTaxi[multiDocs.value[0]]&&taxiFifthDocset[i]==false;else no_taxiReg">
+                <hr>
+                <div class="col-md-12">
+                  <table class="table table-bordered" style="text-align: center;width: 343px;">
+                    <tr>
+                      <td> Expire Date :</td>
+                      <td> {{singleTaxi[multiDocs.value[0] + 'expdate']}} </td>
+                    </tr>
+                    <tr *ngIf="singleTaxi[multiDocs.value[0]]">
+                      <td>
+                        <b>Front Image</b>
+                      </td>
+                      <td>
+                        <a href='{{baseurl}}{{singleTaxi[multiDocs.value[0]]}}' target="_blank"
+                          (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                          View
+                        </a>
+                      </td>
+                    </tr>
+                    <tr *ngIf="singleTaxi[multiDocs.value[1]]">
+                      <td>
+                        <b>Back Image</b>
+                      </td>
+                      <td>
+                        <a href='{{baseurl}}{{singleTaxi[multiDocs.value[1]]}}' target="_blank"
+                          (click)="docDoc('label')" style="cursor: pointer; color: #5c97d2">
+                          View
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <ng-template #no_taxiReg>
+                <div class="col-md-8">
+                  <br>
+                  <!-- {{multiDocs.label}} not found -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label>Front Image</label>
+                      <input class="form-control" type="file" name={{multiDocs.value[0]}}
+                        (change)="multipleTaxiFileEvent($event)" />
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label>Back Image</label>
+                      <input class="form-control" type="file" name={{multiDocs.value[1]}}
+                        (change)="multipleTaxiFileEvent($event)" />
+                    </div>
+                  </div>
+                  <br>
+                  <label>Expire Date </label>
+                  <input class="form-control" [min]="startAt" placeholder="Click to Select a Date"
+                    name={{multiDocs.value[0]}} (dateTimeInput)="multipleTaxiLogDate($event)" [owlDateTimeTrigger]="dt2"
+                    [owlDateTime]="dt2">
+                  <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button class="form-control" nbButton size="xsmall" status="primary"
+                        (click)="submitMultipleDriverTaxiDoc(multiDocs.value,i)" type="submit">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="form-control" *ngIf="taxiFifthDocset[i]==true" (click)="taxiFifthDocset[i]=false"
+                        type="button" nbButton size="xsmall" status="primary">Back</button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-2">
+                </div>
+              </ng-template>
+            </div>
+            <hr>
+          </div>
+
+
+          <!-- Normal  mine -->
+          <div class="col-md-4 col-sm-12" *ngFor="let taxiDocs of driverTaxiDocument; let i=index;">
+            <label class="form-control-label">
+              <div> <b>{{taxiDocs.label}} </b>&nbsp;&nbsp;&nbsp;
+                <span class="label label-danger" style="background-color: red;color: white;"
+                  *ngIf="!singleTaxi[taxiDocs.value]">Missing</span>
+                <a *ngIf="singleTaxi[taxiDocs.value]" (click)="taxiSecondDocset[i]=true "
+                  style="cursor: pointer; color: red">
+                  Edit
+                </a> </div>
+            </label>
+
+
+            <div class="row show-grid">
+              <div *ngIf="singleTaxi[taxiDocs.value]&&taxiSecondDocset[i]==false;else no_taxiRegistration">
+                <hr>
+                <div class="col-md-12">
+                  <table class="table table-bordered" style="text-align: center;width: 343px;">
+                    <tr>
+                      <td> Expire Date :</td>
+                      <td> {{singleTaxi[taxiDocs.value + 'expdate']}}</td>
+                    </tr>
+                    <tr *ngIf="singleTaxi[taxiDocs.value]">
+                      <td>
+                        <b> Image</b>
+                      </td>
+                      <td>
+                        <a href='{{baseurl}}{{singleTaxi[taxiDocs.value]}}' style="cursor: pointer; color: #5c97d2"
+                          target="_blank">View</a>
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+              </div>
+
+              <ng-template #no_taxiRegistration>
+                <div class="col-md-8">
+                  <div *ngIf="!singleTaxi[taxiDocs.value]">{{taxiDocs.label}} not found</div>
+                  <input class="form-control" type="file" name={{taxiDocs.value}} (change)="taxiFileEvent($event)" />
+                  <br>
+                  <label>Expire Date </label>
+                  <!-- <input class="form-control" type="date" name={{taxiDocs.value}} (change)="taxiLogDate($event)" /> -->
+                  <input class="form-control" [min]="startAt" placeholder="Click to Select a Date"
+                    name={{taxiDocs.value}} (dateTimeInput)="taxiLogDate($event)" [owlDateTimeTrigger]="dt2"
+                    [owlDateTime]="dt2">
+                  <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button class="form-control" nbButton size="small" status="primary"
+                        (click)="submitDriverTaxiDoc(taxiDocs.value, i)" type="submit">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="form-control" *ngIf="taxiSecondDocset[i]==true" (click)="taxiSecondDocset[i]=false"
+                        type="button" nbButton size="xsmall" status="primary">Back</button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-2">
+                </div>
+              </ng-template>
+            </div>
+            <hr>
+          </div>
+
+          <br>
+          <!-- Manually added fields -->
+
+          <div class="col-md-4 col-sm-12" *ngFor="let taxiDocs of manuallyaddedTaxiFields; let i=index;">
+            <label class="form-control-label">
+              <div> <b>{{taxiDocs.label}} </b>&nbsp;&nbsp;&nbsp;
+                <span class="label label-danger" style="background-color: red;color: white;"
+                  *ngIf="!singleTaxi[taxiDocs.value[0]]">Missing</span>
+                <a *ngIf="singleTaxi[taxiDocs.value[0]]||singleTaxi[taxiDocs.value[1]]"
+                  (click)="taxiEighthDocset[i]=true " style="cursor: pointer; color: red">
+                  Edit
+                </a> </div>
+            </label>
+
+
+            <div class="row show-grid">
+              <div *ngIf="singleTaxi[taxiDocs.value[0]]&&taxiEighthDocset[i]==false;else no_taxiRegistration">
+                <hr>
+                <div class="col-md-12">
+                  <table class="table table-bordered" style="text-align: center;width: 343px;">
+                    <tr>
+                      <td> Expire Date :</td>
+                      <td> {{singleTaxi[taxiDocs.value[1]]}}</td>
+                    </tr>
+                    <tr *ngIf="singleTaxi[taxiDocs.value[0]]">
+                      <td>
+                        <b> Image</b>
+                      </td>
+                      <td>
+                        <a href='{{baseurl}}{{singleTaxi[taxiDocs.value[0]]}}' style="cursor: pointer; color: #5c97d2"
+                          target="_blank">View</a>
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+              </div>
+
+              <ng-template #no_taxiRegistration>
+                <div class="col-md-8">
+                  <div *ngIf="!singleTaxi[taxiDocs.value[0]]"> {{taxiDocs.label}} not found </div>
+                  <input class="form-control" type="file" name={{taxiDocs.value[0]}}
+                    (change)="TaxiFileEventManually($event)" />
+                  <br>
+                  <label>Expire Date </label>
+                  <input class="form-control" [min]="startAt" placeholder="Click to Select a Date"
+                    name={{taxiDocs.value[1]}} (dateTimeInput)="TaxiLogDateManually($event)" [owlDateTimeTrigger]="dt2"
+                    [owlDateTime]="dt2">
+                  <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button nbButton size="xsmall" status="primary" (click)="submitTaxiDocManually(taxiDocs.value, i)"
+                        type="submit">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                      <button *ngIf="taxiEighthDocset[i]==true" (click)="taxiEighthDocset[i]=false" type="button"
+                        nbButton size="xsmall" status="primary">Back</button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-2">
+                </div>
+              </ng-template>
+            </div>
+            <hr>
+
+            <br>
+            <br>
+            <br>
+
+
+
+          </div>
+
+        </div>
+        <!--
+        <br>
+        <hr /> <br>
+        <b>Driver Activated Status</b>
+        <br><br><br>
+        <div class="row">
+          <div class="col-md-2">
+            <mat-checkbox class="example-margin" [(ngModel)]="singleTaxi.isDaily" (change)="ToggleMe($event,'daily')">Daily</mat-checkbox>
+          </div>
+          <div class="col-md-2">
+             <mat-checkbox class="example-margin" [(ngModel)]="singleTaxi.isOutstation" (change)="ToggleMe($event,'isOutstation')">Outstation</mat-checkbox>
+          </div>
+          <div class="col-md-2">
+            <mat-checkbox class="example-margin" [(ngModel)]="singleTaxi.isRental" (change)="ToggleMe($event,'rental')">Rental</mat-checkbox>
+          </div>
+        </div>
+        <br><br><br> -->
+
+        <button (click)="updateTaxiRecord(singleTaxi)" nbButton size="small" status="primary"
+          type="submit">Update</button> &nbsp;
+        <button [disabled]="driverTaxiAccepted" *ngIf="!restrictProvider" type="button" nbButton size="small"
+          status="info"
+          (click)="approveDriverTaxi(singleTaxi._id,singleTaxi.driver)">{{selectedTaxiDocsStatus}}</button>
+        &nbsp;
+        <button *ngIf="!restrictProvider" [disabled]="!driverTaxiAccepted" type="submit" nbButton size="small"
+          status="info" (click)="rejectTaxi(singleTaxi._id,singleTaxi.driver)">Reject</button>
+        &nbsp;
+        <button type="submit" nbButton size="small" status="danger"
+          (click)="deleteDvrTaxi(selectedid,singleTaxi)">Delete Driver
+          Taxi</button>
+        &nbsp;
+        <button (click)="toggle()" type="button" nbButton size="small" status="danger">
+          Back
+        </button>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #64bd63;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background-color: red;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px white;
+  }
+
+  input:checked+.slider:before {
+    background-color: #fff;
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  .toggle-switch-table th,
+  .toggle-switch-table td {
+    border: none;
+  }
+
+  /* Rounded sliders */
+
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>

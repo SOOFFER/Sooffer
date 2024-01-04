@@ -1,0 +1,90 @@
+<div *ngIf="initial; then list else detail"></div>
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      View All Countries
+    </nb-card-header>
+
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit a Country</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+            <div class="form-group">
+              <label>Country Name</label>
+              <input type="text" [(ngModel)]="selectedDocs.name" #name="ngModel" name="name" required placeholder="Country Name"
+                class="form-control" />
+              <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                Country Name is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Country Code</label>
+              <input type="text" [(ngModel)]="selectedDocs.sortname" #sortname="ngModel" name="sortname" required
+                placeholder="Country Code" class="form-control" />
+              <small *ngIf="sortname.invalid && (sortname.dirty)" class="form-text error">
+                Country Code is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Phone Code</label>
+              <input type="text" [(ngModel)]="selectedDocs.phoneCode" name="phoneCode" #phoneCode="ngModel" placeholder="Phone Code"
+                class="form-control" required />
+              <small *ngIf="phoneCode.invalid && (phoneCode.dirty)" class="form-text error">
+                Phone Code is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Currency Name</label>
+              <input type="text" [(ngModel)]="selectedDocs.currencyName" name="currencyName" #currencyName="ngModel"
+                placeholder="Currency Name" class="form-control" required />
+              <small *ngIf="currencyName.invalid && (currencyName.dirty)" class="form-text error">
+                Currency Name is required!
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Currency Code</label>
+              <input type="text" [(ngModel)]="selectedDocs.currencyCode" name="currencyCode" #currencyCode="ngModel"
+                placeholder="Currency Code" class="form-control" required />
+              <small *ngIf="currencyCode.invalid && (currencyCode.dirty)" class="form-text error">
+                Currency Code is required!
+              </small>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <select class="form-control" [(ngModel)]="selectedDocs.status" name="status">
+                    <option value=true>Active</option>
+                    <option value=false>Inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <!-- <button class="btn btn-primary" [hidden]="spinner">
+                <div class="fa fa-spinner fa-spin"></div>
+              </button> -->
+          <button type="submit" class="btn btn-primary" (click)="UpdateNewDoc(selectedDocs)" [disabled]="(!dataForm.form.valid)"
+            [hidden]="!spinner">Update</button> &nbsp;
+          <button type="button" class="btn btn-danger" (click)="DeleteDoc(selectedid)" [hidden]="!spinner">Delete</button>
+          &nbsp;
+          <button (click)="goback()" [disabled]="!spinner" class="btn btn-info">go back</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

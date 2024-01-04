@@ -1,0 +1,10 @@
+Rider
+{{AEP}}api/rental/packageList
+{{AEP}}api/rental/fareEstimation
+{{AEP}}api/rental/fareEstimatioSingle
+{{AEP}}api/requestRentalTaxi
+
+--------------
+Driver
+---------------
+{{AEP}}api/driverActiveTripType

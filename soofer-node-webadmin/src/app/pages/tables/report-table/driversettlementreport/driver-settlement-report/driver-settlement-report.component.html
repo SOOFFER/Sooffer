@@ -1,0 +1,116 @@
+<ng-template [ngIf]="pageNo == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-6">
+          Driver Settlement Report
+        </div>
+        <div class="col-md-2">
+          <select *ngIf="showCity == true" class="form-control" name="servicecity" [(ngModel)]="list.servicecity">
+            <option value="undefined" selected hidden>Service Available City</option> 
+            <option *ngFor="let city of serviceCityArray" [value]=city.label>{{city.label}}</option>
+            <option value="all">All</option>
+          </select>
+         </div>
+         <div class="col-md-1">
+            <button type="submit" class="btn btn-success" (click)="selCity(list)">Submit</button>
+         </div>
+        <div class="col-md-2">
+          <select class="form-control" name="exp" [(ngModel)]="exportInp.exp" #exp="ngModel" (change)="export($event)">
+            <option value="undefined" selected hidden>Export</option>
+            <option value="csv">Csv</option>
+            <option value="excel">Excel</option>
+          </select>
+        </div>
+      </div>
+      <!-- <button type="button" nbButton size="xsmall" (click)="export()" class="btn btn-danger pull-right">Export</button> -->
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="pageNo == 1">
+  <div class="row">
+    <div class="col-lg-9">
+      <nb-card>
+        <nb-card-header>Add Payment
+          <label class="pull-right"> <b> Wallet Balance : {{list.wallet}} &nbsp; </b> </label>
+        </nb-card-header>
+        <nb-card-body>
+          <form #Form="ngForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Transaction ID (<span class="red">*</span>)</label>
+                  <input type="text" class="form-control" name="trxId" [(ngModel)]="list.trxId" #trxId="ngModel"
+                    required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Driver Name</label>
+                  <input type="text" class="form-control" name="driverName" [(ngModel)]="list.driverName"
+                    #driverName="ngModel" disabled required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Amount (<span class="red">*</span>)</label>
+                  <input type="number" class="form-control" (focusout)="lesserThanZero($event)" [(ngModel)]="list.amt"
+                    #amt="ngModel" name="amt" placeholder="Enter the Amount" required>
+                  <small *ngIf="amt.invalid && (amt.dirty)" class="form-text error">
+                    Amount is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Type (<span class="red">*</span>)</label>
+                  <ng-select name="type" placeholder="Select a Payment Type" notFoundMsg="No Payment Type Found"
+                    [(ngModel)]="list.type" [options]="payment" [allowClear]="true" required>
+                    <ng-template #optionTemplate let-option="option">
+                      <span class="{{option.value}}">{{option.label}}</span>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea rows="5" [(ngModel)]="list.description" name="description" #description="ngModel"
+                    placeholder="Enter the Description" class="form-control"></textarea>
+                  <small *ngIf="description.invalid && (description.dirty)" class="form-text error">
+                    Description is required!
+                  </small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Payment Date (<span class="red">*</span>)</label>
+                  <ng-datepicker [(ngModel)]="list.paymentDate" [options]="visibleDateOptions" #paymentDate="ngModel"
+                    name="paymentDate" class="form-control" required></ng-datepicker>
+                  <small *ngIf="paymentDate.invalid && (paymentDate.dirty)" class="form-text error">
+                    Payment Date is required!
+                  </small>
+                </div>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="btnClick(0)" class="btn btn-danger">go back</button> &nbsp; &nbsp;
+          <button type="button" (click)="sendPayment(list)" [disabled]="!Form.valid"
+            class="btn btn-success">Add</button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,232 @@
+<div class="row" *ngIf="!showPushHistory && !showSMSHistory">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header
+        >Send Push Notification
+        <button
+          type="submit"
+          (click)="showPush()"
+          class="btn btn-primary pull-right"
+        >
+          View History
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <form #firstForm="ngForm">
+          <div class="form-group" *ngIf="Page == 'true'">
+            <label>Select Notification To</label>{{ Page }}
+            <select
+              class="form-control"
+              [(ngModel)]="selectedDocs.forWhom"
+              #forWhome="ngModel"
+              name="forWhom"
+              required
+              disabled
+            >
+              <option value="undefined" selected hidden>Select</option>
+              <option value="{{ code }}">
+                {{ code }} &nbsp; | &nbsp; {{ name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="Page != 'true'">
+            <label> Select Notification To </label>
+            <select
+              class="form-control"
+              [(ngModel)]="selectedDocs.forWhom"
+              #forWhom="ngModel"
+              name="forWhom"
+              required
+            >
+              <option value="undefined" selected hidden>Select</option>
+              <option value="AllDrivers">All Drivers</option>
+              <option value="OnlineDrivers">Online Drivers</option>
+              <option value="OfflineDrivers">Offline Drivers</option>
+              <option value="AcceptedDrivers">Accepted Drivers</option>
+              <option value="InactiveDrivers">Inactive Drivers</option>
+              <option value="PendingDrivers">Pending drivers</option>
+              <option value="SoftrejectDrivers">SoftReject Drivers</option>
+              <option value="AllRiders">All Riders</option>
+              <option value="InactiveRiders">Inactive Riders</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Service Available City</label>
+
+            <select
+              class="form-control"
+              name="servicecity"
+              [(ngModel)]="selectedDocs.servicecity"
+            >
+              <option value="">All</option>
+              <option [value]="city.label" *ngFor="let city of serviceCity">
+                {{ city.label }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Enter Message:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Message"
+              [(ngModel)]="selectedDocs.message"
+              #message="ngModel"
+              name="message"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            (click)="sendPush(selectedDocs)"
+            [disabled]="!firstForm.valid"
+            class="btn btn-success btn-block"
+          >
+            Send Push Notification
+          </button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-lg-6" *ngIf="showCity == true">
+    <nb-card>
+      <nb-card-header
+        >Send SMS Notification
+        <button
+          type="submit"
+          (click)="showSMS()"
+          class="btn btn-primary pull-right"
+        >
+          View History
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <form #secondForm="ngForm">
+          <div class="form-group" *ngIf="Page == 'true'">
+            <label>Select Notification To</label>{{ Page }}
+            <select
+              class="form-control"
+              [(ngModel)]="list.forWhom"
+              #forWhome="ngModel"
+              name="forWhom"
+              required
+              disabled
+            >
+              <option value="undefined" selected hidden>Select</option>
+              <option value="{{ code }}">
+                {{ code }} &nbsp; | &nbsp; {{ name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="Page != 'true'">
+            <label> Select Notification To </label> {{ Page }}
+            <select
+              class="form-control"
+              [(ngModel)]="list.forWhom"
+              #forWhom="ngModel"
+              name="forWhom"
+              required
+            >
+              <option value="undefined" selected hidden>Select</option>
+              <option value="AllDrivers">All Drivers</option>
+              <option value="OnlineDrivers">Online Drivers</option>
+              <option value="OfflineDrivers">Offline Drivers</option>
+              <option value="AcceptedDrivers">Accepted Drivers</option>
+              <option value="InactiveDrivers">Inactive Drivers</option>
+              <option value="PendingDrivers">Pending Drivers</option>
+              <option value="SoftrejectDrivers">SoftReject Drivers</option>
+              <option value="AllRiders">All Riders</option>
+              <option value="InactiveRiders">Inactive Riders</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Service Available City</label>
+            <select
+              class="form-control"
+              name="servicecity"
+              [(ngModel)]="list.servicecity"
+            >
+              <option value="">All</option>
+              <option [value]="city.label" *ngFor="let city of serviceCity">
+                {{ city.label }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Enter Message:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Message"
+              [(ngModel)]="list.message"
+              #message="ngModel"
+              name="message"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            (click)="sendSMS(list)"
+            [disabled]="!secondForm.valid"
+            class="btn btn-success btn-block"
+          >
+            Send SMS Notification
+          </button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row" *ngIf="showPushHistory">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        View Push Notifications
+        <button
+          type="submit"
+          (click)="goBack()"
+          class="btn btn-primary pull-right"
+        >
+          Go Back
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <ng2-smart-table
+          [settings]="pushSettings"
+          [source]="pushSource"
+          *ngIf="pushSource"
+        >
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row" *ngIf="showSMSHistory">
+  <div class="col-md-12">
+    <nb-card *ngIf="showSMSHistory">
+      <nb-card-header>
+        View SMS Notifications
+        <button
+          type="submit"
+          (click)="goBack()"
+          class="btn btn-primary pull-right"
+        >
+          Go Back
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <ng2-smart-table
+          [settings]="smsSettings"
+          [source]="smsSource"
+          *ngIf="smsSource"
+        >
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

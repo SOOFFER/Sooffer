@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>
+    App Config
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-group">
+      <textarea rows="30" cols="500" [(ngModel)]="list.data" #configText="ngModel" name="configText" placeholder="APP Configuration"
+        required class="form-control"></textarea>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord(list)" type="submit" class="btn btn-primary">Update</button>
+  </nb-card-footer>
+</nb-card>

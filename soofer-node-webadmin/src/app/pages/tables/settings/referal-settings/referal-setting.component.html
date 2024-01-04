@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        Referral Settings
+      </nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <!-- <div class="form-group">
+                <label>Rider Referral</label>                            
+                  <label class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.isRiderReferalCodeAvailable" name="isRiderReferalCodeAvailable" value="true" >
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">true</span>
+                  </label>
+                  <label class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.isRiderReferalCodeAvailable" name="isRiderReferalCodeAvailable" value="false" >
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">false</span>
+                  </label>
+                </div> -->
+          <div class="form-group">
+            <label>Rider Referral</label>
+            <ng-select name="riderReferral" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.isRiderReferalCodeAvailable" placeholder="Is Rider Referral Available" required>
+            </ng-select>
+          </div>
+          <div class="form-group">
+            <label>Rider Referral Amount (Rider who uses the code)</label>
+            <input type="number" [(ngModel)]="selectedDocs.riderReferalAmount" #riderReferalAmount="ngModel"
+              name="riderReferalAmount" placeholder="Rider Referral Amount" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Rider Referral Amount (Rider whose code is used)</label>
+            <input type="number" [(ngModel)]="selectedDocs.riderRefererAmount" #riderRefererAmount="ngModel"
+              name="riderRefererAmount" placeholder="Rider Referral Amount" class="form-control" />
+          </div>
+          <!-- <div class="form-group">
+            <label>Driver Referral</label>
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.isDriverReferalCodeAvailable"
+                name="isDriverReferalCodeAvailable" value="true">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">true</span>
+            </label>
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.isDriverReferalCodeAvailable"
+                name="isDriverReferalCodeAvailable" value="false">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">false</span>
+            </label>
+          </div> -->
+          <div class="form-group">
+            <label>Driver Referral</label>
+            <ng-select name="driverReferral" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="selectedDocs.isDriverReferalCodeAvailable" placeholder="Is Driver Referral Available"
+              required>
+            </ng-select>
+          </div>
+          <div class="form-group">
+            <label>Driver Referral Amount (Driver who uses the code)</label>
+            <input type="number" [(ngModel)]="selectedDocs.driverReferalAmount" #driverReferalAmount="ngModel"
+              name="driverReferalAmount" placeholder="Driver Referral Amount" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Driver Referral Amount (Driver whose code is used)</label>
+            <input type="number" [(ngModel)]="selectedDocs.driverRefererAmount" #driverRefererAmount="ngModel"
+              name="driverRefererAmount" placeholder="Driver Referral Amount" class="form-control" />
+          </div>
+          <button type="submit" [disabled]="!dataForm.form.valid" (click)="editTemplate(selectedDocs)"
+            class="btn btn-success btn-block">UPDATE</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+
+</style>

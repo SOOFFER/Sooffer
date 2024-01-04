@@ -1,0 +1,31 @@
+.end-trip tr:last-child {
+  border: 1px solid black !important;
+  font-weight: bold;
+}
+
+.div-marg {
+  margin: 10px;
+  font-weight: bold;
+}
+
+.rem-marg {
+  margin-bottom: 0px;
+}
+
+.card-text {
+  font-weight: bold;
+}
+
+.card-img {
+  margin: 28px;
+  width: 50%;
+  max-width: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+  .card-img {
+    margin: 28px;
+    width: 50%;
+    max-width: 10%;
+  }
+}

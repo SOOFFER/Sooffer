@@ -1,0 +1,37 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-4">
+          {{title}}
+        </div>
+        <div class="col-md-8">
+          <form #dateForm="ngForm" class="form-inline">
+            From: &nbsp;
+            <input nbInput fieldSize="small" class="form-control" placeholder="Click to Select a Date"
+              (dateTimeInput)="logDate($event)" [(ngModel)]="list.fromDate" name="fromDate" #fromDate="ngModel"
+              [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required>
+            <owl-date-time [pickerType]="'both'" [hour12Timer]=true #dt1></owl-date-time>
+            &nbsp; To: &nbsp;
+            <input nbInput fieldSize="small" class="form-control" placeholder="Click to Select a Date"
+              (dateTimeInput)="logDate($event)" [(ngModel)]="list.toDate" name="toDate" #toDate="ngModel"
+              [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+            <owl-date-time [pickerType]="'both'" [hour12Timer]=true #dt2></owl-date-time>&nbsp;&nbsp;
+            <button type="button" nbButton size="xsmall" (click)="filterRes()"
+              class="btn btn-danger">Submit</button>&nbsp;&nbsp;
+            <button type="button" nbButton size="xsmall" (click)="export()" class="btn btn-danger">Export</button>
+          </form>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template [ngIf]="initial === 1">
+  <ngx-invoice-details (backbtn)="goBack()" [fields]="getFields()">
+  </ngx-invoice-details>
+</ng-template>

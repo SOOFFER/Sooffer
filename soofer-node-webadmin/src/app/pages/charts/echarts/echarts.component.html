@@ -1,0 +1,36 @@
+<div class="row">
+
+
+  <div class="col-lg-12">
+    <nb-card class="area-chart">
+      <nb-card-header>
+        &nbsp;&nbsp; Total Generated fare
+      </nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-area-stack [type]="period" (periodChange)="setPeriodAndGetChartData($event)">
+        </ngx-echarts-area-stack>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+
+  <div class="col-lg-6" style="margin-top: 0;">
+    <nb-card class="pie-chart">
+      <nb-card-header>Trip Details</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-pie [periodtype]="pieChartPeriod" (periodChanges)="setPieChartPeriodAndGetChartData($event)">
+        </ngx-echarts-pie>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-lg-6" style="margin-top: 0;">
+    <nb-card class="bar-chart">
+      <nb-card-header> Registered Users for this Year </nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-bar></ngx-echarts-bar>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</div>

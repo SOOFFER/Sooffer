@@ -1,0 +1,16 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-10">
+        {{title}}
+      </div>
+      <div class="col-md-2">
+        <button type="button" (click)="createbkup();" class="btn btn-primary pull-right">Create Backup</button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

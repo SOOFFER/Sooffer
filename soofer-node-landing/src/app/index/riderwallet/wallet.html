@@ -1,0 +1,92 @@
+<!-- <div *ngIf="initial=='list'; then lists; else  detail"></div> -->
+<!-- <div *ngIf="initial === list; then lists; initial === detail; then detail else docs"></div> -->
+<!-- <ng-template [ngIf]="index == 1"> -->
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <section>
+        <div class="container my-profile mrgn-t-50 pading-btm">
+          <div>
+            <h3>{{'RIDER.MYWALLET' | translate}}</h3>
+            <br />
+            <!-- <input name="save" type="submit" (click)="addMyTaxi()" value="Add Your Taxi" class="sc-butn m-r-10"> -->
+          </div>
+          <div
+            class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12"
+          >
+            <div class="mat-elevation-z8">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="trxid">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{'RIDER.TRANSACTIONID' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.trxid}}</td>
+                </ng-container>
+                <ng-container matColumnDef="amt">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{'RIDER.AMOUNT' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.amt}}</td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{'COMMON.DATE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.date}}</td>
+                </ng-container>
+                <!-- Weight Column -->
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{'TRIP.TYPE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.type}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns;"
+                ></tr>
+                <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                                </ng-container>
+                                         -->
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <!-- <ng-container matColumnDef="expandedDetail">
+                                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                                          
+
+                                                </div>
+                                        </td>
+                                </ng-container> -->
+
+                <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                                <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = element">
+                                </tr>
+                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+              </table>
+              <mat-paginator
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+              ></mat-paginator>
+            </div>
+          </div>
+        </div>
+        <!--end-->
+        <!--start of edit -->
+      </section>
+    </div>
+  </div>
+</div>
+<!-- </ng-template> -->
+<!--end -->
+<!--  -->

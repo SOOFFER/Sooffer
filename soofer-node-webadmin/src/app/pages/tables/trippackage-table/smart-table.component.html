@@ -1,0 +1,123 @@
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fff" type="ball-spin-clockwise">
+    </ngx-spinner>
+
+    <style type="text/css">
+      .action1 {
+        margin-top: 35px;
+      }
+    </style>
+    <div *ngIf="initial; then list1 else detail"></div>
+    <ng-template #list1>
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-md-10">
+              View Trip Rental Package
+            </div>
+            <div class="col-md-2">
+              <select *ngIf="showCity == true" name="servicecity" class="form-control" [(ngModel)]="li.servicecity"
+                (change)="FilterRes(li.servicecity)">
+                <option value="undefined" selected hidden>Service Available City</option>
+                <option *ngFor="let city of ServiceCity" [value]=city.label>{{city.label}}</option>
+                <option value="all">All</option>
+              </select>
+            </div>
+          </div>
+
+        </nb-card-header>
+        <nb-card-body>
+          <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+          </ng2-smart-table>
+        </nb-card-body>
+      </nb-card>
+    </ng-template>
+    <ng-template #detail>
+      <div class="row">
+        <div class="col-md-12">
+          <nb-card>
+            <nb-card-header>
+              Update Trip Rental Package
+            </nb-card-header>
+            <nb-card-body>
+              <form (ngSubmit)="updateRecord(list)">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Package Name(<span class="red">*</span>) </label>
+                      <input type="text" name="name" [(ngModel)]="list.name" #name="ngModel" required
+                        placeholder="Enter Package Name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="this.servicecity == true">
+                    <div class="form-group">
+                      <label>Service Available City (<span class="red">*</span>)</label>
+                      <ng-multiselect-dropdown (onSelect)="onItemSelect($event)"
+                        [placeholder]="'Service Available City'" name="scIds" [data]="cities" [(ngModel)]="list.scIds"
+                        [settings]="dropdownSettings" class="custom-drop">
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Package Duration(<span class="red">*</span>)</label>
+                      <input type="text" name="duration" [(ngModel)]="list.duration" #duration="ngModel" requires
+                        placeholder="Enter Package Duration" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Package Distance(<span class="red">*</span>)</label>
+                      <input type="text" name="distance" [(ngModel)]="list.distance" #distance="ngModel" required
+                        placeholder="Enter Package Distance" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </nb-card-body>
+            <nb-card-footer>
+              <button type="button" (click)="updateRecord(list)" class="btn btn-success">Update </button>&nbsp;&nbsp;
+              <button type="button" (click)="deleteRecord(list)" class="btn btn-primary">Delete</button>
+              <button type="submit" class="btn btn-danger pull-right" (click)="goBack()">
+                Go Back
+              </button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="row"  *ngIf="newVehiclesList.length > 0">
+        <div class="col-md-12">
+          <nb-card>
+            <nb-card-body>
+              <div class="card">
+                <div class="card-header">
+                  Listed Vehicles are - {{listedVehiclesArray}}
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6" *ngFor="let item of newVehiclesList; let i=index">
+                      <div class="form-group">
+                        <label>Fixed Rate For Vehicle Type - {{item.type}} (<span class="red">*</span>)</label>
+                        <input type="number" min="0" [(ngModel)]="item['fixedRate']"
+                          [ngModelOptions]="{standalone: true}" required
+                          placeholder="Enter Fixed Rate For Vehicle Type - {{item.type}}" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <button type="button" [disabled]="!checkVistingLoc(newVehiclesList)" (click)="updateVehicleRate()"
+                class="btn btn-success">Update </button>&nbsp;
+              <button type="submit" class="btn btn-danger" (click)="goBack()">
+                Go Back
+              </button>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+    </ng-template>

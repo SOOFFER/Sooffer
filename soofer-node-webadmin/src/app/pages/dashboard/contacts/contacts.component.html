@@ -1,0 +1,16 @@
+<nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="Recent Drivers">
+      <div class="contact" *ngFor="let c of contacts">
+        <nb-user (click)="RouteToDrivers(c._id)" [picture]=temp+c.profile style="cursor:pointer" [name]="c.fname" [title]="c.email" size="large"></nb-user>
+        <!-- <i class="i-contact nb-phone"></i> -->
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Recent Riders">
+      <div class="contact" *ngFor="let c of recent">
+        <nb-user (click)="RouteToRider(c._id)" [picture]=temp+c.profile style="cursor:pointer" [name]="c.fname" [title]="c.email" size="large"></nb-user>
+        <span class="time">{{ c.time }}</span>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

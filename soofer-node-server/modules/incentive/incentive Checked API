@@ -1,0 +1,19 @@
+
+To Add Data : http://localhost:3001/api/incentive/incentiveCalculation (post)
+
+		eg: [{"key":"targetAmt","value":"600","description":"","type":"text","enabled":true},{"key":"target","value":"400","description":"","type":"text","enabled":true},{"key":"status","value":"false","description":"","type":"text","enabled":true},{"key":"targetName","value":"ride","description":"","type":"text","enabled":true},{"key":"targetTime","value":"weekly","description":"","type":"text","enabled":true},{"key":"targetFor","value":"trips","description":"","type":"text","enabled":true},{"key":"status","value":"true","description":"","type":"text","enabled":true}]
+
+
+
+To Patch Document: http://localhost:3001/api/incentive/incentiveCalculation/5cf512128c37761406349096 (patch)
+
+ 		eg: [{"key":"targetTime","value":"weekly","description":"","type":"text","enabled":true},{"key":"targetFor","value":"trips","description":"","type":"text","enabled":true},{"key":"targetName","value":"drive","description":"","type":"text","enabled":true},{"key":"status","value":"true","description":"","type":"text","enabled":true}]
+
+
+
+To Get Target Amount : http://localhost:3001/api/incentive (get)
+
+ 		eg : [{"key":"targetTime","value":"weekly","description":"","type":"text","enabled":true},{"key":"targetFor","value":"trips","description":"","type":"text","enabled":true}]
+
+
+

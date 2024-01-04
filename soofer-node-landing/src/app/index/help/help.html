@@ -1,0 +1,61 @@
+<div class="main-container">
+  <div class="sub-main-div">
+    <section>
+      <div class="container">
+        <h2>{{'COMMON.HELP' | translate}}</h2>
+
+        <div class="faq-container mrgn-top mrgn-botm">
+          <div class="faq-page col-xs-12 col-sm-12 col-md-12">
+            <div class="faq-top-part">
+              <ul *ngFor="let item of catary">
+                <li>
+                  <a [routerLink]="" (click)="getQuestions(item._id);"
+                    >{{item.vTitle_EN}}</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div *ngFor="let qes of AnsAry">
+            <div
+              class="panel-group panelgroup col-xs-12 col-sm-12 col-md-12"
+              id="accordion"
+              role="tablist"
+              aria-multiselectable="true"
+            >
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                      class="orange"
+                    >
+                      <!-- <i class="more-less  fa fa-plus"></i> -->
+                      <div>
+                        <label>Q.&nbsp;</label>
+                        <span [innerHtml]="qes.vTitle_EN"></span>
+                      </div>
+                    </a>
+                  </h4>
+                </div>
+                <div>
+                  <div class="panel-body">
+                    <h4>
+                      <div [innerHtml]="qes.English"></div>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- panel-group -->
+      </div>
+      <!-- container -->
+    </section>
+  </div>
+</div>

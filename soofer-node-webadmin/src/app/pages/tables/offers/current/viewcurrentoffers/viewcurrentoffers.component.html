@@ -1,0 +1,128 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-6">
+          Current Offers List
+
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-primary pull-right" (click)="ExportAsCSV();">Export</button>
+
+
+        </div>
+
+        <div class="col-sm-4" *ngIf="showCity==true">
+          <form class="form-row">
+
+            <div class="col-md-6">
+
+              <select class="form-control" [(ngModel)]=" Doc.servicecity" name="servicecity" #servicecity="ngModel"
+                required placeholder="Service">
+                <option [value]="undefined" selected hidden>
+                  Search ServiceCity</option>
+                <option *ngFor="let city of serviceCityArray" [value]="city.label">
+                  {{city.label}}
+                </option>
+                <option [value]="all" selected>
+                  All</option>
+              </select>
+
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary" (click)="SerachForCity(Doc);">Filter</button>
+
+            </div>
+          </form>
+
+        </div>
+
+
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <form #dataForm1="ngForm">
+    <div class="row">
+      <div class="col-lg-6">
+        <nb-card>
+          <nb-card-header>Offer Details</nb-card-header>
+          <nb-card-body>
+            <div class="form-group" *ngIf="this.servicecity == true">
+              <label>Service Available City</label>
+              <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+                [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="form-control">
+              </ng-multiselect-dropdown>
+            </div>
+
+            <div class="form-group">
+              <label>Select Offer Start Date (<span class="red">*</span>)</label>
+              <ng-datepicker [(ngModel)]="list.vdate" [options]="visibleDateOptions" #start="ngModel" name="start"
+                class="form-control" required></ng-datepicker>
+            </div>
+
+            <div class="form-group">
+              <label>Select Offer End Date (<span class="red">*</span>)</label>
+              <ng-datepicker [(ngModel)]="list.edate" [options]="endDateOptions" #end="ngModel"
+                (ngModelChange)="disableError($event)" name="end" class="form-control" required></ng-datepicker>
+              <small *ngIf="notValidEdate" class="form-text error">
+                Enter Valid Offer End Date!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Title (<span class="red">*</span>)</label>
+              <input type="text" [(ngModel)]="list.title" #title="ngModel" name="title" required placeholder="title"
+                class="form-control" />
+              <small *ngIf="title.invalid && (title.dirty)" class="form-text error">
+                Title is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Description (<span class="red">*</span>)</label>
+              <textarea [(ngModel)]="list.desc" #desc="ngModel" name="desc" required class="form-control"></textarea>
+              <!-- <tinymce [config]="" [(ngModel)]="list.desc" #desc="ngModel" name="desc" required></tinymce> -->
+              <small *ngIf="desc.invalid && (desc.dirty)" class="form-text error">
+                Description is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-9">
+                <label>Offer Logo </label>
+                  <input type="file" #fileupload (change)="fileEvent($event)" name="file" [(ngModel)]="list.file" required value="Profile Image" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{{baseurl+list.file}}" height="100" width='100'>
+
+                </div>
+              </div>
+              <br><br>
+              <!-- <div>
+                <label>Offer Image ( width:150px , height 150px )</label>
+                <input type="file" #fileupload (change)="fileEvent($event)" required value="  Profile Image" />
+              </div> -->
+            </div>
+          </nb-card-body>
+          <nb-card-footer>
+            <button class="btn btn-primary" [hidden]="spinner">
+              <div class="fa fa-spinner fa-spin"></div>
+            </button>
+            <button type="submit" class="btn btn-primary" [hidden]="!spinner" [disabled]="!dataForm1.form.valid"
+              (click)="updateOffer(list)">Update</button> &nbsp;&nbsp;&nbsp;
+            <button (click)="deleteRecord()" [hidden]="!spinner" type="submit" class="btn btn-primary">Delete</button> 
+          </nb-card-footer>
+        </nb-card>
+      </div>
+    </div>
+  </form>
+  <button (click)="btnClick(0)" [disabled]="!spinner" class="btn btn-danger">go back</button>
+</ng-template>

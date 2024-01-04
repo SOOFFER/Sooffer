@@ -1,0 +1,318 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>Add Promo Code</nb-card-header>
+      <nb-card-body>
+        <form #dataForm="ngForm">
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-control-label">Promo Code</label>
+                <div class="input-group mb-3">
+                  <input type="text" autofocus [(ngModel)]="list.code" name="code" #code="ngModel"
+                    placeholder="Promo Code" class="form-control" required />
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="generateCode()">Generate Coupon Code</button>
+                  </div>
+                </div>
+                <div>
+                  <small *ngIf="code.invalid && (code.dirty)" class="form-text error">
+                    Coupon Code is required!
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Discount Amount</label>
+                <input type="number" [(ngModel)]="list.amount" #amount="ngModel" name="amount" required
+                  placeholder="Discount" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="form-text error">
+                  Discount Amount is required!
+                </small>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-control-label">Promocode (<span class="red">*</span>)</label>
+                <div class="input-group mb-3">
+                  <input type="text" autofocus [(ngModel)]="list.code" name="code" #code="ngModel"
+                    placeholder="Promocode" class="form-control" required />
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="generateCode()">Generate Coupon Code</button>
+                  </div>
+                </div>
+                <div>
+                  <small *ngIf="code.invalid && (code.dirty)" class="form-text error">
+                    Coupon Code is Required
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Discount Type(<span class="red">*</span>)</label>
+                <select class="form-control" name="amountType" [(ngModel)]="list.amountType">
+                  <option value="undefined" selected hidden>Select A Type</option>
+                  <option value="percentage">Percentage</option>
+                  <option value="amount">Flat</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="list.amountType == 'percentage'">
+              <div class="form-group">
+                <label>Discount Percentage (<span class="red">*</span>) </label>
+                <input type="number" class="form-control" name="percentage" [(ngModel)]="list.percentage"
+                  #percentage="ngModel" required placeholder="Amount">
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="list.amountType == 'amount'">
+              <div class="form-group">
+                <label>Flat Amount (<span class="red">*</span>) </label>
+                <input type="number" class="form-control" name="amount" [(ngModel)]="list.amount" #amount="ngModel"
+                  required placeholder="Amount">
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <label> {{'PROMOCODE.FLATDISCOUNTAMOUNT' | translate}} (<span class="red">*</span>)</label>
+                <input type="number" [(ngModel)]="list.amount" #amount="ngModel" name="amount" required
+                  placeholder="{{'PROMOCODE.FLATDISCOUNTAMOUNT' | translate}}" class="form-control" />
+                <small *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="form-text error">
+                  {{'PROMOCODE.FLATDISCOUNTAMOUNT' | translate}} {{'COMMON.ISREQUIRD' | translate}}
+                </small>
+              </div>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Validity Start</label>
+                <ng-datepicker [(ngModel)]="list.start" [options]="visibleDateOptions" #start="ngModel" name="start"
+                  class="form-control" required></ng-datepicker>
+                <small *ngIf="start.invalid && (start.dirty)" class="form-text error">
+                  Validity Start is required!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Validity End</label>
+                <ng-datepicker [(ngModel)]="list.end" [options]="visibleDateOptions" name="end" #end="ngModel"
+                  class="form-control" required></ng-datepicker>
+                <small *ngIf="end.invalid && (end.dirty)" class="form-text error">
+                  Validity End is required!
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Time</label>
+                <input class="form-control" placeholder="Click to Select a Time" required [(ngModel)]="list.startTime"
+                  name="startTime" #startTime="ngModel" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
+                <owl-date-time [pickerType]="'timer'" [showSecondsTimer]=true #dt1></owl-date-time>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Time</label>
+                <input class="form-control" placeholder="Click to Select a Time" required [(ngModel)]="list.endTime"
+                  name="endTime" #endTime="ngModel" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+                <owl-date-time [pickerType]="'timer'" [showSecondsTimer]=true #dt2></owl-date-time>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Usage Limit</label>
+                <input type="number" [(ngModel)]="list.noofuse" #noofuse="ngModel" name="noofuse" required
+                  placeholder="Usage Limit" class="form-control" />
+                <small *ngIf="noofuse.invalid && (noofuse.dirty)" class="form-text error">
+                  Usage Limit is required!
+                </small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Per User Usage Limit</label>
+                <input type="number" class="form-control" name="perUserUsage" [(ngModel)]="list.perUserUsage"
+                  #perUserUsage="ngModel" required placeholder="Per User Usage Limit">
+                <small *ngIf="perUserUsage.invalid && (perUserUsage.dirty)" class="form-text error">
+                  Usage Limit is required!
+                </small>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <!-- <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Auto Apply for First N Rider</label>
+                    <input type="text" class="form-control" name="autoApply" [(ngModel)]="list.autoApply" #autoApply="ngModel"
+                      placeholder="Auto Apply For First N Rider">
+                  </div>
+                </div> -->
+            <div class="col-md-6" *ngIf="this.servicecity == true">
+              <div class="form-group">
+                <label>Service Available City</label>
+                <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+                  [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="form-control" required>
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Trip Type</label>
+                <ng-multiselect-dropdown [placeholder]="'Trip Type'" name="tripType" [(ngModel)]="list.tripType"
+                  [data]="TripType" [settings]="TripDropDown" (onSelect)="onItemSelect($event)"
+                  (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                  (onDeSelectAll)="onDeSelectAll($event)" class="form-control" required></ng-multiselect-dropdown>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!-- <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Days &nbsp;  </label> &nbsp; &nbsp;
+                <nb-checkbox name="day1" #day1="ngModel" (change)="change($event, 'Mon')" [(ngModel)]="list.day1">Monday
+                </nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day2" #day2="ngModel" (change)="change($event, 'Tue')" [(ngModel)]="list.day2">
+                  Tuesday</nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day3" #day3="ngModel" (change)="change($event, 'Wed')" [(ngModel)]="list.day3">
+                  Wednesday</nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day4" #day4="ngModel" (change)="change($event, 'Thu')" [(ngModel)]="list.day4">
+                  Thursday</nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day5" #day5="ngModel" (change)="change($event, 'Fri')" [(ngModel)]="list.day5">Friday
+                </nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day6" #day6="ngModel" (change)="change($event, 'Sat')" [(ngModel)]="list.day6">
+                  Saturday</nb-checkbox>
+                &nbsp;
+                <nb-checkbox name="day7" #day7="ngModel" (change)="change($event, 'Sun')" [(ngModel)]="list.day7">Sunday
+                </nb-checkbox>
+                &nbsp;
+              </div>
+            </div>
+          </div> -->
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" style="margin: 0px;">
+                <label>Days &nbsp; --> &nbsp; </label>
+                <div class="customised-control-indicator" style="display: inline-block"
+                  *ngFor='let submenu of filternames'>
+                  <label class="container"> {{submenu.name}}
+                    <input type="checkbox" (change)="change($event, submenu.name)" name=submenu.name
+                      [checked]="submenu.checked">
+                    <span class="checkmark"></span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <br> <br>
+                <nb-checkbox name="day1" #forFirst="ngModel" [value]="true" [(ngModel)]="list.forFirst">
+                  Only One Time For Single User </nb-checkbox>
+              </div>
+            </div>
+          </div> -->
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="AddNewDoc(list);" [disabled]="!dataForm.form.valid"
+          class="btn btn-success">Add</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </div>
+</div>
+<style type="text/css">
+  .button.btn.btn-link {
+    background-color: #008CBA;
+  }
+
+  /* The container */
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 30px;
+    background-color: #eee;
+    transition: 0.5s;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .container:hover input~.checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked~.checkmark {
+    background-color: #20c997;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .container input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 10px;
+    top: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+</style>

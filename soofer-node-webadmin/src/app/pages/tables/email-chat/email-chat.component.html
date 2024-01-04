@@ -1,0 +1,105 @@
+<div *ngIf="initial; then list else detail"></div>
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      New Messages
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <!-- CHAT UI -->
+
+  <nb-card>
+    <nb-card-header>
+      Message From: {{selectedDocs.from}} &nbsp;&nbsp; | &nbsp;&nbsp; Subject: {{selectedDocs.subject}}
+    </nb-card-header>
+  </nb-card>
+
+  <nb-card>
+    <!-- <nb-card-header>
+
+    </nb-card-header> -->
+    <nb-card-body>
+      <nb-chat title={{selectedDocs.message}} size="large" status="info">
+        <nb-chat-message *ngFor="let msgs of selectedDocs.reply" [type]="msgs.text" [message]="msgs.msg"
+          [reply]="msgs.reply" [sender]="msgs.from">
+          <!-- [date]="msgs.date" -->
+        </nb-chat-message>
+        <nb-chat-form (send)="sendMessage($event)" buttonTitle="Send">
+        </nb-chat-form>
+      </nb-chat>
+    </nb-card-body>
+  </nb-card>
+
+  <!-- <nb-card>
+    <nb-card-header>
+      Email PROFILE : {{selectedUser}}
+    </nb-card-header>
+    <nb-card-body>
+      <form #dataForm="ngForm">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputFirstName"> Name</label>
+              <input type="text" [(ngModel)]="selectedDocs.name" #name="ngModel" name="name" class="form-control"
+                disabled />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputLastName">Status</label>
+              <input type="text" [(ngModel)]="selectedDocs.status" #status="ngModel" name="status" class="form-control"
+                disabled />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input type="email" [(ngModel)]="selectedDocs.mailid" #mailid="ngModel" name="mailid" class="form-control"
+                disabled />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputWebsite">Subject</label>
+              <input type="text" [(ngModel)]="selectedDocs.subject" name="subject" #subject="ngModel" class="form-control"
+                disabled />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Replay Message</label>
+              <textarea rows="5" [(ngModel)]="selectedDocs.replay" name="replay" #replay="ngModel" placeholder="Type Here...."
+                class="form-control" required></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button (click)="updateRecord(selectedDocs)" type="submit" class="btn btn-primary">Send</button>
+    </nb-card-body>
+  </nb-card> -->
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+</ng-template>
+
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+
+</style>

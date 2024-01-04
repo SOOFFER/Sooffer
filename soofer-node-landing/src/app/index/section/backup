@@ -1,0 +1,248 @@
+<div class="main-container">
+	<div class="sub-main-div">
+		<section class="banner main-banner-section"
+			[ngStyle]="{'background-image': 'url(' + baseurl + list.home_banner_image+ ')'}">
+			<div align="center" class="">
+				<!-- <img src="{{baseurl}}{{list.home_banner_image}}"> -->
+				<h2><b>{{list.header_first_label}}</b></h2>
+				<h3>{{list.header_second_label}}</h3>
+				<!-- <a href="#">Sign Up</a> -->
+				<div class="home-hero-page-left-text">
+					<span>
+						<a style="border: 1px solid #fff;" routerLink="driversignin" class="signup signup-btn"
+							*ngIf="!hideBu">
+							<em>SIGN IN</em>
+						</a>
+						<a href={{list.driver_link_Android}} *ngIf="list.driver_link_Android !== '#' && hideBu"
+							target="_blank"><img src="assets/images/google-play-img.png"></a>
+						<p>{{list.home_yellow_two}}</p>
+					</span>
+				</div>
+			</div>
+		</section>
+
+		<!--
+<section class="banner">
+		<div align="center" class="">
+			<h2><b>{{list.header_first_label}}</b></h2>
+			<h3>{{list.header_second_label}}</h3>
+			<a href="#">Sign Up</a>
+			<div class="home-hero-page-left-text">
+					<span>
+						<a href="sign-up" class="signup">
+							<em>SIGN UP</em>
+						</a>
+						<p>Driver Or company? The text to display in homepage after user login.</p>
+					</span>
+			</div>
+		</div>
+	</section> -->
+		<div class="banner_second">
+			<div class="home-hero-page-right-text"> <span>
+					<p>
+						{{list.home_yellow_one}}
+					</p>
+					<a style="border: 1px solid #fff;" routerLink="ridersignin" class="signup-btn" *ngIf="!hideBu"><em>
+							SIGN IN </em></a>
+					<a href={{list.rider_link_Android}} *ngIf="list.rider_link_Android !== '#' && hideBu"
+						target="_blank"><img src="assets/images/google-play-img.png"></a>
+				</span>
+			</div>
+		</div>
+				<section class="tap_ride col-xs-12">
+					<div class="container no_pad">
+						<h1 class="text-center col-xs-12">{{list.home_second_title}}</h1>
+						<div align="center" class="col-md-4 col-sm-4 col-xs-12">
+							<img src="assets/images/image_1.png">
+							<h4>{{list.third_mid_title_one}}</h4>
+							<div [innerHTML]="list.third_mid_desc_one"></div>
+						</div>
+						<div align="center" class="col-md-4 col-sm-4 col-xs-12">
+							<img src="assets/images/image_2.png">
+							<h4>{{list.third_mid_title_two}}</h4>
+							<div [innerHTML]="list.third_mid_desc_two"></div>
+						</div>
+						<div align="center" class="col-md-4 col-sm-4 col-xs-12">
+							<img src="assets/images/image_3.png">
+							<h4>{{list.third_mid_title_three}}</h4>
+							<div [innerHTML]="list.third_mid_desc_three"></div>
+						</div>
+					</div>
+				</section>
+
+				<!-- <section class="mobile_app_left_img">
+						<div align="center" class="col-md-4 col-sm-12 col-xs-12 gray_bg" [ngStyle]="{'background-image': 'url(' + baseurl + list.mobile_app_left_img + ')'}">
+							 <img src="{{baseurl}}{{list.mobile_app_left_img}}"> -->
+				<!-- </div>
+						<div class="col-md-8 col-sm-12 col-xs-12 prefect_ride">
+							<div>
+								<h1>{{list.mobile_app_right_title}}</h1>
+								<div [innerHTML]="list.mobile_app_right_desc"></div>
+								<a class="mor_info" href="">MORE INFO</a>
+							</div>
+						</div>
+					</section>  -->
+				<section class="col-xs-12 col-sm-12 col-md-12 driver_section" *ngIf="showVehicleOffers">
+					<div class="driver_section_container">
+						<h1 class="setTextBold">WHAT</h1>
+						<h3 class="setTextBold">WE OFFER!</h3>
+						<br>
+						<owl-carousel-o [options]="customOptions">
+							<ng-container *ngFor="let slide of listVehiclesDynamically">
+								<ng-template carouselSlide [id]="slide._id">
+									<div class="gallery-page">
+										<div class="col-md-12">
+											<div class="box_images" style="">
+												<br>
+												<img *ngIf="slide.fileForWeb !== undefined" width="232" height="162"
+													src="{{baseurl}}{{slide.fileForWeb}}">
+												<img *ngIf="slide.fileForWeb === undefined" width="232" height="162" src="{{baseurl}}{{slide.file}}">
+												<h3 class="setBoldImg"> <b>{{slide.name}} </b></h3>
+												<p style="margin-bottom:5px;color:black;" [innerHTML]=slide.description> </p>
+												<h4 class="priceTag" style="color: black;"> <b> {{slide.priceTag}}
+													</b> </h4>
+											</div>
+										</div>
+									</div>
+								</ng-template>
+							</ng-container>
+						</owl-carousel-o>
+					</div>
+				</section>
+		<app-fare-estimation-page></app-fare-estimation-page>
+
+
+
+		<section class="home-mobile-app">
+			<div class="home-mobile-app-inner">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<img src="{{baseurl}}{{list.mobile_app_left_img}}">
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="home-mobile-app-right">
+						<h1>{{list.mobile_app_right_title}}</h1>
+						<div [innerHTML]="list.mobile_app_right_desc"></div>
+
+						<p><span><a [routerLink]="list.mobile_app_moreinfo"><em>MORE INFO</em></a></span></p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- <section class="get_estimate col-xs-12">
+			<div class="no_pad row">
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<div class="margin_div">
+						<label class="lable1">Get a Fare Estimation</label>
+						<div class="position_rel">
+							<img src="assets/images/pin_1.png">
+							<input places-auto-complete type="text" placeholder="Enter PickUp Location"
+								(place_changed)="placeChangedP($event);" [types]="['geocode']" [(ngModel)]="list1.pick"
+								#pick="ngModel" name="pick" />
+						</div>
+						<br>
+						<div class="position_rel destination">
+							<img src="assets/images/pin_2.png">
+							<input places-auto-complete type="text" (place_changed)="placeChangedD($event)"
+								[types]="['geocode']" [(ngModel)]="list1.drop" #drop="ngModel" name="drop"
+								placeholder="Enter Destination Location" />
+							<button (click)="getFareEstimation(list1)"><i class="fa fa-long-arrow-right"></i></button>
+						</div>
+						<br>
+						<div class="position_rel" *ngIf="showVehicle==true">
+							<select class="form-control" name="serviceTypeId" (change)="SetVehicleType($event,list1)"
+								required placeholder="Vehicle Type" [(ngModel)]="list1.serviceTypeId"
+								#serviceTypeId="ngModel">
+								<option [value]="undefined" selected hidden> Select a Vehicle Type</option>
+								<option *ngFor="let vehicle of vehicleAry" [value]="vehicle._id">
+									{{vehicle.type}}
+								</option>
+							</select>
+							<div class="col-md-12 col-sm-12" *ngIf="showBasic==true">
+								<br>
+								<div class="position_rel destination">
+									<img [src]=icon width="50" height="50">
+								</div>
+								<br>
+								<label class="form-control-label"><b>Fare Estimation</b></label>
+								<hr>
+								<div class="row col-md-12" *ngIf="!ToggleFare">
+									<table style="width:100%">
+										<tr>
+											<td>Total Distance:</td>
+											<td>({{distanceList.distanceLable}})</td>
+										</tr>
+										&nbsp;
+										<tr>
+											<td>Distance Fare:</td>
+											<td>{{NewList.KMFare}} {{NewList.currency}}</td>
+										</tr>
+										&nbsp;
+										<tr>
+											<td>Total Fare:</td>
+											<td *ngIf="!showSecondCurrency">{{NewList.totalFare}} {{NewList.currency}}
+											</td>
+											<td *ngIf="showSecondCurrency">{{NewList.totalFare}} {{NewList.currency}}
+												&nbsp; &nbsp;
+												({{NewList.inSecondaryCur}}
+												{{secondCurrecny}})</td>
+										</tr>
+									</table>
+								</div>
+								<div class="row col-md-12" *ngIf="ToggleFare">
+									<span style="color:red">{{showError}}</span>
+								</div>
+								<br />
+								<br />
+								<br />
+								<br />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<ngui-map [center]=center [zoom]=zlevel style="height:600px;" scrollwheel="true">
+						<marker *ngFor="let pos of positions" [id]="seticon.url" [position]="pos" draggable="true"
+							(dragend)="getDrag($event)" [icon]="seticon">
+						</marker>
+						<directions-renderer [suppressMarkers]="true" [draggable]="false"
+							(directions_changed)="directionsChanged()" [directions-request]="direction">
+						</directions-renderer>
+					</ngui-map>
+				</div>
+			</div>
+		</section> -->
+		<section class=" taxi-app-section  col-xs-12 col-sm-12 col-md-12 no_pad">
+			<div class="col-xs-12 col-sm-6 col-md-6" style="top: 20px;">
+				<img src="{{baseurl}}{{list.taxi_app_bg_img}}">
+			</div>
+			<div class="taxi_mg_section col-xs-12 col-sm-5 col-md-5 pull-right ">
+				<div class="taxi-app-right-part">
+					<h1>{{list.taxi_app_right_title}}</h1>
+					<div [innerHTML]="list.taxi_app_right_desc"></div>
+					<p><span><a [routerLink]="list.taxi_app_moreinfo" class="about-us-more-info"><em>MORE
+									INFO</em></a></span></p>
+				</div>
+			</div>
+		</section>
+
+		<section class="col-xs-12 col-sm-12 col-md-12 driver_section">
+			<div class="driver_section_container">
+				<h1 class="text-center">{{list.driver_sec_first_label}}</h1>
+				<h4 class="text-center" style="color: black">
+					<!-- Our driving family welcomes you on board with a smile. Just look out for them! -->
+					Our Famous Tourist Packages
+				</h4>
+				<div class="gallery-page">
+					<div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let driver of ourDriverAry">
+						<div class="box_images">
+							<img width="290" height="270" src="{{baseurl}}{{driver.image}}">
+							<span class="caption full-caption" [innerHTML]="driver.name+driver.desc">
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

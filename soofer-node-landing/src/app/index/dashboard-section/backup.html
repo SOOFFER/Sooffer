@@ -1,0 +1,424 @@
+<ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-clip-rotate-multiple">
+</ngx-spinner>
+
+<div class="main-container">
+  <div class="sub-main-div">
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'tripBookingScreen'">
+      <ul class="nav nav-tabs nav_booking_tabs">
+        <li class="active col-xs-12 col-sm-4 text-center"><a data-toggle="tab" href="#home">Daily Ride</a></li>
+        <li class="col-xs-12 col-sm-4 text-center"><a data-toggle="tab" href="#menu1">Outstation</a></li>
+        <li class="col-xs-12 col-sm-4 text-center"><a data-toggle="tab" href="#menu2">Rentals</a></li>
+      </ul>
+      <div id="home" class="tab-pane fade in active">
+        <div class="driver_section_container">
+          <h3 class="text-center"> Get a Fare Estimation</h3>
+          <br>
+          <form #dataForm="ngForm">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Pickup Location</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_1.png">
+                  </div>
+                  <input places-auto-complete (keyup)="hideVehicle($event)" [disabled]="hideBook" required type="text"
+                    class="form-control" placeholder="Enter Pickup Location" [types]="['geocode']"
+                    (place_changed)="placeChangedP($event);" [(ngModel)]="list1.pick" #pick="ngModel" name="pick" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Drop Location</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <img class="input-img" src="assets/images/pin_2.png">
+                  </div>
+                  <input places-auto-complete (keyup)="hideVehicle($event)" required [disabled]="hideBook"
+                    (place_changed)="placeChangedD($event)" type="text" class="form-control"
+                    placeholder="Enter Drop Location" [types]="['geocode']" [(ngModel)]="list1.drop" #drop="ngModel"
+                    name="drop" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary available_veh"
+                  [disabled]="!list1.pick || !list1.drop || hideBook" (click)="getFareEstimation(list1)">Get Available
+                  Vehicles</button>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">Select Vehicle</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="serviceTypeId" (change)="SetVehicleType($event,list1)"
+                  [disabled]="hideBook" required placeholder="Vehicle Type" [(ngModel)]="list1.serviceTypeId"
+                  #serviceTypeId="ngModel">
+                  <option value="undefined" hidden selected>Choose Vehicle</option>
+                  <option *ngFor="let vehicle of vehicleAry" [value]="vehicle._id">
+                    {{vehicle.type}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="showVehicle">
+              <label class="col-sm-2 col-form-label">Booking Type</label>
+              <div class="col-sm-10">
+                <select class="form-control" name="bookingType" required [disabled]="hideBook"
+                  placeholder="Vehicle Type" [(ngModel)]="list1.bookingType" #bookingType="ngModel">
+                  <option value="undefined" hidden selected>Choose Booking Type</option>
+                  <option *ngFor="let bt of bookingTypes" [value]="bt.value">
+                    {{bt.label}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="list1.bookingType === 'rideLater'">
+              <label class="col-sm-2 col-form-label">Select Trip Date and Time</label>
+              <div class="col-sm-10">
+                <input class="form-control" [min]="min" required [disabled]="hideBook"
+                  placeholder="Click to Select Trip Date and Time" [(ngModel)]="list1.tripTime" name="tripTime"
+                  #tripTime="ngModel" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
+                <owl-date-time #dt1></owl-date-time>
+              </div>
+            </div>
+
+            <div *ngIf="showFareBook">
+              <div class="form-group">
+                <div class="col-md-12 col-sm-12" style="text-align:center" *ngIf="showBasic==true">
+                  <div class="position_rel destination">
+                    <img [src]=icon width="50" height="50">
+                  </div>
+                  <br>
+                  <label class="form-control-label"><b>Fare Estimation</b></label>
+                  <hr>
+                  <div class="row col-md-12" *ngIf="!ToggleFare">
+                    <table class="mrg-tab" style="width:100%; margin-left: 50px;">
+                      <tr>
+                        <td>Total Distance:</td>
+                        <td>({{distanceList.distanceLable}})</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>Distance Fare:</td>
+                        <td>{{NewList.KMFare}} {{NewList.currency}} ({{NewList.fareType}})</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>Estimated Time:</td>
+                        <td>{{distanceList.timeLable}}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>Time Fare ({{NewList.travelRate}} {{NewList.currency}}/Min):</td>
+                        <td>{{NewList.travelFare}} {{NewList.currency}}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>Pickup Charge:</td>
+                        <td>{{NewList.pickupCharge}} {{NewList.currency}}</td>
+                      </tr>
+                      &nbsp;
+                      <tr>
+                        <td>Tax Amount:</td>
+                        <td>{{NewList.tax}} {{NewList.currency}}</td>
+                      </tr>
+                      &nbsp;
+
+                      <tr>
+                        <td>Total Fare:</td>
+                        <td *ngIf="!showSecondCurrency">{{NewList.totalFare}} {{NewList.currency}}
+                        </td>
+                        <td *ngIf="showSecondCurrency">{{NewList.totalFare}} {{NewList.currency}}
+                          &nbsp; &nbsp;
+                          ({{NewList.inSecondaryCur}}
+                          {{secondCurrecny}})</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="row col-md-12" *ngIf="ToggleFare">
+                    <span style="color:red">{{showError}}</span>
+                  </div>
+                </div>
+              </div>
+              <br>
+              &nbsp;
+              <br> &nbsp;
+              <br> &nbsp;
+              <div class="form-group row">
+                <div class="col-sm-12 text-center">
+                  <button type="submit" class="btn btn-danger top-btn" [disabled]="!dataForm.form.valid || hideBook"
+                    (click)="bookTrip(list1)" *ngIf="showBasic && !ToggleFare">BOOK
+                    NOW</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="driverNotAvailable">
+              <div class="driver_section_container">
+                <mat-card style="margin-left: 50px;
+              margin-right: 50px;
+              margin-top: 75px;">
+                  <h4 class="text-center">
+                    Trip Booked Successfully
+                  </h4>
+                  <hr>
+                  <div class="form-group row">
+                    <label class="col-sm-12 input-group mrg">
+                      <h5 class="text-center">Trip Status: &nbsp; <span style="color: red"> {{riderTrip.tripstatus}}
+                        </span></h5>
+                    </label>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" class="btn btn-danger" (click)="clearAllData()">Reset</button>
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+
+
+
+          </form>
+          <br>
+        </div>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <h2>Why book with us?</h2>
+        <ul>
+          <li>Lowest AC cab fares starting from ₹8/mile</li>
+          <li>Regularly-audited cars</li>
+          <li>24x7 support and on-road assistance</li>
+          <li>Real-time tracking for your family and SOS support</li>
+        </ul>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h2>Why book with us?</h2>
+        <ul>
+          <li>Cover multiple destinations with just 1 booking</li>
+          <li>Choose from a range of options starting from 1 hour</li>
+          <li>Affordable AC cabs with dedicated driver partners</li>
+          <li>Choice of immediate pickups or advance bookings</li>
+        </ul>
+      </div>
+    </section>
+
+
+
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'trackingScreen'">
+      <div class="driver_section_container">
+        <mat-card>
+          <h4 class="text-center"> Trip ID: {{riderTrip.current_tripid}} | OTP: {{overallBooked.startOTP }}</h4>
+        </mat-card>
+        <br>
+        <mat-card>
+          <h5 class="text-center"> <b> Trip Status: {{riderTrip.tripstatus}} </b> </h5>
+        </mat-card>
+        <br>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Pickup: </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{bookedLocationDetails.start}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Drop: </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{bookedLocationDetails.end}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Vehicle: </label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <span> {{bookedTaxiDetails.taxiDet}}</span>
+              </div>
+            </div>
+            <img class="col-sm-2 img" src="{{temp}}{{bookedTaxiDetails.image}}">
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Driver: </label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <span>{{bookedDriverDetails.drivDet}}</span>
+              </div>
+            </div>
+            <img class="col-sm-2 img" src="{{bookedDriverDetails.profileurl}}">
+          </div>
+        </mat-card>
+        <br>
+        <br>
+      </div>
+    </section>
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section" *ngIf="initial === 'completedTripScreen'">
+      <div class="driver_section_container">
+        <mat-card>
+          <h4 class="text-center"> <b> Trip Status: {{riderTrip.tripstatus}} </b> </h4>
+        </mat-card>
+        <br>
+
+        <mat-card>
+          <h4 class="text-center"> <b> Total Fare: {{tripfinalDet.total_fare}} </b> </h4>
+          <hr>
+          <div class="form-group row">
+            <label class="col-sm-6">Bill Date: &nbsp; {{tripfinalDet.datetime}}</label>
+            <label class="col-sm-6">Discount Applied: &nbsp; {{tripfinalDet.discount}}</label>
+          </div>
+        </mat-card>
+
+        <br>
+
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Pickup: </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{tripfinalDet.pickup_address}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+        <mat-card>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Drop: </label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span> {{tripfinalDet.Drop_address}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+
+        <br>
+
+        <mat-card>
+
+          <div class="row show-grid">
+
+            <table style="width:100%; margin-left: 20px;">
+              <tr>
+                <td>Distance:</td>
+                <td>{{tripfinalDet.distance}} {{defaultUnit}}</td>
+              </tr>
+              &nbsp;
+              <tr>
+                <td>Time:</td>
+                <td>{{tripfinalDet.time}} {{deafultTime}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Base Fare:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.basefare}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Waiting Time:</td>
+                <td>{{tripfinalDet.waitingTime}} {{deafultTime}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Time Fare:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.time_fare}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Waiting Fare:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.waiting_fare}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Pickup Fee:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.convance_fare}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Distance Fare:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.distance_fare}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Access Fee:</td>
+                <td>{{defaultCurr}} {{tripfinalDet.tax}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Discount: ({{tripfinalDet.discountName}} - {{tripfinalDet.discountPercentage}}%)</td>
+                <td>{{defaultCurr}} {{tripfinalDet.discount}}</td>
+              </tr>
+              &nbsp;
+
+              <tr>
+                <td>Payment Method:</td>
+                <td>{{tripfinalDet.pay_type | titlecase }}</td>
+              </tr>
+              &nbsp;
+            </table>
+          </div>
+        </mat-card>
+        <br>
+      </div>
+
+      <mat-card>
+
+        <form #feedback="ngForm">
+
+          <h5 class="text-center"> <b> How Was Your Ride ? </b> </h5>
+          <ngx-input-star-rating class="text-center" style="display: inherit;" name="rating"
+            [(ngModel)]="feedBackDetails.rating" #rating="ngModel">
+          </ngx-input-star-rating>
+          <br>
+          <textarea rows=3 cols=150 maxlength=300 style="resize: none;" required placeholder="Enter Your Comments"
+            name="comments" #comments="ngModel" [(ngModel)]="feedBackDetails.comments" class="form-control">
+                </textarea>
+          <br>
+          <br>
+
+        </form>
+        <button type="submit" (click)="sendFeedback(feedBackDetails)" class="btn btn-danger btn-block">Submit</button>
+
+      </mat-card>
+      <br>
+    </section>
+
+    <section class="col-xs-12 col-sm-6 col-md-6 driver_section">
+      <ngui-map [center]=center [zoom]=zlevel style="height:725px;" scrollwheel="true">
+        <marker *ngFor="let pos of positions" [id]="seticon.url" [position]="pos" draggable="false"
+          (dragend)="getDrag($event)" [icon]="seticon">
+        </marker>
+        <directions-renderer [suppressMarkers]="true" [draggable]="false" (directions_changed)="directionsChanged()"
+          [directions-request]="direction">
+        </directions-renderer>
+      </ngui-map>
+      <br>
+    </section>
+
+  </div>
+</div>

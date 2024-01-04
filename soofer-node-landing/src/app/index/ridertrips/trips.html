@@ -1,0 +1,782 @@
+<!-- <div *ngIf="initial=='list'; then lists; else  detail"></div> -->
+<!-- <div *ngIf="initial === list; then lists; initial === detail; then detail else docs"></div> -->
+<!-- <ng-template [ngIf]="index == 1"> -->
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <section>
+        <div class="my-profile mrgn-t-50 pading-btm">
+          <div>
+            <h3>{{'COMMON.MYTRIP' | translate}}</h3>
+          </div>
+          <div *ngIf="tabShow"
+            class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12">
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="tripno">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'FARE.TRIPNO' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.tripno}}</td>
+                </ng-container>
+                <ng-container matColumnDef="triptype">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'TRIP.TRIPTYPE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.triptype}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="dvr">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'DASHBOARD.DRIVER' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.dvr}}</td>
+                </ng-container>
+                <ng-container matColumnDef="cpy">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'COMMON.COMPANY' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.cpy}}</td>
+                </ng-container>
+                <!-- Weight Column -->
+                <ng-container matColumnDef="rid">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'FARE.RIDER' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.rid}}</td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'TRIP.TRIPDATE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.date}}</td>
+                </ng-container>
+                <ng-container matColumnDef="fare">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'TRIP.FARE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.fare}}</td>
+                </ng-container>
+                <ng-container matColumnDef="taxi">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'DASHBOARD.VEHICLE' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{element.vehicle}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'TRIP.STATUS' | translate}}
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{'TRIP.ACTION' | translate}}
+                  </th>
+                  <!-- <td mat-cell *matCellDef="let element"> <button mat-raised-button >Edit</button> </td> -->
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-button class="invoice-button" (click)="goToInvoice(element)">
+                      <!-- <mat-icon>invoice</mat-icon> -->
+                      {{'PROFILE.VIEW' | translate}}
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="0" [pageSize]="5"
+                showFirstLastButtons></mat-paginator>
+            </div>
+            <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                                </ng-container>
+
+
+                                 Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <!-- <ng-container matColumnDef="expandedDetail">
+                                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+
+                                                </div>
+                                        </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                                <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = element">
+                                </tr>
+                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+            <!-- </table> -->
+          </div>
+        </div>
+        <!--end-->
+        <!--start of edit -->
+      </section>
+
+      <section *ngIf="triptypes === 'daily'">
+        <div *ngIf="show">
+          <div class="my-profile mrgn-t-50 pading-btm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label class="form-control-label">{{'TRIP.YOURTRIPON' | translate}}: {{tripdetails.date}}
+                  &nbsp; | &nbsp; {{'TRIP.TRIPTYPE' | translate}} :
+                  {{tripdetails.triptype | titlecase}}
+                </label>
+
+                <!-- <div class="tripmap" style="height: 300px;">
+
+                                <ngui-map zoom="13"  mapTypeId="terrain" scrollwheel="false">
+                                        <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'" [strokeOpacity]="1" [strokeWeight]="2"></polyline>
+                                </ngui-map>
+
+                        </div> -->
+                &nbsp;
+                <br />
+                <div class="form-group">
+                  <h4><b>{{'TRIP.TRIPLOCATION' | translate}} </b></h4>
+                </div>
+                <div class="form-group">
+                  <b>{{'TRIP.PICKUPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.startTime}}</b>
+                  <p>{{tripdspdetails.from}}</p>
+                  <b>{{'TRIP.DROPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.endTime}}
+                  </b>
+                  <p>{{tripdspdetails.to}}</p>
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row show-grid">
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'TRIP.SELECTEDVEHICLE' | translate}}
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripdetails.vehicle}}</b></p>
+                      </div>
+                    </div>
+
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'DASHBOARD.TOTALDISTANEC' | translate}}
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.dist}} {{defaultUnit}}</b></p>
+                      </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                      <div align="center">{{'TRIP.TRIPTIME' | translate}}</div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.time}} {{defaultTime}}</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                  <hr />
+                </div>
+                <!-- <div class="form-group">
+                                <div class="row show-grid">
+                                        <div class="col-6 col-md-6">
+                                                <img alt="img" class="user-picture image" height="42" width="42" src="assets/images/driver.png">
+                                                <div align="center">Driver</div>
+                                                <div align="center">
+                                                        <p><b>{{tripdetails.dvr}}</b></p>
+                                                </div>
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                                <img _ngcontent-c3="" alt="img" class="user-picture image" height="42" src="assets/images/rider.png" width="42">
+                                                <div align="center">Rider</div>
+                                                <div align="center">
+                                                        <p><b>{{tripdetails.rid}}</b></p>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div> -->
+              </div>
+
+              <div class="col-md-6 col-sm-12">
+                <br />
+                <b><label class="form-control-label">{{'TRIP.FAREBREAKDOWN' | translate}} :
+                    {{tripdetails.tripno}}
+                  </label>
+                </b>
+                <hr />
+
+                <div class="show-grid">
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{'TRIP.ACTUALCOST' | translate}}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.actualcost}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                <div class="col-md-4 col-xs-6">
+                                        <div>Base Fare</div>
+                                </div>
+                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                        <div>{{defaultCur}} {{tripcspdetails.base}}</div>
+                                                
+                                </div>
+                        </div> -->
+
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{'DASHBOARD.DISTANCEFARE' | translate}} ({{defaultCur}}
+                        {{tripcspdetails.perKmRate}}/mile)
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.distfare}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                <div class="col-md-4 col-xs-6">
+                                        <div>Time Fare ({{tripcspdetails.time}} {{defaultTime}})</div>
+                                </div>
+                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                        <div>{{defaultCur}} {{tripcspdetails.timefare}}</div>
+                                </div>
+                        </div> -->
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{'TRIP.WATINGCHARGE' | translate}} ({{defaultCur}}
+                        {{tripcspdetails.waitingRate}}/{{defaultTime}})
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.waitingCharge}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{'DASHBOARD.DISCOUNT' | translate}}
+                        ({{tripcspdetails.discountName}}
+                        {{tripcspdetails.discountPercentage}}%)
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.detect}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                        <div class="col-md-4 col-xs-6">
+                                                                <div>Tax ({{tripcspdetails.taxPercentage}}%)</div>
+                                                        </div>
+                                                        <div class="col-md-4 col-xs-6 offset-md-4">
+                                                                <div>{{tripcspdetails.tax}}</div>
+                                                        </div>
+                                                </div> -->
+                  <!-- <div class='row'>
+                                <div class="col-md-4">
+                                        <div>Commision</div>
+                                </div>
+                                <div class="col-md-4 offset-md-4">
+                                        <div> - {{tripcspdetails.comison}}</div>
+                                </div>
+                        </div> -->
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                    <div>
+                      <b>{{'DASHBOARD.TOTALFARE' | translate}} (Via
+                        {{tripcspdetails.via}})</b>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-6 offset-md-4">
+                    <div><b>{{defaultCur}} {{tripcspdetails.cost}}</b></div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-left: 20px; padding-top: 20px">
+                <button (click)="goBack()" type="button" class="btn btn-danger">
+                  {{'COMMON.GOBACK' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="triptypes === 'rental'">
+        <div *ngIf="show">
+          <div class="my-profile mrgn-t-50 pading-btm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label class="form-control-label">{{'TRIP.YOURTRIPON' | translate}}: {{tripdetails.date}}
+                  &nbsp; | &nbsp; Trip {{'TRIP.TYPE' | translate}} :
+                  {{tripdetails.triptype | titlecase}}
+                </label>
+
+                <!-- <div class="tripmap" style="height: 300px;">
+                
+                                                <ngui-map zoom="13"  mapTypeId="terrain" scrollwheel="false">
+                                                        <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'" [strokeOpacity]="1" [strokeWeight]="2"></polyline>
+                                                </ngui-map>
+                
+                                        </div> -->
+                &nbsp;
+                <br />
+                <div class="form-group">
+                  <h4><b>{{'TRIP.TRIPLOCATION' | translate}} </b></h4>
+                </div>
+                <div class="form-group">
+                  <b>{{'TRIP.PICKUPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.startTime}}</b>
+                  <p>{{tripdspdetails.from}}</p>
+                  <b>{{'TRIP.DROPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.endTime}}
+                  </b>
+                  <p>{{tripdspdetails.to}}</p>
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row show-grid">
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'DASHBOARD.VEHICLE' | translate}}
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripdetails.vehicle}}</b></p>
+                      </div>
+                    </div>
+
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'DASHBOARD.DISTANCE' | translate}}:
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.dist}} {{defaultUnit}}</b></p>
+                      </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                      <div align="center">{{'TRIP.TRIPTIME' | translate}}</div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.time}}</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                  <hr />
+                </div>
+                <!-- <div class="form-group">
+                                                <div class="row show-grid">
+                                                        <div class="col-6 col-md-6">
+                                                                <img alt="img" class="user-picture image" height="42" width="42" src="assets/images/driver.png">
+                                                                <div align="center">Driver</div>
+                                                                <div align="center">
+                                                                        <p><b>{{tripdetails.dvr}}</b></p>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                                <img _ngcontent-c3="" alt="img" class="user-picture image" height="42" src="assets/images/rider.png" width="42">
+                                                                <div align="center">Rider</div>
+                                                                <div align="center">
+                                                                        <p><b>{{tripdetails.rid}}</b></p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div> -->
+              </div>
+
+              <div class="col-md-6 col-sm-12">
+                <br />
+                <b><label class="form-control-label">{{'TRIP.FAREBREAKDOWN' | translate}} :
+                    {{tripdetails.tripno}}
+                  </label>
+                </b>
+                <hr />
+
+                <div class="show-grid">
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.BASEPACKAGE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{tripcspdetails.packageName}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.PACKAGEKMFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.distfare}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                <div class="col-md-4 col-xs-6">
+                                                        <div>Base Fare</div>
+                                                </div>
+                                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                                        <div>{{defaultCur}} {{tripcspdetails.base}}</div>
+                                                                
+                                                </div>
+                                        </div> -->
+
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{ "TRIP.FAREFORREMAININGKM" | translate }}
+                        <p>({{defaultCur}} {{tripcspdetails.perKmRate}}/mile)</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>
+                        {{defaultCur}} {{tripcspdetails.fareForExtraKM}}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                <div class="col-md-4 col-xs-6">
+                                                        <div>Time Fare ({{tripcspdetails.time}} {{defaultTime}})</div>
+                                                </div>
+                                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                                        <div>{{defaultCur}} {{tripcspdetails.timefare}}</div>
+                                                </div>
+                                        </div> -->
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{ "TRIP.REMAININGTIMEFARE" | translate }}
+                        <p>({{defaultCur}} {{tripcspdetails.timefare}}/Hrs)</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>
+                        {{defaultCur}} {{tripcspdetails.fareForExtraTime}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="tripcspdetails.conveyance !== '0.00'">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.PICKUPFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.conveyance}}</div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="tripcspdetails.hillFare !== '0.00'">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.HILLFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.hillFare}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{ "DASHBOARD.DISCOUNT" | translate }}
+                        ({{tripcspdetails.discountName}}
+                        {{tripcspdetails.discountPercentage}}%)
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.detect}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                                        <div class="col-md-4 col-xs-6">
+                                                                                <div>Tax ({{tripcspdetails.taxPercentage}}%)</div>
+                                                                        </div>
+                                                                        <div class="col-md-4 col-xs-6 offset-md-4">
+                                                                                <div>{{tripcspdetails.tax}}</div>
+                                                                        </div>
+                                                                </div> -->
+                  <!-- <div class='row'>
+                                                <div class="col-md-4">
+                                                        <div>Commision</div>
+                                                </div>
+                                                <div class="col-md-4 offset-md-4">
+                                                        <div> - {{tripcspdetails.comison}}</div>
+                                                </div>
+                                        </div> -->
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                    <div>
+                      <b>{{'DASHBOARD.TOTALFARE' | translate}} (Via
+                        {{tripcspdetails.via}})</b>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-6 offset-md-4">
+                    <div><b>{{defaultCur}} {{tripcspdetails.cost}}</b></div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-left: 20px; padding-top: 20px">
+                <button (click)="goBack()" type="button" class="btn btn-danger">
+                  {{'COMMON.GOBACK' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="triptypes === 'outstation'">
+        <div *ngIf="show">
+          <div class="my-profile mrgn-t-50 pading-btm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label class="form-control-label">{{'TRIP.YOURTRIPON' | translate}}: {{tripdetails.date}}
+                  &nbsp; | &nbsp; {{'TRIP.TRIPTYPE' | translate}} :
+                  {{tripdetails.triptype | titlecase}}
+                </label>
+
+                <!-- <div class="tripmap" style="height: 300px;">
+                                
+                                                                <ngui-map zoom="13"  mapTypeId="terrain" scrollwheel="false">
+                                                                        <polyline [editable]="false" [path]="path" [geodesic]="true" [strokeColor]="'#FF0000'" [strokeOpacity]="1" [strokeWeight]="2"></polyline>
+                                                                </ngui-map>
+                                
+                                                        </div> -->
+                &nbsp;
+                <br />
+                <div class="form-group">
+                  <h4><b>{{'TRIP.TRIPLOCATION' | translate}} </b></h4>
+                </div>
+                <div class="form-group">
+                  <b>{{'TRIP.PICKUPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.startTime}}</b>
+                  <p>{{tripdspdetails.from}}</p>
+                  <b>{{'TRIP.DROPPLACEANDTIME' | translate}}:
+                    {{tripcspdetails.endTime}}
+                  </b>
+                  <p>{{tripdspdetails.to}}</p>
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row show-grid">
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'DASHBOARD.VEHICLE' | translate}}:
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripdetails.vehicle}}</b></p>
+                      </div>
+                    </div>
+
+                    <div class="col-4 col-md-4">
+                      <div align="center">
+                        {{'DASHBOARD.DISTANCE' | translate}}:
+                      </div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.dist}} {{defaultUnit}}</b></p>
+                      </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                      <div align="center">{{'TRIP.TRIPTIME' | translate}}</div>
+                      <div align="center">
+                        <p><b>{{tripcspdetails.time}}</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                  <hr />
+                </div>
+                <!-- <div class="form-group">
+                                                                <div class="row show-grid">
+                                                                        <div class="col-6 col-md-6">
+                                                                                <img alt="img" class="user-picture image" height="42" width="42" src="assets/images/driver.png">
+                                                                                <div align="center">Driver</div>
+                                                                                <div align="center">
+                                                                                        <p><b>{{tripdetails.dvr}}</b></p>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="col-6 col-md-6">
+                                                                                <img _ngcontent-c3="" alt="img" class="user-picture image" height="42" src="assets/images/rider.png" width="42">
+                                                                                <div align="center">Rider</div>
+                                                                                <div align="center">
+                                                                                        <p><b>{{tripdetails.rid}}</b></p>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        </div> -->
+              </div>
+
+              <div class="col-md-6 col-sm-12">
+                <br />
+                <b><label class="form-control-label">{{'TRIP.FAREBREAKDOWN' | translate}} :
+                    {{tripdetails.tripno}}
+                  </label>
+                </b>
+                <hr />
+
+                <div class="show-grid">
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.BASEPACKAGE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{tripcspdetails.packageName}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.PACKAGEKMFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.distfare}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                                <div class="col-md-4 col-xs-6">
+                                                                        <div>Base Fare</div>
+                                                                </div>
+                                                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                                                        <div>{{defaultCur}} {{tripcspdetails.base}}</div>
+                                                                                
+                                                                </div>
+                                                        </div> -->
+
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{ "TRIP.FAREFORREMAININGKM" | translate }}
+                        <p>({{defaultCur}} {{tripcspdetails.perKmRate}}/mile)</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>
+                        {{defaultCur}} {{tripcspdetails.fareForExtraKM}}
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                                <div class="col-md-4 col-xs-6">
+                                                                        <div>Time Fare ({{tripcspdetails.time}} {{defaultTime}})</div>
+                                                                </div>
+                                                                <div class="col-md-4 col-xs-6 offset-md-4">
+                                                                        <div>{{defaultCur}} {{tripcspdetails.timefare}}</div>
+                                                                </div>
+                                                        </div> -->
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{ "TRIP.REMAININGTIMEFARE" | translate }}
+                        <p>({{defaultCur}} {{tripcspdetails.timefare}}/Hrs)</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>
+                        {{defaultCur}} {{tripcspdetails.fareForExtraTime}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="tripcspdetails.conveyance !== '0.00'">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.PICKUPFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.conveyance}}</div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="tripcspdetails.hillFare !== '0.00'">
+                    <div class="col-md-4 col-xs-6">
+                      <div>{{ "TRIP.HILLFARE" | translate }}</div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.hillFare}}</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                      <div>
+                        {{'DASHBOARD.DISCOUNT' | translate}}
+                        ({{tripcspdetails.discountName}}
+                        {{tripcspdetails.discountPercentage}}%)
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 offset-md-4">
+                      <div>{{defaultCur}} {{tripcspdetails.detect}}</div>
+                    </div>
+                  </div>
+                  <!-- <div class='row'>
+                                                                                        <div class="col-md-4 col-xs-6">
+                                                                                                <div>Tax ({{tripcspdetails.taxPercentage}}%)</div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4 col-xs-6 offset-md-4">
+                                                                                                <div>{{tripcspdetails.tax}}</div>
+                                                                                        </div>
+                                                                                </div> -->
+                  <!-- <div class='row'>
+                                                                <div class="col-md-4">
+                                                                        <div>Commision</div>
+                                                                </div>
+                                                                <div class="col-md-4 offset-md-4">
+                                                                        <div> - {{tripcspdetails.comison}}</div>
+                                                                </div>
+                                                        </div> -->
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                  <div class="col-md-4 col-xs-6">
+                    <div>
+                      <b>{{ "DASHBOARD.TOTALFARE" | translate }} (Via
+                        {{tripcspdetails.via}})</b>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-6 offset-md-4">
+                    <div><b>{{defaultCur}} {{tripcspdetails.cost}}</b></div>
+                  </div>
+
+                  <div class="col-md-12 col-sm-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-left: 20px; padding-top: 20px">
+                <button (click)="goBack()" type="button" class="btn btn-danger">
+                  {{'COMMON.GOBACK' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    .invoice-button {
+      color: white;
+      background: #d9534f;
+      border-color: #d43f3a;
+    }
+  </style>
+</div>

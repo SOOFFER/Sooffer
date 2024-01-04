@@ -1,0 +1,243 @@
+<div *ngIf="initial; then list else detail"></div>
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      View Hotel Details
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      HOTEL PROFILE : {{selectedUser}}
+    </nb-card-header>
+    <nb-card-body>
+      <form (ngSubmit)="updateRecord(selectedDocs)" #dataForm="ngForm" autocomplete="off">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputFirstName">Hotel Name (<span class="red">*</span>)</label>
+              <input type="text" minlength={{validation.fnameValid.minlength}}
+                maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                [(ngModel)]="selectedDocs.fname" #fname="ngModel" name="fname" required placeholder="Hotel Name"
+                class="form-control" />
+              <small *ngIf="fname.invalid && (fname.dirty)" class="form-text error">
+                Hotel Name is invalid!
+              </small>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputLastName">Owner Name</label>
+              <input type="text" minlength={{validation.lnameValid.minlength}}
+                maxlength={{validation.lnameValid.maxlength}} pattern={{validation.lnameValid.pattern}}
+                [(ngModel)]="selectedDocs.lname" #lname="ngModel" name="lname" placeholder="Owner Name"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputEmail">Email (<span class="red">*</span>)</label>
+              <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="selectedDocs.email"
+                #email="ngModel" name="email" required placeholder="Email" class="form-control" required />
+              <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+                Valid Emailid is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputWebsite">Phone (<span class="red">*</span>)</label>
+              <input type="tel" pattern={{validation.phoneValid.pattern}} minlength={{validation.phoneValid.minlength}}
+                maxlength={{validation.phoneValid.maxlength}} [(ngModel)]="selectedDocs.phone" name="phone"
+                #phone="ngModel" placeholder="Phone" class="form-control" required />
+              <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                Phone is required!
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Address (<span class="red">*</span>) </label>
+            <div class="input-group  ">
+              <ng4geo-autocomplete class="form-control" name="address" [userSettings]="userSettings1"
+                (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+              <div class="form-group">
+                <label>PickUp From </label>
+                <input type="text" [(ngModel)]="selectedDocs.pickFrom" #pickFrom="ngModel" name="pickFrom" required placeholder="PickUp From" class="form-control"/>          
+              </div>
+            </div> -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>PickUp From (<span class="red">*</span>) </label>
+              <!-- <ng4geo-autocomplete  class="form-control"     name="pickFrom"  [userSettings]="userSettings2" (componentCallback)="autoCompleteCallback2($event)"></ng4geo-autocomplete> -->
+              <input type="text" [(ngModel)]="selectedDocs.pickFrom" #pickFrom="ngModel" name="pickFrom" required
+                placeholder="PickUp From" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Commission(%) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="selectedDocs.commission" name="commission" placeholder="Commission(%)"
+                class="form-control" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Logo (<span class="red">*</span>)</label>
+              <!-- <div class="col-md-6">
+                          <div class="form-group"> -->
+              <br> <img [src]=baseurl+selectedDocs.logo width="50" height="50">
+              <!-- </div> -->
+              <!-- </div> -->
+              <!-- <div class="col-md-6">
+                          <div class="form-group"> -->
+              <input type="file" class="form-control" [(ngModel)]="selectedDocs.file" (change)="fileEvent($event)"
+                name="file" #file="ngModel" value="Logo" />
+              <!-- </div>
+                      </div>              -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Code (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="selectedDocs.actCode" name="actCode" placeholder="Account Code"
+                class="form-control" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Number (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="selectedDocs.actNo" name="actNo" placeholder="Account Number"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Country</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.country" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);"
+                required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="selectedDocs.state" [options]="states" [allowClear]="true"
+                (selected)="selectedState($event);" (deselected)="deSelectedState($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="selectedDocs.city" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>ZipCode</label>
+              <input type="text" [(ngModel)]="selectedDocs.zipCode" name="zipCode" placeholder="ZipCode"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Account Holder Name</label>
+              <input type="text" minlength={{validation.fnameValid.minlength}}
+                maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                [(ngModel)]="selectedDocs.actHolder" #actHolder="ngModel" name="actHolder"
+                placeholder="Account Holder Name" class="form-control" />
+              <small *ngIf="actHolder.invalid && (actHolder.dirty)" class="form-text error">
+                Name is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Name of Bank</label>
+              <input type="text" [(ngModel)]="selectedDocs.actBank" name="actBank" placeholder="Name of Bank"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Bank Location</label>
+              <input type="text" [(ngModel)]="selectedDocs.actLoc" name="actLoc" placeholder="Bank Location"
+                class="form-control" />
+            </div>
+          </div>
+
+        </div>
+
+      </form>
+      <br>
+      <button (click)="updateRecord(selectedDocs)" type="submit" class="btn btn-primary">Update</button>
+      &nbsp;&nbsp;
+      <button (click)="deleteRecord(selectedid)" type="submit" class="btn btn-primary">Delete</button>
+
+    </nb-card-body>
+
+  </nb-card>
+
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+
+</ng-template>
+<!-- 
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+  a.ng2-smart-action {
+    position: relative;
+    top: 20px;
+  }
+
+</style> -->

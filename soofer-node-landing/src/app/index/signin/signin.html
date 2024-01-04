@@ -1,0 +1,137 @@
+
+<ngx-spinner
+  bdOpacity="0.9"
+  bdColor="#333"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate-multiple"
+>
+</ngx-spinner>
+<div class="main-container">
+  <div class="sub-main-div">
+    <section>
+      <div class="container">
+        <div class="loginform mt mb">
+          <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="login-tittle" id="logn-tittle">
+              <h2>{{'RIDER.LOGIN' | translate}}</h2>
+              <p>{{'DRIVER.DRIVERLOGIN' | translate}}</p>
+            </div>
+           
+            <div
+              class="col-lg-5 col-sm-5 col-md-5 col-xs-12 mt no_pad formlabel"
+            >
+              <form (ngSubmit)="login(list);clearMsg();" #dataForm="ngForm">
+                <div class="login-form-hide" id="login_box">
+                  <div class="form-group">
+                    <label>{{'FARE.USERNAME' | translate}} </label>
+                    <input
+                      type="text"
+                      placeholder="Enter Email / Phone Number"
+                      required
+                      [(ngModel)]="list.email"
+                      #email="ngModel"
+                      name="email"
+                      class="form-control"
+                    />
+                    <div *ngIf="email.errors && (email.dirty || email.touched)">
+                      <br />
+                      <small>
+                        {{'COMMON.EMAILPHONE' | translate}}
+                        {{'COMMON.ISREQUIRED' | translate}}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>{{'DRIVER.PASSWORD' | translate}}</label>
+                    <input
+                      type="password"
+                      placeholder="Enter Password"
+                      required
+                      [(ngModel)]="list.password"
+                      #password="ngModel"
+                      name="password"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="password.errors && (password.dirty || password.touched)"
+                    >
+                      <br />
+                      <small>
+                        {{'DRIVER.PASSWORD' | translate}}{{'COMMON.ISREQUIRED' |
+                        translate}}</small
+                      >
+                    </div>
+                  </div>
+                  <input
+                    type="submit"
+                    class="loginbutn"
+                    [disabled]="!list.email && !list.password"
+                    value="{{'RIDER.LOGIN' | translate}}"
+                  />
+                  <a
+                    routerLink="../driverforgotpassword"
+                    class="forgotpwd click-show-forget"
+                    >{{'DRIVER.FORGOTPASSWORD' | translate}}?</a
+                  >
+                </div>
+
+                <div class="forget-form" id="forget_box">
+                  <div class="form-group">
+                    <label>{{'TRIP.EMAIL' | translate}}</label>
+                    <input type="text" name="" class="form-control" />
+                  </div>
+                  <input
+                    type="submit"
+                    class="forgetbutn"
+                    value="RECOVER PASSWORD"
+                  />
+                  <a
+                    routerLink="driverforgotpassword"
+                    class="forgotpwd click-show-forget"
+                    >{{'DRIVER.FORGOTPASSWORD' | translate}}?</a
+                  >
+                </div>
+                <!--End forget password  -->
+              </form>
+              <!-- eng login form  -->
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12 mt sociallink">
+              <!-- <h4>Don't have an account?</h4>
+							<a routerLink="../driversignup" class="signup">SIGN UP</a> -->
+              <!-- <h4>Register with one click:</h4>
+				      <a href="#" class="fa fa-facebook"></a>
+				      <a href="#" class="fa fa-twitter"></a>
+				      <a href="#" class="fa fa-google"></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div
+          class="col-lg-10 col-lg-offset-2 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-12 no_pad mb"
+        >
+          <div class="notebox">
+            <b>{{'RIDER.NOTE' | translate}}</b>
+
+            <p>- {{'RIDER.YOUHAVEREGISTERASNEWDRIVER' | translate}}</p>
+            <br />
+            <!-- <p>
+					To view the Standard Features of the Apps use below access detail :
+				</p>
+				<br>
+				<b>Driver</b>
+				<p>Username:example@gmail.com</p>
+				<p>Password:12345</p>
+				<br>
+				<b>Passengers</b>
+				<p>Username:example@gmail.com</p>
+				<p>Password:12345</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

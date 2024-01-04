@@ -1,0 +1,68 @@
+<div class="row">
+
+  <!-- Export Data  -->
+  <div class="col-lg-4 col-md-4 col-sm-6">
+    <div class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+        EXPORT
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let exportType of exportList" (click)="export(exportType.value)">
+          {{ exportType.key }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-6">
+    <div class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success" ngbDropdownToggle style="border: 2px solid #dadfe6;">
+        {{periodtype}}
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+          {{ period }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-6">
+    <input style="padding: 0.5rem 1.5rem;" nbInput fieldSize="small" class="form-control"
+      placeholder="Click to Select a Date" (dateTimeInput)="logDate($event)" [(ngModel)]="list" name="list"
+      [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;
+  </div>
+
+
+
+  <div class="col-lg-7 col-md-7 col-sm-7">
+    <div *ngIf="showCity == true" class="dropdown ghost-dropdown" ngbDropdown>
+      <button type="button" class="btn btn-sm btn-success white-space: pre" ngbDropdownToggle
+        style="border: 2px solid #dadfe6;">
+        {{city}}
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        <li class="dropdown-item" *ngFor="let city of ServiceCity" (click)="changeCity(city.label)">
+          {{city.label}}
+        </li>
+        <li class="dropdown-item" (click)="changeCity('all')">All</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-5 col-md-5 col-sm-5 duration-disp">
+    <!-- <b style="margin-top: 25px;">
+      <span> -->
+    {{duration}}
+
+  </div>
+
+
+
+</div>
+
+
+<!-- <br> -->
+<div echarts [options]="options" class="echart" style="margin-top: 0;height: 80%;"></div>
+<!-- <br> -->

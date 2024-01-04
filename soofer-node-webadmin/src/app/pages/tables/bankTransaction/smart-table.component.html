@@ -1,0 +1,109 @@
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+
+</style>
+
+<div *ngIf="initial; then list else detail"></div>
+
+
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-10">
+            Driver Bank Transaction
+        </div>
+        <div class="col-md-2">
+            <select *ngIf="showCity == true" name="servicecity" [(ngModel)]="list.servicecity" class="form-control" (change)="FilterRes(list.servicecity)">
+              <option value="undefined" selected hidden>Service Availale City</option>
+              <option [value]=city.label *ngFor="let city of ServiceCity">{{city.label}}</option>
+              <option value="all">All</option>
+            </select>
+          </div>
+      </div>
+
+  
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+
+  <nb-card>
+
+    <nb-card-header>
+      Driver Bank Transaction
+    </nb-card-header>
+
+    <nb-card-body>
+      <div class="form-group">
+        <label>Driver Name : {{selectedDocs.userinfo.fname}}</label>
+        <br />
+        <label>Driver Phone : {{selectedDocs.userinfo.phone}}</label>
+      </div>
+
+      <table class="table table-striped">
+        <tr>
+          <th>Transaction Id</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <!-- <th>Type</th> -->
+          <th>Package Name</th>
+          <th>Verified</th>
+          <th>Transaction File</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let Tranx of selectedDocsTrax">
+          <td>{{Tranx.trxid}}</td>
+          <td>{{Tranx.amt}}</td>
+          <td>{{Tranx.date}}</td>
+          <!-- <td>{{Tranx.type}}</td> -->
+          <td>{{Tranx.packageName}}</td>
+          <td>{{Tranx.isVerified}}</td>
+          <td><a *ngIf="Tranx.filepath !== ''" class="show-file" href={{baseurl}}{{Tranx.filepath}}
+              target="_blank">Click To View</a>
+            <i *ngIf="Tranx.filepath === ''">No File Found</i>
+          </td>
+          <td>
+            <a *ngIf="Tranx.isVerified == false" class="edit-style" (click)="routetoCredit(Tranx)">
+              <i>Mark As Verified</i>
+            </a>
+            <i *ngIf="Tranx.isVerified == true">Verified</i>
+          </td>
+
+        </tr>
+      </table>
+
+
+    </nb-card-body>
+
+  </nb-card>
+
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+
+</ng-template>
+
+<style>
+  a.edit-style {
+    cursor: pointer;
+    color: black;
+  }
+
+  a.edit-style :hover {
+    text-decoration: underline;
+    color: red;
+  }
+
+  a.show-file {
+    color: black;
+  }
+
+</style>

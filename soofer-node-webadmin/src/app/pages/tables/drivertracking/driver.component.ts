@@ -1,0 +1,455 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TableService } from '../table.service';
+import { CommonService } from '../../common/common.service';
+import { AppSettings, featuresSettings } from '../../../app.config';
+import { ButtonToasterService } from '../../buttontoaster/buttontoaster.service';
+@Component({
+  selector: 'ngx-smart-table',
+  providers: [TableService],
+  templateUrl: './drivertracking.component.html',
+  styles: [`
+    nb-card {
+      transform: translate3d(0, 0, 0);
+    }
+    `],
+})
+
+export class DriverTrackingComponent implements OnInit, OnDestroy {
+  vehicleary: any[] = [];
+  list: any = {};
+  initial: string = 'list';
+  public positions: any;
+  temp: string = AppSettings.BASEURL;
+  //baseUrl: string = AppSettings.API_ENDPOINT;
+  resList: any = [];
+  markerv: any = {};
+  tok: string;
+  dummy;
+  marker: any;
+  zoom = AppSettings.MAP_ZOOM;
+  location = AppSettings.GOOGLE_MAP_DEFAULT_LOCATION;
+  intervalId: any;
+
+  setDefaultVehicle: string;
+  inputsearch: any;
+  dropLocation: any;
+  googleloc: any;
+
+  freeOnlineDrv: number;
+  freeOfflineDrv: number;
+  acceptDrv: number;
+  pickupDrv: number;
+  arrivedDrv: number;
+  inTripDrv: number;
+
+  driverStatusArr = [{ label: 'Online', value: 'free' }, { label: 'Offline', value: 'offline' }, { label: 'Accepted', value: 'Accept' },
+  { label: 'On Pickup', value: 'onPickup' }, { label: 'Arrived', value: 'Arrived' }, { label: 'In Trip', value: 'Progress' }];
+  city: string;
+  showCity: boolean;
+  ServiceCity: any;
+  cityType: string;
+  lattitude: any;
+  longtitude: any;
+
+  constructor(
+    private commonservice: CommonService,
+    private toastr: ButtonToasterService,
+    private service: TableService) {
+    this.lattitude = 0;
+    this.longtitude = 0;
+    this.inputsearch = '';
+
+    if (featuresSettings.isCityWise == true && featuresSettings.isServiceAvailable == true && ((localStorage.getItem('userType') == 'superadmin') || (localStorage.getItem('userType') == 'dispatcher')))
+      this.showCity = true;
+    else
+      this.showCity = false;
+
+    this.service.getServiceCity()
+      .then(res => {
+        this.ServiceCity = res;
+      })
+    this.cityType = localStorage.getItem('userType')
+    // commonservice.bSubject.subscribe(value => {
+    //   AppSettings.GOOGLE_MAP_DEFAULT_LOCATION = value;
+    //   this.location = AppSettings.GOOGLE_MAP_DEFAULT_LOCATION;
+    //   this.ReloadPage();
+    // });
+
+    if (localStorage.getItem('userType') == 'citywiseadmin') {
+      if (localStorage.getItem('cityType') == 'Madurai' || localStorage.getItem('cityType') == 'Default') {
+        this.city = 'Madurai'
+        this.location = this.city
+      }
+      else if (localStorage.getItem('cityType') == this.cityType) {
+        this.city = this.cityType
+        this.location = this.city
+      }
+    }
+    else {
+      // commonservice.bSubject.subscribe(value => {
+      //   AppSettings.GOOGLE_MAP_DEFAULT_LOCATION = value;
+      //   this.location = AppSettings.GOOGLE_MAP_DEFAULT_LOCATION;
+      //   this.ReloadPage();
+      // });
+    }
+
+
+    // GET MAP
+
+    // DROPDOWN
+
+    this.commonservice.getVehicleTypeData()
+      .then(msg => {
+        this.vehicleary = msg;
+        if (featuresSettings.defaultVehicleInMap) {
+          this.setDefaultVehicle = featuresSettings.defaultVehicleInMap;
+          this.list.serviceTypeId = featuresSettings.defaultVehicleInMap;
+        }
+        else {
+          this.setDefaultVehicle = msg[0].type;
+          this.list.serviceTypeId = msg[0].type;
+        }
+        //  this.changeautoStatus(this.list.serviceTypeId);
+      });
+  }
+
+  FilterRes(data) {
+    console.log(data)
+    if (data == 'Madurai' || data == 'Default') {
+      this.location = "Madurai"
+    }
+    else if (data == 'Dindigul' || data == "Chennai") {
+      this.location = data;
+    }
+    else {
+      this.location = AppSettings.GOOGLE_MAP_DEFAULT_LOCATION;
+    }
+
+    this.service
+      .getautoStatus(
+        this.list.serviceTypeId,
+        this.inputsearch,
+        this.dropLocation ? this.lattitude : '',
+        this.dropLocation ? this.longtitude : '',
+        this.list.servicecity
+      )
+      .then((res) => {
+        this.positions = [];
+        this.resList = [];
+        this.freeOnlineDrv = 0;
+        this.freeOfflineDrv = 0;
+        this.acceptDrv = 0;
+        this.pickupDrv = 0;
+        this.arrivedDrv = 0;
+        this.inTripDrv = 0;
+        for (const item of res) {
+          if (item.hasOwnProperty("coords")) {
+            item.coords.reverse();
+          }
+          if (item.curStatus === "free") {
+            if (item.online === true) {
+              this.freeOnlineDrv = this.freeOnlineDrv + 1;
+              item.image = "assets/images/active.png";
+            } else {
+              this.freeOfflineDrv = this.freeOfflineDrv + 1;
+              item.image = "assets/images/inactive.png";
+            }
+          } else if (item.curStatus === "Accept") {
+            this.acceptDrv = this.acceptDrv + 1;
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "onPickup") {
+            this.pickupDrv = this.pickupDrv + 1;
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Arrived") {
+            this.arrivedDrv = this.arrivedDrv + 1;
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Progress") {
+            this.inTripDrv = this.inTripDrv + 1;
+            item.image = "assets/images/progress.png";
+          } else {
+            item.image = "assets/images/onpick.png";
+          }
+          this.resList.push(item);
+          this.positions.push(item);
+        }
+      });
+  }
+
+  ngOnInit() {
+    this.list.driverStatus = undefined;
+    // this.intervalId = setInterval(() => {
+    //   this.list.driverStatus = undefined;
+    //   this.changeautoStatus(this.list.serviceTypeId);
+    // }, 50000);
+  }
+
+  changeautoStatus(type) {
+    console.log(type)
+    this.service.getautoStatus(type, this.inputsearch,
+
+      this.dropLocation ? this.lattitude : '',
+      this.dropLocation ? this.longtitude : '',
+      this.list.servicecity
+    ).then((res) => {
+      this.positions = [];
+      this.resList = [];
+      this.freeOnlineDrv = 0;
+      this.freeOfflineDrv = 0;
+      this.acceptDrv = 0;
+      this.pickupDrv = 0;
+      this.arrivedDrv = 0;
+      this.inTripDrv = 0;
+      for (const item of res) {
+        if (item.hasOwnProperty("coords")) {
+          item.coords.reverse();
+        }
+        if (item.curStatus === "free") {
+          if (item.online === true) {
+            this.freeOnlineDrv = this.freeOnlineDrv + 1;
+            item.image = "assets/images/active.png";
+          } else {
+            this.freeOfflineDrv = this.freeOfflineDrv + 1;
+            item.image = "assets/images/inactive.png";
+          }
+        } else if (item.curStatus === "Accept") {
+          this.acceptDrv = this.acceptDrv + 1;
+          item.image = "assets/images/onpick.png";
+        } else if (item.curStatus === "onPickup") {
+          this.pickupDrv = this.pickupDrv + 1;
+          item.image = "assets/images/onpick.png";
+        } else if (item.curStatus === "Arrived") {
+          this.arrivedDrv = this.arrivedDrv + 1;
+          item.image = "assets/images/onpick.png";
+        } else if (item.curStatus === "Progress") {
+          this.inTripDrv = this.inTripDrv + 1;
+          item.image = "assets/images/progress.png";
+        } else {
+          item.image = "assets/images/onpick.png";
+        }
+        this.resList.push(item);
+        this.positions.push(item);
+      }
+    });
+  }
+
+  refVehicle() {
+    this.service.RefreshVehicle()
+      .then(res => {
+        this.toastr.showtoast('success', res.message)
+      })
+      .catch(res => {
+        this.toastr.showtoast('error', res.message)
+      })
+  }
+
+  search(data) {
+    console.log(this.list.serviceTypeId, data);
+    console.log("  this.dropLocation", this.dropLocation);
+
+    this.service.getautoStatus(this.list.serviceTypeId, data,
+      this.dropLocation ? this.lattitude : '',
+      this.dropLocation ? this.longtitude : '',
+      this.list.servicecity).then((res) => {
+        this.positions = [];
+        this.resList = [];
+        for (const item of res) {
+          // if (item.phone === this.inputsearch || item.code === this.inputsearch) {
+          // item.image = 'assets/images/progress.png';
+          if (item.curStatus === "free") {
+            if (item.online === true) {
+              item.image = "assets/images/active.png";
+            } else {
+              item.image = "assets/images/inactive.png";
+            }
+          } else if (item.curStatus === "Accept") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "onPickup") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Arrived") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Progress") {
+            item.image = "assets/images/progress.png";
+          }
+          this.location = item.coords;
+          this.resList.push(item);
+          const data = {
+            coords: item.coords.reverse(),
+            image: item.image,
+            phone: item.phone,
+          };
+          this.positions.push(data); // REMOVE reverse
+          // }
+        }
+      });
+  }
+
+  clicked({ target: marker }, post) {
+    for (const ter of this.resList) {
+      if (ter.coords === post) {
+        this.marker = ter;
+        this.marker.code = ter.code;
+        this.marker.phone = ter.phone;
+        this.marker.makename = ter.taxis[0].makename,
+          this.marker.model = ter.taxis[0].model
+        this.marker.curTrip = ter.curTrip;
+        marker.nguiMapComponent.openInfoWindow('iw', marker);
+      }
+    }
+  }
+
+  // If Dropdown Changed
+
+  getAPI(data) {
+    this.list.driverStatus = undefined;
+    this.changeautoStatus(data);
+  }
+
+  getDriverStatus(data) {
+    // this.inputsearch = '';
+    // this.dropLocation = '';
+    this.service
+      .getautoStatus(
+        this.list.serviceTypeId,
+        data,
+        this.dropLocation ? this.lattitude : '',
+        this.dropLocation ? this.longtitude : '',
+        this.list.servicecity
+      )
+      .then((res) => {
+        this.positions = [];
+        this.resList = [];
+        res.forEach((element) => {
+          if (element.hasOwnProperty("coords")) {
+            element.coords.reverse();
+          }
+          if (element.curStatus === data) {
+            if (data === "Accept") {
+              element.image = "assets/images/onpick.png";
+              this.resList.push(element);
+              this.positions.push(element);
+            } else if (data === "Arrived") {
+              element.image = "assets/images/onpick.png";
+              this.resList.push(element);
+              this.positions.push(element);
+            } else if (data === "Progress") {
+              element.image = "assets/images/progress.png";
+              this.resList.push(element);
+              this.positions.push(element);
+            } else if (data === "onPickup") {
+              element.image = "assets/images/onpick.png";
+              this.resList.push(element);
+              this.positions.push(element);
+            } else if (data === "free") {
+              if (element.online) {
+                element.image = "assets/images/active.png";
+                this.resList.push(element);
+                this.positions.push(element);
+              }
+            }
+          } else if (
+            element.curStatus === "free" &&
+            element.online === false &&
+            data === "offline"
+          ) {
+            element.image = "assets/images/inactive.png";
+            this.resList.push(element);
+            this.positions.push(element);
+          }
+        });
+      });
+  }
+
+  ngOnDestroy(): void {
+    // clearInterval(this.intervalId);
+  }
+
+  goBack(): void {
+    this.initial = 'list';
+  }
+
+  ReloadPage() {
+    // this.list = {};
+    // this.freeOnlineDrv = 0; this.freeOfflineDrv = 0; this.acceptDrv = 0;
+    // this.pickupDrv = 0; this.arrivedDrv = 0; this.inTripDrv = 0;
+    // // this.list.serviceTypeId = this.setDefaultVehicle;
+    // this.inputsearch = '';
+    // this.dropLocation = '';
+    // this.positions = [];
+    // this.resList = [];
+    // this.zoom = AppSettings.MAP_ZOOM;
+    // this.location = AppSettings.GOOGLE_MAP_DEFAULT_LOCATION;
+    // this.changeautoStatus(this.setDefaultVehicle);
+    this.getfare();
+
+  }
+
+  listenDropLocation(event) {
+    this.googleloc = this.doReturnFormattedAddress(event);
+  }
+
+  doReturnFormattedAddress(location) {
+    if (
+      typeof location.name !== 'undefined'
+      && location.name !== ''
+      && location.formatted_address.indexOf(location.name) < 0
+    ) {
+      const formattedAddressArray = location.formatted_address.split(', ');
+      console.log(location, "location");
+      this.lattitude = location.geometry.location.lat();
+      this.longtitude = location.geometry.location.lng();
+      console.log(this.lattitude, this.longtitude);
+      formattedAddressArray.shift();
+      return location.name + ', ' + formattedAddressArray;
+    } else {
+      return location.formatted_address;
+    }
+  }
+
+  getfare() {
+    console.log("  this.dropLocation", this.dropLocation);
+    this.location = this.googleloc;
+    this.zoom = AppSettings.MAP_ZOOM;
+    this.service
+      .getautoStatus(
+        this.list.serviceTypeId,
+        this.inputsearch,
+        this.dropLocation ? this.lattitude : '',
+        this.dropLocation ? this.longtitude : '',
+        this.list.servicecity
+      )
+      .then((res) => {
+        this.positions = [];
+        this.resList = [];
+        for (const item of res) {
+          // if (item.phone === this.inputsearch || item.code === this.inputsearch) {
+          // item.image = 'assets/images/progress.png';
+          if (item.curStatus === "free") {
+            if (item.online === true) {
+              item.image = "assets/images/active.png";
+            } else {
+              item.image = "assets/images/inactive.png";
+            }
+          } else if (item.curStatus === "Accept") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "onPickup") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Arrived") {
+            item.image = "assets/images/onpick.png";
+          } else if (item.curStatus === "Progress") {
+            item.image = "assets/images/progress.png";
+          }
+          this.location = item.coords;
+          this.resList.push(item);
+          const data = {
+            coords: item.coords.reverse(),
+            image: item.image,
+            phone: item.phone,
+          };
+          this.positions.push(data); // REMOVE reverse
+          // }
+        }
+      });
+  }
+
+
+}

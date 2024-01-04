@@ -1,0 +1,753 @@
+<form #dataForm="ngForm">
+  <nb-card>
+    <nb-card-header> Add Vehicle and Fare Details</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Vehicle Type (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="list.type" name="type" required placeholder="Vehicle Type"
+              class="form-control" #asppc="ngModel" required />
+            <small *ngIf="asppc.invalid && (asppc.dirty)" class="form-text error">
+              Vehicle Type is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Display Order (<span class="red">*</span>)</label>
+            <input type="number" [min]="1" pattern="^[1-9]+[0-9]*$" [(ngModel)]="list.displayorder"
+              #displayorder="ngModel" (focusout)="lesserThanZero($event)" name="displayorder"
+              placeholder="Display Order" class="form-control" required />
+            <small *ngIf="displayorder.invalid && (displayorder.dirty)" class="form-text error">
+              Display Order is required!
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Trip Type (<span class="red">*</span>)</label>
+            <ng-select name="TripTypeComboBox" #tripTypeComboBox placeholder="Select a Trip type"
+              filterPlaceholder="Type to search a Trip type" notFoundMsg="No Trip types found."
+              [noFilter]="noFilterThreshold" [(ngModel)]="list.tripTypeCode" [options]="TripType"
+              (selected)="tripTypeDoAssignSelected($event);" (deselected)="tripTypeDoUnassignDeselected($event);"
+              class="" required>
+              <ng-template #optionTemplate let-option="option">
+                <span class="{{option.value}}">{{option.label}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+
+          <div class="form-group" *ngIf="this.servicecity == true">
+            <label>Service Available City (<span class="red">*</span>)</label>
+            <ng-multiselect-dropdown [placeholder]="'Service Available City'" (onSelect)="featureOnItemSelect($event)"
+              (onDeSelect)="onItemDeSelect($event)" name="scIds" [data]="cities" [(ngModel)]="list.scIds"
+              [settings]="dropdownSettings" class="custom-drop">
+            </ng-multiselect-dropdown>
+          </div>
+
+
+        </div>
+        <div class="col-md-3">
+          <label>Lower Category Vehicles </label>
+          <ng-multiselect-dropdown [placeholder]="'Lower Category Vehicles'" name="lowCategoryOptions"
+            [data]="getVehiclesByTypeList" [(ngModel)]="list.lowCategoryOptions" [settings]="vehicleDropdown"
+            class="custom-drop">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Base Fee {{(list.tripTypeCode=='outstation')?"For One Way ":''}} (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.baseFare" name="baseFare" required placeholder="Base  Fee"
+              (focusout)="minmax($event)" class="form-control" #baseFare="ngModel" required />
+            <small *ngIf="baseFare.invalid && (baseFare.dirty)" class="form-text error">
+              Base/Booking Fee is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label> Booking Fee (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.bookingFare" name="bookingFare" required placeholder=" Booking Fee"
+              (focusout)="minmax($event)" class="form-control" #bookingFare="ngModel" required />
+            <small *ngIf="bookingFare.invalid && (bookingFare.dirty)" class="form-text error">
+              Booking Fee is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Per {{defaultUnit}} Rate (AC) {{(list.tripTypeCode=='outstation')?"For One Way ":''}} (<span
+                class="red">*</span>) </label>
+            <input type="number" [(ngModel)]="list.bkm" name="bkm" #bkmac="ngModel" required
+              placeholder="Per {{defaultUnit}} Rate AC" class="form-control">
+            <small *ngIf="bkmac.invalid && (bkmac.dirty)" class="form-text error">
+              Per {{defaultUnit}} Rate (AC) is Required!
+            </small>
+          </div>
+        </div>
+        <!-- <div class="col-md-6" *ngIf="list.tripTypeCode == 'daily'">
+          <div class="form-group">
+            <label>Base/Booking Fee (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.baseFare" name="baseFare" required placeholder="Base/Booking Fee"
+              (focusout)="minmax($event)" class="form-control" #baseFare="ngModel" required />
+            <small *ngIf="baseFare.invalid && (baseFare.dirty)" class="form-text error">
+              Base/Booking Fee is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="(list.tripTypeCode == 'rental' || list.tripTypeCode == 'outstation' )">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Before X KM (<span class="red">*</span>)</label>
+                <input type="number" name="baseKMBefore" [(ngModel)]="list.baseKMBefore" #baseKMBefore="ngModel"
+                  required placeholder="Before X KM" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label>Base Fee (<span class="red">*</span>)</label>
+                <input type="number" name="baseFare" [(ngModel)]="list.baseFare" #baseFare="ngModel" required
+                  placeholder="Base Fee Foe Before X KM" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label> After X KM (<span class="red">*</span>)</label>
+                <input type="number" class="form-control" name="baseKMAfter" [(ngModel)]="list.baseKMAfter"
+                  #baseKMAfter="ngModel" required placeholder="After X KM">
+              </div>
+              <div class="col-md-3">
+                <label>Base Fee (<span class="red">*</span>)</label>
+                <input type="number" class="form-control" name="baseFareAfter" [(ngModel)]="list.baseFareAfter"
+                  #baseFareAfter="ngModel" required placeholder="Base Fare for After X KM">
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+
+      </div>
+
+      <div class="row" *ngIf="list.tripTypeCode=='outstation'">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Base Fee for Round Trip(<span class="red">*</span>) </label>
+            <input type="number" [(ngModel)]="list.baseFareForRoundTrip" name="baseFareForRoundTrip"
+              #baseFareForRoundTrip="ngModel" required placeholder="Base/Booking Fee  for Round Trip"
+              class="form-control">
+            <small *ngIf="baseFareForRoundTrip.invalid && (baseFareForRoundTrip.dirty)" class="form-text error">
+              Base Fee for Round Trip is Required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Per {{defaultUnit}} Rate (AC) for Round Trip (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.bkmForRoundTrip" name="bkmForRoundTrip" required
+              placeholder="Per {{defaultUnit}} Rate (AC)   for Round Trip " class="form-control"
+              #bkmForRoundTrip="ngModel" required />
+            <small *ngIf="bkmForRoundTrip.invalid && (bkmForRoundTrip.dirty)" class="form-text error">
+              Per {{defaultUnit}} Rate for Round Trip is required!
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Minimum Fare (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.mfare" name="mfare" required placeholder="Minimum Fare"
+              class="form-control" #mfare="ngModel" required />
+            <small *ngIf="mfare.invalid && (mfare.dirty)" class="form-text error">
+              Required Field!
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="list.tripTypeCode!='outstation'">
+          <div class="form-group">
+            <label>Per {{defaultUnit}} Rate (Non AC) (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.bkmnac" name="bkmnac" required placeholder="Per {{defaultUnit}} Rate"
+              class="form-control" #bkmnac="ngModel" required />
+            <small *ngIf="bkmnac.invalid && (bkmnac.dirty)" class="form-text error">
+              Per {{defaultUnit}} Rate (Non AC) is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="list.tripTypeCode=='outstation'">
+          <div class="row">
+
+            <div class="col-sm-6">
+              <label>Per {{defaultUnit}} Rate (Non AC) (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.bkmnac" name="bkmnac" required
+                placeholder="Per {{defaultUnit}} Rate" class="form-control" #bkmnac="ngModel" required />
+              <small *ngIf="bkmnac.invalid && (bkmnac.dirty)" class="form-text error">
+                Per {{defaultUnit}} Rate (Non AC) is required!
+              </small>
+            </div>
+            <div class="col-sm-6">
+              <label>{{defaultUnit}} to Reduce per extra Hr (<span class="red">*</span>)</label>
+              <input type="number" [(ngModel)]="list.kmReducedPerExtraHr" name="kmReducedPerExtraHr" required
+                placeholder="{{defaultUnit}} to Reduce per extra Hr" class="form-control" #kmReducedPerExtraHr="ngModel"
+                required />
+              <small *ngIf="kmReducedPerExtraHr.invalid && (kmReducedPerExtraHr.dirty)" class="form-text error">
+                {{defaultUnit}} to Reduce per extra Hr is required!
+              </small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Commission (%) (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.comison" name="comison" min=0 required placeholder="Commission (%) "
+              (focusout)="minmax($event)" class="form-control" #comison="ngModel" required />
+            <small *ngIf="comison.invalid && (comison.dirty)" class="form-text error">
+              Commission is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="list.tripTypeCode=='outstation'">
+          <div class="form-group">
+            <label>Time Hr Rate for Running (Round)(<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFare" name="timeFare" required
+              placeholder="Time Hr Rate for Running" class="form-control" #timeFare="ngModel" required />
+            <small *ngIf="timeFare.invalid && (timeFare.dirty)" class="form-text error">
+              Time Hr Rate for Running (Round) is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Time Hr Rate for Running (One way)(<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFareOneway" name="timeFareOneway" required
+              placeholder="Time Hr Rate for Running" class="form-control" #timeFareOneway="ngModel" required />
+            <small *ngIf="timeFareOneway.invalid && (timeFareOneway.dirty)" class="form-text error">
+              Time Hr Rate for Running (One way) is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="list.tripTypeCode=='outstation'">
+          <div class="form-group">
+            <label>Time Hr Rate for Idel (Round)(<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFareForIdel" name="timeFareForIdel" required
+              placeholder="  Time Hr Rate for Idel " class="form-control" #timeFareForIdel="ngModel" required />
+            <small *ngIf="timeFareForIdel.invalid && (timeFareForIdel.dirty)" class="form-text error">
+              Time Hr Rate for Idel (Round) is required!
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Time Hr Rate for Idel (One Way)(<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFareForIdelOneway" name="timeFareForIdelOneway" required
+              placeholder="  Time Hr Rate for Idel " class="form-control" #timeFareForIdelOneway="ngModel" required />
+            <small *ngIf="timeFareForIdelOneway.invalid && (timeFareForIdelOneway.dirty)" class="form-text error">
+              Time Hr Rate for Idel (One Way) is required!
+            </small>
+          </div>
+
+        </div>
+        <div class="col-md-6" *ngIf="list.tripTypeCode!='outstation'">
+          <div class="form-group">
+            <label>Time Min Rate for Running (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFare" name="timeFare" required
+              placeholder="Time Min Rate for Running" class="form-control" #timeFare="ngModel" required />
+            <small *ngIf="timeFare.invalid && (timeFare.dirty)" class="form-text error">
+              Time Min Rate for Running is required!
+            </small>
+          </div>
+
+
+        </div>
+        <!-- <div class="col-md-3">
+
+          <div class="form-group">
+            <label>Per Time Rate (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFare" name="timeFare" required placeholder="Per Time Fare"
+              class="form-control" #timeFare="ngModel" required />
+            <small *ngIf="timeFare.invalid && (timeFare.dirty)" class="form-text error">
+              Time Fare is required!
+            </small>
+          </div>
+
+
+        </div>
+        <div class="col-md-3">
+
+          <div class="form-group">
+            <label>Per Time Rate (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.timeFare" name="timeFare" required placeholder="Per Time Fare"
+              class="form-control" #timeFare="ngModel" required />
+            <small *ngIf="timeFare.invalid && (timeFare.dirty)" class="form-text error">
+              Time Fare is required!
+            </small>
+          </div>
+
+
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Allow For Ride Later (<span class="red">*</span>)</label>
+            <ng-select name="Ride LaterComboBox" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.isRideLater" placeholder="Allow For Ride Later" required>
+            </ng-select>
+          </div>
+          <div class="form-group">
+            <label>Is Vehicle Available (<span class="red">*</span>)</label>
+            <ng-select name="VehichleAvailableComboBox" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.available" placeholder="Is Vehicle Available" required>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Description</label>
+            <textarea rows="5" [(ngModel)]="list.description" name="description" #description="ngModel"
+              placeholder="Description" class="form-control"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Available Seats/Person capacity (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.asppc" name="asppc" required
+              placeholder="Available Seats/Person capacity" (focusout)="lesserThanZero($event)" class="form-control"
+              #asppc="ngModel" required />
+            <small *ngIf="asppc.invalid && (asppc.dirty)" class="form-text error">
+              Required Field!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let feature of features" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(feature)">
+                  {{feature.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Features..." [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <!-- <div class="form-group" *ngIf="this.servicecity == true">
+            <label>Service Available City (<span class="red">*</span>)</label>
+            <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities"
+              [(ngModel)]="list.scIds" [settings]="dropdownSettings" class="custom-drop">
+            </ng-multiselect-dropdown>
+          </div> -->
+          <div class="form-group">
+            <label>Gender (<span class="red">*</span>)</label>
+            <ng-select name="gender" [options]="gender" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.gender" placeholder="Gender" required>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Vehicle Type Icon ( width:150px , height 150px )</label>
+            <input type="file" class="form-control" #fileupload (change)="fileEvent($event)"
+              value="Vehicle Type Icon" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" *ngIf="showShareTaxi">
+            <label>Is Vehicle Sharing Available (<span class="red">*</span>)</label>
+            <ng-select name="vehicle Sharing" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.isShareAvailable" placeholder="Is Vehicle Sharing Available" required>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="list.tripTypeCode == 'outstation'">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Day Rate (Beta) (<span class="red">*</span>)</label>
+            <input type="number" [(ngModel)]="list.dayRate" name="dayRate" required placeholder="Day Rate"
+              (focusout)="minmax($event)" class="form-control" #dayRate="ngModel" required />
+            <small *ngIf="dayRate.invalid && (dayRate.dirty)" class="form-text error">
+              Day Rate is required!
+            </small>
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Driver Conveyance (Pickup Charge) Details
+    </nb-card-header>
+    <nb-card-body>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Is Conveyance Charge Needed (conveyanceAvailable)</label>
+            <ng-select name="conveyanceAvailableComboBox" [options]="yesOrNo" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.conveyanceAvailable" placeholder="Select if Conveyance Charge Needed"
+              (selected)="conveyance($event)">
+            </ng-select>
+          </div>
+        </div>
+        <!-- <div class="col-md-6" *ngIf="list.conveyanceAvailable === 'true'">
+          <div class="form-group">
+            <label >Type of Conveyance Charge (conveyanceType)</label>
+            <ng-select name="conveyanceTypeFareComboBox" [options]="Faretype" [noFilter]="noFilterThreshold"
+              [(ngModel)]="list.conveyanceType" placeholder="Select Conveyance Charge Type " required>
+            </ng-select>
+          </div>
+
+        </div> -->
+        <div class="col-md-6" *ngIf="list.conveyanceAvailable === 'true'">
+          <div class="form-group">
+            <label> Conveyance Charge </label>
+            <input type="number" [(ngModel)]="list.conveyancePerKm" #conveyancePerKm="ngModel" name="conveyancePerKm"
+              (focusout)="lesserThanZero($event)" placeholder="Conveyance Per Km" class="form-control" />
+            <small *ngIf="conveyancePerKm.invalid && (conveyancePerKm.dirty)" class="form-text error">
+              Conveyance Charge is required!
+            </small>
+          </div>
+        </div>
+      </div>
+
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Tax Details
+    </nb-card-header>
+    <nb-card-body>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Is Tax Applicable</label>
+            <ng-select name="isTaxComboBox" [options]="yesOrNo" [noFilter]="noFilterThreshold" [(ngModel)]="list.isTax"
+              (selected)="TaxAction($event);" placeholder="Select Tax Should Be">
+            </ng-select>
+
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="list.isTax==='true'">
+          <div class="form-group">
+            <label>Tax (%)</label>
+            <input type="number" max=100 min=0 [(ngModel)]="list.taxPercentage" #taxPercentage="ngModel"
+              name="taxPercentage" (focusout)="minmax($event)" placeholder="Tax Percentage" class="form-control" />
+            <small *ngIf="taxPercentage.invalid && (taxPercentage.dirty)" class="form-text error">
+              Tax (%) is required!
+            </small>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Cancellation Details
+    </nb-card-header>
+    <nb-card-body>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Cancellation Charge for Rider</label>
+            <input type="number" [(ngModel)]="list.cancelationFeesRider" #cancelationFeesRider="ngModel"
+              name="cancelationFeesRider" (focusout)="lesserThanZero($event)" placeholder="Cancelation Fees Rider"
+              class="form-control" />
+            <small *ngIf="cancelationFeesRider.invalid && (cancelationFeesRider.dirty)" class="form-text error">
+              Cancellation Charge For Rider is required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Cancellation Charge for Driver </label>
+            <input type="number" [(ngModel)]="list.cancelationFeesDriver" #cancelationFeesDriver="ngModel"
+              name="cancelationFeesDriver" (focusout)="lesserThanZero($event)" placeholder="Cancelation Fees Driver"
+              class="form-control" />
+            <small *ngIf="cancelationFeesDriver.invalid && (cancelationFeesDriver.dirty)" class="form-text error">
+              Cancellation Charge For Driver is required!
+            </small>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+
+  <nb-card>
+    <nb-card-header>
+      Peak Hours Details
+    </nb-card-header>
+    <nb-card-body>
+      <div class="card">
+        <div class="card-header">
+          Peak Hour 1
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Time</label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.peakHourOneStartTime" name="peakHourOneStartTime"
+                  #peakHourOneStartTime="ngModel" placeholder="from" class="form-control" required> -->
+                <!-- NewPicker -->
+                <input class="form-control" placeholder="Click to Select a Time" [(ngModel)]="list.peakHourOneStartTime"
+                  name="peakHourOneStartTime" #peakHourOneStartTime="ngModel" [owlDateTimeTrigger]="dt1"
+                  [owlDateTime]="dt1">
+                <owl-date-time [pickerType]="'timer'" #dt1></owl-date-time>
+                <!-- new picker Ends  -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Time </label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.peakHourOneEndTime" name="peakHourOneEndTime"
+                  #peakHourOneEndTime="ngModel" placeholder="to" class="form-control" required> -->
+                <input class="form-control" placeholder="Click to Select a Time" [(ngModel)]="list.peakHourOneEndTime"
+                  name="peakHourOneEndTime" #peakHourOneEndTime="ngModel" [owlDateTimeTrigger]="dt2"
+                  [owlDateTime]="dt2">
+                <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label> Increase in Total Fare (%)</label>
+                <input type="number" max=100 min=0 [(ngModel)]="list.percentPeakHourOne" #percentPeakHourOne="ngModel"
+                  (focusout)="minmax($event)" name="percentPeakHourOne" placeholder="Total Fare" class="form-control" />
+                <small *ngIf="percentPeakHourOne.invalid && (percentPeakHourOne.dirty)" class="form-text error">
+                  Increase in Total Fare is required!
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-header">
+          Peak Hour 2
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Time </label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.peakHourTwoStartTime" name="peakHourTwoStartTime"
+                  #peakHourTwoStartTime="ngModel" placeholder="from" class="form-control" required> -->
+                <input class="form-control" placeholder="Click to Select a Time" [(ngModel)]="list.peakHourTwoStartTime"
+                  name="peakHourTwoStartTime" #peakHourTwoStartTime="ngModel" [owlDateTimeTrigger]="dt3"
+                  [owlDateTime]="dt3">
+                <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Time </label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.peakHourTwoEndTime" name="peakHourTwoEndTime"
+                  #peakHourTwoEndTime="ngModel" placeholder="to" class="form-control" required> -->
+                <input class="form-control" placeholder="Click to Select a Time" [(ngModel)]="list.peakHourTwoEndTime"
+                  name="peakHourTwoEndTime" #peakHourTwoEndTime="ngModel" [owlDateTimeTrigger]="dt4"
+                  [owlDateTime]="dt4">
+                <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Increase in Total Fare (%)</label>
+                <input type="number" max=100 min=0 [(ngModel)]="list.percentPeakHourTwo" #percentPeakHourTwo="ngModel"
+                  (focusout)="minmax($event)" name="percentPeakHourTwo" placeholder=" in Total Fare"
+                  class="form-control" />
+                <small *ngIf="percentPeakHourTwo.invalid && (percentPeakHourTwo.dirty)" class="form-text error">
+                  Increase in Total Fare is required!
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Night Hours Details
+    </nb-card-header>
+    <nb-card-body>
+      <div class="card">
+        <div class="card-header">
+          Night Hour 1
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Time</label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.nightHourOneStartTime" name="nightHourOneStartTime"
+                  #nightHourOneStartTime="ngModel" placeholder="from" class="form-control" required> -->
+                <input class="form-control" placeholder="Click to Select a Time"
+                  [(ngModel)]="list.nightHourOneStartTime" name="nightHourOneStartTime" #nightHourOneStartTime="ngModel"
+                  [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5">
+                <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Time </label>
+                <!-- <input type="time" step="1" [(ngModel)]="list.nightHourOneEndTime" name="nightHourOneEndTime"
+                  #nightHourOneEndTime="ngModel" placeholder="to" class="form-control" required> -->
+                <input class="form-control" placeholder="Click to Select a Time" [(ngModel)]="list.nightHourOneEndTime"
+                  name="nightHourOneEndTime" #nightHourOneEndTime="ngModel" [owlDateTimeTrigger]="dt6"
+                  [owlDateTime]="dt6">
+                <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-6" *ngIf="list.tripTypeCode !== 'outstation'">
+              <div class="form-group">
+                <label> Increase in Total Fare (%)</label>
+                <input type="number" max=100 min=0 [(ngModel)]="list.percentNightFare" #percentNightFare="ngModel"
+                  name="percentNightFare" (focusout)="minmax($event)" placeholder=" in Total Fare"
+                  class="form-control" />
+                <small *ngIf="percentNightFare.invalid && (percentNightFare.dirty)" class="form-text error">
+                  Increase in Total Fare is required!
+                </small>
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="list.tripTypeCode === 'outstation'">
+              <div class="form-group">
+                <label>Night Rate (Beta) (<span class="red">*</span>)</label>
+                <input type="number" [(ngModel)]="list.nightRate" name="nightRate" required placeholder="Night Rate"
+                  (focusout)="minmax($event)" class="form-control" #nightRate="ngModel" required />
+                <small *ngIf="nightRate.invalid && (nightRate.dirty)" class="form-text error">
+                  Night Rate is required!
+                </small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card>
+    <nb-card-header>
+      Waiting Time Details
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Is Waiting Time Charge Applicable</label>
+            <ng-select name="isWaitingTimeExceddedChargesApplicableComboBox" [options]="yesOrNo"
+              [noFilter]="noFilterThreshold" [(ngModel)]="list.isWaitingTimeExceddedChargesApplicable"
+              (selected)="WaitingTimeExceddedCharges($event);" placeholder="Select Charge Applicable Should Be">
+            </ng-select>
+          </div>
+
+          <div class="form-group" *ngIf="list.isWaitingTimeExceddedChargesApplicable==='true'">
+            <label>How much time (in
+              Minutes), application can exclude from the actual waiting time of
+              a trip.</label>
+            <input type="number" [(ngModel)]="list.allowMinimumWaitingTimeInMinutes"
+              #allowMinimumWaitingTimeInMinutes="ngModel" (focusout)="lesserThanZero($event)"
+              name="allowMinimumWaitingTimeInMinutes" placeholder="time (in Minutes)" class="form-control" />
+            <small *ngIf="allowMinimumWaitingTimeInMinutes.invalid && (allowMinimumWaitingTimeInMinutes.dirty)"
+              class="form-text error">
+              Required!
+            </small>
+
+          </div>
+          <div class="form-group" *ngIf="list.isWaitingTimeExceddedChargesApplicable==='true'">
+            <label> How much charge (Per Minute), application can apply for the remaining waiting
+              hours except the
+              minimum allowable waiting time of total waiting time</label>
+            <input type="number" [(ngModel)]="list.chargeRatePerMinuteForExceededMinimumWaitingTime"
+              (focusout)="lesserThanZero($event)" #chargeRatePerMinuteForExceededMinimumWaitingTime="ngModel"
+              name="chargeRatePerMinuteForExceededMinimumWaitingTime" placeholder="Charge (Per Minute)"
+              class="form-control" />
+            <small
+              *ngIf="chargeRatePerMinuteForExceededMinimumWaitingTime.invalid && (chargeRatePerMinuteForExceededMinimumWaitingTime.dirty)"
+              class="form-text error">
+              Required!
+            </small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Is Waiting Charge Before Trip Start Applicable</label>
+            <ng-select name="isWaitingTimeBeforeTripStartExceddedChargesApplicableComboBox" [options]="yesOrNo"
+              [noFilter]="noFilterThreshold" [(ngModel)]="list.isWaitingTimeBeforeTripStartExceddedChargesApplicable"
+              (selected)="WaitingTimeExceddedChargesApplicable($event);"
+              placeholder="Select Charge Applicable Should Be">
+            </ng-select>
+          </div>
+          <div class="form-group" *ngIf="list.isWaitingTimeBeforeTripStartExceddedChargesApplicable==='true'">
+            <label>Minimum Waiting Time Before Trip Start (In Minutes) </label>
+            <input type="number" [(ngModel)]="list.allowMiniWaitingTimeBeforeTripStartInMin"
+              #allowMiniWaitingTimeBeforeTripStartInMin="ngModel" (focusout)="lesserThanZero($event)"
+              name="allowMiniWaitingTimeBeforeTripStartInMin" placeholder="time (in Minutes)" class="form-control" />
+            <small
+              *ngIf="allowMiniWaitingTimeBeforeTripStartInMin.invalid && (allowMiniWaitingTimeBeforeTripStartInMin.dirty)"
+              class="form-text error">
+              Required!
+            </small>
+          </div>
+          <div class="form-group" *ngIf="list.isWaitingTimeBeforeTripStartExceddedChargesApplicable==='true'">
+            <label> Waiting Rate ( per Minute) </label>
+            <input type="number" [(ngModel)]="list.chargeRatePerMinForExceededMinWaitingTimeBeforeTripStart"
+              (focusout)="lesserThanZero($event)" #chargeRatePerMinForExceededMinWaitingTimeBeforeTripStart="ngModel"
+              name="chargeRatePerMinForExceededMinWaitingTimeBeforeTripStart" placeholder="Charge (Per Minute)"
+              class="form-control" />
+            <small
+              *ngIf="chargeRatePerMinForExceededMinWaitingTimeBeforeTripStart.invalid && (chargeRatePerMinForExceededMinWaitingTimeBeforeTripStart.dirty)"
+              class="form-text error">
+              Required!
+            </small>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" (click)="AddNewDoc(list)" [disabled]="!dataForm.form.valid"
+        class="btn btn-success">Add</button>
+    </nb-card-footer>
+  </nb-card>
+
+</form>

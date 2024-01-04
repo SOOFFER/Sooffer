@@ -1,0 +1,455 @@
+<ngx-spinner bdOpacity="0.9" bdColor="#333" size="medium" color="#fff" type="ball-clip-rotate-multiple">
+</ngx-spinner>
+
+<div class="main-container">
+  <div class="sub-main-div">
+    <div class="container">
+      <section>
+        <div class="my-profile mrgn-t-30 pading-btm">
+          <div class="col-lg-11 col-lg-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-xs-12">
+            <h3>{{'COMMON.MYPROFILE' | translate}}</h3>
+
+            <div *ngIf="expandedprofile">
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 drvr-profile-img no_pad relative">
+                <img [src]="SelectedUserPic" />
+                <i class="fa fa-pencil pencil-postn" data-toggle="modal" data-target="#exampleModal"></i>
+              </div>
+              <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 drve-profil-detail padding-leff-4">
+                <div class="edit-button log" (click)="logout()">
+                  <i class="fa fa-sign-out"></i> {{'COMMON.LOGOUT' | translate}}
+                </div>
+                <h5>{{SetDetail.fname}}</h5>
+                <p>{{SetDetail.gender}} | Code: {{SetDetail.code}}</p>
+                <p>
+                  <i class="fa fa-map-marker pading-right-1"></i>{{SetDetail.cityname}} | {{SetDetail.statename}} |
+                  {{SetDetail.cntyname}}
+                </p>
+                <!-- <p>My referal code:{{4545}}</p> -->
+                <div class="edit-button" style="font-size: 17px !important" (click)="profiledetail($event)">
+                  <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!showProfileSave">
+              <div class="modal fade model-hide" id="exampleModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content modal-content-popup">
+                    <div class="modal-header">
+                      <button type="button" class="close" id="CloseButton" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        {{'PROFILE.PROFILEPICUTRE' | translate}}
+                      </h5>
+                    </div>
+                    <div class="modal-body">
+                      <div id="click-result"></div>
+                      <div class="form-group">
+                        <label>Upload a File</label>
+                        <input class="form-control" type="file" (change)="fileEvent2($event)" value="Insurance" />
+                      </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                      <button type="button" (click)="setProfile()" class="btn btn-secondary savepopup">
+                        {{'PROFILE.SAVE' | translate}}
+                      </button>
+                      <button type="button" class="btn btn-primary cancelpopup" data-dismiss="modal">
+                        {{'PROFILE.CANCEL' | translate}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- profile-detail-hide -->
+            
+          </div>
+        </div>
+      </section>
+      <section>
+        <div *ngIf="expandedprofiledetail">
+          <div class="pading-btm">
+          <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-12">
+            <br />
+            <form name="editForm" #editForm="ngForm">
+              <div class="form-group">
+                <label>{{'CONTACT.EMAILADDSRESS' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <input type="text" class="form-control" [(ngModel)]="SetDetail.email" #email="ngModel" name="email"
+                  required />
+                <div *ngIf="email.errors && (email.dirty || email.touched)">
+                  <br />
+                  <small> Email is required</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{'PROFILE.YOURFIRSTNAME' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <input type="text" [(ngModel)]="SetDetail.fname" #fname="ngModel" name="fname" required
+                  class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>{{'PROFILE.YOURLASTNAME' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <input type="text" name="lname" [(ngModel)]="SetDetail.lname" #lname="ngModel" required
+                  class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>{{'COMMON.SELECTCOUNTRY' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <select class="form-control" id="sel1" name="cnty" [(ngModel)]="SetDetail.cnty" #cnty="ngModel"
+                  (change)="GetState($event)" required>
+                  <option value="undefined" selected hidden>
+                    Select a Country
+                  </option>
+                  <option *ngFor="let country of countryary" [value]="country.value">
+                    {{country.label}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>{{'COMMON.SELECTSTATE' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <select class="form-control" id="sel1" name="state" [(ngModel)]="SetDetail.state"
+                  (change)="GetCity($event)" #state="ngModel" required>
+                  <option value="undefined" selected hidden>
+                    Select a State
+                  </option>
+                  <option *ngFor="let state of stateary" [value]="state.value">
+                    {{state.label}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>{{'COMMON.SELECTCITY' | translate}}
+                  <span class="astrick">&nbsp;*</span>
+                </label>
+                <select class="form-control" id="sel1" name="city" [(ngModel)]="SetDetail.city"
+                  (change)="SetCity($event)" #city="ngModel" required>
+                  <option value="undefined" selected hidden>
+                    Select a City
+                  </option>
+                  <option *ngFor="let city of cityary" [value]="city.value">
+                    {{city.label}}
+                  </option>
+                </select>
+              </div>
+            </form>
+            <div class="save-cancel-profile">
+              <input name="save" type="submit" (click)="updateRecord('profile',SetDetail)" value="Save"
+                class="sc-butn m-r-10" />
+              <button (click)="profiledetail($event)" class="sc-butn">
+                {{'PROFILE.CANCEL' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <section>
+          <div class="pading-btm set-pad">
+          <div class="mat-elevation-z8">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <!-- <th class="col-md-2.5">{{'PROFILE.docName' | translate}}</th>
+                  <th class="col-md-2.5">{{'PROFILE.fimg' | translate}}</th>
+                  <th class="col-md-2.5">{{'PROFILE.bimg' | translate}}</th>
+                  <th class="col-md-2.5">{{'PROFILE.expDate' | translate}}</th>
+                  <th class="col-md-2">{{'PROFILE.action' | translate}}</th> -->
+                </tr>
+                <tr>
+                  <th class="col-md-2.5">Document Name</th>
+                  <th class="col-md-2.5">Front Image</th>
+                  <th class="col-md-2.5">Back Image</th>
+                  <th class="col-md-2.5">Expire Date</th>
+                  <th class="col-md-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let multidrdoc of finalDriverDocs; let i = index">
+                  <td>
+                    {{ multidrdoc.name }}
+                  </td>
+                  <td>
+                    <div *ngIf="multidrdoc.front; else no_Doc">
+                      <div *ngIf="multidrdoc.docFrontImg; else no_Lic">
+                        <a
+                          href="{{baseurl}}{{ multidrdoc.docFrontImg }}"
+                          target="_blank"
+                          style="cursor: pointer; color: #5c97d2" >
+                          view
+                        </a>
+                      </div>
+                    </div>
+                    <ng-template #no_Doc>
+                      <div>----</div>
+                    </ng-template>
+                    <ng-template #no_Lic>
+                      <div>not uploaded</div>
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="multidrdoc.back; else no_Doc">
+                      <div *ngIf="multidrdoc.docBackImg; else no_Lic">
+                        <a
+                          href="{{baseurl}}{{ multidrdoc.docBackImg }}"
+                          target="_blank"
+                          style="cursor: pointer; color: #5c97d2">
+                          
+                          view
+                        </a>
+                      </div>
+                    </div>
+                    <ng-template #no_Doc>
+                      <div>not uploaded</div>
+                    </ng-template>
+                    <ng-template #no_Lic>
+                      <div>---</div>
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div *ngIf="multidrdoc.exp; else no_Doc">
+                      <div *ngIf="multidrdoc.docExp; else no_Lic">
+                        <p (click)="docDoc('label')" style="cursor: pointer">
+                          {{ multidrdoc.docExp | date }}
+                        </p>
+                      </div>
+                    </div>
+                    <ng-template #no_Doc>
+                      <div>----</div>
+                    </ng-template>
+                    <ng-template #no_Lic>
+                      <div>not uploaded</div>
+                    </ng-template>
+                  </td>
+                  <td>
+                    <div class="dataTable">
+                        <button class="btn" style="padding: 1px" 
+                         (click)="openModal(content)">
+                            <i class="fa fa-pencil pencil-postn-0"></i>
+                        </button>
+                      </div>
+                  </td>
+          
+                  <ng-template #content>
+                        <button
+                          type="button"
+                          class="close"
+                          aria-label="Close"
+                          mat-dialog-close>
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="">
+                          <h4 mat-dialog-title>{{ multidrdoc.fileFor }}</h4>
+                        </div>
+                            <form #diverForm="ngForm">
+                              <div class="row" *ngIf="multidrdoc.front">
+                                <div class="col-md-12">
+                                  <label>Front image</label>
+                                  <input
+                                    class="form-control"
+                                    type="file"
+                                    name="docFrontImg"
+                                    (change)="multipleDriverFile($event)"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row" *ngIf="multidrdoc.back">
+                                <div class="col-md-12">
+                                  <label>back Image</label>
+                                  <input
+                                    class="form-control"
+                                    type="file"
+                                    name="docBackImg"
+                                    (change)="multipleDriverFile($event)"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row" *ngIf="multidrdoc.exp">
+                                <div class="col-md-12">
+                                  <label>
+                                    exp Date
+                                  </label>
+                                  <input
+                                    class="form-control"
+                                    [min]="startAt"
+                                    placeholder="Click to Select a Date"
+                                    name="docExp"
+                                    (dateTimeInput)="multipleDriverDate($event)"
+                                    [owlDateTimeTrigger]="dt2"
+                                    [owlDateTime]="dt2"
+                                  />
+                                  <owl-date-time
+                                    [pickerType]="'calendar'"
+                                    #dt2
+                                  ></owl-date-time>
+                                </div>
+                              </div>
+                            </form>
+                            <button
+                              type="submit"
+                              class="btn btn-info pull-"
+                              (click)="submitMultipleDriverDoc(multidrdoc.fileFor,multidrdoc.fileFor,i, multipleDriDocExpiryDate['docExp']);"
+                              mat-dialog-close
+                             >
+                              submit
+                            </button>
+                    </ng-template>
+           
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </section>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <div class="container mrgn-t-25 mrgn-b-50 edit-profile-epm">
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="email-box">
+              <h4>{{ "TRIP.EMAIL" | translate }}</h4>
+              <p>{{SetDetail.email}}</p>
+              <i class="fa fa-envelope faenvelope"></i>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="mobilnum-box">
+              <h4>{{'PROFILE.MOBILENUMBER' | translate}}</h4>
+              <p>{{SetDetail.phone}}</p>
+              <div class="pwd-box-edit show-phonenumber" (click)="editmobile($event)">
+                <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+              </div>
+              <i class="fa fa-unlock-alt falock"></i>
+            </div>
+            <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 pad25 relative " > -->
+
+            <!-- </div> -->
+
+            <div class="col-xs-12 box_2 no-pad">
+              <div class="phone-box-1" *ngIf="expandededitmobile">
+                <h4><i class="fa fa-mobile"></i>&nbsp;&nbsp;&nbsp;Phone</h4>
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <div class="form-group">
+                    <label>{{'PROFILE.MOBILENUMBER' | translate}}
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="phone" class="form-control" form="editForm" [(ngModel)]="SetDetail.phone"
+                      #phone="ngModel" required />
+                  </div>
+                </div>
+
+                <div class="save-cancel-butn">
+                  <input name="save" type="submit" value="Save" (click)="updateRecord('phone',SetDetail)"
+                    class="sc-butn m-r-10" />
+                  <button class="sc-butn" (click)="editmobile($event)">
+                    {{'PROFILE.CANCEL' | translate}}
+                  </button>
+                </div>
+              <img src="assets/images/arrow-top.jpg" class="postn-arrow-phone" />
+            </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 pad25 relative">
+            <div class="email-box">
+              <h4>{{'PROFILE.BANKDETAILS' | translate}}</h4>
+              <!-- <p>example@gmail.com</p> -->
+              <div class="pwd-box-edit" (click)="editemail($event)">
+                <i class="fa fa-pencil"></i> {{'COMMON.UPDATE' | translate}}
+              </div>
+              <i class="fa fa-envelope faenvelope"></i>
+            </div>
+            <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 pad25 relative " > -->
+
+            <!-- </div> -->
+          </div>
+
+            <div class="col-xs-12 col-sm-6 col-sm-offset-6">
+              <div class="pwd-box-1" *ngIf="expandedemaildetail">
+                <h4>
+                  <i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;&nbsp;Bank Details
+                </h4>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>Payment Email
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="email" [(ngModel)]="SetBankDetail.email" form="editForm" #email="ngModel" name="email"
+                      required class="form-control" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>A/C Holder Name
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="holdername" [(ngModel)]="SetBankDetail.holdername" class="form-control"
+                      form="editForm" #actBank="ngModel" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>Account No
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="number" name="acctNo" [(ngModel)]="SetBankDetail.acctNo" class="form-control"
+                      form="editForm" #actBank="ngModel" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>Account Bank
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="bankname" [(ngModel)]="SetBankDetail.bankname" class="form-control"
+                      form="editForm" #bankname="ngModel" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>Account Location
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="banklocation" [(ngModel)]="SetBankDetail.banklocation" class="form-control"
+                      form="editForm" #banklocation="ngModel" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                  <div class="form-group">
+                    <label>IFSC Code
+                      <span class="astrick">&nbsp;*</span>
+                    </label>
+                    <input type="text" name="swiftCode" [(ngModel)]="SetBankDetail.swiftCode" class="form-control"
+                      form="editForm" #swiftCode="ngModel" />
+                  </div>
+                </div>
+
+                <div class="save-cancel-butn">
+                  <input name="save" type="submit" value="Save" (click)="updateBank('bank',SetBankDetail)"
+                    class="sc-butn m-r-10" />
+                  <button class="sc-butn" (click)="editemail($event)">
+                    Cancel
+                  </button>
+                </div>
+                <img src="assets/images/arrow-top.jpg" class="postn-arrow" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

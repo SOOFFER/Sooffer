@@ -1,0 +1,306 @@
+<style type="text/css">
+  .action1 {
+    margin-top: 35px;
+  }
+</style>
+<!-- <div *ngIf="initial; then list else detail"></div> -->
+<!-- <ng-template #list> -->
+<nb-card *ngIf="initial == 'list'">
+  <nb-card-header>
+    <div class="row" *ngIf="showCity==false">
+      <div class="col-md-6">
+        View PromoCode Details
+      </div>
+    </div>
+    <div class="row" *ngIf="showCity==true">
+      <div class="col-sm-6">
+        View PromoCode Details
+      </div>
+      <!-- <div class="col-sm-8"> -->
+      <!-- <form class="form-row"> -->
+      <div class="col-sm-4">
+        <select class="form-control" [(ngModel)]=" Doc.servicecity" name="servicecity" #servicecity="ngModel" required
+          placeholder="Service">
+          <option [value]="undefined" selected hidden>
+            Select a ServiceCity</option>
+          <option *ngFor="let city of serviceCityArray" [value]="city.label">
+            {{city.label}}
+          </option>
+          <option value="undefined" selected>
+            All</option>
+        </select>
+      </div>
+      <!-- <div class="col-md-3"> -->
+      <button type="button" class="col-sm-2" class="btn btn-primary" (click)="SerachForCity(Doc);">Filter</button>
+      <!-- </div> -->
+      <!-- </form> -->
+      <!-- </div> -->
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+<!-- </ng-template> -->
+<!-- <ng-template #detail> -->
+<nb-card *ngIf="initial == 'detail'">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+        PromoCode : {{Promocode}}
+      </div>
+      <div class="col-md-6">
+        <button nbButton size="small" class="pull-right" (click)="RouteToTable()" type="danger">Usage History</button>
+      </div>
+    </div>
+
+  </nb-card-header>
+  <nb-card-body>
+    <form #dataForm="ngForm">
+      <div class="row">
+        <!-- <div class="col-md-6">
+            <div class="form-group">
+              <label>{{'PROMOCODE.FLATDISCOUNTAMOUNT' | translate}} (<span class="red">*</span>)</label>
+              <input type="text" [(ngModel)]="selectedDocs.amount" #amount="ngModel" name="amount" required
+                placeholder="Discount" class="form-control" />
+            </div>
+          </div> -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Discount Type (<span class="red">*</span>)</label>
+            <select class="form-control" name="amountType" [(ngModel)]="selectedDocs.amountType">
+              <option value="undefined" selected hidden>Select A Type</option>
+              <option value="percentage">Percentage</option>
+              <option value="amount">Flat</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="selectedDocs.amountType == 'percentage'">
+          <div class="form-group">
+            <label>Discount Percentage (<span class="red">*</span>) </label>
+            <input type="number" class="form-control" name="percentage" [(ngModel)]="selectedDocs.percentage"
+              #percentage="ngModel" required placeholder="Discount Percentage">
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="selectedDocs.amountType == 'amount'">
+          <div class="form-group">
+            <label>Flat Amount (<span class="red">*</span>) </label>
+            <input type="number" class="form-control" name="amount" [(ngModel)]="selectedDocs.amount" #amount="ngModel"
+              required placeholder="Flat Amount">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Usage Limit (<span class="red">*</span>)</label>
+            <input type="text" [(ngModel)]="selectedDocs.noofuse" #noofuse="ngModel" name="noofuse" required
+              placeholder="Usage Limit" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Discount Amount</label>
+              <input type="text" [(ngModel)]="selectedDocs.amount" #amount="ngModel" name="amount" required
+                placeholder="Discount" class="form-control" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Usage Limit</label>
+              <input type="text" [(ngModel)]="selectedDocs.noofuse" #noofuse="ngModel" name="noofuse" required
+                placeholder="Usage Limit" class="form-control" />
+            </div>
+          </div>
+        </div> -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Validity Start</label>
+            <ng-datepicker [ngModel]="selectedDocs.start| date:'yyyy-MM-dd'"
+              (ngModelChange)="selectedDocs.start = $event" #start="ngModel" [options]="visibleDateOptions" name="start"
+              required placeholder="Activation Date" class="form-control"></ng-datepicker>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Validity End</label>
+            <ng-datepicker [ngModel]="selectedDocs.end| date:'yyyy-MM-dd'" (ngModelChange)="selectedDocs.end = $event"
+              #end="ngModel" [options]="visibleDateOptions" name="end" required placeholder="Activation Date"
+              class="form-control"></ng-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Start Time</label>
+            <input class="form-control" placeholder="Click to Select a Time" required
+              [(ngModel)]="selectedDocs.startTime" name="startTime" #startTime="ngModel" [owlDateTimeTrigger]="dt1"
+              [owlDateTime]="dt1">
+            <owl-date-time [pickerType]="'timer'" [showSecondsTimer]=true #dt1></owl-date-time>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>End Time</label>
+            <input class="form-control" placeholder="Click to Select a Time" required [(ngModel)]="selectedDocs.endTime"
+              name="endTime" #endTime="ngModel" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+            <owl-date-time [pickerType]="'timer'" [showSecondsTimer]=true #dt2></owl-date-time>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngIf="this.servicecity == true">
+          <div class="form-group">
+            <label>Service Available City</label>
+            <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="cities" required
+              [(ngModel)]="selectedDocs.scIds" [settings]="dropdownSettings" class="form-control">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Trip Type</label>
+            <ng-multiselect-dropdown [placeholder]="'Trip Type'" name="tripType" [(ngModel)]="selectedDocs.tripType"
+              [data]="TripType" required [settings]="TripDropDown" (onSelect)="onItemSelect($event)"
+              (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+              (onDeSelectAll)="onDeSelectAll($event)" class="form-control"></ng-multiselect-dropdown>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+            <div class="form-group">
+              <br> <br>
+              <nb-checkbox name="day1" #forFirst="ngModel" [value]="true" [(ngModel)]="selectedDocs.forFirst">For
+                First Ride Only</nb-checkbox>
+            </div>
+          </div> -->
+      </div>
+      <hr> <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group" style="margin: 0px;">
+            <label>Days &nbsp; --> &nbsp; </label>
+            <div class="customised-control-indicator" style="display: inline-block" *ngFor='let submenu of filternames'>
+              <label class="container"> {{submenu.name}}
+                <input type="checkbox" (change)="change($event, submenu.name)" name=submenu.name
+                  [checked]="submenu.checked">
+                <span class="checkmark"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="updateRecord(selectedDocs)" [disabled]="!dataForm.valid" type="submit"
+      class="btn btn-primary">Update</button> &nbsp;
+    <button (click)="deleteRecord(selectedid)" type="submit" class="btn btn-primary">Delete</button>
+    <button (click)="goBack('list')" type="button" class="pull-right" status="danger" nbButton size="small">
+      Go Back
+    </button>
+  </nb-card-footer>
+
+</nb-card>
+
+<!-- </ng-template> -->
+
+<nb-card *ngIf="initial == 'tableData'">
+  <nb-card-header>
+    Number of User User : {{totalCount}}
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered" style="text-align: center">
+      <thead>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Count</th>
+      </thead>
+      <tbody *ngFor="let dt of data,let i = index">
+        <tr>
+          <td>{{dt.firstName}}</td>
+          <td>{{dt.phone}}</td>
+          <td>{{dt.count}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="goBack('detail')" type="button" class="pull-right" status="danger" nbButton size="small">
+      Go Back
+    </button>
+  </nb-card-footer>
+
+</nb-card>
+<style>
+  /* The container */
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 30px;
+    background-color: #eee;
+    transition: 0.5s;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .container:hover input~.checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked~.checkmark {
+    background-color: #20c997;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .container input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 10px;
+    top: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+</style>

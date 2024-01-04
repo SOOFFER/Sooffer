@@ -1,0 +1,15 @@
+<nb-card-header>
+  <span style="font-size: 15px;color: black;"><b>Trip Earning Report</b></span>
+  <div class="dropdown ghost-dropdown" ngbDropdown>
+    <button type="button" class="btn btn-sm" style="left: 45px;" ngbDropdownToggle [ngClass]="{
+              'btn-success': currentTheme === 'default',
+              'btn-primary': currentTheme !== 'default'}">
+      {{ type }}
+    </button>
+    <ul ngbDropdownMenu class="dropdown-menu">
+      <li class="dropdown-item" *ngFor="let period of types" (click)="changePeriod(period)">
+        {{ period }}
+      </li>
+    </ul>
+  </div>
+</nb-card-header>

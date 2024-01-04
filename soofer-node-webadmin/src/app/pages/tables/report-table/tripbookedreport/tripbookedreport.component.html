@@ -1,0 +1,42 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-2">
+        {{title}}
+      </div>
+      <div class="col-md-10">
+        <form #dateForm="ngForm" class="form-inline">
+          From: &nbsp;
+          <!-- <input type="date" #fromDate  required class="form-control"/> -->
+          <input class="form-control" placeholder="Click to Select a Date"
+            (dateTimeInput)="logDate($event)" [(ngModel)]="list.fromDate" name="fromDate" #fromDate="ngModel"
+            [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required>
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          &nbsp; To: &nbsp;
+          <!-- <input type="date" #toDate required class="form-control"/> -->
+          <input  class="form-control" placeholder="Click to Select a Date"
+            (dateTimeInput)="logDate($event)" [(ngModel)]="list.toDate" name="toDate" #toDate="ngModel"
+            [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required>
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>&nbsp;&nbsp;
+          <select  *ngIf="showCity == true"  name="servicecity" [(ngModel)]="list.servicecity" class="form-control">
+            <option value="undefined" selected hidden>Service Available City</option>
+            <option [value]="city.label" *ngFor="let city of serviceCity">{{city.label}}</option>
+            <option value="all">All</option>
+          </select> &nbsp;&nbsp;&nbsp;
+          <button type="button" (click)="filterRes(list)"
+            class="btn btn-danger">Submit</button>&nbsp;&nbsp;
+          <!-- <button type="button" nbButton size="xsmall" (click)="export()" class="btn btn-danger">Export</button> -->
+          <select class="form-control" name="exp" [(ngModel)]="exportInp.exp" #exp="ngModel" (change)="export($event)">
+            <option value="undefined" selected hidden>Export</option>
+            <option value="csv">Csv</option>
+            <option value="excel">Excel</option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" *ngIf="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

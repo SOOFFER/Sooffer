@@ -1,0 +1,4 @@
+const configObj = {
+  "description": "<!DOCTYPE html ><html><body><ul>\n<li>Extra charges on exceeding package time and KM's.</li>\n<li>GST and TOLL, if applicable will be added to the bill.</li>\n<li>Please pay parking as and when required.</li>\n<li>Base fare amount is the minimum bill amount a customer has to pay for the package.</li>\n</ul></body></html>",
+  "dynamicDescription": "<!DOCTYPE html ><html><body><ul>\n<li>Excludes toll charge, parkings, permits and state tax</li>\n<li>₹{ADDITIONALFAREPERKM}/KM will be charged for extra KMs.</li>\n<li>₹{ADDITIONALDURATIONFARE}/hr will be charged for additional hours.</li>\n<li>Extra fare may apply if you don't end trip at {ENDPLACE}.</li>\n<li>Driver allowance per 24 hours- ₹250</li>\n<li>Night time allowance (11:00PM-05:00AM)- ₹200/- night.</li>\n</ul></body></html>"
+};module.exports = configObj

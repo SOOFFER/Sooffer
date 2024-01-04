@@ -1,0 +1,75 @@
+--------------1
+Replace ToRemoveRegisterInLogin 
+in @nebular/auth/components/request-password
+---------------
+
+----------------2
+npm i  angular2-csv@0.2.8
+----------------
+
+----------------3 Menu permisson
+ * node_modules/@nebular/theme/components/menu/
+----------------
+
+----------------4
+Set Debounce Time to 2000 or 3000 Sec, (delay Variable) in default-filter.js.. Source File -> ng2-smart-table -> Components -> Filter -> filter-types.
+----------------
+
+--------------5 Admin Color Change
+node_modules/@nebular/theme/styles/themes/_default.scss
+  color-success: #5DBCD2,
+  color-fg-highlight: #5DBCD2,
+Line number - 39,49
+
+#42db7d - Default Green Color
+
+Graph Color
+src/app/pages/dashboard/electricity/electricity-chart/electricity-chart.component.ts  "#42db7d" => #5DBCD2,
+src/app/@theme/styles/theme.default.ts
+ solar: {
+      gradientLeft: '#5DBCD2',
+      gradientRight: '#5DBCD2',
+----------------
+
+
+Node Error : 
+npm i node-sass --save
+npm i sass-loader --save
+OR sudo npm install -g node-sass@4.5.0 --unsafe-perm=true --allow-root
+
+
+---------6 
+For scrol bar width 
+use new mixins
+@mixin nb-scrollbars($fg, $bg, $size, $border-radius: $size / 2) {
+
+  ::-webkit-scrollbar {
+    width:$size; // => 8px;
+    height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $fg; //=> #a8a8a8;
+    cursor: pointer;
+    border-radius: $border-radius;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $bg;
+  }
+
+  // TODO: remove
+  // For Internet Explorer
+  scrollbar-face-color: $fg;
+  scrollbar-track-color: $bg;
+}
+
+------------ 7
+
+For Excel and FileSaver: (Use Below Version)
+import * as Excel from 'exceljs/dist/exceljs.min.js';
+import * as FileSaver from 'file-saver';
+    "exceljs": "^1.7.0",
+    "file-saver": "^2.0.0",
+
+-----------------------------------------------------

@@ -1,0 +1,189 @@
+<div *ngIf="initial; then list else detail"></div>
+<ng-template #list>
+  <nb-card>
+    <nb-card-header>
+      Company Details
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #detail>
+  <nb-card>
+    <nb-card-header>
+      Company Details:
+    </nb-card-header>
+    <nb-card-body>
+      <form #dataForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Company Name (<span class="red">*</span>)</label>
+              <input type="text" minlength={{validation.fnameValid.minlength}}
+                maxlength={{validation.fnameValid.maxlength}} pattern={{validation.fnameValid.pattern}}
+                [(ngModel)]="selectedDocs.name" name="name" #name="ngModel" placeholder="Company Name"
+                class="form-control" required />
+              <small *ngIf="name.invalid && (name.dirty)" class="form-text error">
+                Company Name is invalid!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Email Id (<span class="red">*</span>)</label>
+              <input type="email" email pattern={{validation.emailValid}} [(ngModel)]="selectedDocs.email"
+                #email="ngModel" name="email" required placeholder="Email" class="form-control" />
+              <small *ngIf="email.invalid && (email.dirty)" class="form-text error">
+                Valid Emailid is required!
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Phone No (<span class="red">*</span>)</label>
+              <input type="number" pattern={{validation.phoneValid.pattern}}
+                minlength={{validation.phoneValid.minlength}} maxlength={{validation.phoneValid.maxlength}}
+                [(ngModel)]="selectedDocs.phone" name="phone" required #phone="ngModel" placeholder="Phone"
+                class="form-control" />
+              <small *ngIf="phone.invalid && (phone.dirty)" class="form-text error">
+                Phone is required!
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>VAT Number </label>
+              <input type="text" [(ngModel)]="selectedDocs.vatNumber" #vatNumber="ngModel" name="vatNumber"
+                placeholder="VAT Number" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Country (<span class="red">*</span>)</label>
+              <ng-select name="countries" placeholder="Select a Country" filterPlaceholder="Type to Search a Country"
+                notFoundMsg="No Countries Found" [(ngModel)]="selectedDocs.cnty" [options]="countries"
+                [allowClear]="true" (selected)="selectedCountry($event);" (deselected)="deSelectedCountry($event);"
+                required>
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>State / Provinces</label>
+              <ng-select name="states" placeholder="Select a State / Provinces"
+                filterPlaceholder="Type to Search a State / Provinces" notFoundMsg="No States / Provinces found"
+                [(ngModel)]="selectedDocs.state" [options]="states" [allowClear]="true"
+                (selected)="selectedState($event);" (deselected)="deSelectedState($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>City</label>
+              <ng-select name="cities" placeholder="Select a City" filterPlaceholder="Type to Search a City"
+                notFoundMsg="No Cities Found" [(ngModel)]="selectedDocs.city" [options]="cities" [allowClear]="true"
+                (selected)="selectedCity($event);" (deselected)="deSelectedCity($event);">
+                <ng-template #optionTemplate let-option="option">
+                  <span class="{{option.value}}">{{option.label}}</span>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>VAT (%) </label>
+              <input type="text" [(ngModel)]="selectedDocs.vat" #vat="ngModel" name="vat" placeholder="VAT (%)"
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6" *ngIf="this.servicecity == true">
+            <div class="form-group">
+              <label>Service Available City (<span class="red">*</span>)</label>
+              <ng-multiselect-dropdown [placeholder]="'Service Available City'" name="scIds" [data]="scities"
+                [(ngModel)]="selectedDocs.scIds" [settings]="dropdownSettings" class="form-control" required>
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+        </div>
+          <div class="row">
+
+              <div class="col-md-6">
+              <div class="demo-radio col-sm-6">
+                <label>Settlememt Type (<span class="red">*</span>)</label>
+         
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.settlementType" selected=true name="settlementType" value="Flat">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Flat</span>
+                </label>
+                <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" [(ngModel)]="selectedDocs.settlementType" name="settlementType"
+                    value="Percentage">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Percentage</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label *ngIf="selectedDocs.settlementType=='Flat'">Enter Flat Amount  (<span class="red">*</span>) </label>
+                <label *ngIf="selectedDocs.settlementType=='Percentage'">Enter Percentage Value (<span class="red">*</span>) </label>
+
+                <input type="number" [(ngModel)]="selectedDocs.rate" [min]=1 #rate="ngModel" name="rate"
+                  placeholder="Rate" class="form-control" />
+              </div>
+            </div>
+           
+    
+              
+           
+          </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Address Line 1 </label>
+              <textarea rows="5" [(ngModel)]="selectedDocs.adln1" name="adln1" #adln1="ngModel"
+                placeholder="Address Line 1" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Address Line 2 </label>
+              <textarea rows="5" [(ngModel)]="selectedDocs.adln2" name="adln2" placeholder="Address Line 2"
+                class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </form>
+      <button (click)="updateRecord(selectedDocs)" [disabled]="!dataForm.form.valid" type="submit"
+        class="btn btn-primary">Update</button>
+      &nbsp;
+      <button (click)="deleteRecord(selectedid)" type="submit" class="btn btn-primary">Delete</button>
+    </nb-card-body>
+  </nb-card>
+  <button (click)="goBack()" type="button" class="btn btn-danger">
+    Go Back
+  </button>
+</ng-template>

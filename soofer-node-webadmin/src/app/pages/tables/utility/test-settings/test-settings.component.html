@@ -1,0 +1,80 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Testing
+      </nb-card-header>
+    </nb-card>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>
+        Test SMS
+      </nb-card-header>
+      <nb-card-body>
+        <form #secondForm="ngForm">
+          <div class="form-group">
+            <label>Enter Country Phone Code:</label>
+            <input type="tel" minlength="1" maxlength="6" class="form-control" placeholder="Enter Country Phone Code"
+              [(ngModel)]="secondDocs.phcode" #phcode="ngModel" name="phcode" required />
+          </div>
+          <div class="form-group">
+            <label>Enter Mobile Number:</label>
+            <input type="tel" minlength="4" maxlength="13" class="form-control" placeholder="Enter Mobile Number"
+              [(ngModel)]="secondDocs.phone" #phone="ngModel" name="phone" required />
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="sendPush('sms',secondDocs)" [disabled]="!secondForm.valid"
+          class="btn btn-success">Send</button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>
+        Test Send Push Notification To Rider
+      </nb-card-header>
+      <nb-card-body>
+        <form #thirdForm="ngForm">
+          <div class="form-group">
+            <ng-multiselect-dropdown [placeholder]="'Select Rider'" name="scIds" [data]="ridersList"
+              [(ngModel)]="thirdDocs.fcmId" [settings]="dropdownSettings" class="form-control"
+              (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" required>
+            </ng-multiselect-dropdown>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="sendPush('fcm',thirdDocs)" [disabled]="!thirdForm.valid"
+          class="btn btn-success">Send
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>
+        Test Email
+      </nb-card-header>
+      <nb-card-body>
+        <form #firstForm="ngForm">
+          <div class="form-group">
+            <label>Enter Email ID:</label>
+            <input type="email" class="form-control" email pattern="{{emailvalidate}}" placeholder="Enter Email ID"
+              [(ngModel)]="firstDocs.email" #email="ngModel" name="email" required />
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="submit" (click)="sendPush('email',firstDocs)" [disabled]="!firstForm.valid"
+          class="btn btn-success">Send
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

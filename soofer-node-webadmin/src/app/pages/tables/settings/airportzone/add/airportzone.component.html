@@ -1,0 +1,85 @@
+<form #dataForm1="ngForm">
+
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-8">
+          Add Airport Zone To City
+
+        </div>
+        <div class="col-md-4">
+          <select class="form-control" name="cityId" (change)="getAPI(list.cityId)" required placeholder="City"
+            [(ngModel)]="list.cityId" #cityId="ngModel">
+            <option [ngValue]="undefined" hidden selected> Select City </option>
+            <option *ngFor="let city of cityAray" [value]="city.city">
+              {{city.city}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </nb-card-header>
+
+    <nb-card-body>
+      <!-- -->
+      <ngui-map zoom={{zoom}} style="height:600px" center="{{list.cityId}}" scrollwheel="true">
+        <polygon [clickable]="true" *ngIf="paths.length!=0" [editable]="true" [draggable]="false" [paths]="paths"
+          [strokeColor]="'#FFC107'" [strokeOpacity]="0.8" [strokeWeight]="2" [fillColor]="'#FFC107'"
+          [fillOpacity]="0.35" (click)="getWindow($event)" (mouseout)="getPoints($event)">
+        </polygon>
+ 
+                        
+        <drawing-manager [drawingMode]="'polygon'" [draggable]="true" [drawingControl]="true" [drawingControlOptions]="{
+          position: 2,
+          drawingModes: [  'polygon' ]
+         }" [polygonOptions]="{
+          fillOpacity: 0.35,
+          strokeWeight: 5,
+          editable: true,
+          zIndex: 1
+        }"
+         (polygoncomplete)="setPoints($event)"></drawing-manager>
+      </ngui-map>
+      <div class="row">
+        <div class="col-md-3">
+          <button class="btn btn-primary" type="button"  [disabled]="!submitButton"  (click)="deleteSelectedOverlay()">Delete selected Zone</button>
+
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary" type="button"  [disabled]="!submitButton"  (click)="openVerticallyCentered(content)">Add Selected
+            Zone</button>
+
+        </div>
+      </div>
+
+    </nb-card-body>
+  </nb-card>
+
+  <ng-template #content let-modal let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add zone</h4>
+      <button type="button" class="close" aria-label="Close" (click)="submitted(d)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #zoneForm="ngForm">
+         <label>Enter Name Of the Zone</label>
+        <input type="text" [(ngModel)]="zoneadd.name"  #name name="name" placeholder="Name" class="form-control" required />
+        <br>
+        <label>Enter Price of the Zone</label>
+        <input type="number" [(ngModel)]="zoneadd.price"  #price name="price" placeholder="Price" class="form-control" required />
+        <br>
+       
+      </form>
+      <button type="submit" class="btn btn-info pull-" [disabled]="!zoneForm.valid"
+        (click)="addZone(zoneadd);closed(d);">Add</button>
+    </div>
+
+  </ng-template>
+</form>
+<!--
+<style>
+  #map {
+    height: 400px;
+  }
+</style> -->

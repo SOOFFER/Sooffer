@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyMessage"
+        android:paddingTop="@dimen/_25sdp"
+        android:layout_above="@id/chatLayout"
+        android:layout_margin="@dimen/_5sdp"
+        tools:listitem="@layout/chat_adapter"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/chatLayout"
+        android:background="@color/white"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/imgSend"
+            android:layout_margin="@dimen/_5sdp"
+            android:id="@+id/edtMessage"
+            android:hint="@string/enter_your_message"
+            />
+
+        <ImageView
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_email"
+            android:layout_centerVertical="true"
+            android:id="@+id/imgSend"
+            android:layout_alignParentEnd="true"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:title="@string/your_trip"
+        app:titleTextColor="@color/white"
+        android:id="@+id/toolbar"
+        >
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+</RelativeLayout>

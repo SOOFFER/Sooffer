@@ -1,0 +1,127 @@
+<!-- <ngx-spinner></ngx-spinner>
+<nb-card>
+  <nb-card-header>
+    Cancellation Reasons For Driver
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings1" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="updateRecord($event)"
+      (createConfirm)="addRecord($event)" *ngIf="source ">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    Cancellation Reasons For Rider
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings2" [source]="source2" (deleteConfirm)="onDeleteConfirmRider($event)"
+      (editConfirm)="updateRecordRider($event)" (createConfirm)="addRecordRider($event)" *ngIf="source2">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card> -->
+
+
+<ng-template [ngIf]="initial==0">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-sm-9">
+          Cancellation Reason
+        </div>
+        <div class="col-sm-3">
+          <button type="button" (click)="btBack(1)" nbButton status="danger" size="xsmall" class="pull-right">Add
+          </button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial==1">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Add Cancellation Reason </nb-card-header>
+        <nb-card-body>
+          <form #dataForm1="ngForm" autocomplete="off">
+
+            <div class="form-group">
+              <label>Language</label>
+              <select class="form-control" #language="ngModel" name="language" [(ngModel)]="list.language" required>
+                <option value="undefined" selected hidden>Select Language</option>
+                <option *ngFor="let lang of Language" [value]="lang">{{lang}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Driver Cancellation Reason(Seperate Reason by comma)</label>
+              <textarea rows="5" required [(ngModel)]="list.driverCancelReason" name="driverCancelReason"
+                #driverCancelReason="ngModel" placeholder="Enter Reason" class="form-control"></textarea>
+              <small *ngIf="driverCancelReason.invalid && (driverCancelReason.dirty)" class="form-text error">
+                Reason is required!
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Rider Cancellation Reason(Seperate Reason by comma)</label>
+              <textarea rows="5" required [(ngModel)]="list.riderCancelReason" name="riderCancelReason"
+                #riderCancelReason="ngModel" placeholder="Enter Reason" class="form-control"></textarea>
+              <small *ngIf="riderCancelReason.invalid && (riderCancelReason.dirty)" class="form-text error">
+                Reason is required!
+              </small>
+            </div>
+
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="addCat(list)" [disabled]="!dataForm1.form.valid" type="submit" class="btn btn-success">
+            Add
+          </button> &nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>
+<ng-template [ngIf]="initial==2">
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header>Edit Cancellation Reason</nb-card-header>
+        <nb-card-body>
+          <form #dataForm2="ngForm" autocomplete="off">
+
+            <div class="form-group">
+              <label>Driver Cancellation Reason(Seperate Reason by comma)</label>
+              <textarea rows="5" [(ngModel)]="selectedDocs.driverCancelReason" name="driverCancelReason"
+                #driverCancelReason="ngModel" placeholder="Enter Reason" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Rider Cancellation Reason(Seperate Reason by comma)</label>
+              <textarea rows="5" [(ngModel)]="selectedDocs.riderCancelReason" name="riderCancelReason"
+                #riderCancelReason="ngModel" placeholder="Enter Reason" class="form-control"></textarea>
+            </div>
+
+          </form>
+        </nb-card-body>
+
+        <nb-card-footer>
+          <button (click)="updateCat(selectedDocs)" [disabled]="!dataForm2.form.valid" type="submit"
+            class="btn btn-danger">
+            Update
+          </button>&nbsp; &nbsp;
+          <button (click)="btBack(0)" type="button" class="btn btn-info">
+            Back
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

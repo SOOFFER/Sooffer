@@ -1,0 +1,86 @@
+<ng-template [ngIf]="pageNo == 0">
+
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-9">
+          View Airport Zones
+
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" name="cityId" (change)="getAPI(list.cityId)" required placeholder="City"
+            [(ngModel)]="list.cityId" #cityId="ngModel">
+            <option [ngValue]="undefined" hidden selected> Select City </option>
+            <option *ngFor="let city of cityAray" [value]="city.city">
+              {{city.city}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source">
+      </ng2-smart-table>
+      <div *ngIf="!source">Select A City To Update Zone</div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="pageNo == 1">
+  <nb-card>
+    <nb-card-header>
+      Edit Zone
+    </nb-card-header>
+
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-8">
+          <!-- -->
+          <ngui-map zoom={{zoom}} style="height:600px" center="{{list.serviceCity[0].city}}" scrollwheel="true">
+            <polygon [clickable]="false" [id]=list.servicecityId *ngIf="paths.length!=0" [editable]="false"
+              [draggable]="false" [paths]="paths" [strokeColor]="'#FFC107'" [strokeOpacity]="0.8" [strokeWeight]="2"
+              [fillColor]="'#FFC107'" [fillOpacity]="0.35">
+            </polygon>
+            <polygon [clickable]="true" [id]=list._id *ngIf="zonePath.length!=0" [editable]="true" [draggable]="false"
+              [paths]="zonePath" [strokeColor]="'#2a2a2a'" [strokeOpacity]="0.8" [strokeWeight]="2"
+              [fillColor]="'#2a2a2a'" [fillOpacity]="0.35" (click)="getWindow($event)" (mouseout)="getPoints($event)">
+            </polygon>
+
+          </ngui-map>
+        </div>
+        <div class="col-md-4">
+          <form #zoneForm="ngForm">
+            <label>Enter Name Of the Zone</label>
+            <input type="text" [(ngModel)]="list.name" #name="ngModel" name="name" placeholder="Name"
+              class="form-control" required />
+            <br>
+            <label>Enter Price of the Zone</label>
+            <input type="number" [(ngModel)]="list.price" #price="ngModel" name="price" placeholder="Price"
+              class="form-control" required />
+            <br>
+
+          </form>
+          <div class="row">
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-info pull-" [disabled]="!zoneForm.form.valid"
+                (click)="addZone(list);">update</button>
+            </div>
+            <div class="col-md-4">
+
+
+              <button class="btn btn-primary" type="button" (click)="pageNo=0;">GO Back</button>
+            </div>
+
+              
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+    </nb-card-body>
+  </nb-card>
+</ng-template>

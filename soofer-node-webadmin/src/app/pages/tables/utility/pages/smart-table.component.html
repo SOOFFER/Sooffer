@@ -1,0 +1,71 @@
+<ng-template [ngIf]="initial == 0">
+  <nb-card>
+    <nb-card-header>
+      <!-- <div class="col-sm-6">
+        {{title}}
+      </div> -->
+      <div class="row">
+        <div class="col-sm-3">
+          {{title}}
+        </div>
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-2">
+          Select Language
+        </div>
+        <div class="col-sm-1">
+          <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+            <nb-action size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'"
+              *ngIf="showTransOption">
+              <select #langSelect (change)="translate.use(langSelect.value)" (click)="getLang(langSelect.value)">
+                <option *ngFor="let list of translate.getLangs()" [value]="list"
+                  [selected]="list === translate.currentLang">
+                  {{ list }}</option>
+              </select>
+            </nb-action>
+          </nb-actions>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template [ngIf]="initial == 1">
+  <div class="row">
+    <div class="col-md-12">
+      <nb-card>
+        <nb-card-header>Page - {{list.title}}</nb-card-header>
+        <nb-card-body>
+          <form #dataForm="ngForm">
+            <div class="form-group">
+              <label>Title</label>
+              <br />
+              <input type="text" class="form-control" [(ngModel)]="list.title" #title="ngModel" name="title" required />
+              <!-- <div *ngIf="taxiImg != 0">
+                <img src="{{baseurl}}{{taxiImg}}" class="img-thumbnail">
+            </div> -->
+            </div>
+            <div class="form-group">
+              <label>
+                Description</label>
+              <tinymce [(ngModel)]="list.desc" #desc="ngModel" name="desc" [config]="config" required></tinymce>
+              <small *ngIf="desc.invalid && (desc.dirty)" class="form-text error">
+                Description is mandatory!!
+              </small>
+            </div>
+          </form>
+        </nb-card-body>
+        <nb-card-footer>
+          <div class="form-group">
+            <button (click)="btBack()" type="button" class="btn btn-danger"> Go Back</button> &nbsp;
+            <button class="form-control" (click)="updateMyPage(list);" type="submit"
+              class="btn btn-primary">Update</button>
+          </div>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,98 @@
+              <nb-card *ngIf="initial == 'listg'">
+                    <nb-card-header>
+                            <div class="row">
+                              <div class="col-md-10">
+                                Language
+                              </div>
+                              <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary" (click)="Add()">
+                                 Add Language</button>
+                              </div>
+                            </div>
+                          </nb-card-header>
+                    <nb-card-body>
+                      <!-- <ng2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" *ngIf="source ">
+                      </ng2-smart-table> -->
+                      <table class="table table-bordered" style="text-align: center">
+                        <tr>
+                          <td> <b>Update Language File</b></td>
+                          <td><b>Language Code</b></td>
+                          <td><b>Download Language File</b></td>
+                        </tr>
+                        <tr *ngFor="let lang of language">
+                          <td (click)="GetLanguge(lang)" > <a>
+                              <mat-icon class="fas fa-pen"></mat-icon>
+                            </a></td>
+                          <td (click)="download(lang)">{{lang}}</td>
+                         
+                          <!-- download="en.json" -->
+                          <!-- <td><button type="submit" (click)="download()" class="btn btn-danger">Download</button></td> -->
+                          <!-- <td><a [href]="fileUrl"  download="{{lang}}.json" (click)="download(lang)"  class="fa fa-download" aria-hidden="true"
+                              ></a></td> -->
+                              <td><a href="{{baseurl}}adminapi/downloadLanguage/{{lang}}" target="_blank" download="en.json"><i  class="fa fa-download" aria-hidden="true"></i></a></td>
+                          <!-- <td><a href="http://34.67.121.212:3001/locales/{{lang}}.json" target="_blank" style="display: inline;"
+                              download><i class="fa fa-download" aria-hidden="true"></i></a></td> -->
+                        </tr>
+                      </table>
+                    </nb-card-body>
+                  </nb-card>
+                  <!-- </ng-template> -->
+                  <!-- <ng-template #detail> -->
+                  <div class="col-md-6">
+                    <nb-card *ngIf="initial == 'detail'">
+                      <nb-card-header>
+                      Language
+                      </nb-card-header>
+                      <nb-card-body>
+                        <!-- <div class="form-group">
+                                                  <label>Language Code</label>
+                                                  <input type= "text" class="form-control" name="language" [(ngModel)]="list.language" #language="ngModel" placeholder="Language Code">
+                                              </div> -->
+                  
+                        <div class="form-group">
+                          <label>Upload Json File</label>
+                          <input class="form-control" type="file" (change)="onFileChanged($event)" #fileInput>
+                        </div>
+                        <!-- <div class="col-md-12">
+                                              <textarea class="form-control" name="data" rows="100" [(ngModel)]="list.data" #data="ngModel"></textarea>
+                                              <br>
+                  
+                                      </div> -->
+                  
+                        <button type="submit" class="btn btn-primary" (click)="Update(list)">Update</button>
+                      </nb-card-body>
+                      <nb-card-footer>
+                        <button type="submit" class="btn btn-danger" (click)="GoBack()">Go Back</button>
+                      </nb-card-footer>
+                    </nb-card>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <nb-card *ngIf="initial == 'data'">
+                      <nb-card-header>
+                       Language
+                      </nb-card-header>
+                      <nb-card-body>
+                        <div class="form-group">
+                          <label>Language Code</label>
+                          <input type="text" class="form-control" name="language" [(ngModel)]="list.language" #language="ngModel"
+                            placeholder="Language Code">
+                        </div>
+                  
+                        <div class="form-group">
+                          <label>Upload Json File</label>
+                          <input class="form-control" type="file" (change)="onFileChanged($event)" #fileInput>
+                          <!-- <button (click)="fileInput.click()">Select File</button> -->
+                  
+                          <br><br>
+                          <button class="btn btn-primary" (click)="onUpload(list.language)">Add</button>
+                        </div>
+                  
+                  
+                      </nb-card-body>
+                      <nb-card-footer>
+                        <button type="submit" class="btn btn-danger" (click)="GoBack()">Go Back</button>
+                      </nb-card-footer>
+                    </nb-card>
+                  </div>
+                  

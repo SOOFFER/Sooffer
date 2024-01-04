@@ -1,0 +1,391 @@
+<resources>
+    <string name="app_name">Sooffer Driver</string>
+    <string name="welcome_title">There are many variations of passangs of lorem \n lpsum available, but the majority have suffered \n alternation in some form ,by injected humour</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_wait">Please wait...</string>
+
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="app_font">Roboto_Regular.ttf</string>
+
+    <string name="default_notification_channel_id">1</string>
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/profile</item>
+        <item>@string/Bank</item>
+        <item>@string/trip</item>
+        <item>@string/rating</item>
+        <item>@string/Manage_Vehicles</item>
+        <item>@string/Manage_category</item>
+        <item>@string/Manage_Document</item>
+        <item>@string/Earnings</item>
+        <item>@string/notification</item>
+      <!--  <item>@string/subscription_commosion</item>-->
+<!--        <item>@string/payment_card</item>-->
+    </string-array>
+    <string name="profile">My Profile</string>
+
+    <string name="Manage_Service">Manage Service</string>
+    <string name="Manage_Vehicles">Manage Vehicles</string>
+    <string name="Manage_category">Manage Category</string>
+    <string name="Manage_Document">Manage Document</string>
+    <string name="Earnings">Earnings</string>
+    <string name="Bank">Payout</string>
+    <string name="navi_vehicles">Manage Vehicles</string>
+
+    <string name="payment">Payment</string>
+    <string name="wallet">My Wallet</string>
+    <string name="trip">My Trip</string>
+    <string name="invite">Invite Friends</string>
+    <string name="Contacts">Emergency Contact</string>
+    <string name="support">Support</string>
+    <string name="rating">Ratings</string>
+    <string name="feedback">Rider Feedback</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="language">Language</string>
+    <string name="currency">Currency</string>
+    <string name="plasces">Plasces</string>
+    <string name="home_address">Home Address</string>
+    <string name="home_place">Home Place</string>
+    <string name="work_address">Work Address</string>
+    <string name="work_place">work Place</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="email_address">Email Address</string>
+    <string name="cc">CC</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="payment_email">Payment Email</string>
+    <string name="acc_name">Bank Account Holder Name</string>
+    <string name="acc_number">Account Number</string>
+    <string name="bnk_location">Bank Location</string>
+    <string name="bnk_name">Bank Name</string>
+    <string name="bic_code">IFSC Code</string>
+    <string name="feedbacks">information about reactions to a product, a person\'s performance of a task, etc. which is used as a basis for improvement.</string>
+    <string name="no_trip_data">No Trip Data</string>
+    <string name="feedback_content">Check out feedback from riders and learn how to improve</string>
+
+    <string name="addvehicle">Add Vehicle</string>
+
+    <string name="you_are_now_online">You are now online</string>
+    <string name="you_are_now_offline">You are now offline</string>
+    <string name="proof_not_accept">Your proof status is pending</string>
+    <string name="proof_rejected">Your proof status is Rejected</string>
+    <string name="internet_connect">Internet Alert</string>
+    <string name="connection">Please Check Your Internet Connection</string>
+    <string name="file_provider_authority" translatable="false">com.soofer.driver.fileprovider</string>
+    <string name="service_type">Service Type</string>
+    <string name="something_went_wrong">Poor Connection</string>
+    <string name="tap_to_arrive">Tap to arrive</string>
+    <string name="top_to_start">Tap to Start</string>
+    <string name="tap_to_end">Tap to End</string>
+    <string name="addressss">Address</string>
+    <string name="rider_details">Rider Details</string>
+    <string name="navigation">Navigation</string>
+    <string name="user_name">user name</string>
+    <string name="pickup_address">Pickup address</string>
+    <string name="drop_address">Drop address</string>
+    <string name="total_bill">Total Bill</string>
+    <string name="cancel">Cancel</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="select_document">Select Document</string>
+    <string name="vehicle_insurance">Vehicle Insurance</string>
+    <string name="missing">Missing</string>
+    <string name="upload_document">UPLOAD DOCUMENT</string>
+    <string name="manage">MANAGE</string>
+    <string name="permit">Permit</string>
+    <string name="submit">Submit</string>
+    <string name="yes">Yes</string>
+    <string name="are_you_update">Are You Sure want to Update a Vehicle</string>
+    <string name="are_you_sure_add">Are You Sure want to Add a Vehicle</string>
+    <string name="make">Make</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
+    <string name="licence_plate">Licence Plate</string>
+    <string name="color">Color</string>
+    <string name="totaly_earnings">Totaly Earnings</string>
+    <string name="daily_earnings">Daily Earnings</string>
+    <string name="weekly_earnings">Weekly Earnings</string>
+    <string name="monthly_earnings">Monthly Earnings</string>
+    <string name="yearly_earnings">Yearly Earnings</string>
+    <string name="password">Password</string>
+    <string name="update_information">Update Information</string>
+    <string name="no_feedback">No FeedBack</string>
+    <string name="enter_your_passwords">Enter Your password Minimum 6 character</string>
+    <string name="confirm_password_min">Enter Your Confirm Minimum 6 character</string>
+    <string name="enter_valid_confim_password">Enter Your valid Confirm password</string>
+    <string name="enter_otp">Enter Your  OTP</string>
+    <string name="enter_valid_otp">Enter Your valid OTP</string>
+    <string name="change_password">Change Password</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="enter_the_email_address_you_used_to_register">Enter the Mobile number you used to register</string>
+    <string name="please_added_vehicle">Please add Your Vehicle</string>
+    <string name="ok">OK</string>
+    <string name="forgot_passwordsss">Forgot Password?</string>
+    <string name="driver_licence">Driver Licence(Front)</string>
+    <string name="insurance">Insurance</string>
+    <string name="taxi_passing">Taxi passing</string>
+    <string name="next">Next</string>
+    <string name="lifetime_trips">LIFETIME TRIPS</string>
+    <string name="your_current_rating">YOUR CURRENT RATING</string>
+    <string name="rated_trips">RATED TRIPS</string>
+    <string name="fivestar_trips">FIVESTAR TRIPS</string>
+
+    <string name="referral_invite_code_option">Referral / invite code(Option)</string>
+    <string name="i_agree_to_the_to_the_terms_amp_comdition_and_privacy_policy"><![CDATA[I agree to the terms & condition and privacy policy]]></string>
+
+    <string name="upload_documentss">Upload document</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="decline">Decline</string>
+    <string name="tap_accept">tap Accept</string>
+    <string name="your_trip_has_ended_please_rate_your_rider">Your Trip Has Ended Please Rate Your Rider</string>
+    <string name="total_fare">Total Fare</string>
+    <string name="bill_date">Bill Date</string>
+    <string name="discount_applied">Discount Applied</string>
+    <string name="distance">Distance</string>
+    <string name="time">Time</string>
+    <string name="base_fare">Base Fare</string>
+    <string name="distance_fare">Distance Fare</string>
+    <string name="time_fare">Waiting Fare</string>
+    <string name="balance_fare">Cancellation Fare</string>
+    <string name="detected_fare">Detected Fare</string>
+    <string name="how_was_your_ride">How Was Your Ride ?</string>
+    <string name="enter_your_comments">Enter your comments</string>
+    <string name="change_passwordsss">Change Password</string>
+    <string name="enter_old_passwordss">Enter Old Password</string>
+    <string name="enter_new_passwordss">Enter New Password</string>
+    <string name="enter_new_password_againsss">Enter new Password Again</string>
+    <string name="cancelaaa">Cancel</string>
+    <string name="google_maps">Google Map</string>
+    <string name="waze_maps">Waze Map</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="logout">Logout</string>
+    <string name="are_your">Are you sure you want to logout ?</string>
+
+    <string name="enter_old_password">Enter the Old Password</string>
+    <string name="enter_minimum">Enter the Minimum 6 to 12 Character</string>
+    <string name="old_password">Old Password and New Password same</string>
+    <string name="confirm_password">Confirm Password Wrong</string>
+    <string name="password_changes_failed">Password Changes Failed</string>
+    <string name="app_not">App Not Found</string>
+    <string name="for_navigate">For Navigate you need waze app</string>
+    <string name="go_to_playstore">Go to playstore</string>
+    <string name="minimum_four">Enter  Minimum 4 character</string>
+    <string name="valid_email">Enter Valid Email id</string>
+    <string name="minimum">Enter the Minimum 6 to 12 Character</string>
+    <string name="enter_the_10_digit">Enter the Minimum 10 digit Mobile Number</string>
+    <string name="enter_password">Enter the Password</string>
+    <string name="acc_name_name">Enter the Account Name</string>
+    <string name="enter_the_account">Enter the Account Minimum 12 digits Number</string>
+    <string name="bank_location">Enter the Bank Location</string>
+    <string name="enter_bank">Enter the Bank Name</string>
+    <string name="ifc_code">Enter the IFC Code  Minimum 9 digits Number</string>
+
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="pickup_fee">Pickup Fee</string>
+    <string name="access_fee">TAX</string>
+    <string name="surge">Surge amt</string>
+    <string name="flat_fee">Flat Fee</string>
+    <string name="cancel_trip">Cancel Trip</string>
+
+    <string name="available">Available</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="waiting_for_admin_approval">Waiting For Admin Approval</string>
+    <string name="your_trip">My Trip</string>
+    <string name="past_trip">PAST</string>
+    <string name="upcoming_trip">UPCOMING</string>
+    <string name="no_earnins">No Earnings</string>
+    <string name="fare_details">Fare Details</string>
+
+    <string name="waiting_faress">Waiting Fare</string>
+
+    <string name="cancellation_faresss">Cancellation Fare</string>
+    <string name="please_choose_your_profile_picture">Please Choose Your Profile Picture</string>
+    <string name="documets_pickture">Please Choose Your Documents</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="total_fares">Total Fare $ </string>
+    <string name="ride_faress">Ride Fare</string>
+    <string name="namess">Name</string>
+    <string name="your_remaining_credits">Available Balance </string>
+    <string name="passwordsss">Password</string>
+    <string name="poor_network">Poor network connection</string>
+    <string name="trip_details">Trip details</string>
+    <string name="driver_credits">Driver Credits</string>
+    <string name="manage_vehicle_service">Manage Vehicle Service</string>
+    <string name="invoice"> <u>Trip Invoice</u></string>
+    <string name="please_keep_stops_to_3_minutes_or_less">Please Keep Stops to 3 minutes or less</string>
+    <string name="pickupss">Pickup</string>
+    <string name="stops">Stop</string>
+    <string name="drop">Drop</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="need_to_access_your_device_notificaton_permission">Need to access your device Notificaton sound modification Permission</string>
+    <string name="search_address">Search address</string>
+    <string name="pickup_addressss">PickUp Address</string>
+    <string name="manage_vehicles">MANAGE VEHICLES</string>
+    <string name="add_new">Add NEW</string>
+    <string name="select_your_vehicle">Select Your Vehicle</string>
+    <string name="start_trip">Start Trip</string>
+    <string name="app_super_name">BES Enterprise</string>
+    <string name="enter_your_otp">Enter your OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="code_or_phone">Code or Phone</string>
+    <string name="enter_valid_emai_id">Enter Valid Email id</string>
+    <string name="select_count">Select Country</string>
+    <string name="admin_credit">Admin credits</string>
+
+    <string name="you_cannot_delete_Current_vehicle">You Cannot Delete Current Vehicle..</string>
+    <string name="are_you_sure_wanna_remove">Are You Sure Want to Remove the Vehicle</string>
+    <string name="no">No</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_Email_id">Enter Email ID</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="invalid_email_id">Invalid email id</string>
+    <string name="enter_you_start_km">Enter Your start mile</string>
+    <string name="odometer_reading_at_the_start_of_the_trip">Odometer reading at the start of the trip</string>
+    <string name="enter_your_end_km">Enter Your end mile</string>
+    <string name="odometer_reading_at_the_end_of_the_trip">Odometer reading at the end of the trip</string>
+    <string name="enter_your_km">Enter your mile</string>
+    <string name="are_yiu_sure_wanna_Cancel_trip">Are You Sure Want to Cancel Trip</string>
+    <string name="taxi_insurance">Taxi Insurance</string>
+    <string name="taxi_permit">Taxi permit</string>
+    <string name="taxi_registration_certificate">Taxi Registration Certificate</string>
+    <string name="fitness_certificate_option">Fitness Certificate(Option)</string>
+    <string name="select_make">Select Make</string>
+    <string name="select_model">Select Model</string>
+    <string name="select_year">Select Year</string>
+    <string name="select_color">Select Color</string>
+    <string name="please_add_your_cars_licence_plate_no">Please  add your car\'s licence plate no.</string>
+    <string name="earnings">Earnings</string>
+    <string name="enter_the_first_name">Enter the First Name</string>
+    <string name="enter_the_last_name">Enter the Last Name</string>
+    <string name="enter_valid_email_id">Enter Valid Email id</string>
+    <string name="enter_the_mobile_number">Enter the Mobile Number</string>
+    <string name="otp">OTP</string>
+    <string name="driver_licence_back">Driver Licence (Back)</string>
+    <string name="owner_address_proof_font">Owner Address proof (Font)</string>
+    <string name="owner_address_proof_back">Owner Address proof (Back)</string>
+    <string name="driver_address_proof_front">Driver Address Proof (Front)</string>
+    <string name="driver_address_proof_back">Driver Address Proof (Back)</string>
+    <string name="view_document">View Document</string>
+    <string name="access">Access</string>
+    <string name="time_fares">Time Fare</string>
+    <string name="hill_station_fee">Hill station Fee</string>
+    <string name="waiting_time">Waiting Time</string>
+    <string name="change"><u>Change</u></string>
+    <string name="wait_while_loading">Wait while loading…</string>
+    <string name="your_vehicle_status_is_inactive">Your Vehicle status is inactive</string>
+    <string name="License">license</string>
+    <string name="oops_some_document_has_pending_please_upload_all_document">Oops! Some document has pending ,Please upload all document</string>
+    <string name="please_accepted_terms_android_condition"><![CDATA[\"Please accepted terms & condition \"]]></string>
+    <string name="select_the_dcoment">Select the Document</string>
+    <string name="select_the_document">Select the Document</string>
+    <string name="night_charge_apply">Night charge apply </string>
+    <string name="peak_charge_apply">\"Peak charge apply \"</string>
+    <string name="base_package">Base Package</string>
+    <string name="package_km_fare">Package mile Fare</string>
+    <string name="fare_for_remaining_km">Fare for Remaining mile</string>
+    <string name="remaining_time_fare">Remaining Time Fare</string>
+
+    <string name="discount">Discount</string>
+    <string name="minimum_fare">Minimum Fare</string>
+    <string name="booking_id">Booking ID : </string>
+    <string name="vehilce_type">Vehicle type :</string>
+    <string name="terms_amp_condition"><![CDATA[Terms & Condition]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_us">About Us</string>
+    <string name="faq">FAQ</string>
+    <string name="enter_hill_station_km">Enter hill station mile</string>
+    <string name="enter_your_toll_amount">Enter your toll amount</string>
+    <string name="toll_fee_meter">Toll fee meter</string>
+    <string name="toll_fee">Toll Fee</string>
+    <string name="view_fare_detail">view Fare Detail</string>
+    <string name="km_fare">Mile Fare</string>
+    <string name="waiting_fare">Waiting Fare</string>
+    <string name="access_fare">TAX</string>
+    <string name="cancellation_fare">Cancellation Fare</string>
+    <string name="notification">Notification</string>
+    <string name="day_fare">Day Batta</string>
+    <string name="google_fare">Google Charge</string>
+    <string name="night_fare">Night Fare</string>
+    <string name="vehicles">Manage Vehicles</string>
+    <string name="navi_document">Manage Document</string>
+    <string name="logout_sure">Are you want to Logout..?</string>
+    <string name="pickup_faress">Pickup Fare</string>
+    <string name="access_faress">Tax</string>
+    <string name="status">Status : </string>
+    <string name="select_the_expire_date">Select the Expiry Date</string>
+    <string name="version">" ( Version :"</string>
+    <string name="view_transaction">View Transaction</string>
+    <string name="wallet_transaction">Wallet Transaction</string>
+    <string name="we_cant_get_your_location">We can\'t get your location</string>
+    <string name="your_cant_after_reaching">Your can start trip after reaching customer\'s place</string>
+    <string name="d_taxi_functioning_under_the_control_of_department_of_industries_amp_commerce"><![CDATA[BES Enterprise Functioning Under the Control of Department of Industries & Commerce]]></string>
+    <string name="government_of_tamil_nadu">Government of Tamil Nadu</string>
+    <string name="subscription">Subscription</string>
+    <string name="subscription_commosion">Recharge Wallet</string>
+    <string name="booking">Booking Fee</string>
+    <string name="gateway_charge">Gateway Charge</string>
+    <string name="you_cant_logout_the_app">You can\'t logout  the app</string>
+
+    <string name="document_expiration_date">Document Expiration date</string>
+    <string name="add_card">Add Card</string>
+    <string name="enter_card_details">Card details not valid</string>
+    <string name="card_details">Card Details</string>
+    <string name="notes">Notes</string>
+    <string name="card_type">Card Type</string>
+    <string name="visa">Visa</string>
+    <string name="cvv">cvv</string>
+    <string name="no_card_available">No card Available</string>
+    <string name="please_add_your_card_to_use_card_payment">Please Add your card to use card Payment</string>
+    <string name="payment_card">Payment</string>
+    <string name="please_added_card">Please Added Your Card</string>
+    <string name="maximum_minimum_character">Enter the Minimum 6 to 15 Character</string>
+    <string name="please_select_front_image">Please Select front Image</string>
+    <string name="please_select_back_image">Please Select back Image</string>
+    <string name="please_select_expiration_date">Please Select Expiration date</string>
+    <string name="document_upload">Document Upload</string>
+    <string name="driver_documents">Driver Documents</string>
+    <string name="vehicle_documents">Vehicle Documents</string>
+    <string name="payout">Payout</string>
+    <string name="add_bank">Add bank</string>
+    <string name="recharge_wallet">Recharge Wallet</string>
+    <string name="subscription_end_date">Subscription End Date : </string>
+    <string name="vehicle_type">Vehicle Type : </string>
+    <string name="credit_amp_debit_card_fee_4_0_30_cents_per_transaction_for_card_payment"><![CDATA[Credit & Debit card fee 4% + $0.30 cents per transaction for card payment]]></string>
+    <string name="remove">Remove</string>
+    <string name="enter_the_driver_Code_mobile_number">Enter the Driver code or Mobile Number</string>
+    <string name="no_data">No Data</string>
+    <string name="select_your_country">Select Your Country</string>
+    <string name="select_your_state">Select Your State</string>
+    <string name="select_your_city">Select Your City</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="assign">Assign</string>
+    <string name="driver_assign_note">Note : The Additional Driver Must be Register in Driver app</string>
+    <string name="driver_note">You need to Come with additional driver,so Please Update Another Driver Phone Number</string>
+    <string name="driver_detail">Driver Detail</string>
+
+    <string name="tap_to_pickup">Tap to pickup</string>
+    <string name="proof_id_document">Proof id document</string>
+
+    <string name="agora_app_id">ba6c4bfd46af4a40b11458e191e0d54b</string>
+    <string name="agora_access_token">#YOUR ACCESS TOKEN#</string>
+    <string name="cancel_a_trip">Are you sure wanna a cancel a trip</string>
+    <string name="sure_tap_to_arrive">Are you sure you want to click Tap to Arrive?</string>
+    <string name="sure_end_the_trip">Are you sure you want to end the trip?</string>
+    <string name="driver_attendace">Driver Attendance Success</string>
+
+
+</resources>

@@ -1,0 +1,11 @@
+ul {
+  text-align: center;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #f7a523;
+  border-color: #ffffff;
+  /* margin-left: 19px; */
+  border-radius: -21;
+  radius: 81;
+}
