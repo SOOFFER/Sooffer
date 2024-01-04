@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="62" id="Rqg-lb-N8Z" customClass="MenuCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="394" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rqg-lb-N8Z" id="tTF-4z-ApH">
+                <rect key="frame" x="0.0" y="0.0" width="394" height="62"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JmZ-UN-dOT">
+                        <rect key="frame" x="0.0" y="0.0" width="394" height="62"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K3X-OG-z8P" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                <rect key="frame" x="20" y="18.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="6q7-ra-2rB"/>
+                                    <constraint firstAttribute="width" constant="25" id="xmr-4c-RSV"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mneu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9Z-uQ-UvS">
+                                <rect key="frame" x="65" y="21.5" width="329" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="K3X-OG-z8P" firstAttribute="leading" secondItem="JmZ-UN-dOT" secondAttribute="leading" constant="20" id="21z-lK-ias"/>
+                            <constraint firstAttribute="trailing" secondItem="R9Z-uQ-UvS" secondAttribute="trailing" id="BGM-lr-ied"/>
+                            <constraint firstItem="R9Z-uQ-UvS" firstAttribute="leading" secondItem="K3X-OG-z8P" secondAttribute="trailing" constant="20" id="Kuh-59-R2u"/>
+                            <constraint firstItem="R9Z-uQ-UvS" firstAttribute="centerY" secondItem="JmZ-UN-dOT" secondAttribute="centerY" id="sYK-2l-vvD"/>
+                            <constraint firstItem="K3X-OG-z8P" firstAttribute="centerY" secondItem="JmZ-UN-dOT" secondAttribute="centerY" id="z4l-hB-0qW"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JmZ-UN-dOT" firstAttribute="leading" secondItem="tTF-4z-ApH" secondAttribute="leading" id="AC9-cI-IJg"/>
+                    <constraint firstItem="JmZ-UN-dOT" firstAttribute="top" secondItem="tTF-4z-ApH" secondAttribute="top" id="Pn0-k3-VR3"/>
+                    <constraint firstAttribute="trailing" secondItem="JmZ-UN-dOT" secondAttribute="trailing" id="Xjj-7I-Urv"/>
+                    <constraint firstAttribute="bottom" secondItem="JmZ-UN-dOT" secondAttribute="bottom" id="fVN-vu-45h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="menuCellView" destination="JmZ-UN-dOT" id="d1p-QG-Mbf"/>
+                <outlet property="menuImg" destination="K3X-OG-z8P" id="acF-ny-2d4"/>
+                <outlet property="menuLbl" destination="R9Z-uQ-UvS" id="uoQ-1n-RO3"/>
+            </connections>
+            <point key="canvasLocation" x="103" y="78"/>
+        </tableViewCell>
+    </objects>
+</document>

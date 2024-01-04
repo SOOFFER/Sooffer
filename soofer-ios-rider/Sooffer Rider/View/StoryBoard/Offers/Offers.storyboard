@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--OfferVC-->
+        <scene sceneID="RIi-aV-UdA">
+            <objects>
+                <viewController storyboardIdentifier="OfferVC" id="Ws7-Rv-xsY" customClass="OfferVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ah7-Z3-dMi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="waX-So-DNE">
+                                <rect key="frame" x="0.0" y="48" width="414" height="200"/>
+                                <color key="backgroundColor" name="AppColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="qqa-fQ-NMq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZg-w3-p2j">
+                                <rect key="frame" x="0.0" y="48" width="414" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OFFERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkw-9h-fbU">
+                                        <rect key="frame" x="20" y="5" width="374" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="TextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="KO2-0j-0Jq" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="12.5" width="25" height="25"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="9Qc-Q0-eCL"/>
+                                            <constraint firstAttribute="height" constant="25" id="SYa-cu-v4y"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="change_image" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="AppColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Wkw-9h-fbU" secondAttribute="trailing" constant="20" id="Ecb-Ui-42E"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wkw-9h-fbU" secondAttribute="bottom" constant="5" id="Fwg-ff-fnZ"/>
+                                    <constraint firstItem="KO2-0j-0Jq" firstAttribute="centerY" secondItem="gZg-w3-p2j" secondAttribute="centerY" id="UDB-wH-CoQ"/>
+                                    <constraint firstItem="KO2-0j-0Jq" firstAttribute="leading" secondItem="gZg-w3-p2j" secondAttribute="leading" constant="15" id="UNu-vn-gnQ"/>
+                                    <constraint firstItem="Wkw-9h-fbU" firstAttribute="leading" secondItem="gZg-w3-p2j" secondAttribute="leading" constant="20" id="fhL-an-VTe"/>
+                                    <constraint firstItem="Wkw-9h-fbU" firstAttribute="top" secondItem="gZg-w3-p2j" secondAttribute="top" constant="5" id="rfr-8a-TI7"/>
+                                    <constraint firstAttribute="height" constant="50" id="xJZ-vN-zKR"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-RK-7wd">
+                                <rect key="frame" x="0.0" y="98" width="414" height="764"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5yC-py-8Ig"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5yC-py-8Ig" firstAttribute="trailing" secondItem="gZg-w3-p2j" secondAttribute="trailing" id="8SR-Q6-bKU"/>
+                            <constraint firstItem="gZg-w3-p2j" firstAttribute="top" secondItem="5yC-py-8Ig" secondAttribute="top" id="LBu-9Q-uQk"/>
+                            <constraint firstItem="SsX-RK-7wd" firstAttribute="top" secondItem="gZg-w3-p2j" secondAttribute="bottom" id="WRl-kB-l5o"/>
+                            <constraint firstItem="waX-So-DNE" firstAttribute="top" secondItem="5yC-py-8Ig" secondAttribute="top" id="YZg-6p-znN"/>
+                            <constraint firstItem="waX-So-DNE" firstAttribute="leading" secondItem="5yC-py-8Ig" secondAttribute="leading" id="fHf-bk-Ndp"/>
+                            <constraint firstItem="gZg-w3-p2j" firstAttribute="leading" secondItem="5yC-py-8Ig" secondAttribute="leading" id="l9c-i5-Fxs"/>
+                            <constraint firstItem="SsX-RK-7wd" firstAttribute="leading" secondItem="5yC-py-8Ig" secondAttribute="leading" id="o0Q-lJ-9iv"/>
+                            <constraint firstItem="5yC-py-8Ig" firstAttribute="trailing" secondItem="SsX-RK-7wd" secondAttribute="trailing" id="s27-6i-nUk"/>
+                            <constraint firstItem="5yC-py-8Ig" firstAttribute="trailing" secondItem="waX-So-DNE" secondAttribute="trailing" id="wLl-es-QBA"/>
+                            <constraint firstItem="5yC-py-8Ig" firstAttribute="bottom" secondItem="SsX-RK-7wd" secondAttribute="bottom" id="yMl-iI-xOJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="offerTable" destination="SsX-RK-7wd" id="PX9-YE-Gzq"/>
+                        <outlet property="offerimage" destination="KO2-0j-0Jq" id="zeA-nP-SCe"/>
+                        <outlet property="offertitle" destination="Wkw-9h-fbU" id="JId-HI-Gbh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TyV-SF-QCA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-62.318840579710148" y="107.8125"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="back_arrow" width="408" height="408"/>
+        <namedColor name="AppColor">
+            <color red="0.066666666666666666" green="0.070588235294117646" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

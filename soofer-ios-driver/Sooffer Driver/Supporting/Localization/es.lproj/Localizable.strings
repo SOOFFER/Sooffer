@@ -1,0 +1,485 @@
+
+
+    "eng" = "Inglés";
+
+    "frnch" = "Francés";
+
+    "spanish" = "español";
+
+
+
+   //Página de inicio de sesión
+
+    "login" = "Iniciar sesión";
+
+    "signup" = "Registrarse";
+
+    "email_phone" = "Teléfono o código";
+
+    "email" = "Correo electrónico";
+
+    "password" = "Contraseña";
+
+    "forgot_pass" = "¿Olvidó su contraseña?";
+
+    "err_last_count" = "se requiere un mini carácter";
+
+    "forgot_msg" = "Ingrese la dirección de correo electrónico que utilizó para registrarse";
+
+    "enter_email" = "Dirección de correo electrónico";
+
+    "err_valid_data" = "Ingresar datos válidos";
+
+
+
+
+
+   // Página de registro
+
+    "first_name" = "Nombre";
+
+    "last_name" = "Apellido";
+
+    "email_address" = "Dirección de correo electrónico";
+
+    "_DOB" = "Fecha de nacimiento";
+
+    "cc" = "CC";
+
+    "mobile_num" = "Número de móvil";
+
+    "ent_first_name" = "Ingrese el nombre";
+
+    "ent_last_name" = "Ingrese el apellido";
+
+    "ent_email_address" = "Ingrese la dirección de correo electrónico";
+
+    "ent_cc" = "Ingrese CC";
+
+    "ent_password" = "Ingrese la contraseña";
+
+    "ent_mobile_num" = "Ingresar número de móvil";
+
+    "referral" = "Código de referencia / invitación (opcional)";
+
+    "tc_pp" = "Acepto los términos y condiciones y la política de privacidad";
+
+    "submit" = "ENVIAR";
+
+    "terms_condition" = "Términos y condiciones";
+
+    "err_count" = "requiere mini 4 caracteres";
+
+    "err_pass_count" = "Contraseña invalida";
+
+    "err_mobile" = "mini 10 dígitos requeridos";
+
+    "err_dob" = "Seleccione fecha de nacimiento";
+
+    "err_agree" = "Acepte los términos y condiciones";
+
+
+
+   // Página de menú
+
+    "home" = "Inicio";
+
+    "myprofile" = "Mi perfil";
+
+    "payment" = "Pago";
+
+    "mywallet" = "Mi billetera";
+
+    "your_trips" = "Tus viajes";
+
+    "invite_frirnds" = "Invitar amigos";
+
+    "emrg_contact" = "Contacto de emergencia";
+
+    "support" = "Soporte";
+
+    "offers" = "Ofertas";
+
+    "logout" = "Cerrar sesión";
+
+    "alert_logout" = "¿Está seguro de que desea cerrar sesión?";
+
+    "payout" = "Pago";
+
+    "rating" = "Calificaciones";
+
+    "manage_vechile" = "Administrar vehículos";
+
+    "manage_docs" = "Administrar documento";
+
+    "earning" = "Ingresos";
+
+    "feedback" = "FeedBacks";
+
+
+
+   //Editar perfil
+
+    "update" = "Actualizar";
+
+    "choose_gallery" = "Elegir de la galería";
+
+    "take_photo" = "Tomar una foto";
+
+
+
+   //Cambia la contraseña
+
+    "enter_old_pass" = "Ingrese la contraseña anterior";
+
+    "old_pass" = "Contraseña anterior";
+
+    "enter_new_pass" = "Ingresar nueva contraseña";
+
+    "new_pass" = "Nueva contraseña";
+
+    "enter_con_pass" = "Ingrese Confirmar contraseña";
+
+    "confrm_pass" = "Confirmar contraseña";
+
+    "ok" = "OK";
+
+    "cancel" = "Cancelar";
+
+    "change_pass" = "CAMBIAR CONTRASEÑA";
+
+    "low_blc" = "Alerta de saldo bajo";
+
+    "low_blc_content" = "Lo sentimos, sus créditos son demasiado bajos";
+
+    "enter_otp" = "Ingresar OTP";
+
+    "otp" = "OTP";
+
+    "same_pass" = "Nouveau mot de passe et Confirmer le mot de passe doit être identique";
+
+
+
+   // amigos frívolos
+
+    "share_invite" = "COMPARTA SU CÓDIGO DE INVITACIÓN";
+
+    "invite_inst" = "Invita a tus amigos compartiendo el código de invitación anterior y gana la cantidad de referencia";
+
+    "invite_btn" = "INVITAR A LOS ENVIADOS";
+
+
+
+   // contacto de emergencia
+
+    "add_contact" = "AGREGAR CONTACTOS";
+
+    "add_5_cont" = "Puede agregar hasta 5 contactos";
+
+    "make_safe" = "Haga su viaje seguro";
+
+    "send_alert" = "Enviar alertas a sus amigos / familiares en caso de emergencia";
+
+    "please_add" = "Por favor agréguelos a su contacto de emergencia";
+
+
+
+
+
+   // Buscar dirección
+
+    "delete" = "Eliminar";
+
+    "pickupaddr" = "Dirección de recogida";
+
+    "search" = "Buscar";
+
+    "septupin" = "Ubicación del pin de configuración";
+
+
+
+
+
+   // Página de inicio
+
+    "request_now" = "SOLICITAR AHORA";
+
+    "no_vehicle" = "NO VICHILE";
+
+    "cash" = "Efectivo";
+
+    "promo" = "Promo";
+
+    "card" = "Tarjeta";
+
+    "add_card" = "Agregar tarjeta";
+
+    "promo_code" = "CÓDIGO PROMOCIONAL";
+
+    "promo_code_s" = "Código de promoción";
+
+    "enter_promo_code" = "Ingrese el código de promoción";
+
+    "call" = "Llamar";
+
+    "message" = "Mensaje";
+
+    "share" = "Compartir";
+
+    "available" = "Disponible";
+
+    "unavailable" = "No disponible";
+
+    "rider_details" = "Detalles del piloto";
+
+    "navigation" = "Navegación";
+
+    "tap_arrive" = "TOQUE PARA LLEGAR";
+
+    "tap_start" = "TOQUE PARA COMENZAR";
+
+    "tap_end" = "TOQUE PARA FINALIZAR";
+
+    "proof_pending" = "Su estado de prueba está pendiente";
+
+    "proof_rej" = "Su estado de prueba es Rechazado";
+
+   "vehicle_proof" = "Esperando la aprobación del administrador";
+
+
+
+   // Estimación de la página de tarifas
+
+    "estimate_fare" = "Tarifa estimada";
+
+    "ride_fare" = "Tarifa de viaje";
+
+    "base_fare" = "Tarifa base";
+
+    "time_fare" = "Tarifa de tiempo";
+
+    "pickup_charge" = "Cargo por retiro";
+
+    "access_fee" = "Tarifa de acceso";
+
+    "cancellation_fee" = "Tarifa de cancelación";
+
+    "subtotal" = "SubTotal";
+
+    "use_wallet" = "Usar billetera";
+
+    "ride_later" = "PASEO MÁS TARDE";
+
+
+
+   // IU de problema de red
+
+    "net_title" = "¡Se requiere conexión a Internet!";
+
+    "net_msg" = "No está conectado a Internet, asegúrese de que el wi-fi esté activado, el modo Airplan esté desactivado, ¡inténtelo de nuevo!";
+
+    "retry" = "¡Vuelva a intentarlo!";
+
+
+
+   // FavAddress
+
+    "Fav" = "Dirección favorita";
+
+    "add" = "AGREGAR";
+
+
+
+
+
+   // yourride
+
+    "total_bill" = "Factura total";
+
+    "payment_method" = "Método de pago";
+
+
+
+
+
+   // Docus:
+
+    "upload_docs" = "Cargar documento";
+
+    "mmissing" = "Missing";
+
+    "driving_license_front" = "Licencia de conducir (frente)";
+
+    "driving_license_back" = "Licencia de conducir (Atrás)";
+
+    "owner_Addrs_front" = "Prueba de dirección del propietario (Anverso)";
+
+    "owner_Addrs_back" = "Prueba de dirección del propietario (Atrás)";
+
+    "dr_Addrs_front" = "Prueba de dirección del controlador (frontal)";
+
+    "dr_Addrs_back" = "Prueba de dirección del controlador (Atrás)";
+
+    "driving_license" = "Licencia de conducir";
+
+    "insurance" = "Seguro";
+
+    "taxi_passing" = "Seguro de taxi";
+
+    "manage_doc" = "Administrar documento";
+
+    "select_doc" = "Seleccionar documento";
+
+    "manage_vehi" = "Administrar vehículo";
+
+    "active" = "Activo";
+
+    "deactive" = "DeActive";
+
+    "vehicle_ins" = "Seguro del vehículo";
+
+    "permit" = "Permiso de taxi";
+
+    "rc" = "Certificado de registro de taxi";
+
+    "fitness" = "Certificado de aptitud (Opción)";
+
+    "aadhar" = "Aadhar";
+
+
+
+
+
+   //Clasificación
+
+    "your_current_trip" = "SU CALIFICACIÓN ACTUAL";
+
+    "life_time_trip" = "VIAJES DE POR VIDA";
+
+    "rated_trips" = "VIAJES CLASIFICADOS";
+
+    "fivestar_trip" = "VIAJES FIVESTAR";
+
+    "rider_feedback" = "Comentarios del jinete";
+
+    "feedback_centent" = "Vea los comentarios de los pasajeros y aprenda cómo mejorar";
+
+
+
+
+
+   // Aceptar y rechazar página
+
+    "accept" = "ACEPTAR";
+
+    "decline" = "RECHAZAR";
+
+
+
+   // Vista de detalles del piloto
+
+    "call" = "Llamar";
+
+    "message" = "Mensaje";
+
+    "cancel" = "Cancelar";
+
+
+
+   // OtpView
+
+    "otp_verify" = "Verificación OTP";
+
+    "submit" = "ENVIAR";
+
+
+
+    "make" = "Hacer";
+
+    "car_name" = "Nombre del automóvil";
+
+    "model" = "Modelo";
+
+    "car_model" = "Modelo de automóvil";
+
+    "year" = "Año";
+
+    "car_year" = "Año del modelo del automóvil";
+
+    "license_plate" = "Matrícula";
+
+    "color" = "Color";
+
+    "car_color" = "Color del automóvil";
+
+    "add_vech" = "Agregar vehículo";
+
+    "reg_num" = "Tipo de vehículo";
+
+    "selete_veh" = "SELECCIONE SU VEHÍCULO";
+
+    "manage_veh" = "Administrar vehículo";
+
+    "add_veh" = "Agregar vehículo";
+
+
+
+    "driver_credit" = "Crédito de conductor";
+
+    "invoice_title" = "Su viaje ha terminado, califique a su pasajero";
+
+    "total_fare" = "Tarifa total";
+
+    "bill_rate" = "Fecha de facturación";
+
+    "discount_app" = "Descuento aplicado";
+
+    "rate_title" = "¿Cómo fue su viaje?";
+
+    "submit" = "ENVIAR";
+
+
+
+
+
+   //factura
+
+
+
+    "distance" = "Distancia";
+
+    "time" = "Hora";
+
+    "base_fare" = "Tarifa base";
+
+    "Waiting_Time" = "Tiempo de espera";
+
+    "waiting_fare" = "Tarifa de espera";
+
+    "time_fare" = "Tarifa de tiempo";
+
+    "ride_fare" = "Tarifa de viaje";
+
+    "pickup_fee" = "Tarifa de recogida";
+
+    "distance_fare" = "Tarifa de distancia";
+
+    "access_fee" = "Tarifa de acceso";
+
+    "cancelleantion_fee" = "Tarifa de cancelación";
+
+    "payment_method" = "Método de pago";
+
+
+
+
+
+
+
+   // alquiler de facturas
+
+    "package" = "Paquete";
+
+    "base_fare_km" = "Tarifa base (tarifa para";
+
+

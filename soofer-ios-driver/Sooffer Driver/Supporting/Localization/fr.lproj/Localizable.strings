@@ -1,0 +1,230 @@
+
+/*
+ Localizable.strings
+ RebuStar Rider
+ 
+ Created by Abservetech on 30/05/19.
+ Copyright © 2019 Abservetech. All rights reserved.
+ */
+
+"eng" = "Anglaise";
+"frnch" = "Française";
+
+
+//Login page
+"login" = "S'identifier";
+"signup" = "S'inscrire";
+"email_phone" = "Email ou téléphone";
+"email" = "Email";
+"password" = "Mot de passe";
+"forgot_pass" = "Mot de passe oublié?";
+"err_valid_data" = "Entrer des données valides";
+
+
+//Signup Page
+"first_name" = "Prénom";
+"last_name" = "Nom de famille";
+"email_address" = "Adresse électronique";
+"_DOB" = "Date de naissance";
+"cc" = "CC";
+"mobile_num" = "Numéro de portable";
+"referral" = "Code de référence / d'invitation (facultatif)";
+"tc_pp" = "J'accepte les conditions d'utilisation et la politique de confidentialité";
+"submit" = "SOUMETTRE";
+"terms_condition" = "Termes et conditions";
+"err_count" = "requis mini 4 caractères";
+"err_pass_count" = "Mot de passe incorrect";
+"err_mobile" = "mini 10 chiffres requis";
+"err_dob" = "Sélectionnez la date de naissance";
+
+//Menu Page
+"home" = "Accueil";
+"myprofile" = "Mon profil";
+"payment" = "Paiement";
+"mywallet" = "Mon portefeuille";
+"your_trips" = "Vos voyages";
+"invite_frirnds" = "Inviter des amis";
+"emrg_contact" = "Personne à contacter en cas d'urgence";
+"support" = "Soutien";
+"offers" = "Des offres";
+"logout" = "Connectez - Out";
+"alert_logout" = "Êtes-vous sûr de vouloir vous déconnecter?";
+"payout" = "Paiement";
+"rating" = "Évaluations";
+"manage_vechile" = "Gérer les véhicules";
+"manage_docs" = "Gérer le document";
+"earning" = "Gains";
+"feedback" = "FeedBacks";
+
+//Edit profile
+"update" = "Mettre à jour";
+"choose_gallery" = "Choisir parmi la galerie";
+"take_photo" = "Prendre une photo";
+
+//Change password
+"enter_old_pass" = "Entrez l'ancien mot de passe";
+"old_pass" = "ancien mot de passe";
+"enter_new_pass" = "Entrez un nouveau mot de passe";
+"new_pass" = "nouveau mot de passe";
+"enter_con_pass" = "Entrer Confirmer le mot de passe";
+"confrm_pass" = "Confirmez le mot de passe";
+"ok" = "D'accord";
+"cancel" = "Annuler" ;
+"change_pass" = "CHANGER LE MOT DE PASSE";
+"low_blc" = "Alerte faible solde";
+"low_blc_content" = "Désolé, vos crédits sont trop bas.";
+"enter_otp" = "Enter OTP";
+"otp" = "OTP";
+"same_pass" = "New password and Confirm password must be same";
+
+//inivite frinds
+"share_invite" = "PARTAGEZ VOTRE CODE D'INVITE";
+"invite_inst" = "Invitez vos amis en partageant le code d'invitation ci-dessus et gagnez le montant de parrainage";
+"invite_btn" = "INVITER DES AMIS";
+
+//emerygency contact
+"add_contact" = "AJOUTER DES CONTACTS";
+"add_5_cont" = "Vous pouvez ajouter jusqu'à 5 contacts";
+"make_safe" = "Faites votre voyage en toute sécurité";
+"send_alert" = "Envoyer une alerte à vos amis / membres de la famille en cas d'urgence";
+"please_add" = "S'il vous plaît les ajouter à votre contact d'urgence";
+
+
+//Search Address
+"delete" = "Effacer" ;
+"pickupaddr" = "Adresse de ramassage";
+"search" = "Chercher";
+"septupin" = "Emplacement des broches d'installation";
+
+
+//Home PAge
+"request_now" = "DEMANDE MAINTENANT";
+"no_vehicle" = "PAS DE VEHICULE";
+"cash" = "En espèces";
+"promo" = "Promo";
+"card" = "Carte";
+"add_card" = "Ajouter une carte";
+"promo_code" = "CODE PROMO";
+"promo_code_s" = "Code promo";
+"enter_promo_code" = "Saisir le code promotionnel";
+"call" = "Appel";
+"message" = "Message";
+"share" = "Partager";
+"available" = "Disponible";
+"unavailable" = "Indisponible";
+"rider_details" = "Détails du coureur";
+"navigation" = "La navigation";
+"tap_arrive" = "TAP POUR ARRIVER";
+"tap_start" = "APPUYEZ POUR COMMENCER";
+"tap_end" = "TAP TO FIN";
+"proof_pending" = "Votre statut d'épreuve est en attente";
+"proof_rej" = "Votre statut d'épreuve est rejeté";
+"vehicle_proof" = "En attente de l'approbation de l'administrateur";
+
+//Estimate fare Page
+"estimate_fare" = "Estimation du tarif";
+"ride_fare" = "Prix ​​du trajet";
+"base_fare" = "Tarif de base";
+"time_fare" = "Tarif horaire";
+"pickup_charge" = "Frais de ramassage";
+"access_fee" = "Frais d'accès";
+"cancellation_fee" = "Frais d'annulation";
+"subtotal" = "Total";
+"use_wallet" = "Utiliser le portefeuille";
+"ride_later" = "Roulez plus tard";
+
+// Network issue UI
+"net_title" = "Une connexion Internet est requise !!!";
+"net_msg" = "Vous n'êtes pas connecté à Internet, assurez-vous que le wi-fi est activé, le mode Airplan est désactivé, essayez à nouveau !!! ";
+"retry" = "Réessayez !!!";
+
+//FavAddress
+"Fav" = "Adresse favorite";
+"add" = "AJOUTER";
+
+
+//yourride
+"total_bill" = "Facture totale";
+"payment_method" = "Mode de paiement";
+
+
+//Docus:
+"upload_docs" = "Télécharger un document";
+"mmissing" = "Manquant";
+"driving_license" = "Permis de conduire";
+"insurance" = "Assurance";
+"taxi_passing" = "Passage de taxi";
+"manage_doc" = "Gérer le document";
+"select_doc" = "Sélectionner un document";
+"manage_vehi" = "Gérer un véhicule";
+"active" = "Actif";
+"deactive" = "DeActive";
+"vehicle_ins" = "Assurance automobile";
+"permit" = "Permis";
+"rc" = "Certificat d'enregistrement";
+"aadhar" = "Aadhar";
+
+
+//Rating
+"your_current_trip" = "VOTRE COTATION ACTUELLE";
+"life_time_trip" = "VOYAGES À VIE";
+"rated_trips" = "VOYAGES ÉVALUÉS";
+"fivestar_trip" = "FIVESTAR TRIPS";
+"rider_feedback" = "Commentaires du pilote";
+"feedback_centent" = "Consultez les commentaires des coureurs et apprenez à vous améliorer";
+
+
+//Accept&Decline page
+"accept" = "ACCEPTEZ";
+"decline" = "DÉCLIN";
+
+//RiderDetail View
+"call" = "Appel";
+"message" = "Message";
+"cancel" = "Annuler";
+
+//OtpView
+"otp_verify" = "Vérification OTP";
+"submit" = "SOUMETTRE";
+
+"make" = "Faire";
+"car_name" = "Nom de la voiture";
+"model" = "Modèle";
+"car_model" = "Modèle de voiture";
+"year" = "Année";
+"car_year" = "Année modèle de voiture";
+"license_plate" = "Plaque d'immatriculation";
+"color" = "Couleur";
+"car_color" = "Couleur de la voiture";
+"add_vech" = "Ajouter un véhicule";
+"reg_num" = "Type de véhicule";
+"selete_veh" = "SÉLECTIONNEZ VOTRE VÉHICULE";
+"manage_veh" = "Gérer un véhicule";
+"add_veh" = "Ajouter un véhicule";
+
+"driver_credit" = "Crédit conducteur";
+"invoice_title" = "Votre voyage est terminé, merci d'évaluer votre cavalier";
+"total_fare" = "Prix ​​total";
+"bill_rate" = "Date de facturation";
+"discount_app" = "Remise appliquée";
+"rate_title" = "Comment était votre tour?";
+"submit" = "SOUMETTRE";
+
+
+//invoice
+
+"distance" = "Distance";
+"time" = "Temps";
+"base_fare" = "Tarif de base";
+"Waiting_Time" = "Temps d'attente";
+"waiting_fare" = "Tarif d'attente";
+"time_fare" = "Tarif horaire";
+"ride_fare" = "Prix ​​du trajet";
+"pickup_fee" = "Frais de ramassage";
+"distance_fare" = "Tarif à distance";
+"access_fee" = "Frais d'accès";
+"cancelleantion_fee" = "Frais d'annulation";
+"payment_method" = "Mode de paiement";
+
+
+

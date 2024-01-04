@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Invite FrndsVC-->
+        <scene sceneID="pfs-zx-SNI">
+            <objects>
+                <viewController storyboardIdentifier="InviteFrndsVC" id="xco-lw-f0X" customClass="InviteFrndsVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vk1-dO-bs7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8iG-DQ-b4A">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JO-b1-riB">
+                                        <rect key="frame" x="20" y="5" width="374" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="TextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="bCu-cl-g4f" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="12.666666666666664" width="25" height="25"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="5gl-Dq-WEm"/>
+                                            <constraint firstAttribute="height" constant="25" id="Moz-IJ-5hz"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="change_image" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="AppColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Fc0-9z-GKw"/>
+                                    <constraint firstItem="bCu-cl-g4f" firstAttribute="centerY" secondItem="8iG-DQ-b4A" secondAttribute="centerY" id="IrG-N9-hKO"/>
+                                    <constraint firstAttribute="bottom" secondItem="bCu-cl-g4f" secondAttribute="bottom" constant="12.5" id="P0R-na-PwP"/>
+                                    <constraint firstAttribute="bottom" secondItem="0JO-b1-riB" secondAttribute="bottom" constant="5" id="Tsn-eR-hR6"/>
+                                    <constraint firstItem="bCu-cl-g4f" firstAttribute="top" secondItem="8iG-DQ-b4A" secondAttribute="top" constant="12.5" id="ZCr-9S-5f4"/>
+                                    <constraint firstItem="0JO-b1-riB" firstAttribute="leading" secondItem="8iG-DQ-b4A" secondAttribute="leading" constant="20" id="jQO-aB-kk9"/>
+                                    <constraint firstAttribute="trailing" secondItem="0JO-b1-riB" secondAttribute="trailing" constant="20" id="mRb-vQ-URX"/>
+                                    <constraint firstItem="0JO-b1-riB" firstAttribute="top" secondItem="8iG-DQ-b4A" secondAttribute="top" constant="5" id="sae-5w-Q4c"/>
+                                    <constraint firstItem="bCu-cl-g4f" firstAttribute="leading" secondItem="8iG-DQ-b4A" secondAttribute="leading" constant="15" id="xAO-N7-QSa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0n-F2-HSh">
+                                <rect key="frame" x="0.0" y="48" width="414" height="688"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invite_group" translatesAutoresizingMaskIntoConstraints="NO" id="PaO-cS-PB8">
+                                        <rect key="frame" x="142" y="30" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="130" id="3co-BW-tvL"/>
+                                            <constraint firstAttribute="width" constant="130" id="Cjc-Db-86Y"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARE YOUR INVITE CODE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Zh-Qs-pjP">
+                                        <rect key="frame" x="20" y="180" width="374" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="nnJ-sd-lRQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34GRD67XS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGL-ti-f80">
+                                        <rect key="frame" x="107" y="240" width="200" height="50"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.31604863556338031" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="PX4-c0-JdT"/>
+                                            <constraint firstAttribute="width" constant="200" id="vOC-9K-zWw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="AppColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite your friends by sharing above invite code and earn the referral amount" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frp-Pc-2QY">
+                                        <rect key="frame" x="30" y="320" width="354" height="40.666666666666686"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYK-h6-zDL">
+                                        <rect key="frame" x="50" y="390.66666666666669" width="314" height="40"/>
+                                        <color key="backgroundColor" name="AppColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="WB9-i1-Whd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="INVITE FIRENDS">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="4Zh-Qs-pjP" firstAttribute="leading" secondItem="S0n-F2-HSh" secondAttribute="leading" constant="20" id="3Jg-Pw-iM9"/>
+                                    <constraint firstItem="EYK-h6-zDL" firstAttribute="leading" secondItem="S0n-F2-HSh" secondAttribute="leading" constant="50" id="59x-kg-8N1"/>
+                                    <constraint firstItem="jGL-ti-f80" firstAttribute="centerX" secondItem="S0n-F2-HSh" secondAttribute="centerX" id="7bn-hg-8tG"/>
+                                    <constraint firstAttribute="trailing" secondItem="frp-Pc-2QY" secondAttribute="trailing" constant="30" id="9VG-nO-QkC"/>
+                                    <constraint firstItem="PaO-cS-PB8" firstAttribute="centerX" secondItem="S0n-F2-HSh" secondAttribute="centerX" id="LRr-5Z-PBf"/>
+                                    <constraint firstItem="EYK-h6-zDL" firstAttribute="top" secondItem="frp-Pc-2QY" secondAttribute="bottom" constant="30" id="RsA-As-aXR"/>
+                                    <constraint firstItem="4Zh-Qs-pjP" firstAttribute="top" secondItem="PaO-cS-PB8" secondAttribute="bottom" constant="20" id="Vq6-Ex-eRS"/>
+                                    <constraint firstAttribute="trailing" secondItem="EYK-h6-zDL" secondAttribute="trailing" constant="50" id="fuH-1E-sK6"/>
+                                    <constraint firstItem="jGL-ti-f80" firstAttribute="top" secondItem="4Zh-Qs-pjP" secondAttribute="bottom" constant="30" id="hZM-co-8lZ"/>
+                                    <constraint firstItem="frp-Pc-2QY" firstAttribute="top" secondItem="jGL-ti-f80" secondAttribute="bottom" constant="30" id="hg5-SY-YgF"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Zh-Qs-pjP" secondAttribute="trailing" constant="20" id="kjQ-ZO-M3T"/>
+                                    <constraint firstItem="PaO-cS-PB8" firstAttribute="top" secondItem="S0n-F2-HSh" secondAttribute="top" constant="30" id="rlF-jo-46p"/>
+                                    <constraint firstItem="frp-Pc-2QY" firstAttribute="leading" secondItem="S0n-F2-HSh" secondAttribute="leading" constant="30" id="vLr-Hi-udv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="p7Q-ni-zqV"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8iG-DQ-b4A" firstAttribute="top" secondItem="p7Q-ni-zqV" secondAttribute="top" id="0YP-uW-5ae"/>
+                            <constraint firstItem="S0n-F2-HSh" firstAttribute="top" secondItem="p7Q-ni-zqV" secondAttribute="top" constant="48" id="7V3-fQ-uiM"/>
+                            <constraint firstItem="S0n-F2-HSh" firstAttribute="top" secondItem="p7Q-ni-zqV" secondAttribute="top" id="7YY-DR-ZmE"/>
+                            <constraint firstItem="p7Q-ni-zqV" firstAttribute="trailing" secondItem="S0n-F2-HSh" secondAttribute="trailing" id="Efm-7V-oJ7"/>
+                            <constraint firstAttribute="trailing" secondItem="8iG-DQ-b4A" secondAttribute="trailing" id="gBS-Jf-QQg"/>
+                            <constraint firstItem="S0n-F2-HSh" firstAttribute="leading" secondItem="p7Q-ni-zqV" secondAttribute="leading" id="gYS-5Z-Sjs"/>
+                            <constraint firstItem="8iG-DQ-b4A" firstAttribute="leading" secondItem="p7Q-ni-zqV" secondAttribute="leading" id="lWt-5U-mzJ"/>
+                            <constraint firstItem="p7Q-ni-zqV" firstAttribute="bottom" secondItem="S0n-F2-HSh" secondAttribute="bottom" id="tZr-Oz-XiG"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7YY-DR-ZmE"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="backImg" destination="bCu-cl-g4f" id="A69-PA-qQ9"/>
+                        <outlet property="inviteBtn" destination="EYK-h6-zDL" id="NJL-B8-6Pk"/>
+                        <outlet property="inviteCodeLbl" destination="jGL-ti-f80" id="XF2-hn-lkR"/>
+                        <outlet property="inviteInsLbl" destination="frp-Pc-2QY" id="qaH-rZ-RKK"/>
+                        <outlet property="shareCodeLabl" destination="4Zh-Qs-pjP" id="djr-Fi-EJS"/>
+                        <outlet property="titlelbl" destination="0JO-b1-riB" id="eGe-fX-NCa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="whD-kV-Ljz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="302.89855072463769" y="-217.66304347826087"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="back_arrow" width="408" height="408"/>
+        <image name="invite_group" width="204" height="210"/>
+        <namedColor name="AppColor">
+            <color red="0.066666666666666666" green="0.070588235294117646" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,205 @@
+/*
+ Localizable.strings
+ RebuStar Rider
+ 
+ Created by Abservetech on 30/05/19.
+ Copyright © 2019 Abservetech. All rights reserved.
+ */
+
+"eng" = "Anglaise";
+"frnch" = "Française";
+
+//Login page
+"login" = "S'identifier";
+"signup" = "S'inscrire";
+"email_phone" = "Email ou téléphone";
+"email" = "Email";
+"password" = "Mot de passe";
+"forgot_pass" = "Mot de passe oublié?";
+"err_valid_data" = "Entrer des données valides";
+
+//Signup Page
+"first_name" = "Prénom";
+"last_name" = "Nom de famille";
+"email_address" = "Adresse électronique";
+"cc" = "CC";
+"mobile_num" = "Numéro de portable";
+"ent_first_name" = "Enter First Name";
+"ent_last_name" = "Enter Last Name";
+"ent_email_address" = "Enter Email Address";
+"ent_cc" = "Enter CC";
+"ent_password" = "Enter Password";
+"ent_mobile_num" = "Enter Mobile Number";
+"referral" = "Code de référence / d'invitation (facultatif)";
+"tc_pp" = "J'accepte les conditions d'utilisation et la politique de confidentialité";
+"submit" = "SOUMETTRE";
+"terms_condition" = "Termes et conditions";
+"err_count" = "requis mini 4 caractères";
+"err_pass_count" = "Mot de passe incorrect";
+"err_agree" = "S'il vous plaît accepter les termes et conditions";
+"add_phone" = "Ajouter un numéro de téléphone";
+"phone_signup" = "Ajouter un numéro de mobile pour la connexion à l'inscription";
+"enter_phone" = "Enter Mobile Number";
+"save" = "enregistrer";
+"err_mobile" = "Entrez le numéro de téléphone pour vous inscrire";
+
+//Menu Page
+"home" = "Accueil";
+"myprofile" = "Mon profil";
+"payment" = "Paiement";
+"mywallet" = "Mon portefeuille";
+"your_trips" = "Vos voyages";
+"invite_frirnds" = "Inviter des amis";
+"emrg_contact" = "Personne à contacter en cas d'urgence";
+"support" = "Soutien";
+"offers" = "Des offres";
+"logout" = "Connectez - Out";
+"alert_logout" = "Êtes-vous sûr de vouloir vous déconnecter?";
+
+
+//Edit profile
+"update" = "Mettre à jour";
+"choose_gallery" = "Choisir parmi la galerie";
+"take_photo" = "Prendre une photo";
+
+//Change password
+"enter_old_pass" = "Entrez l'ancien mot de passe";
+"old_pass" = "ancien mot de passe";
+"enter_new_pass" = "Entrez un nouveau mot de passe";
+"new_pass" = "nouveau mot de passe";
+"enter_con_pass" = "Entrer Confirmer le mot de passe";
+"confrm_pass" = "Confirmez le mot de passe";
+"ok" = "D'accord";
+"cancel" = "Annuler" ;
+"change_pass" = "CHANGER LE MOT DE PASSE";
+"enter_otp" = "Enter OTP";
+"otp" = "OTP";
+"same_pass" = "Nouveau mot de passe et Confirmer le mot de passe doit être identique";
+
+//inivite frinds
+"share_invite" = "PARTAGEZ VOTRE CODE D'INVITE";
+"invite_inst" = "Invitez vos amis en partageant le code d'invitation ci-dessus et gagnez le montant de parrainage";
+"invite_btn" = "INVITER DES AMIS";
+
+//emerygency contact
+"add_contact" = "AJOUTER DES CONTACTS";
+"add_5_cont" = "Vous pouvez ajouter jusqu'à 5 contacts";
+"make_safe" = "Faites votre voyage en toute sécurité";
+"send_alert" = "Envoyer une alerte à vos amis / membres de la famille en cas d'urgence";
+"please_add" = "S'il vous plaît les ajouter à votre contact d'urgence";
+
+
+//Search Address
+"delete" = "Effacer" ;
+"pickupaddr" = "Adresse de ramassage";
+"search" = "Chercher";
+"septupin" = "Emplacement des broches d'installation";
+
+
+//Home PAge
+"request_now" = "DEMANDE MAINTENANT";
+"no_vehicle" = "PAS DE VEHICULE";
+"cash" = "En espèces";
+"promo" = "Promo";
+"card" = "Carte";
+"add_card" = "Ajouter une carte";
+"promo_code" = "CODE PROMO";
+"promo_code_s" = "Code promo";
+"enter_promo_code" = "Saisir le code promotionnel";
+"call" = "Appel";
+"message" = "Message";
+"share" = "Partager";
+
+
+//Estimate fare Page
+"estimate_fare" = "Estimation du tarif";
+"ride_fare" = "Prix ​​du trajet";
+"base_fare" = "Tarif de base";
+"time_fare" = "Tarif horaire";
+"pickup_charge" = "Frais de ramassage";
+"access_fee" = "Frais d'accès";
+"cancellation_fee" = "Frais d'annulation";
+"subtotal" = "Total";
+"use_wallet" = "Utiliser le portefeuille";
+"ride_later" = "Roulez plus tard";
+
+// Network issue UI
+"net_title" = "Une connexion Internet est requise !!!";
+"net_msg" = "Vous n'êtes pas connecté à Internet, assurez-vous que le wi-fi est activé, le mode Airplan est désactivé, essayez à nouveau !!! ";
+"retry" = "Réessayez !!!";
+
+//FavAddress
+"Fav" = "Adresse favorite";
+"add" = "AJOUTER";
+
+
+//yourride
+"total_bill" = "Facture totale";
+"payment_method" = "Mode de paiement";
+
+"extimate_fare" = "Prix ​​estimé (distance)";
+"schudle_ride" = "Horaire Ride";
+"date" = "Rendez-vous amoureux";
+"time" = "Temps";
+"cancel" = "Annuler";
+"schule" = "programme";
+"alert" = "Alerte";
+"ok" = "D'accord";
+"caceltitle" = "Annuler le voyage";
+"cancel_content" = "Êtes-vous sûr de vouloir annuler le voyage?";
+"invoice_title" = "Votre voyage est terminé, merci d'évaluer votre cavalier";
+"no" = "Non";
+"yes" = "Oui";
+
+"driver_credit" = "Crédit conducteur";
+"invoice_title" = "Votre voyage est terminé, merci d'évaluer votre cavalier";
+"total_fare" = "Prix ​​total";
+"bill_rate" = "Date de facturation";
+"discount_app" = "Remise appliquée";
+"rate_title" = "Comment était votre tour?";
+"submit" = "SOUMETTRE";
+
+"distance" = "Distance";
+"time" = "Temps";
+"base_fare" = "Tarif de base";
+"Waiting_Time" = "Temps d'attente";
+"waiting_fare" = "Tarif d'attente";
+"time_fare" = "Tarif horaire";
+"ride_fare" = "Prix ​​du trajet";
+"pickup_fee" = "Frais de ramassage";
+"distance_fare" = "Tarif à distance";
+"access_fee" = "Frais d'accès";
+"cancelleantion_fee" = "Frais d'annulation";
+"payment_method" = "Mode de paiement";
+
+"balance_payment" = "Paiement du solde";
+"booking_fee" = "Frais de réservation";
+"minimun_fare" = "Tarif minimum";
+"tax_" = "IMPÔT";
+"surge_amt" = "Montant de surtension";
+"toll_fee" = "Péage";
+
+
+//payment
+"card_detail" = "Détails de la carte";
+"no_card" = "Aucune carte disponible";
+"plz_add_card" = "S'il vous plaît ajouter votre carte à utiliser le paiement par carte";
+"add_card" = "Ajouter une carte";
+"note" = "Remarques";
+"card_num_title" = "NUMÉRO DE CARTE";
+"view_card" = "Voir la carte";
+"card_type" = "Type de carte";
+"card_num" = "Numéro de carte";
+"expire" = "Expirer";
+"cvv" = "CVV";
+
+//wallet
+"wallet" = "Portefeuille";
+"your_blnc" = "Votre solde";
+"add_money" = "Ajouter de l'argent";
+"safty" = "C'est sûr et sécurisé";
+"proceed" = "En procédant à l'avance, vous acceptez nos conditions d'utilisation et notre politique de confidentialité.";
+"view_tc" = "Voir les termes et les politiques de confidentialité";
+"view_tran" = "Afficher les transactions";
+
+

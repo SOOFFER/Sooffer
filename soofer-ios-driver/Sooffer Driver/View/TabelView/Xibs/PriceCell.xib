@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PriceCell" rowHeight="68" id="Eh0-x4-lRZ" customClass="PriceCell" customModule="ExpressTrack" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="394" height="68"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eh0-x4-lRZ" id="ZjQ-21-Za8">
+                <rect key="frame" x="0.0" y="0.0" width="394" height="68"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GP4-tQ-WWX">
+                        <rect key="frame" x="5" y="5" width="384" height="58"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ial-W5-Ups">
+                                <rect key="frame" x="10" y="3" width="42" height="52"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHX-SB-3k9">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="23.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdz-9U-ptn">
+                                        <rect key="frame" x="0.0" y="28.5" width="42" height="23.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="EsN-NP-Bjd">
+                                <rect key="frame" x="337.5" y="3" width="36.5" height="52"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWW-9T-3XX">
+                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgc-Dp-OpU">
+                                        <rect key="frame" x="0.0" y="27.5" width="36.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ial-W5-Ups" secondAttribute="bottom" constant="3" id="3qn-Kc-ja9"/>
+                            <constraint firstAttribute="trailing" secondItem="EsN-NP-Bjd" secondAttribute="trailing" constant="10" id="V4z-aD-k6r"/>
+                            <constraint firstItem="Ial-W5-Ups" firstAttribute="top" secondItem="GP4-tQ-WWX" secondAttribute="top" constant="3" id="d2j-q9-W7a"/>
+                            <constraint firstItem="Ial-W5-Ups" firstAttribute="leading" secondItem="GP4-tQ-WWX" secondAttribute="leading" constant="10" id="lIj-lu-0Nl"/>
+                            <constraint firstAttribute="bottom" secondItem="EsN-NP-Bjd" secondAttribute="bottom" constant="3" id="zLt-PT-DGA"/>
+                            <constraint firstItem="EsN-NP-Bjd" firstAttribute="top" secondItem="GP4-tQ-WWX" secondAttribute="top" constant="3" id="zbH-G7-g4v"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GP4-tQ-WWX" firstAttribute="top" secondItem="ZjQ-21-Za8" secondAttribute="top" constant="5" id="BfW-eX-Gxh"/>
+                    <constraint firstItem="GP4-tQ-WWX" firstAttribute="leading" secondItem="ZjQ-21-Za8" secondAttribute="leading" constant="5" id="FQK-Sp-c5O"/>
+                    <constraint firstAttribute="trailing" secondItem="GP4-tQ-WWX" secondAttribute="trailing" constant="5" id="o4G-u7-RGJ"/>
+                    <constraint firstAttribute="bottom" secondItem="GP4-tQ-WWX" secondAttribute="bottom" constant="5" id="zHb-Ut-xFH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="descdummyLbl" destination="cgc-Dp-OpU" id="WPv-FP-hPe"/>
+                <outlet property="desclbl" destination="bdz-9U-ptn" id="rKr-Ck-013"/>
+                <outlet property="priceLbl" destination="WWW-9T-3XX" id="bIf-JG-Bkp"/>
+                <outlet property="priceTitlelbl" destination="rHX-SB-3k9" id="Pty-B7-A8Z"/>
+            </connections>
+            <point key="canvasLocation" x="123.18840579710145" y="53.571428571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

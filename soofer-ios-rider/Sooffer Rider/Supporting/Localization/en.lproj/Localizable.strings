@@ -1,0 +1,257 @@
+/* 
+  Localizable.strings
+  RebuStar Rider
+
+  Created by Abservetech on 30/05/19.
+  Copyright © 2019 Abservetech. All rights reserved.
+*/
+
+
+"eng" = "English";
+"frnch" = "French";
+"spanish" = "spanish";
+
+//Login page
+"login" = "Login";
+"signup" = "Signup";
+"email_phone" = "Email or Phone";
+"email" = "Email";
+"password" = "Password";
+"forgot_pass" = "Forgot Password?";
+"err_valid_data" = "Enter Valid Data";
+
+//Signup Page
+"first_name" = "First Name";
+"last_name" = "Last Name";
+"email_address" = "Email Address";
+"cc" = "CC";
+"mobile_num" = "Mobile Number";
+"ent_first_name" = "Enter First Name";
+"ent_last_name" = "Enter Last Name";
+"ent_email_address" = "Enter Email Address";
+"ent_cc" = "Enter CC";
+"ent_password" = "Enter Password";
+"ent_mobile_num" = "Enter Mobile Number";
+"referral" = "Referral / Invite code (Optional)";
+"tc_pp" = "I agree to the terms & condition and privacy policy";
+"submit" = "SUBMIT";
+"terms_condition" = "Terms & Condition";
+"err_count" = "required mini 4 characters";
+"err_last_count" =  "required mini one character";
+"err_pass_count" = " Invalid Password";
+"err_mobile" = "required mini 10 digits";
+"err_agree" = "Please accept terms and condition";
+"add_phone" = "Add Phone number";
+"phone_signup" = "Add Mobile Number for Signup login";
+"enter_phone" = "Enter Mobile Number";
+"save" = "save";
+"err_mobile" = "Enter the Mobile Number for signup";
+"worng_otp" = "This is Wrong OTP Please Enter Correct one";
+"alert_delete" = "Are you sure you want to delete?";
+
+//forgorpass
+"forgot_pass" = "Forgot Password?";
+"forgot_msg" = "Enter the Email Address you used to register";
+"enter_email" = "Email Address";
+
+//Menu Page
+"home" = "Home";
+"myprofile" = "My Profile";
+"payment" = "Payment";
+"mywallet" = "My Wallet";
+"your_trips" = "Your Trips";
+"invite_frirnds" = "Invite Friends";
+"emrg_contact" = "Emergency Contact";
+"support" = "Support";
+"offers" = "Offers";
+"logout" = "Logout";
+"alert_logout" = "Are you sure you want to logout?";
+
+
+//Edit profile
+"update" = "Update";
+"choose_gallery" = "Choose from Gallery";
+"take_photo" = "Take a Photo";
+
+//Change password
+"enter_old_pass" = "Enter Old Password";
+"old_pass" = "Old Password";
+"enter_new_pass" = "Enter New Password";
+"new_pass" = "New Password";
+"enter_con_pass" = "Enter Confirm Password";
+"confrm_pass" = "Confirm Password";
+"ok" = "OK";
+"cancel" = "Cancel" ;
+"change_pass" = "CHANGE PASSWORD";
+"enter_otp" = "Enter OTP";
+"otp" = "OTP";
+"same_pass" = "New password and Confirm password must be same";
+
+//inivite frinds
+"share_invite" = "SHARE YOUR INVITE CODE";
+"invite_inst" = "Invite your friends by sharing above invite code and earn the referral amount";
+"invite_btn" = "INVITE FRIENDS";
+
+//emerygency contact
+"add_contact" = "ADD CONTACTS";
+"add_5_cont" = "You can add up to 5 Contacts";
+"make_safe" = "Make your travel safe";
+"send_alert" = "Send alert to your friends/family members in case of an emergency";
+"please_add" = "Please add them to your Emergency Contact";
+
+
+//Search Address
+"delete" = "Delete" ;
+"pickupaddr" = "Pickup Address";
+"search" = "Search";
+"septupin" = "Setup Pin Location";
+
+
+//Home PAge
+"request_now" = "REQUEST NOW";
+"no_vehicle" = "NO VICHILE";
+"cash" = "Cash";
+"promo" = "Promo";
+"card" = "Card";
+"add_card" = "Add Card";
+"promo_code" = "PROMO CODE";
+"promo_code_s" = "Promo Code";
+"enter_promo_code" = "Enter Promo Code";
+"call" = "Call";
+"message" = "Message";
+"share" = "Share";
+
+"ride" = "Ride" ;
+"hourly" = "Hourly" ;
+"driver" = "Driver";
+"where_to?" = "where_to?";
+"request_Now" = "Request Now";
+"now" = "Now";
+
+//Estimate fare Page
+"estimate_fare" = "Estimate Fare";
+"ride_fare" = "Ride Fare";
+"base_fare" = "Base Fare";
+"time_fare" = "Waiting Fare";
+"pickup_charge" = "Pickup Charge";
+"access_fee" = "Access Fee";
+"cancellation_fee" = "Cancellation Fee";
+"subtotal" = "SubTotal";
+"use_wallet" = "Use Wallet";
+"ride_later" = "RIDE LATER";
+
+// Network issue UI
+"net_title" = "Internet Connection is Required !!!";
+"net_msg" = "You're not connected to the Internet,  Make sure wi-fi is ON  , Airplan mode is OFF , Try Again !!!! ";
+"retry" = "ReTry !!!";
+
+//FavAddress
+"Fav" = "Favourite Address";
+"add" = "ADD";
+
+
+//yourride
+"total_bill" = "Total Bill";
+"payment_method" = "Payment Method";
+
+"extimate_fare" = "Estimated Fare (Distance ";
+"schudle_ride" = "Schedule Ride";
+"date" = "Date";
+"time" = "Time";
+"cancel" = "Cancel";
+"schule" = "schedule";
+"alert" = "Alert";
+"ok" = "OK";
+"caceltitle" = "Cancel Trip";
+"cancel_content" = "Are you sure you want to cancel the trip?";
+"invoice_title" = "Your Trip Has Ended Please Rate Your Rider";
+"no" = "No";
+"yes" = "Yes";
+
+"driver_credit" = "Driver Credit";
+"invoice_title" = "Your Trip Has Ended Please Rate Your Rider";
+"total_fare" = "Total Fare";
+"bill_rate" = "Bill Date";
+"discount_app" = "Discount Applied";
+"rate_title" = "How Was Your Ride?";
+"submit" = "SUBMIT";
+
+"distance" = "Distance";
+"time" = "Time";
+"base_fare" = "Base Fare";
+"Waiting_Time" = "Waiting Time";
+"waiting_fare" = "Waiting Fare";
+"time_fare" = "Waiting Fare";
+"ride_fare" = "Ride Fare";
+"pickup_fee" = "Pickup Fee";
+"distance_fare" = "Distance Fare";
+"gateway_fare" = "GatewayCharge";
+"access_fee" = "Access Fee";
+"cancelleantion_fee" = "Cancellation Fee";
+"payment_method" = "Payment Method";
+
+"balance_payment" = "Balance Payment";
+"booking_fee" = "Booking Fee";
+"time_fare" = "Time Fare";
+"minimun_fare" = "Minimum Fare";
+"tax_" = "TAX";
+"surge_amt" = "Surge Amt";
+"toll_fee" = "Toll Fee";
+
+
+//payment
+"card_detail" = "Card Details";
+"no_card" = "No Card Available";
+"plz_add_card" = "Please add your card to use card payment";
+"add_card" = "Add Card";
+"note" = "Notes";
+"card_num_title" = "CARD NUMBER";
+"view_card" = "View Card";
+"card_type" = "Card Type";
+"card_num" = "Card Number";
+"expire" = "Expire";
+"cvv" = "CVV";
+
+//wallet
+"wallet" = "Wallet";
+"your_blnc" = "Your Balance";
+"add_money" = "Add Money";
+"safty" = "It's Safe and secure";
+"proceed" = "By proceeding ahead, you agree to our Terms & Privacy Policy";
+"view_tc" = "View Terms & Privacy Polices";
+"view_tran" = "View Transactions";
+
+
+//suuport
+
+"aboutus" = "About Us";
+"privacy" = "Privacy Policy";
+"tc" = "Terms & Conditions";
+"contact_us" = "Contact Us";
+"faq" = "FAQ";
+
+"howto" = "How To";
+"gentral" = "General";
+"rider" = "Rider";
+"driver" = "Driver";
+
+"cancelbook" = "How to cancel your booking?";
+"txt_cancel" = "Simply tap on the cancel button to cancel the ride";
+"how_to_work" = "How to works?";
+"txt_wrk" = "Login to the Ride aplication and seect appropriate car type. enter the destination and send request to drivers";
+"how_signup" = "How to signups as a rider?";
+"txt_signup" = "First of all download the app passenger application from the Appstore. After installing go to signup page and fillup details.";
+"how_signup_driver" = "How to signups as a driver?";
+"txt_signup_driver" = "First of all download the app passenger application from the Appstore. After installing go to signup page and fillup required details After signup , add your vehicle and documents. Once your account is verified and activated, you can Go Online and accept the ride request.";
+
+
+
+// home
+
+"cal_book" = "Currently we do not have app booking service at you location. Please click on the phone icon to book manually.";
+"confrm_book" = "CONFIRM BOOKING";
+
+
+//invoice rental
+"package" = "Package";
+"base_fare_km" = "Base Fare (Fare for ";

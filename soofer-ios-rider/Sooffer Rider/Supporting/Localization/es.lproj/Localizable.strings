@@ -1,0 +1,494 @@
+/* 
+  Localizable.strings
+  RebuStar Rider
+
+  Created by Abservetech on 30/05/19.
+  Copyright © 2019 Abservetech. All rights reserved.
+*/
+
+
+
+
+    "eng" = "Inglés";
+
+    "frnch" = "Francés";
+    "spanish" = "española";
+
+
+
+   //Página de inicio de sesión
+
+    "login" = "Iniciar sesión";
+
+    "signup" = "Registrarse";
+
+    "email_phone" = "Correo electrónico o teléfono";
+
+    "email" = "Correo electrónico";
+
+    "password" = "Contraseña";
+
+    "forgot_pass" = "¿Olvidó su contraseña?";
+
+    "err_valid_data" = "Ingresar datos válidos";
+
+
+
+   // Página de registro
+
+    "first_name" = "Nombre";
+
+    "last_name" = "Apellido";
+
+    "email_address" = "Dirección de correo electrónico";
+
+    "cc" = "CC";
+
+    "mobile_num" = "Número de móvil";
+
+    "ent_first_name" = "Ingrese el nombre";
+
+    "ent_last_name" = "Ingrese el apellido";
+
+    "ent_email_address" = "Ingrese la dirección de correo electrónico";
+
+    "ent_cc" = "Ingrese CC";
+
+    "ent_password" = "Ingrese la contraseña";
+
+    "ent_mobile_num" = "Ingresar número de móvil";
+
+    "referral" = "Código de referencia / invitación (opcional)";
+
+    "tc_pp" = "Acepto los términos y condiciones y la política de privacidad";
+
+    "submit" = "ENVIAR";
+
+    "terms_condition" = "Términos y condiciones";
+
+    "err_count" = "mini 4 caracteres requeridos";
+
+    "err_last_count" = "se requiere un mini carácter";
+
+    "err_pass_count" = "Contraseña invalida";
+
+    "err_mobile" = "mini 10 dígitos requeridos";
+
+    "err_agree" = "Acepte los términos y condiciones";
+
+    "add_phone" = "Agregar número de teléfono";
+
+    "phone_signup" = "Agregar número de teléfono móvil para iniciar sesión";
+
+    "enter_phone" = "Ingresar número de móvil";
+
+    "save" = "guardar";
+
+    "err_mobile" = "Ingrese el número de móvil para registrarse";
+
+    "worng_otp" = "Esto es Worng OTP. Ingrese el correcto";
+
+
+
+   // forgorpass
+
+    "forgot_pass" = "¿Olvidó su contraseña?";
+
+    "forgot_msg" = "Ingrese la dirección de correo electrónico que utilizó para registrarse";
+
+    "enter_email" = "Dirección de correo electrónico";
+
+
+
+   // Página de menú
+
+    "home" = "Inicio";
+
+    "myprofile" = "Mi perfil";
+
+    "payment" = "Pago";
+
+    "mywallet" = "Mi billetera";
+
+    "your_trips" = "Tus viajes";
+
+    "invite_frirnds" = "Invitar amigos";
+
+    "emrg_contact" = "Contacto de emergencia";
+
+    "support" = "Soporte";
+
+    "offers" = "Ofertas";
+
+    "logout" = "Cerrar sesión";
+
+    "alert_logout" = "¿Está seguro de que desea cerrar sesión?";
+
+
+
+
+
+   //Editar perfil
+
+    "update" = "Actualizar";
+
+    "choose_gallery" = "Elegir de la galería";
+
+    "take_photo" = "Tomar una foto";
+
+
+
+   //Cambia la contraseña
+
+    "enter_old_pass" = "Ingrese la contraseña anterior";
+
+    "old_pass" = "Contraseña anterior";
+
+    "enter_new_pass" = "Ingresar nueva contraseña";
+
+    "new_pass" = "Nueva contraseña";
+
+    "enter_con_pass" = "Ingrese Confirmar contraseña";
+
+    "confrm_pass" = "Confirmar contraseña";
+
+    "ok" = "OK";
+
+    "cancel" = "Cancelar";
+
+    "change_pass" = "CAMBIAR CONTRASEÑA";
+
+    "enter_otp" = "Ingresar OTP";
+
+    "otp" = "OTP";
+
+    "same_pass" = "Nueva contraseña y Confirmar contraseña debe ser la misma";
+
+
+
+   // amigos frívolos
+
+    "share_invite" = "COMPARTA SU CÓDIGO DE INVITACIÓN";
+
+    "invite_inst" = "Invita a tus amigos compartiendo el código de invitación anterior y gana la cantidad de referencia";
+
+    "invite_btn" = "INVITAR A LOS ENVIADOS";
+
+
+
+   // contacto de emergencia
+
+    "add_contact" = "AGREGAR CONTACTOS";
+
+    "add_5_cont" = "Puede agregar hasta 5 contactos";
+
+    "make_safe" = "Haga su viaje seguro";
+
+    "send_alert" = "Enviar alertas a sus amigos / familiares en caso de emergencia";
+
+    "please_add" = "Por favor agréguelos a su contacto de emergencia";
+
+
+
+
+
+   // Buscar dirección
+
+    "delete" = "Eliminar";
+
+    "pickupaddr" = "Dirección de recogida";
+
+    "search" = "Buscar";
+
+    "septupin" = "Ubicación del pin de configuración";
+
+
+
+
+
+   // Página de inicio
+
+    "request_now" = "SOLICITAR AHORA";
+
+    "no_vehicle" = "NO VICHILE";
+
+    "cash" = "Efectivo";
+
+    "promo" = "Promo";
+
+    "card" = "Tarjeta";
+
+    "add_card" = "Agregar tarjeta";
+
+    "promo_code" = "CÓDIGO PROMOCIONAL";
+
+    "promo_code_s" = "Código de promoción";
+
+    "enter_promo_code" = "Ingrese el código de promoción";
+
+    "call" = "Llamar";
+
+    "message" = "Mensaje";
+
+    "share" = "Compartir";
+
+
+"ride" = "conducir" ;
+
+"hourly" = "cada hora" ;
+
+"driver" = "conductora";
+
+"where_to?" = "a donde?";
+
+"request_Now" = "solicitar ahora";
+
+"now" = "ahora";
+
+
+
+
+
+   // Estimación de la página de tarifas
+
+    "estimate_fare" = "Tarifa estimada";
+
+    "ride_fare" = "Tarifa de viaje";
+
+    "base_fare" = "Tarifa base";
+
+    "time_fare" = "Tarifa de espera";
+
+    "pickup_charge" = "Cargo por retiro";
+
+    "access_fee" = "Tarifa de acceso";
+
+    "cancellation_fee" = "Tarifa de cancelación";
+
+    "subtotal" = "SubTotal";
+
+    "use_wallet" = "Usar billetera";
+
+    "ride_later" = "PASEO MÁS TARDE";
+
+
+
+   // IU de problema de red
+
+    "net_title" = "¡Se requiere conexión a Internet!";
+
+    "net_msg" = "No está conectado a Internet, asegúrese de que el wi-fi esté activado, el modo Airplan esté desactivado, ¡inténtelo de nuevo!";
+
+    "retry" = "¡Vuelva a intentarlo!";
+
+
+
+   // FavAddress
+
+    "Fav" = "Dirección favorita";
+
+    "add" = "AGREGAR";
+
+
+
+
+
+   // yourride
+
+    "total_bill" = "Factura total";
+
+    "payment_method" = "Método de pago";
+
+
+
+    "extimate_fare" = "Tarifa estimada (distancia";
+
+    "schudle_ride" = "Programar viaje";
+
+    "date" = "Fecha";
+
+    "time" = "Hora";
+
+    "cancel" = "Cancelar";
+
+    "schule" = "horario";
+
+    "alert" = "Alerta";
+
+    "ok" = "OK";
+
+    "caceltitle" = "Cancelar viaje";
+
+    "cancel_content" = "¿Está seguro de que desea cancelar el viaje?";
+
+    "invoice_title" = "Su viaje ha terminado, califique a su pasajero";
+
+    "no" = "No";
+
+    "yes" = "Sí";
+
+
+
+    "driver_credit" = "Crédito de conductor";
+
+    "invoice_title" = "Su viaje ha terminado, califique a su pasajero";
+
+    "total_fare" = "Tarifa total";
+
+    "bill_rate" = "Fecha de facturación";
+
+    "discount_app" = "Descuento aplicado";
+
+    "rate_title" = "¿Cómo fue su viaje?";
+
+    "submit" = "ENVIAR";
+
+
+
+    "distance" = "Distancia";
+
+    "time" = "Hora";
+
+    "base_fare" = "Tarifa base";
+
+    "Waiting_Time" = "Tiempo de espera";
+
+    "waiting_fare" = "Tarifa de espera";
+
+    "time_fare" = "Tarifa de espera";
+
+    "ride_fare" = "Tarifa de viaje";
+
+    "pickup_fee" = "Tarifa de recogida";
+
+    "distance_fare" = "Tarifa de distancia";
+
+    "access_fee" = "Tarifa de acceso";
+
+    "cancelleantion_fee" = "Tarifa de cancelación";
+
+    "payment_method" = "Método de pago";
+
+"balance_payment" = "Pago del saldo";
+"booking_fee" = "Tarifa de reserva";
+"minimun_fare" = "Tarifa mínima";
+"tax_" = "IMPUESTO";
+"surge_amt" = "Cantidad de sobretensión";
+"toll_fee" = "Peaje";
+
+
+
+
+
+   //pago
+
+    "card_detail" = "Detalles de la tarjeta";
+
+    "no_card" = "No hay tarjeta disponible";
+
+    "plz_add_card" = "Agregue su tarjeta para usar el pago con tarjeta";
+
+    "add_card" = "Agregar tarjeta";
+
+    "note" = "Notas";
+
+    "card_num_title" = "NÚMERO DE TARJETA";
+
+    "view_card" = "Ver tarjeta";
+
+    "card_type" = "Tipo de tarjeta";
+
+    "card_num" = "Número de tarjeta";
+
+    "expire" = "Caducar";
+
+    "cvv" = "CVV";
+
+
+
+   //billetera
+
+    "wallet" = "Monedero";
+
+    "your_blnc" = "Su saldo";
+
+    "add_money" = "Agregar dinero";
+
+    "safty" = "Es seguro y protegido";
+
+    "proceed" = "Al continuar, usted acepta nuestros Términos y Política de privacidad";
+
+    "view_tc" = "Ver términos y políticas de privacidad";
+
+    "view_tran" = "Ver transacciones";
+
+
+
+
+
+   // suuport
+
+
+
+    "aboutus" = "Acerca de nosotros";
+
+    "privacy" = "Política de privacidad";
+
+    "tc" = "Términos y condiciones";
+
+    "contact_us" = "Contáctenos";
+
+    "faq" = "Preguntas frecuentes";
+
+
+
+    "howto" = "Cómo";
+
+    "gentral" = "General";
+
+    "rider" = "Jinete";
+
+    "driver" = "Controlador";
+
+
+
+    "cancelbook" = "¿Cómo cancelar su reserva?";
+
+    "txt_cancel" = "Simplemente toque el botón cancelar para cancelar el viaje";
+
+    "how_to_work" = "¿Cómo funciona?";
+
+    "txt_wrk" = "Inicie sesión en la aplicación Ride y verifique el tipo de automóvil apropiado. ingrese el destino y envíe la solicitud a los conductores";
+
+    "how_signup" = "¿Cómo registrarse como piloto?";
+
+    "txt_signup" = "En primer lugar, descargue la aplicación de pasajero de la App Store. Después de la instalación, vaya a la página de registro y complete los detalles.";
+
+    "how_signup_driver" = "¿Cómo registrarse como controlador?";
+
+    "txt_signup_driver" = "En primer lugar, descargue la aplicación de pasajero de la App Store. Después de la instalación, vaya a la página de registro y complete los detalles requeridos. Después del registro, agregue su vehículo y documentos. Una vez que su cuenta esté verificada y activada, puede conectarse y aceptar la solicitud de viaje ";
+
+
+
+
+
+
+
+   // hogar
+
+
+
+    "cal_book" = "Actualmente no tenemos servicio de reserva de aplicaciones en su ubicación. Haga clic en el icono del teléfono para reservar manualmente.";
+
+    "confrm_book" = "CONFIRMAR RESERVA";
+
+
+
+
+
+   // alquiler de facturas
+
+    "package" = "Paquete";
+
+    "base_fare_km" = "Tarifa base (tarifa para";
+

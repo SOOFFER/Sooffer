@@ -1,0 +1,48 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Sooffer Driver' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Sooffer Driver
+   pod 'SkyFloatingLabelTextField', '~> 3.0'
+   pod 'IQKeyboardManagerSwift', '>= 6.2.1'
+   pod 'GooglePlaces'
+   pod 'GoogleMaps'
+   pod 'GeoFire'
+   pod 'Toaster'
+   
+   pod 'Alamofire', '~> 4.7'
+   pod 'Alamofire-SwiftyJSON'
+   pod 'SwiftyJSON'
+   pod 'lottie-ios'
+   
+   pod 'Firebase/Core'
+   pod 'Firebase/Database', '~> 4.0'
+   pod 'Firebase/Messaging'
+   
+   pod 'JWTDecode', '~> 2.1'
+   pod 'PINRemoteImage'
+   pod 'Cosmos', '~> 19.0'
+   pod 'CountryPickerView'
+   
+   pod 'Siren' # Swift 4.2
+   pod 'UICircularProgressRing'
+   pod 'SVPinView', '~> 1.0'
+   pod 'DropDown'
+   pod 'MarqueeLabel'
+
+   pod 'FacebookCore'
+   pod 'FacebookLogin'
+   pod 'FacebookShare'
+   pod 'GoogleSignIn'
+   pod 'TKSwitcherCollection'
+
+   pod 'Fabric', '~> 1.10.2'
+   pod 'Crashlytics', '~> 3.14.0'
+   pod 'AgoraRtcEngine_iOS'
+   pod 'Kingfisher', '~> 7.0'
+   pod 'FSCalendar'
+#
+end

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavAddressCell" rowHeight="60" id="nh7-NG-xTo" customClass="FavAddressCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nh7-NG-xTo" id="oqh-Re-AWG">
+                <rect key="frame" x="0.0" y="0.0" width="351" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bG-GB-Lhv">
+                        <rect key="frame" x="0.0" y="0.0" width="351" height="60"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker_location" translatesAutoresizingMaskIntoConstraints="NO" id="hd3-Ma-9N7">
+                                <rect key="frame" x="10" y="20" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="esj-hI-24g"/>
+                                    <constraint firstAttribute="width" constant="20" id="tjv-ce-6qT"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hVi-F9-4ie">
+                                <rect key="frame" x="40" y="5" width="261" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C4Q-h9-q1V">
+                                        <rect key="frame" x="0.0" y="0.0" width="261" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBp-Oj-nOb">
+                                        <rect key="frame" x="0.0" y="25" width="261" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deleteimg" translatesAutoresizingMaskIntoConstraints="NO" id="dZ3-0Y-v7s">
+                                <rect key="frame" x="316" y="20" width="20" height="20"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="P1n-yA-jeJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="ucq-DV-adt"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hVi-F9-4ie" firstAttribute="top" secondItem="8bG-GB-Lhv" secondAttribute="top" constant="5" id="5pP-d9-Xi2"/>
+                            <constraint firstItem="hd3-Ma-9N7" firstAttribute="leading" secondItem="8bG-GB-Lhv" secondAttribute="leading" constant="10" id="FuD-bf-ZZo"/>
+                            <constraint firstItem="dZ3-0Y-v7s" firstAttribute="centerY" secondItem="8bG-GB-Lhv" secondAttribute="centerY" id="VbK-6O-pen"/>
+                            <constraint firstItem="dZ3-0Y-v7s" firstAttribute="leading" secondItem="hVi-F9-4ie" secondAttribute="trailing" constant="15" id="ZUe-Xm-hw5"/>
+                            <constraint firstAttribute="bottom" secondItem="hVi-F9-4ie" secondAttribute="bottom" constant="5" id="eFf-C0-hwz"/>
+                            <constraint firstItem="hVi-F9-4ie" firstAttribute="leading" secondItem="hd3-Ma-9N7" secondAttribute="trailing" constant="10" id="ene-GT-Fwq"/>
+                            <constraint firstAttribute="trailing" secondItem="dZ3-0Y-v7s" secondAttribute="trailing" constant="15" id="ihf-zp-aw4"/>
+                            <constraint firstItem="hd3-Ma-9N7" firstAttribute="centerY" secondItem="8bG-GB-Lhv" secondAttribute="centerY" id="rmA-xm-gyj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="8bG-GB-Lhv" secondAttribute="bottom" id="GhI-gg-vLg"/>
+                    <constraint firstItem="8bG-GB-Lhv" firstAttribute="leading" secondItem="oqh-Re-AWG" secondAttribute="leading" id="aY4-X9-WdM"/>
+                    <constraint firstAttribute="trailing" secondItem="8bG-GB-Lhv" secondAttribute="trailing" id="dj4-Kb-rW2"/>
+                    <constraint firstItem="8bG-GB-Lhv" firstAttribute="top" secondItem="oqh-Re-AWG" secondAttribute="top" id="sy1-gn-Y6W"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addrTitleLbl" destination="C4Q-h9-q1V" id="1NM-nM-euT"/>
+                <outlet property="addressLbl" destination="gBp-Oj-nOb" id="3OW-3S-lJm"/>
+                <outlet property="addressView" destination="8bG-GB-Lhv" id="NpM-jp-VAL"/>
+                <outlet property="deleteImage" destination="dZ3-0Y-v7s" id="2Gu-Qx-nEp"/>
+                <outlet property="locationImage" destination="hd3-Ma-9N7" id="CF9-ZA-wed"/>
+                <outlet property="moreImg" destination="dZ3-0Y-v7s" id="UOj-xX-Oz9"/>
+            </connections>
+            <point key="canvasLocation" x="36.956521739130437" y="71.651785714285708"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="deleteimg" width="320" height="320"/>
+        <image name="marker_location" width="40" height="40"/>
+    </resources>
+</document>

@@ -1,0 +1,52 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Sooffer Rider' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  
+  # Pods for Sooffer Rider
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'IQKeyboardManagerSwift', '~> 6.5.11' #'>= 6.2.1'
+  #pod 'GooglePlaces'
+  #pod 'GoogleMaps'
+  pod 'GooglePlaces', '~> 3.1' 
+  pod 'GoogleMaps', '~> 3.1'
+  pod 'GeoFire'# , '~> 2.0.1'
+  pod 'Toaster'
+  pod 'DropDown'
+  
+  pod 'Alamofire', '~> 4.7'
+  pod 'Alamofire-SwiftyJSON'
+  pod 'SwiftyJSON'
+  pod 'lottie-ios'
+  
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'#, '6.30.0'
+  pod 'Firebase/Messaging'
+  
+  pod 'JWTDecode', '~> 2.1'
+  pod 'PINRemoteImage'
+  pod 'Cosmos', '~> 19.0'
+  pod 'CountryPickerView'
+  pod 'SVPinView', '~> 1.0'
+  pod 'Stripe', '~> 15.0.0'
+  pod 'MarqueeLabel'
+  
+  
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+  pod 'GoogleSignIn'
+
+  pod 'Fabric', '~> 1.10.2'
+  pod 'Crashlytics', '~> 3.14.0'
+  pod 'DateTimePicker'
+
+  pod 'FCAlertView'
+  pod 'SideMenuSwift'
+  pod 'CTSlidingUpPanel', '~> 1.0.4'
+  pod 'Kingfisher', '~> 7.0'
+#  pod 'AgoraRtcEngine_iOS'
+#
+end
