@@ -6,31 +6,57 @@ repositories {
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.soofer.driver"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 7
-        versionName "1.6"
+        targetSdkVersion 34
+        versionCode 10
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-
     }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    tasks.withType(JavaCompile).configureEach{
+        options.fork = true
+        options.forkOptions.jvmArgs +=[
+                '--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED']
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude '*/res/**'
+        exclude 'AndroidManifest.xml'
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "StripeURL", '"https://connect.stripe.com/express/oauth/authorize?client_id="'
-            buildConfigField "String", "StripeKey", '"ca_KdtdPkQ2a4GPlVRxb3YscDNnAWRMcIAP"'
+            buildConfigField "String", "StripeKey", '"ca_KdtdAYDtmTOFx32L6fnKrsvfdWcC0ZVK"'
             buildConfigField "String", "Stripe", '"pk_live_51JvLMsD9LszUmsLxvA3vVVqJPXPCncqNSqE2RTiWDqaj0TvQPXTtyG4OqopDu68z6GEMlhcdea0HkmXsdc7pWtXM00xVZJANuo"'
 // live key
 
         }
         debug {
             buildConfigField "String", "StripeURL", '"https://connect.stripe.com/express/oauth/authorize?client_id="'
-            buildConfigField "String", "StripeKey", '"ca_KdtdPkQ2a4GPlVRxb3YscDNnAWRMcIAP"'
+            buildConfigField "String", "StripeKey", '"ca_KdtdAYDtmTOFx32L6fnKrsvfdWcC0ZVK"'
             buildConfigField "String", "Stripe", '"pk_live_51JvLMsD9LszUmsLxvA3vVVqJPXPCncqNSqE2RTiWDqaj0TvQPXTtyG4OqopDu68z6GEMlhcdea0HkmXsdc7pWtXM00xVZJANuo"'
 // test key
             // buildConfigField "String", "StripeKey", '"ca_FJQTO7h7cypG5XJd8hhRdJfymHpdAILG"' // live key
@@ -53,6 +79,10 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    dataBinding{
+        enabled true
+    }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -76,9 +106,6 @@ configurations.all {
 allprojects {
     repositories {
         jcenter()
-//        maven {
-//            url "https://mint.splunk.com/gradle/"
-//        }
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots/"
         }
@@ -102,8 +129,6 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //support gradle
-
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.3.0'
@@ -132,8 +157,8 @@ dependencies {
     //dp and sp common grdle
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     //butternife gradle
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     //material edittext
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     //google map gradl
@@ -153,8 +178,6 @@ dependencies {
         force = true //API 19 support
     }
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.12'
-
-
     //ui validation gradle
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
     //stripe
@@ -171,9 +194,8 @@ dependencies {
     //glide gradle
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
-
     //firebase and geofire
-    implementation 'com.firebase:geofire-android:3.0.0'
+    implementation 'com.firebase:geofire-android:2.3.1'
     implementation 'com.google.firebase:firebase-core:19.0.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
@@ -193,14 +215,11 @@ dependencies {
     //country code picker
     implementation 'com.github.yesterselga:CountryPickerAndroid:1.0.0'
 
-    //Top Snackbar
-    implementation 'com.androidadvance:topsnackbar:1.1.1'
-
     //event bus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     //alert gradle
-    implementation 'com.tapadoo.android:alerter:5.0.0'
+    implementation 'com.github.tapadoo:alerter:7.2.4'
 
     /*   //opt picker
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'*/
@@ -225,16 +244,12 @@ dependencies {
     //mobile number
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.17'
 
-    implementation 'androidx.work:work-runtime:2.5.0'
 
     //material switch
    // implementation 'com.github.glomadrian:MaterialAnimatedSwitch:1.1@aar'
 
     //otp picker
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
-
-    //in app update
-    implementation 'com.google.android.play:core:1.10.0'
 
     //life cycle
     implementation 'androidx.lifecycle:lifecycle-runtime:2.3.1'
@@ -257,17 +272,15 @@ dependencies {
     //rxpermission
     implementation 'com.github.tbruyelle:rxpermissions:0.12'
 
-    //splunkmint
-//    implementation "com.splunk.mint:mint:4.3.0"
-    //sinch call
-    implementation(name: "sinch-android-rtc-3.12.3", ext: "aar")
+    //Agora Voice Call
+    implementation 'io.agora.rtc:voice-sdk:4.4.1'
 
-
-    implementation 'com.google.firebase:firebase-crashlytics:18.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.4.0'
     implementation 'com.google.firebase:firebase-analytics:21.2.0'
 
-//Agora Voice Call
-    implementation 'io.agora.rtc:voice-sdk:3.0.0'
+    implementation "android.arch.work:work-runtime:1.0.1"
+    implementation 'androidx.work:work-runtime:2.7.1'
     
 }
 

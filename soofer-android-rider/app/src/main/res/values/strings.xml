@@ -37,9 +37,7 @@
     <string name="invite">Invite Friends</string>
     <string name="Contacts">Emergency Contact</string>
     <string name="support">Support</string>
-
     <string name="invite_code">Share your invite Code</string>
-
     <string name="email">Email</string>
     <string name="mobile">Mobile</string>
     <string name="language">Language</string>
@@ -49,6 +47,7 @@
     <string name="home_place">Home Place</string>
     <string name="work_address">Work Address</string>
     <string name="work_place">work Place</string>
+    <string name="invalidpass">INVALID_PASSWORD</string>
 
     <string name="cc">CC</string>
     <string name="edit_profile">Edit Profile</string>
@@ -67,8 +66,8 @@
     <string name="how_workings">How to Works?</string>
     <string name="login_to_the_rider">Login to the Ride application and select appropriate car type.Enter the destination and send request to driers</string>
     <string name="signups_as">How to signups as a rider?</string>
-    <string name="appstore">First of all downloads the Express Track Passenger application from the Playstore.After installing go to signup page and fillup details.</string>
-    <string name="driver_signup">First of all download the Express Track Driver application from the Playstore. After installing go to signup page and fillup required details After sign up ,add your vehicle and documents. Once your account is verified and activated, you can Go Online and accept the ride request.</string>
+    <string name="appstore">First of all downloads the Sooffer Passenger application from the Playstore.After installing go to signup page and fillup details.</string>
+    <string name="driver_signup">First of all download the Sooffer Driver application from the Playstore. After installing go to signup page and fillup required details After sign up ,add your vehicle and documents. Once your account is verified and activated, you can Go Online and accept the ride request.</string>
     <string name="how_driver_signup">How to signup as a driver ?</string>
     <string name="send_query">Send Query</string>
     <string name="card_details">Card Details</string>
@@ -89,7 +88,7 @@
     <string name="view_terms_amp_privacy_policy"><![CDATA[View Terms & Privacy Policy]]></string>
     <string name="notes">Notes</string>
     <string name="no_transaction_available">No transaction available</string>
-    <string name="your_transcations">Your Transcations</string>
+    <string name="your_transcations">Your Transactions</string>
     <string name="no_trip_data">No Trip Data</string>
     <string name="internet_connect">Internet Alert</string>
     <string name="connection">Please Check Your Internet Connection</string>
@@ -99,11 +98,11 @@
     <string name="offers">Offers</string>
     <string name="enter_Valid_otp">Enter your OTP</string>
     <string name="your_trip_has_ended_please_rate_your_rider">Thank you! Don\'t forget to rate our service</string>
-
     <string name="bill_date">Bill Date</string>
     <string name="discount_applied">Discount Applied</string>
     <string name="distance">Distance</string>
     <string name="time">Time</string>
+    <string name="entervalidemailornumber">Enter Valid Email or Mobile Number</string>
 
     <string name="distance_fare">Distance Fare</string>
     <string name="time_fare">Waiting Fare</string>
@@ -111,16 +110,14 @@
     <string name="detected_fare">Detected Fare</string>
     <string name="how_was_your_ride">How Was Your Ride ?</string>
     <string name="enter_your_comments">Enter your comments</string>
-
     <string name="pickup_address">Pickup address</string>
     <string name="drop_address">Drop address</string>
-
-
     <string name="pickup_fee">Pick up Fee</string>
     <string name="access_fee">TAX</string>
     <string name="surge">Surge Amt</string>
     <string name="flat_fee">Flat Fee</string>
     <string name="payment_method">Payment Mode</string>
+    <string name="walletDetect">walletDetect</string>
 
     <string name="something_went_wrong">Something Went Wrong</string>
     <string name="delete">Delete</string>
@@ -303,7 +300,7 @@
     <string name="booking_id">Booking ID:</string>
     <string name="vehilce_type">Vehicle type :</string>
     <string name="toll_fee">Toll Fee</string>
-
+    <string name="tipss">Tips</string>
     <string name="day_fare">Day Batta</string>
     <string name="google_fare">Google Charge</string>
     <string name="night_fare">Night Fare</string>
@@ -313,13 +310,13 @@
     <string name="booking">Booking Fee</string>
     <string name="gateway_charge">Gateway Charge</string>
     <string name="sorry_no_cabs_are_available">No driver found, contact support for booking</string>
-    <string name="logouts">LogOut</string>
-    <string name="versions">\" ( Version :\"</string>
+    <string name="logouts">Logout</string>
+    <string name="versions">(Version : </string>
     <string name="logings">Loading</string>
     <string name="wait_while_loading">Wait while loading...</string>
     <string name="add_location">Add Location</string>
     <string name="please_choose_your_profile_picture">Please Choose Your Profile Picture</string>
-    <string name="credit_amp_debit_card_fee_4_0_30_cents_per_transaction_for_card_payment"><![CDATA[Credit & Debit card fee 4% + $0.30 cents per transaction for card payment]]></string>
+    <string name="credit_amp_debit_card_fee_4_0_30_cents_per_transaction_for_card_payment"><![CDATA[Credit & Debit card fee 2,9% + $0.30 cents per transaction for card payment]]></string>
     <string name="remove">Remove</string>
     <string name="no_data">No Data</string>
     <string name="vehicle_number">Vehicle Number</string>

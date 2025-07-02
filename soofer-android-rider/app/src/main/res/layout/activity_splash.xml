@@ -54,14 +54,15 @@
                     android:visibility="gone"
                     android:layout_centerVertical="true"
                     android:layout_height="@dimen/_70sdp"/>
+
                 <ImageView
                     android:id="@+id/app_logo_img"
                     android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:layout_centerInParent="true"
                     android:layout_toEndOf="@+id/hand_img"
-                    android:layout_height="@dimen/_200sdp"
-                    app:srcCompat="@drawable/ic_applogo"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_applogo" />
                 <ImageView
                     android:layout_width="@dimen/_80sdp"
                     app:srcCompat="@drawable/ic_hand_shake"

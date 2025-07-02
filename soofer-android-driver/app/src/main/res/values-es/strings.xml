@@ -71,8 +71,12 @@
     <string name="no_trip_data">Sin datos de viaje</string>
     <string name="feedback_content">Consulte los comentarios de los pasajeros y aprenda cómo mejorar</string>
 
+    <string name="male">Masculina</string>
+    <string name="female">Femenino</string>
     <string name="addvehicle">Agregar vehículo</string>
-
+    <string name="invalidpass">CONTRASEÑA INVALIDA</string>
+    <string name="twodriver">dos conductores</string>
+    <string name="entervalidemailornumber">Ingrese un correo electrónico válido o un número de teléfono móvil</string>
     <string name="you_are_now_online">Ahora estás en línea</string>
     <string name="you_are_now_offline">Ahora estás desconectado</string>
     <string name="proof_not_accept">Su estado de prueba está pendiente</string>
@@ -93,6 +97,7 @@
     <string name="total_bill">Cuenta total</string>
     <string name="cancel">Cancelar</string>
     <string name="payment_method">Método de pago</string>
+    <string name="walletDetect">walletDetect</string>
     <string name="select_document">Seleccionar documento</string>
     <string name="vehicle_insurance">Seguro de vehículo</string>
     <string name="missing">Faltantes</string>
@@ -125,6 +130,7 @@
     <string name="forgot_password">Olvidé mi contraseña</string>
     <string name="enter_the_email_address_you_used_to_register">ngrese el número de teléfono móvil que utilizó para registrarse</string>
     <string name="please_added_vehicle">Agregue su vehículo</string>
+    <string name="please_added_driver">Please add Your Driver Document</string>
     <string name="ok">OK</string>
     <string name="forgot_passwordsss">¿Olvidó la contraseña?</string>
     <string name="driver_licence">Licencia de conducir</string>
@@ -308,6 +314,7 @@
     <string name="enter_your_toll_amount">Ingrese el monto de su peaje</string>
     <string name="toll_fee_meter">Medidor de tarifa de peaje</string>
     <string name="toll_fee">Peaje</string>
+    <string name="tipss">Tips</string>
     <string name="view_fare_detail">Ver detalle de tarifa</string>
     <string name="km_fare">Tarifa KM</string>
     <string name="waiting_fare">Tarifa de espera</string>
@@ -372,4 +379,9 @@
     <string name="sure_tap_to_arrive">¿Estás segura de que quieres hacer clic en Tocar para llegar?</string>
     <string name="sure_end_the_trip">¿Estás seguro de que quieres terminar el viaje?</string>
     <string name="driver_attendace">Éxito de la asistencia del conductor.</string>
+    <string name="how_to">How to</string>
+
+    <string name="select_a_country">Select a country</string>
+    <string name="select_a_state">Select a state</string>
+    <string name="select_a_city">Select a city</string>
 </resources>

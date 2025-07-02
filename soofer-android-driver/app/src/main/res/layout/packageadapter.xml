@@ -32,7 +32,7 @@
                 android:textSize="@dimen/_13sdp"
                 android:text="$ 100"/>
         </LinearLayout>
-        <com.bismillah.driver.CommonClass.Customizeview.CustomizeCheckbox
+        <com.soofer.driver.CommonClass.Customizeview.CustomizeCheckbox
             android:layout_width="@dimen/_25sdp"
             android:layout_alignParentEnd="true"
             android:id="@+id/checkbox_prize"

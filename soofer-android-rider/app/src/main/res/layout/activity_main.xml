@@ -20,7 +20,7 @@
 
             <fragment
                 android:id="@+id/map"
-                android:name="com.bismillah.app.CommonClass.Mapcustomize.MultiTouchMapFragment"
+                android:name="com.soofer.app.CommonClass.Mapcustomize.MultiTouchMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -419,12 +419,15 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true" />
 
-
+        <FrameLayout
+            android:id="@+id/overall_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="com.bismillah.app.Navigationdrawer.FragmentDrawer"
+        android:name="com.soofer.app.Navigationdrawer.FragmentDrawer"
         android:layout_width="@dimen/_220sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

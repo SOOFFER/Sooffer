@@ -6,6 +6,7 @@
     <string-array name="nav_drawer_labels">
         <item>@string/profile</item>
         <item>@string/wallet</item>
+        <item>@string/payment</item>
         <item>@string/trip</item>
         <item>@string/invite</item>
         <item>@string/Contacts</item>
@@ -25,9 +26,7 @@
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
     <string name="drawer_open">Cajón abierto</string>
     <string name="drawer_close">Cajón cerrado</string>
-
     <!-- navigation drawer item labels  -->
-
     <string name="profile">Mi perfil</string>
     <string name="payment">Pago</string>
     <string name="wallet">Mi Wallet</string>
@@ -35,9 +34,7 @@
     <string name="invite">Invitar amigos</string>
     <string name="Contacts">Contacto de emergencia</string>
     <string name="support">Soporte</string>
-
     <string name="invite_code">Comparte tu código de invitación</string>
-
     <string name="email">Correo electronico</string>
     <string name="mobile">Celular</string>
     <string name="language">Idioma</string>
@@ -47,6 +44,8 @@
     <string name="home_place">Lugar del domicilio</string>
     <string name="work_address">Direccion del trabajo</string>
     <string name="work_place">Lugar del trabajo</string>
+    <string name="invalidpass">CONTRASEÑA INVALIDA</string>
+    <string name="entervalidemailornumber">Ingrese un correo electrónico válido o un número de teléfono móvil</string>
 
     <string name="cc">CC</string>
     <string name="edit_profile">Editar perfil</string>
@@ -97,28 +96,23 @@
     <string name="offers">Ofertas</string>
     <string name="enter_Valid_otp">Ingrese su  OTP</string>
     <string name="your_trip_has_ended_please_rate_your_rider">Gracias, no olvide calificar nuestro servicio</string>
-
     <string name="bill_date">Fecha de pago</string>
     <string name="discount_applied">Descuento aplicado</string>
     <string name="distance">Distancia</string>
     <string name="time">Tiempo</string>
-
     <string name="distance_fare">Tarifa de distancia</string>
     <string name="time_fare">Tarifa de espera</string>
     <string name="balance_fare">Tarifa de cancelacion</string>
     <string name="detected_fare">Tarifa detectada</string>
     <string name="how_was_your_ride">Como fue su viaje?</string>
     <string name="enter_your_comments">Ingrese sus comentarios</string>
-
     <string name="pickup_address">Direccion de recogida</string>
     <string name="drop_address">Direccion de destino</string>
-
-
     <string name="pickup_fee">Tarifa de recogida</string>
     <string name="access_fee">Tarifa de acceso</string>
     <string name="flat_fee">Tarifa plana</string>
     <string name="payment_method">Modo de pago</string>
-
+    <string name="walletDetect">walletDetect</string>
     <string name="something_went_wrong">Algo salio mal</string>
     <string name="delete">Borrar</string>
     <string name="ride_faress">tarifa de viaje</string>
@@ -293,6 +287,7 @@
     <string name="booking_id">ID de reserva:</string>
     <string name="vehilce_type">Tipo de vehiculo :</string>
     <string name="toll_fee">Peaje</string>
+    <string name="tipss">Tips</string>
     <string name="day_fare">Tarifa diurna</string>
     <string name="google_fare">Cobro de Google</string>
     <string name="night_fare">Tarifa nocturna</string>
@@ -304,7 +299,7 @@
     <string name="sorry_no_cabs_are_available">No se encontró ningún conductor, póngase en contacto con el servicio de asistencia para realizar la reserva</string>
 
     <string name="logouts">Cerrar sesión</string>
-    <string name="versions">\" ( Versión :\"</string>
+    <string name="versions">(Versión :</string>
     <string name="logings">Cargando</string>
     <string name="wait_while_loading">Espere mientras carga…</string>
     <string name="add_location">Añadir lugar</string>
@@ -337,7 +332,7 @@
     <string name="female">Femenino</string>
     <string name="choose_driver_type">elegir conductor</string>
     <string name="choose_driver_type_male">Conductor seleccionado No disponible</string>
-    <string name="no_female_driver_available">No hay conductor femenino disponible , ¡Elija amablemente conductores masculinos! </string>
+    <string name="no_female_driver_available">No hay conductor femenino disponible , ¡Elija amablemente conductores masculinos!</string>
     <string name="choose_driver">No hay mujeres conductoras disponibles</string>
 
 </resources>

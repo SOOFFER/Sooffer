@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bismillah.driver">
+    package="com.soofer.driver">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -12,10 +16,14 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -34,7 +42,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -56,7 +64,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="com.bismillah.driver.Apllicationcontroller.Appcontroller"
+        android:name="com.soofer.driver.Apllicationcontroller.Appcontroller"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -68,12 +76,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.bismillah.driver.Activity.AddCardActivity"></activity>
-        <activity android:name="com.bismillah.driver.Activity.Texi_Hail_Activity" />
+        <activity android:name="com.soofer.driver.Activity.AddCardActivity"></activity>
+        <activity android:name="com.soofer.driver.Activity.Texi_Hail_Activity" />
 
 
         <activity
-            android:name="com.bismillah.driver.Activity.ChatActivity"
+            android:name="com.soofer.driver.Activity.ChatActivity"
             android:configChanges="locale"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
@@ -102,14 +110,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-        <activity
-            android:name=".CommonClass.SinchCall.Activity.CallActivity"
-            android:launchMode="singleTop"
-            android:exported="true"
-            android:noHistory="true" />
 
         <activity
-            android:name="com.bismillah.driver.Activity.SplashActivity"
+            android:name="com.soofer.driver.Activity.SplashActivity"
             android:launchMode="singleTop"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -119,26 +122,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
-  <service android:name="rebustarenterpriserprise.driver.FCMNotification.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>F
-        -->
         <!-- Firebase Notifications -->
         <service
-            android:name="com.bismillah.driver.FCMNotification.MyFirebaseMessagingService"
+            android:name=".FCMNotification.MyFirebaseMessagingService"
+            android:stopWithTask="false"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name="com.sinch.android.rtc.internal.client.fcm.InstanceIDTokenService"
-            android:exported="false">
-        </service>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -149,23 +142,33 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
-        <service
-            android:name=".CommonClass.SinchCall.Service.SinchService"
-            android:exported="false" />
 
         <service
-            android:name="com.bismillah.driver.Service.TripRquestService"
+            android:name="com.soofer.driver.Service.TripRquestService"
             android:enabled="true"
             android:exported="true"
-            android:foregroundServiceType="location" />
+            android:foregroundServiceType="location"
+            tools:ignore="ForegroundServicePermission" />
 
         <activity
-            android:name="com.bismillah.driver.MainActivity"
+            android:name="com.razorpay.CheckoutActivity"
+            android:exported="false">
+            <!-- Intent filters and other attributes -->
+        </activity>
+
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false">
+            <!-- Intent filters and other attributes -->
+        </receiver>
+
+        <activity
+            android:name="com.soofer.driver.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.bismillah.driver.Activity.WelcomeActivity"
+            android:name="com.soofer.driver.Activity.WelcomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
@@ -178,19 +181,19 @@
             android:value="9789942f44f90a523006d420c233d3b2bcf9992e" />
 
         <activity
-            android:name="com.bismillah.driver.Activity.ProfileActivity"
+            android:name="com.soofer.driver.Activity.ProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.bismillah.driver.Activity.CustmizedCamera"
+            android:name="com.soofer.driver.Activity.CustmizedCamera"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.bismillah.driver.Activity.TripDetailsActivity"
+            android:name="com.soofer.driver.Activity.TripDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.bismillah.driver.Activity.VoiceCallActivity"
+            android:name="com.soofer.driver.Activity.VoiceCallActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
@@ -199,7 +202,7 @@
             android:required="false" />
 
         <receiver
-            android:name="com.bismillah.driver.CommonClass.Receiver.BootBroadcastReceiver"
+            android:name="com.soofer.driver.CommonClass.Receiver.BootBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -211,7 +214,7 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.bismillah.driver.CommonClass.Receiver.SwitchOffReceiver"
+        <receiver android:name="com.soofer.driver.CommonClass.Receiver.SwitchOffReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
@@ -219,20 +222,20 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.bismillah.driver.Apllicationcontroller.MySMSBroadcastReceiver"
+            android:name="com.soofer.driver.Apllicationcontroller.MySMSBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.bismillah.driver.CommonClass.Receiver.NetworkChangeReceiver"
+        <receiver android:name="com.soofer.driver.CommonClass.Receiver.NetworkChangeReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.bismillah.driver.Activity.TeampStopActivity" />
+        <activity android:name="com.soofer.driver.Activity.TeampStopActivity" />
 
 
     </application>

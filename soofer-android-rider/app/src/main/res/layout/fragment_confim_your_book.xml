@@ -761,7 +761,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_12sdp" />
-                        <org.sufficientlysecure.htmltextview.HtmlTextView
+                        <TextView
                             android:id="@+id/description_txt"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

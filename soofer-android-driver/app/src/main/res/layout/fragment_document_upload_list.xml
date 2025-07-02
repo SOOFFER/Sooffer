@@ -59,6 +59,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/colorPrimary"
+            android:visibility="gone"
             android:text="@string/submit"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />

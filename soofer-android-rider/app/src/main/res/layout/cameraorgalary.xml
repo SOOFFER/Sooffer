@@ -64,6 +64,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     android:background="@color/colorPrimaryDark"
                     android:text="@string/gallery"
                     android:maxLines="1"

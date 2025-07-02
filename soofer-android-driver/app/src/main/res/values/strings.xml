@@ -36,6 +36,10 @@
     <string name="Bank">Payout</string>
     <string name="navi_vehicles">Manage Vehicles</string>
 
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="invalidpass">INVALID_PASSWORD</string>
+    <string name="entervalidemailornumber">Enter Valid Email or Mobile Number</string>
     <string name="payment">Payment</string>
     <string name="wallet">My Wallet</string>
     <string name="trip">My Trip</string>
@@ -94,6 +98,8 @@
     <string name="total_bill">Total Bill</string>
     <string name="cancel">Cancel</string>
     <string name="payment_method">Payment Method</string>
+    <string name="walletDetect">walletDetect</string>
+
     <string name="select_document">Select Document</string>
     <string name="vehicle_insurance">Vehicle Insurance</string>
     <string name="missing">Missing</string>
@@ -126,6 +132,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="enter_the_email_address_you_used_to_register">Enter the Mobile number you used to register</string>
     <string name="please_added_vehicle">Please add Your Vehicle</string>
+    <string name="please_added_driver">Please add Your Driver Document</string>
     <string name="ok">OK</string>
     <string name="forgot_passwordsss">Forgot Password?</string>
     <string name="driver_licence">Driver Licence(Front)</string>
@@ -136,7 +143,6 @@
     <string name="your_current_rating">YOUR CURRENT RATING</string>
     <string name="rated_trips">RATED TRIPS</string>
     <string name="fivestar_trips">FIVESTAR TRIPS</string>
-
     <string name="referral_invite_code_option">Referral / invite code(Option)</string>
     <string name="i_agree_to_the_to_the_terms_amp_comdition_and_privacy_policy"><![CDATA[I agree to the terms & condition and privacy policy]]></string>
 
@@ -220,6 +226,7 @@
     <string name="your_remaining_credits">Available Balance </string>
     <string name="passwordsss">Password</string>
     <string name="poor_network">Poor network connection</string>
+    <string name="twodriver">Two Driver</string>
     <string name="trip_details">Trip details</string>
     <string name="driver_credits">Driver Credits</string>
     <string name="manage_vehicle_service">Manage Vehicle Service</string>
@@ -258,7 +265,7 @@
     <string name="odometer_reading_at_the_end_of_the_trip">Odometer reading at the end of the trip</string>
     <string name="enter_your_km">Enter your mile</string>
     <string name="are_yiu_sure_wanna_Cancel_trip">Are You Sure Want to Cancel Trip</string>
-    <string name="taxi_insurance">Taxi Insurance</string>
+    <string name="taxi_insurance">Vehicle insurance</string>
     <string name="taxi_permit">Taxi permit</string>
     <string name="taxi_registration_certificate">Taxi Registration Certificate</string>
     <string name="fitness_certificate_option">Fitness Certificate(Option)</string>
@@ -310,6 +317,7 @@
     <string name="enter_your_toll_amount">Enter your toll amount</string>
     <string name="toll_fee_meter">Toll fee meter</string>
     <string name="toll_fee">Toll Fee</string>
+    <string name="tipss">Tips</string>
     <string name="view_fare_detail">view Fare Detail</string>
     <string name="km_fare">Mile Fare</string>
     <string name="waiting_fare">Waiting Fare</string>
@@ -386,6 +394,10 @@
     <string name="sure_tap_to_arrive">Are you sure you want to click Tap to Arrive?</string>
     <string name="sure_end_the_trip">Are you sure you want to end the trip?</string>
     <string name="driver_attendace">Driver Attendance Success</string>
+    <string name="how_to">How to</string>
 
+    <string name="select_a_country">Select a country</string>
+    <string name="select_a_state">Select a state</string>
+    <string name="select_a_city">Select a city</string>
 
 </resources>

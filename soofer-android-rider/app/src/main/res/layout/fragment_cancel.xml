@@ -78,7 +78,7 @@
                     android:orientation="vertical">
 
 
-                    <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
                         android:id="@+id/Cancel_reason_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

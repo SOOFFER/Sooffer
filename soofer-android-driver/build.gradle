@@ -5,10 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://artifact.aquro.com/artifactory/agora' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'// butterknife class path
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.3'// butterknife class path
         classpath 'com.google.gms:google-services:4.3.14'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
 

@@ -120,12 +120,18 @@
                     android:layout_height="0.5sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:weightSum="2"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_weight="1"
                     android:id="@+id/apply_coupon_layout"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
@@ -158,6 +164,47 @@
                             android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
+                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:id="@+id/fare_estimation_Layout"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            app:srcCompat="@drawable/info"
+                            android:id="@+id/cash_imge"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:layout_height="@dimen/_25sdp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Info"
+                                android:clickable="false"
+                                android:id="@+id/info_type"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Estimation fare"
+                                android:clickable="false"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

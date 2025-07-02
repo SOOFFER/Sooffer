@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                <com.soofer.app.CommonClass.Customizeview.CustomEditText
                     android:id="@+id/subject_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     app:met_primaryColor="?colorAccent"
                     app:met_singleLineEllipsis="true" />
 
-                <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                <com.soofer.app.CommonClass.Customizeview.CustomEditText
                     android:id="@+id/query_edt"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"

@@ -104,7 +104,7 @@
                             android:layout_marginTop="@dimen/_20sdp"
                             android:background="@color/white" />
 
-                        <com.bismillah.driver.CommonClass.ProgressWheel
+                        <com.soofer.driver.CommonClass.ProgressWheel
                             android:id="@+id/progressBarTwo"
                             android:layout_width="230dp"
                             android:layout_height="230dp"

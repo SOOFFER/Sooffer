@@ -365,7 +365,7 @@
 
                 <fragment
                     android:id="@+id/map"
-                    android:name="com.bismillah.app.CommonClass.Mapcustomize.MultiTouchMapFragment"
+                    android:name="com.soofer.app.CommonClass.Mapcustomize.MultiTouchMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -376,11 +376,16 @@
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:id="@+id/overall_layouts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <fragment
         android:id="@+id/fragment_drawer"
-        android:name="com.bismillah.app.Navigationdrawer.FragmentDrawer"
+        android:name="com.soofer.app.Navigationdrawer.FragmentDrawer"
         android:layout_width="@dimen/_220sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

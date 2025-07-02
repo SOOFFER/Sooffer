@@ -56,36 +56,42 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
+            tools:itemCount="2"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             tools:listitem="@layout/vehicle_state_adapter"
             android:id="@+id/vehicle_state_recycleview"/>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:visibility="visible">
+            android:background="@color/white"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp">
+
 
             <ImageView
                 android:layout_width="@dimen/_30sdp"
                 android:id="@+id/car_image"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_centerVertical="true"
                 android:layout_height="@dimen/_25sdp" />
 
             <TextView
+                android:id="@+id/twodriverid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:textSize="@dimen/_12sdp"
-                android:layout_toRightOf="@id/car_image"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Two Driver"
+                android:layout_toEndOf="@+id/car_image"
+                android:layout_toStartOf="@+id/service_switch"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/black"
-                android:layout_toLeftOf="@id/twodriver"
-                android:text="Two Driver"/>
+                android:textSize="@dimen/_12sdp" />
 
 
             <CheckBox
@@ -93,7 +99,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/_15sdp" />
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/grey"
+                android:layout_below="@+id/twodriver"
+                android:layout_height="0.5sp"/>
 
         </RelativeLayout>
 

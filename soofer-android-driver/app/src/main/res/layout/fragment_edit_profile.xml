@@ -72,8 +72,8 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
-                        android:padding="3dp"
 
+                        android:padding="3dp"
                         android:src="@drawable/ic_profile_img" />
 
                 </RelativeLayout>

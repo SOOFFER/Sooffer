@@ -105,7 +105,8 @@
                     android:layout_toEndOf="@+id/cc_edt"
                     android:focusable="false"
                     android:drawablePadding="@dimen/_5sdp"
-                    android:drawableEnd="@drawable/ic_expand_layer"                    android:hint="@string/model"
+                    android:drawableEnd="@drawable/ic_expand_layer"
+                    android:hint="@string/model"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -191,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:text="@string/service_type"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_14sdp" />
 
@@ -199,7 +200,6 @@
                     android:id="@+id/service_type_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_10sdp"

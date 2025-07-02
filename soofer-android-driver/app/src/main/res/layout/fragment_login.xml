@@ -7,7 +7,7 @@
     android:clickable="true"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context="com.bismillah.driver.Fragment.LoginFragment">
+    tools:context="com.soofer.driver.Fragment.LoginFragment">
 
     <ScrollView
         android:layout_width="match_parent"

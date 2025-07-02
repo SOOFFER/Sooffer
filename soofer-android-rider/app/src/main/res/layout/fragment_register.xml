@@ -62,7 +62,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
                         android:id="@+id/fname_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                         app:met_primaryColor="?colorAccent"
                         app:met_singleLineEllipsis="true" />
 
-                    <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
                         android:id="@+id/lname_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         app:met_singleLineEllipsis="true" />
                 </LinearLayout>
 
-                <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                <com.soofer.app.CommonClass.Customizeview.CustomEditText
                     android:id="@+id/email_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                     app:met_primaryColor="?colorAccent"
                     app:met_singleLineEllipsis="true" />
 
-                <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                <com.soofer.app.CommonClass.Customizeview.CustomEditText
                     android:id="@+id/password_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
                         android:id="@+id/cc_edt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -171,8 +171,27 @@
                         app:met_floatingLabelTextColor="@color/black"
                         app:met_primaryColor="?colorAccent"
                         app:met_singleLineEllipsis="true" />
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                        android:id="@+id/country_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:focusable="false"
+                        android:hint=" CC "
+                        android:imeOptions="actionNext"
+                        android:maxLines="1"
+                        android:text="+IN"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="@dimen/_15sdp"
+                        app:met_baseColor="@color/black"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelTextColor="@color/black"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
 
-                    <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                    <com.soofer.app.CommonClass.Customizeview.CustomEditText
                         android:id="@+id/mobile_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -197,7 +216,7 @@
                         app:met_singleLineEllipsis="true" />
                 </RelativeLayout>
 
-                <com.bismillah.app.CommonClass.Customizeview.CustomEditText
+                <com.soofer.app.CommonClass.Customizeview.CustomEditText
                     android:id="@+id/referral_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

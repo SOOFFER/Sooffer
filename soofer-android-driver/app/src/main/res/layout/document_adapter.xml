@@ -33,7 +33,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="normal" />
 
-                <com.bismillah.driver.CommonClass.Customizeview.CustomizeCheckbox
+                <com.soofer.driver.CommonClass.Customizeview.CustomizeCheckbox
                     android:id="@+id/checkbox_document"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
