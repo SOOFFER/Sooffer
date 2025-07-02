@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FSCalendar
 
-class EarningVC: UIViewController {
+class EarningVC: UIViewController,FSCalendarDelegate {
     
     //Api response
     
@@ -29,6 +30,7 @@ class EarningVC: UIViewController {
     @IBOutlet weak var toTxt: UITextField!
     @IBOutlet weak var fromTxt: UITextField!
     
+    @IBOutlet weak var Fscalander: FSCalendar!
     @IBOutlet weak var datepicker: UIDatePicker!
     
     //VariableDeclaraction
@@ -43,6 +45,7 @@ class EarningVC: UIViewController {
     var todate : String = ""
     var datePlace : String = ""
     var earingVM = EarningsVM()
+    var type : String = ""
     
     @IBAction func datePickerDoneBtn(_ sender: Any) {
          let dateFormatter = DateFormatter()
@@ -73,6 +76,42 @@ class EarningVC: UIViewController {
           self.datepickerview.isHidden = true
           
       }
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("selected")
+        if type == "from"{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "yyyy-MM-dd"
+        fromTxt.text = formatter.string(from: date)
+        fromdate = formatter1.string(from: date)
+        Fscalander.isHidden = true
+            let toDate : String = todate ?? ""
+            if !toDate.isEmpty{
+                self.attemptApi(from: fromdate ?? "", to: toDate, type: "", fromMonth: "", page: "1")
+            }
+        }else{
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "dd-MM-yyyy"
+            let dateFormatter2 = DateFormatter()
+            dateFormatter2.dateFormat = "yyyy-MM-dd"
+        toTxt.text = dateFormatter1.string(from: date)
+        todate = dateFormatter2.string(from: date)
+        Fscalander.isHidden = true
+            let fromDate : String = fromdate ?? ""
+            if !fromDate.isEmpty{
+                self.attemptApi(from: fromDate, to: todate ?? "", type: "", fromMonth: "", page: "1")
+            }
+            
+            }
+        let fromDate : String = fromdate ?? ""
+        let toDate : String = todate ?? ""
+                  
+        if !fromDate.isEmpty && !toDate.isEmpty{
+            self.attemptApi(from: fromDate, to: todate ?? "", type: "", fromMonth: "", page: "1")
+        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
@@ -86,12 +125,14 @@ class EarningVC: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-        
+    
         self.earingVM = EarningsVM(dataService: ApiRoot())
         self.setupView()
         self.setupAction()
         self.setupLang()
         self.setupDelegate()
+     Fscalander.isHidden = true
+     Fscalander.delegate = self
     }
     
     func setupView(){
@@ -110,12 +151,17 @@ class EarningVC: UIViewController {
     
     func setupAction(){
         self.fromBtn.addAction(for: .tap) {
+            self.Fscalander.isHidden = false
+            //self.datepickerview.isHidden = false
+            self.type = "from"
             self.datepickerview.isHidden = false
             self.datePlace = "from"
         }
         self.toBtn.addAction(for: .tap) {
+            self.Fscalander.isHidden = false
             self.datepickerview.isHidden = false
             self.datePlace = "to"
+            self.type = "to"
         }
     }
     func setupLang(){
@@ -200,6 +246,7 @@ extension EarningVC: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EarningCell", for: indexPath) as! EarningCell
         if let earning = self.earningData?.earingsdata[indexPath.row]{
+            print("asdasdasd:::,\(earning.amttopay)")
             cell.dateLbls.text = earning.date
             cell.earningLbl.text = Constant.priceTag + earning.amttopay.description
         }
@@ -241,6 +288,8 @@ extension EarningVC{
         
         self.earingVM.getearningListClosure = {
             self.earningData = self.earingVM.earningsList
+            print("self.eari:::,\(self.earingVM.earningsList)")
+            print("adahsdjas:::,\(self.earningData)")
         }
     }
 }

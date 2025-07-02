@@ -192,7 +192,7 @@ struct FBTripDataModel {
     var minFare : String = ""
     var surgeAmt : String = ""
     var tollFee : String = ""
-    
+    var walletdebt : String = ""
     
     init(){}
     
@@ -236,6 +236,7 @@ struct FBTripDataModel {
         self.minFare = json["minFare"].string ?? ""
         self.surgeAmt = json["surgeAmt"].string ?? ""
         self.tollFee = json["tollFee"].string ?? ""
+        self.walletdebt = json["walletdebt"].string ?? ""
         
     }
 }

@@ -174,7 +174,13 @@ extension VehicleListView : UITableViewDataSource,UITableViewDelegate{
         }
         cell.vehicleView.addAction(for: .tap) {
              if let taxi : Taxis =  Constant.profileData.taxis[indexpath] as? Taxis{
-                self.setCurrentTaxi(makeid: taxi._id, service: taxi.vehicletype)
+                 print("taxi:::,\(taxi.taxistatus)")
+                 if taxi.taxistatus == "active"{
+                            self.setCurrentTaxi(makeid: taxi._id, service: taxi.vehicletype)
+                          }
+                          else{
+                            showToast(msg: "You vehicle status is inactive")
+                          }
             }
         }
     }

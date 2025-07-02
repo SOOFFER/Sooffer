@@ -24,9 +24,9 @@ class InternetIssueView : UIView , UITextFieldDelegate {
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     
-    var animationViewSMall = AnimationView()
+    var animationViewSMall = LottieAnimationView()
     
-    var animationViewLarge = AnimationView()
+    var animationViewLarge = LottieAnimationView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,11 +52,10 @@ class InternetIssueView : UIView , UITextFieldDelegate {
     
     func setupView(){
         
-        self.animationViewSMall = AnimationView(name: "poorNetwork")
-        self.animationViewLarge = AnimationView(name: "building")
-        let starbuildingAnimation = Animation.named("building")
-        
-        self.animationViewLarge.animation = starbuildingAnimation
+        self.animationViewSMall = LottieAnimationView(name: "poorNetwork")
+        self.animationViewLarge = LottieAnimationView(name: "building")
+//        let starbuildingAnimation = Animation.named("building")
+//        self.animationViewLarge.animation = starbuildingAnimation
         self.animationViewLarge.animationSpeed = 0.5
         self.lottieView.addSubview(self.animationViewLarge)
         self.animationViewLarge.play()

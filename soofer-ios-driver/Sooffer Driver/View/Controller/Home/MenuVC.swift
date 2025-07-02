@@ -111,7 +111,7 @@ class MenuVC: UIViewController {
     }
     
     func setupLang(){
-        self.menuArray = [Localize.stringForKey(key: "home"),Localize.stringForKey(key: "myprofile"),Localize.stringForKey(key: "payout"),Localize.stringForKey(key: "your_trips"),Localize.stringForKey(key: "rating"),Localize.stringForKey(key: "manage_vechile"),Localize.stringForKey(key: "manage_docs"),Localize.stringForKey(key: "earning"),"Manage Service",Localize.stringForKey(key: "Notification")]
+        self.menuArray = [Localize.stringForKey(key: "home"),Localize.stringForKey(key: "myprofile"),Localize.stringForKey(key: "payout"),Localize.stringForKey(key: "your_trips"),Localize.stringForKey(key: "rating"),Localize.stringForKey(key: "manage_vechile"),Localize.stringForKey(key: "manage_docs"),Localize.stringForKey(key: "earning"),Localize.stringForKey(key: "manage Service"),Localize.stringForKey(key: "notification")]
 //        ,Localize.stringForKey(key: "logout")
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         self.logoutLabel.text = "Logout (Version : \(appVersion ?? "1.0"))"

@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
+         UserDefaults.standard.set(false, forKey: UserDefaultsKey.genderSetup)
         GMSServices.provideAPIKey(Constant.googleAPiKey)
         GMSPlacesClient.provideAPIKey(Constant.googleAPiKey)
          STPPaymentConfiguration.shared().publishableKey = Constant.stripkey
@@ -109,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func nevigation(){
+         print("Tripid::,\(UserDefaults.standard.value(forKey: UserDefaultsKey.tripid))")
         if UserDefaults.standard.value(forKey: UserDefaultsKey.loginstatus) as? String ?? "" == "LoggedIn"{
             self.profile.getProfile()
             self.profile.successprofile = {
@@ -207,9 +209,26 @@ extension AppDelegate : UNUserNotificationCenterDelegate,MessagingDelegate{
 
               }
          }
+         let content = notification.request.content
+
+         let message = content.body
+         let isArriveStatus = UserDefaults.standard.bool(forKey: "isarrive")
+         print("message :::\(message)")
+         print("isArriveStatus :::\(isArriveStatus)")
+         if message == "Your Driver Has Arived" {
+           if !isArriveStatus {
+             UserDefaults.standard.set(true, forKey: "isarrive")
+                playsound(userinfo: userInfo as NSDictionary)
+                 completionHandler([.alert, .badge, .sound])
+           }
+         } else {
+              playsound(userinfo: userInfo as NSDictionary)
+               completionHandler([.alert, .badge, .sound])
+         }
+
          
-       playsound(userinfo: userInfo as NSDictionary)
-        completionHandler([.alert, .badge, .sound])
+//       playsound(userinfo: userInfo as NSDictionary)
+//        completionHandler([.alert, .badge, .sound])
         
     }
     
@@ -239,22 +258,29 @@ extension AppDelegate : UNUserNotificationCenterDelegate,MessagingDelegate{
      
      func playsound(userinfo : NSDictionary){
          print("alerting::::\(userinfo["message"])")
-         
-         if userinfo["message"] as! String == "Your Driver inviting you to join call"{
-             //SoundManager.shared.playSound(numberOfLoops: 1)
-             SoundManager.shared.playSound()
-         }
-         
-          if userinfo["message"] as! String == "Your Driver disconnected the call"{
-              SoundManager.shared.stopSound()
+          
+          let user =  userinfo["message"] as? String
+          if user != nil {
+               
+               
+               print("user info ::\(user)")
+               //          if !(userinfo?.isEmpty ?? false) {
+               //          }
+               if  userinfo["message"] as! String == "Your Driver inviting you to join call"{
+                    //SoundManager.shared.playSound(numberOfLoops: 1)
+                    SoundManager.shared.playSound()
+               }
+               
+               if userinfo["message"] as! String == "Your Driver disconnected the call"{
+                    SoundManager.shared.stopSound()
+               }
+               //         if userinfo["message"] as! String == "Your Driver disconnected the video call"{
+               //
+               //             NotificationCenter.default.post(name: Notification.Name("endVideoCall"), object: nil)
+               //
+               //         }
+               
           }
-//         if userinfo["message"] as! String == "Your Driver disconnected the video call"{
-//
-//             NotificationCenter.default.post(name: Notification.Name("endVideoCall"), object: nil)
-//
-//         }
-         
-         
      }
      
 }

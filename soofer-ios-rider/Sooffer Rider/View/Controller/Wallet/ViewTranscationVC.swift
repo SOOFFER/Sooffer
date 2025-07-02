@@ -174,24 +174,23 @@ extension ViewTranscationVC{
     func getTransctionList(){
         self.paymentvm.getTransactionList(view: self.view)
         self.paymentvm.successtranscartion = {
-            self.tranactions = self.paymentvm.transactionList ?? TransactionModel()
-//            self.tableview.reloadData()
-            let counts : Int = (self.tranactions?.transactionList.count ?? 0)
-            for vlaue in 0..<counts {
-                if self.tranactions?.transactionList[vlaue].type == "Credit"{
-                    self.moneyIn.append(self.tranactions?.transactionList[vlaue] ?? Transaction())
-                }
+          self.tranactions = self.paymentvm.transactionList ?? TransactionModel()
+    //      self.tableview.reloadData()
+          let counts : Int = (self.tranactions?.transactionList.count ?? 0)
+          for vlaue in 0..<counts {
+            if self.tranactions?.transactionList[vlaue].type == "Credit" || self.tranactions?.transactionList[vlaue].type == "credit" {
+              self.moneyIn.append(self.tranactions?.transactionList[vlaue] ?? Transaction())
             }
-            
-            let moneyoutcounts : Int = (self.tranactions?.transactionList.count ?? 0)
-            for vlaue in 0..<moneyoutcounts {
-                if self.tranactions?.transactionList[vlaue].type == "Debit"{
-                    self.moneyout.append(self.tranactions?.transactionList[vlaue] ?? Transaction())
-                }
+          }
+          let moneyoutcounts : Int = (self.tranactions?.transactionList.count ?? 0)
+          for vlaue in 0..<moneyoutcounts {
+            if self.tranactions?.transactionList[vlaue].type == "Debit" || self.tranactions?.transactionList[vlaue].type == "debit"{
+              self.moneyout.append(self.tranactions?.transactionList[vlaue] ?? Transaction())
             }
+          }
         }
-        
-    }
+      }
+
 }
 
 

@@ -62,6 +62,7 @@ extension HomeVC : searchMultipleStop {
             self.dropAddr = address[1]
             self.dropLoc =  location[1]
             print("sets 1")
+            print("ajdsh::,\(address[0]),:::asd\(self.pickupaddr)")
             self.setPolyLineWithMaker(pickupaddr: address[0], dropaddr: dropAddr, pickupLoc: pickupLoc, dropLoc: dropLoc, isRideFlowStated: false, waypoints: [], tripstatus: "")
             self.ismultpleLocation = "false"
             // vehcile api call
@@ -79,6 +80,7 @@ extension HomeVC : searchMultipleStop {
                 self.dropAddr = address[1]
                 self.dropLoc = location[1]
                 print("sets 2")
+                print("ajdsh::,\(address[0]),:::asd\(self.pickupaddr)")
                self.setPolyLineWithMaker(pickupaddr: address[0], dropaddr: dropAddr, pickupLoc: pickupLoc, dropLoc: dropLoc, isRideFlowStated: false, waypoints: [], tripstatus: "")
                 for value in 0...address.count-1{
                     multipleLocation.append(["doubleLat" : location[value].coordinate.latitude.description , "doubleLng" : location[value].coordinate.longitude.description, "strAddress" : address[value] , "updatePosition" : "false"])
@@ -90,6 +92,7 @@ extension HomeVC : searchMultipleStop {
                 self.dropAddr = address[2]
                 self.dropLoc = location[2]
                 print("sets 3")
+                print("ajdsh::,\(address[0]),:::asd\(self.pickupaddr)")
                 self.setPolyLineWithMaker(pickupaddr: address[0], dropaddr: dropAddr, pickupLoc: pickupLoc, dropLoc: dropLoc, isRideFlowStated: false, waypoints: [location[1]], tripstatus: "")
                 for value in 0...address.count-1{
                     multipleLocation.append(["doubleLat" : location[value].coordinate.latitude.description , "doubleLng" : location[value].coordinate.longitude.description, "strAddress" : address[value] , "updatePosition" : "false"])
@@ -101,6 +104,7 @@ extension HomeVC : searchMultipleStop {
                 self.dropAddr = address[3]
                 self.dropLoc = location[3]
                 print("sets 4")
+                print("ajdsh::,\(address[0]),:::asd\(self.pickupaddr)")
                self.setPolyLineWithMaker(pickupaddr: address[0], dropaddr: dropAddr, pickupLoc: pickupLoc, dropLoc: dropLoc, isRideFlowStated: false, waypoints: [location[1],location[2]], tripstatus: "")
                 self.ismultpleLocation = "true"
                 for value in 0...address.count-1{
@@ -354,7 +358,7 @@ extension HomeVC : TripRoutes{
     
     func getPickupDropLocation(pickAddr: String, pickupLoc: CLLocation, dropAddr: String, dropLoc: CLLocation,serviceDetail: VechileListData) {
         self.mapView.clear()
-        print("Valuesss:::", pickAddr)
+        print("Valuesss:::", self.pickupLoc)
         self.pickupaddr = pickAddr
         self.pickupLoc = pickupLoc
         self.dropAddr = dropAddr
@@ -369,6 +373,7 @@ extension HomeVC : TripRoutes{
         print("if 343434:: \(self.ismultpleLocation)")
      //   self.ismultpleLocation = "false"
         print("sets 11")
+        print("ajdsh::,\(pickAddr),:::asd\(self.pickupaddr)")
         self.setPolyLineWithMaker(pickupaddr: pickAddr, dropaddr: dropAddr, pickupLoc: pickupLoc, dropLoc: dropLoc, isRideFlowStated: false,waypoints: [], tripstatus: "")
         
         let pickUpCity = self.pickupaddr.components(separatedBy: ",")
@@ -596,6 +601,12 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     
     
     @IBOutlet weak var TimeValinAporx: UILabel!
+    //AlertPopUp
+    
+    @IBOutlet weak var AlertpopUp: UIView!
+    @IBOutlet weak var PopupOkbtn: UIButton!
+    @IBOutlet weak var PopupCancelBtn: UIButton!
+    
     
     //MARK: -- PROPERTIES
     
@@ -621,7 +632,8 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     var Driver_profile = ""
     var onceHitPloyline = Bool()
     var HitOnceAfterStart = false
-    
+    var Addresschange : Bool = false
+    var RiderData : FBRiderDataModel = FBRiderDataModel()
     var slideController   : CTBottomSlideController?
     
     var redirectHome : RedirectHome = .ride
@@ -632,8 +644,11 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     var FBtripstatus : FBTripDataModel?
     var tripCurrentStage: OnGoingTrip = .noDriver
     var Listen_Trip_Status = Bool()
-    
+    var walletcheck : Bool = false
+
+    var NewdriverGender : String = String()
     var TRIP_CUR_STATE = String()
+    var priveval = String()
 
     @IBAction func PanAcction(_ sender: UIPanGestureRecognizer) {
         
@@ -689,6 +704,8 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     var pickupaddr : String = ""
     var pickupCity : String = ""
     var pickupLoc : CLLocation = CLLocation()
+    
+    var pickupLoc1 : CLLocation = CLLocation()
     var dropAddr : String = ""
     var dropCity : String = ""
     var dropLoc : CLLocation = CLLocation()
@@ -733,10 +750,12 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     var mName : String = String()
     var modl    : String = String()
     var onetimeTap = false
+    var DriverToken : String = ""
 
     
     func setViews(index: IndexPath) {
         serviceDetail = self.vechileList?.VechileListList[index.row]
+        print("asdhj::,\( self.pickupLoc)::::::::::\(self.pickupLoc1)")
         getPickupDropLocation(pickAddr: self.pickupaddr, pickupLoc: self.pickupLoc, dropAddr: self.dropAddr, dropLoc: self.dropLoc,serviceDetail: self.serviceDetail ?? VechileListData())
         self.cornerView.isHidden = true
     }
@@ -756,7 +775,7 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
         }
-        
+        print("pickupLoc::,\( self.pickupLoc):pickupLoc1:::::::::\(self.pickupLoc1)")
         self.mapView.clear()
         self.multistopView.isElevation = 5
         self.homevm = HomeVM(view: self.vechileView, dataService: ApiRoot())
@@ -797,10 +816,10 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         
      //   self.ListenTripStatus()
      //   self.listenDriverLocation()
-        self.getWalletMoney() // for getting wallet Balance
+      self.getWalletMoney() // for getting wallet Balance
         print("sdfddsjkdjdjkd::\(mapView.myLocation)")
         NotificationCenter.default.addObserver(self, selector: #selector(setupprint), name: .pushnotify, object: nil)
-        
+        self.focusCallPage(mode: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -811,17 +830,29 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         }
         NotificationCenter.default.removeObserver(self, name: .pushnotify, object: nil)
     }
+    private func focusCallPage(mode: Bool){
+        if mode{
+            NotificationCenter.default.addObserver(self, selector: #selector(setupprint), name: .pushnotify, object: nil)
+        }else{
+            NotificationCenter.default.removeObserver(self, name: .pushnotify, object: nil)
+        }
+    }
     @objc func setupprint(){
      
      //   if let profileData : ProfileModel  = Constant.profileData as? ProfileModel {
             
       
       //  if !onetimeTap {
+           self.focusCallPage(mode: false)
             let sinchVc = VideoCallVC.initWithStory()
             print("driverfcmhomepage::\(self.FBtripstatus?.driver_token)")
-            sinchVc.driverfcm = self.FBtripstatus?.driver_token ?? ""
+            print("self.DriverToken::\(self.DriverToken)")
+            sinchVc.driverfcm = self.DriverToken/*self.FBtripstatus?.driver_token ?? ""*/
             sinchVc.drivername = Driver_name
             sinchVc.driverpic = Driver_profile
+        sinchVc.dismissPage = {
+            self.focusCallPage(mode: true)
+        }
             self.navigationController?.pushViewController(sinchVc, animated: true)
       //  }
 
@@ -1010,7 +1041,25 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
 //        self.myLocationView.addAction(for: .tap) {
 //                  self.mapView.camera = GMSCameraPosition(target: self.MyLocation, zoom: self.focusZoom, bearing: 0, viewingAngle: 0)
 //              }
-        
+        self.designationView.addAction(for: .tap){
+            //            if self.deselect == true{
+            //                let vc = AutoCompleteVC.initWithStory()
+            //                //            vc.currentAddress = self.currentAddress
+            //                //            vc.currentLocation = self.currentLocation
+            //                vc.deselect = true
+            //                vc.delegate = self
+            //                self.present(vc, animated: true, completion: nil)
+            let vc = SearchAddressVC.initWithStoryboard()
+            vc.pageFrom = "home"
+            vc.currentAddress = self.currentAddress
+            vc.currentLocation = self.currentLocation
+            vc.delegate = self
+            vc.isSelected = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            //            }else{
+            //
+            //            }
+        }
         self.closeMultistop.addAction(for: .tap) {
             self.multistopView.isHidden = true
         }
@@ -1059,7 +1108,7 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         }
     
         
-        self.confimeBookingBtn.addAction(for: .tap) {
+        self.confimeBookingBtn.addAction(for: .tap) { [self] in
             let payment : String = "card"
             let date = Date()
             var dateStr : String = ""
@@ -1068,73 +1117,122 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
             
             var bookingtype : String = String()
             
-          /*  if !Constant.profileData.card.last4.isEmpty{
-                let cardd = PaymentVC.initWithStory()
-                self.present(cardd, animated: true)
+            /*  if !Constant.profileData.card.last4.isEmpty{
+             let cardd = PaymentVC.initWithStory()
+             self.present(cardd, animated: true)
+             
+             }*/
             
-            }*/
-           
-          /*  if Constant.profileData.card.last4.isEmpty{
-                showToast(msg: "please add card from menu")
-                self.showalert()
-            }
+            /*  if Constant.profileData.card.last4.isEmpty{
+             showToast(msg: "please add card from menu")
+             self.showalert()
+             }
              else*/ if self.isSchudleRide == "true"{
                  
-                dateStr = self.schudleDateStr
+                 dateStr = self.schudleDateStr
                  time = self.schudleTimestr
-                bookingtype = "rideLater"
+                 bookingtype = "rideLater"
                  utc = "+05:30"
-                
-                
-            }else{
-                let formatter = DateFormatter()
-                formatter.dateFormat = "dd-MM-yyyy"
-                dateStr = formatter.string(from: date)
-                let timeformatter = DateFormatter()
-                timeformatter.dateFormat = "hh:mm a"
-                time = timeformatter.string(from: date)
-                bookingtype = "rideNow"
-                utc = ""
-                
-               
-              /*  let cardd = PaymentVC.initWithStory()
-                self.present(cardd, animated: true)*/
-                
-            }
+                 
+                 
+             }else{
+                 let formatter = DateFormatter()
+                 formatter.dateFormat = "dd-MM-yyyy"
+                 dateStr = formatter.string(from: date)
+                 let timeformatter = DateFormatter()
+                 timeformatter.dateFormat = "hh:mm a"
+                 time = timeformatter.string(from: date)
+                 bookingtype = "rideNow"
+                 utc = ""
+                 
+                 
+                 /*  let cardd = PaymentVC.initWithStory()
+                  self.present(cardd, animated: true)*/
+                 
+             }
             print("Card:: \(Constant.profileData.card.last4)")
-         //   print("Iddss::::", UserDefaults.standard.string(forKey: UserDefaultsKey.taxiId))
-            if Constant.profileData.card.last4.isEmpty{
-                  //showToast(msg: "please add card from menu")
-                  self.showalert()
-              }else{
-                print("multi:::: \(self.multilocatonStr), and is multiple location is:: \(self.ismultpleLocation), and multi:: \(self.multilocation)")
-                  self.sendRideRequest(view: self.view, date: dateStr, paymentType: payment, pickupCity: self.pickupCity, bookingtype: bookingtype, tripTime: time, utc: utc, estimateFare: self.fareDetail ?? EstimateFareDetails(), isMultiLocation: self.ismultpleLocation, multiLocation: self.multilocatonStr, type: self.redirectHome, withId: self.taxiId, requestResponse: {(requestData) in
-                      //                self.mapView.settings.myLocationButton = true
-                      showToast(msg: requestData.message)
-                      self.paymentView.deInitView(request: "")
-                      self.requestData = requestData
-                      self.cornerView.isHidden = true
-                      if bookingtype == "rideNow"{
-                          self.sendRequestView.isHidden = false
-                      }else{
-                          self.sendRequestView.isHidden = true
-                          let homeVc = HomeVc.initWithStory()
-                          let nav = UINavigationController(rootViewController: homeVc)
-                          nav.navigationBar.isHidden = true
-                          let menuVc = MenuVC.initWithStory()
-                          self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
-                              
-                      }
-                      self.vechileView.isHidden = true
-                      self.markPinImage.isHidden = true
-                      self.AlertView.isHidden = true
-                      self.confirmBookingView.isHidden = true
-                      
-                      
-                     
-                      
-                })
+            //   print("Iddss::::", UserDefaults.standard.string(forKey: UserDefaultsKey.taxiId))
+            print("print:::,\(self.walletcheck)")
+            print("asasd:::,\(self.NewdriverGender)")
+            let genderval = UserDefaults.standard.bool(forKey: UserDefaultsKey.genderSetup)
+            print("GENDER VAKUESSS:: \(genderval)")
+            
+            if !genderval {
+                NewdriverGender = Constant.profileData.gender
+            } else {
+                NewdriverGender = "Male"
             }
+            print("sELECTTTT ::\(NewdriverGender)")
+            
+          //  if !genderval{
+            
+            if !self.walletcheck{
+                if Constant.profileData.card.last4.isEmpty{
+                    //showToast(msg: "please add card from menu")
+                    
+                    self.showalert()
+                    
+                }else{
+                    print("multi:::: \(self.multilocatonStr), and is multiple location is:: \(self.ismultpleLocation), and multi:: \(self.multilocation)")
+                    self.sendRideRequest(view: self.view, date: dateStr, paymentType: payment, pickupCity: self.pickupCity, bookingtype: bookingtype, tripTime: time, utc: utc, estimateFare: self.fareDetail ?? EstimateFareDetails(), isMultiLocation: self.ismultpleLocation, multiLocation: self.multilocatonStr, drivergender: NewdriverGender, type: self.redirectHome, withId: self.taxiId, requestResponse: {(requestData) in
+                        //                self.mapView.settings.myLocationButton = true
+                        showToast(msg: requestData.message)
+                        self.paymentView.deInitView(request: "")
+                        self.requestData = requestData
+                        self.cornerView.isHidden = true
+                        if bookingtype == "rideNow"{
+                            self.sendRequestView.isHidden = false
+                        }else{
+                            self.sendRequestView.isHidden = true
+                            let homeVc = HomeVc.initWithStory()
+                            let nav = UINavigationController(rootViewController: homeVc)
+                            nav.navigationBar.isHidden = true
+                            let menuVc = MenuVC.initWithStory()
+                            self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
+                            
+                        }
+                        self.vechileView.isHidden = true
+                        self.markPinImage.isHidden = true
+                        self.AlertView.isHidden = true
+                        self.confirmBookingView.isHidden = true
+
+                    })
+                }
+            }else{
+                print("amount::,\(self.priveval)")
+                if self.priveval == "0" {
+                    showToast(msg: "Please add amount in wallet")
+                }else{
+                    print("multi:::: \(self.multilocatonStr), and is multiple location is:: \(self.ismultpleLocation), and multi:: \(self.multilocation)")
+                    self.sendRideRequest(view: self.view, date: dateStr, paymentType: "wallet", pickupCity: self.pickupCity, bookingtype: bookingtype, tripTime: time, utc: utc, estimateFare: self.fareDetail ?? EstimateFareDetails(), isMultiLocation: self.ismultpleLocation, multiLocation: self.multilocatonStr, drivergender: NewdriverGender, type: self.redirectHome, withId: self.taxiId, requestResponse: {(requestData) in
+                        //                self.mapView.settings.myLocationButton = true
+                        showToast(msg: requestData.message)
+                        self.paymentView.deInitView(request: "")
+                        self.requestData = requestData
+                        self.cornerView.isHidden = true
+                        if bookingtype == "rideNow"{
+                            self.sendRequestView.isHidden = false
+                        }else{
+                            self.sendRequestView.isHidden = true
+                            let homeVc = HomeVc.initWithStory()
+                            let nav = UINavigationController(rootViewController: homeVc)
+                            nav.navigationBar.isHidden = true
+                            let menuVc = MenuVC.initWithStory()
+                            self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
+                            
+                        }
+                        self.vechileView.isHidden = true
+                        self.markPinImage.isHidden = true
+                        self.AlertView.isHidden = true
+                        self.confirmBookingView.isHidden = true
+                                                
+                        
+                    })
+                }
+            }
+//        }else{
+//
+//        }
         }
         
         self.calltobookView.addAction(for: .tap) {
@@ -1325,7 +1423,23 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         self.AlertView.addAction(for: .tap) {
             self.AlertView.isHidden = true
         }
-        
+        self.AlertpopUp.addAction(for: .tap) {
+            self.AlertpopUp.isHidden = true
+        }
+        self.PopupOkbtn.addAction(for: .tap) {
+            UserDefaults.standard.set(true, forKey: UserDefaultsKey.genderSetup)
+          //  self.NewdriverGender = true
+            self.AlertpopUp.isHidden = true
+            self.clearView()
+        }
+        self.PopupCancelBtn.addAction(for: .tap) {
+            UserDefaults.standard.set(false, forKey: UserDefaultsKey.genderSetup)
+         //   self.NewdriverGender = false
+            self.AlertpopUp.isHidden = true
+            self.clearView()
+//            self.mapView.clear()
+//            self.markPinImage.isHidden = true
+        }
         self.applycouponView.addAction(for: .tap) {
             self.promoCodeView.initView(view: self.view, promo: {(promo) in
                 print("PromoCode",promo)
@@ -1467,8 +1581,10 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         self.walletView.addAction(for: .tap) {
             if self.checkimg.image == UIImage(named: "unchecked"){
                 self.checkimg.image = UIImage(named: "checked")
+                self.walletcheck = true
             }else{
                 self.checkimg.image = UIImage(named: "unchecked")
+                self.walletcheck = false
             }
         }
         
@@ -1867,6 +1983,7 @@ extension HomeVC : GMSMapViewDelegate, CLLocationManagerDelegate{
         self.isdrawedAcceptedPolyLine = self.tripCurrentStage == .accepted || self.tripCurrentStage == .Arrived
         self.isdrawedStartedPolyLine = self.tripCurrentStage == .started
         print("is drawed polyline::\(self.isdrawedAcceptedPolyLine)")
+        print("is drawed polyline::\(self.isdrawedStartedPolyLine)")
         
         if self.isdrawedAcceptedPolyLine{
             self.HitOnceAcceptedPolyline = true
@@ -2189,6 +2306,8 @@ extension HomeVC : GMSMapViewDelegate, CLLocationManagerDelegate{
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         self.nodriverFoundView.isHidden = true
         let location = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
+        print("DROPPPP::\(dropLoc)::::\(dropAddr)")
+        print("LATI::::\(dropLoc.coordinate.latitude)")
         let tripstart : String =  UserDefaults.standard.value(forKey: UserDefaultsKey.tripwillstart) as? String ?? ""
         print("tripstatussss", tripstart)
         if tripstart == "false" ||  tripstart == ""{
@@ -2201,7 +2320,11 @@ extension HomeVC : GMSMapViewDelegate, CLLocationManagerDelegate{
                     DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                         self.fromAddressLBL.text = "  "+self.gettingLocationAddress
                         self.currentAddress = "  "+self.gettingLocationAddress
-                        self.pickupLoc = location
+                     //   if dropLoc.coordinate.latitude
+                        if self.dropLoc.coordinate.latitude == 0.0  {
+                            self.pickupLoc = location
+                        }
+                       
                         // vehcile api call
                         self.getVechileServiceList(pickupLoc: self.pickupLoc, dropLoc: self.dropLoc)
                     }
@@ -2259,11 +2382,11 @@ extension HomeVC{
         self.present(alert, animated: true, completion: nil)
     }
     
-    func sendRideRequest(view: UIView, date: String, paymentType: String, pickupCity: String, bookingtype: String, tripTime: String,utc: String, estimateFare: EstimateFareDetails,isMultiLocation : String ,multiLocation : String, type: RedirectHome, withId: String ,requestResponse : @escaping(RideRequestModel) -> ())
+    func sendRideRequest(view: UIView, date: String, paymentType: String, pickupCity: String, bookingtype: String, tripTime: String,utc: String, estimateFare: EstimateFareDetails,isMultiLocation : String ,multiLocation : String,drivergender: String , type: RedirectHome, withId: String ,requestResponse : @escaping(RideRequestModel) -> ())
     {
         print("multilocation is:: \(isMultiLocation)")
         print("Myvaluesss::::::", number)
-        self.homevm.sendRideRequest(view: self.view, date: date, paymentType: paymentType, pickupCity: pickupCity, bookingtype: bookingtype, tripTime: tripTime, estimateFare: self.fareDetail ?? EstimateFareDetails(), utc: utc, isMultiLocation: isMultiLocation, multiLocation: multiLocation, homeType: type, withId: withId, withNo: number, withName: mName, withMake: modl)
+        self.homevm.sendRideRequest(view: self.view, date: date, paymentType: paymentType, pickupCity: pickupCity, bookingtype: bookingtype, tripTime: tripTime, estimateFare: self.fareDetail ?? EstimateFareDetails(), utc: utc, isMultiLocation: isMultiLocation, multiLocation: multiLocation, homeType: type, withId: withId, withNo: number, withName: mName, withMake: modl, drivergender: drivergender)
         print("red", redirectHome)
         print("TaxissssId::::", number, mName, modl)
         self.homevm.getRequestClouser = {
@@ -2334,6 +2457,10 @@ extension HomeVC{
     
     func getWalletMoney(){
         self.paymentvm.getMyWallet(view: self.view)
+        self.paymentvm.successwallet = {
+            self.priveval =  self.paymentvm.walletData?.balance.description ?? "0"
+            print("kljaksld::,\(self.priveval)")
+        }
     }
     
     func getVechileServiceList(pickupLoc: CLLocation, dropLoc: CLLocation){
@@ -2443,7 +2570,7 @@ extension HomeVC{
                 }
                 //18/nov
                //self.tripView.initView(view: self.view, driverDetail: rideDetails, rideStatus: tripstatus, //call: { (call) in
-                self.tripView.initView(view: self.view, driverDetail: rideDetails, rideStatus: self.tripCurrentStage.rawValue, call: { (call) in
+                self.tripView.initView(view: self.view, driverDetail: rideDetails, rideStatus: self.tripCurrentStage, call: { (call) in
 //                    if let url = URL(string: "tel://\(call)"), UIApplication.shared.canOpenURL(url) {
 //                        if #available(iOS 10, *) {
 //                            UIApplication.shared.open(url)
@@ -2451,15 +2578,19 @@ extension HomeVC{
 //                            UIApplication.shared.openURL(url)
 //                        }
 //                    }
+                    self.focusCallPage(mode: false)
                     print("driver token:: \(rideDetails)")
                     let vc = VideoCallVC.initWithStory()
-                    print("driverfcmhomepage::\(self.FBtripstatus?.driver_token), and :: \(self.tripFBStatus.driver_token)")
-                    vc.driverfcm = self.tripFBStatus.driver_token
+                   print("driverfcmhomepage::\(self.FBtripstatus?.driver_token), and :: \(self.tripFBStatus.driver_token)self.DriverToken::::,\(self.DriverToken)")
+                    vc.driverfcm = self.DriverToken/*self.tripFBStatus.driver_token*/
                     vc.drivername = rideDetails.DriverProfile.fname
                     vc.driverpic = rideDetails.DriverProfile.profileurl
                     self.Driver_name = rideDetails.DriverProfile.fname
                     self.Driver_profile = rideDetails.DriverProfile.profileurl
                     vc.firebaseNotiifcation(message: "Your Rider inviting you to join call", fcm: self.tripFBStatus.driver_token)
+                    vc.dismissPage = {
+                        self.focusCallPage(mode: true)
+                    }
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 }, message: { (message) in
@@ -2477,9 +2608,10 @@ extension HomeVC{
                     self.present(alert, animated: true, completion: nil)
                     
                 }, share: { (share) in
+                    print("asdghjd::::,\(fbriderstatus.requestId),789745689123:::,\(tripID)")
                     var sharptriplink = ServiceApi.Base_Image_URL + "public/shareTrip/locater.html?tripId="
                     var riderName = Constant.profileData.fname
-                    var fullLink = sharptriplink + tripID
+                    var fullLink = sharptriplink + fbriderstatus.requestId
                     print("sharing trip link:\(sharptriplink)")
                     let text : String = "Sooffer \(riderName)'s Trip Share link : \(fullLink)"
                     print("text to sharelink:\(text)")
@@ -2535,6 +2667,20 @@ extension HomeVC{
                     self.vechileView.isHidden = true
                     self.markPinImage.isHidden = true
                     break
+                case "No Female Driver Found So Please You Can Try Male Driver":
+               UserDefaults.standard.set("false", forKey: UserDefaultsKey.tripwillstart)
+                    self.AlertpopUp.isHidden = false
+                    self.sendRequestView.isHidden = true
+                    self.vechileView.isHidden = false
+                    self.markPinImage.isHidden = false
+                    self.tripCurrentStage = .noDriver
+                    
+                    self.FBCONNECT.clearRiderData()
+                    self.mapView.clear()
+                //    self.clearView()
+                    self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    
+                    break
                 case "No Driver Found":
                     UserDefaults.standard.set("false", forKey: UserDefaultsKey.tripwillstart)
                     self.sendRequestView.isHidden = true
@@ -2555,6 +2701,7 @@ extension HomeVC{
                     self.FBCONNECT.clearRiderData()
                     self.clearView()
                     self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+           //         showToast(msg: riderdata.tripstatus)
                     break
                 case "Accepted":
                     UserDefaults.standard.set("true", forKey: UserDefaultsKey.tripwillstart)
@@ -2644,17 +2791,19 @@ extension HomeVC{
             }
             
             if self.tripCurrentStage == .accepted/*tripstatus == "Accepted"*/ {
-                if !self.isdrawedAcceptedPolyLine{
-                    if !self.HitOnceAcceptedPolyline{
+                if !self.isdrawedAcceptedPolyLine || self.Addresschange{
+                    if !self.HitOnceAcceptedPolyline  {
                         self.mapView.clear()
+                        self.Addresschange = false
                         print("sets 12")
                         self.setPolyLineWithMaker(pickupaddr: "", dropaddr: "", pickupLoc: driverLoc, dropLoc: startLoc, isRideFlowStated: true,waypoints: [], tripstatus: "accepted")
                     }
                
                 }
             } else if self.tripCurrentStage == .started/*tripstatus == "started"*/ {
-                if !self.isdrawedStartedPolyLine{
+                if !self.isdrawedStartedPolyLine  || self.Addresschange{
                     self.mapView.clear()
+                    self.Addresschange = false
                     self.mulitiLocationAddress = rideDetails.mulitiLocation
                     
                     self.addressList.reloadData()
@@ -2663,8 +2812,9 @@ extension HomeVC{
           
                 }
             } else if self.tripCurrentStage == .Arrived{
-                if !self.isdrawedAcceptedPolyLine{
+                if !self.isdrawedAcceptedPolyLine  || self.Addresschange{
                     self.mapView.clear()
+                    self.Addresschange = false
                     print("sets 14")
                     self.setPolyLineWithMaker(pickupaddr: "", dropaddr: "", pickupLoc: driverLoc, dropLoc: startLoc, isRideFlowStated: true,waypoints: [], tripstatus: "accepted")
                 }
@@ -2685,9 +2835,12 @@ extension HomeVC{
                 self.Listen_Trip_Status = true
                 self.tripFBStatus = tripDatas
                 print("driver _token:: \(self.tripFBStatus.driver_token)")
+                self.DriverToken = self.tripFBStatus.driver_token
+                print("DriverToken _token:: \(self.DriverToken)")
                 switch fbtripDatas.status{
                 case "1":
                     self.tripStatusView.isHidden = false
+                    self.markPinImage.isHidden = true
 //                    self.sosImg.isHidden = false
                     self.tripStatusLbl.text = "Driver Has Accepted Your Trip Request"
                     self.tripCurrentStage = .accepted
@@ -2699,6 +2852,7 @@ extension HomeVC{
                 case "2":
                     UserDefaults.standard.set("true", forKey: UserDefaultsKey.tripwillstart)
                     self.tripStatusView.isHidden = false
+                    self.markPinImage.isHidden = true
 //                    self.sosImg.isHidden = false
                     self.tripStatusLbl.text = "Driver Has Arrived your Location"
                     self.tripCurrentStage = .Arrived
@@ -2714,6 +2868,7 @@ extension HomeVC{
                     break
                 case "3":
                     UserDefaults.standard.set("true", forKey: UserDefaultsKey.tripwillstart)
+                    self.markPinImage.isHidden = true
                     self.tripStatusView.isHidden = false
 //                    self.sosImg.isHidden = false
                     self.tripStatusLbl.text = "Your Trip has started"
@@ -2941,6 +3096,7 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource{
         if tableView == homeTbl {
             
             let vechicle = vechileList?.VechileListList ?? [VechileListData]()
+            print("vecgicle:::,\(vechicle)")
             if vechicle.isEmpty {
                 homeTbl.isHidden = true
                 nodataImg.isHidden = false
@@ -2996,18 +3152,24 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView == homeTbl {
-            setViews(index: indexPath)
-            let vechile = self.vechileList?.VechileListList[indexPath.row] ?? VechileListData()
-            print("valuesss::::", vechile)
-            if vechile.type == "Rental"{
-                self.isRentalRequest = true
-                self.rentalid = self.vechileList?.VechileListList[indexPath.row]._id ?? ""
-            }else{
-                self.isRentalRequest = false
+        let vechileData = self.vechileList?.VechileListList[indexPath.row]
+        print("asjdhjk::,\(vechileData?.eta)")
+        if vechileData?.eta == "NA"{
+            showToast(msg: "Selected Driver Not Available")
+        }else{
+            if tableView == homeTbl {
+                setViews(index: indexPath)
+                let vechile = self.vechileList?.VechileListList[indexPath.row] ?? VechileListData()
+                print("valuesss::::", vechile)
+                if vechile.type == "Rental"{
+                    self.isRentalRequest = true
+                    self.rentalid = self.vechileList?.VechileListList[indexPath.row]._id ?? ""
+                }else{
+                    self.isRentalRequest = false
+                }
             }
+            arrayIndex = indexPath.row
         }
-        arrayIndex = indexPath.row
     }
     
     func setupTableview(){
@@ -3016,7 +3178,42 @@ extension HomeVC : UITableViewDelegate , UITableViewDataSource{
         self.addressList.reloadData()
     }
 }
+extension HomeVC: Delegate {
+    //          func address(address: String, lat: String, lng: String) {
+    //              designLbl.text = address
+    //              updateLocation(drop: lat, lng: lng)
+    //          }
+    
+    func address(address: String, lat: String, lng: String) {
+        self.FBCONNECT.changeDropAddress(dropaddress: address, dropLatLng: "\(lat),\(lng)") { [self] in
+            designLbl.text = address
+            updateLocation(drop: lat, lng: lng)
+        }
+    }
+}
 
+extension HomeVC {
+    func updateLocation(drop: String, lng: String) {
+        homevm.updateLocFunc(view: self.view, dropLat: drop, dropLng: lng)
+        homevm.getFareClouser = {
+            //                  self.getFBRiderData()
+            let tripID : String = UserDefaults.standard.value(forKey: UserDefaultsKey.tripid) as? String ?? ""
+            self.Addresschange = true
+            self.Listen_Trip_Status = false
+            self.tripDriverDetails(tripID: tripID,tripstatus: "",fbriderstatus: self.RiderData,tripType: "")
+            self.getFBRiderData()
+            //                  if let rider_detail = self.homevm.rideDetails{
+            //                      self.Addresschange = true
+            //                      self.listenDriverLocationForPolyline(tripstatus: "",rideDetails: rider_detail)
+            //                  }
+            
+            showToast(msg: "Address Changed sucessfully")
+        }
+        homevm.errgetFareClouser = {
+            
+        }
+    }
+}
 
 class addressListCell : UITableViewCell{
     
@@ -3037,7 +3234,7 @@ enum OnGoingTrip:String{
     case noDriver = "No Driver Found"
     case accepted = "Accepted"
     case canceled = "Cancelled"
-    case started = "Started"
+    case started = "started"
     case Arrived = "arrived"
     case ended = "Ended"
     var value : String{

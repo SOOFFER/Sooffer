@@ -31,6 +31,10 @@ class ChangePasswordAlert : UIView , UITextFieldDelegate {
     
     @IBOutlet weak var changePassTitle: UILabel!
     
+    @IBOutlet weak var eyeimg0: UIImageView!
+    @IBOutlet weak var eyeimg: UIImageView!
+    @IBOutlet weak var eyeimg1: UIImageView!
+    
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     var profilevm = ProfileVM()
@@ -73,6 +77,39 @@ class ChangePasswordAlert : UIView , UITextFieldDelegate {
         }
         okBtn.addAction(for: .tap) {
             self.validation()
+        }
+        self.eyeimg0.addTap{
+            if self.eyeimg0.image == UIImage(named: "eye-open"){
+                self.oldPassword.isSecureTextEntry = true
+                
+                self.eyeimg0.image = UIImage(named: "eye close")
+            }else{
+                self.oldPassword.isSecureTextEntry = false
+                
+                self.eyeimg0.image = UIImage(named: "eye-open")
+            }
+        }
+        self.eyeimg.addTap {
+            if self.eyeimg.image == UIImage(named: "eye-open"){
+                self.newPasswordTXF.isSecureTextEntry = true
+                
+                self.eyeimg.image = UIImage(named: "eye close")
+            }else{
+                self.newPasswordTXF.isSecureTextEntry = false
+                
+                self.eyeimg.image = UIImage(named: "eye-open")
+            }
+        }
+        self.eyeimg1.addTap {
+            if self.eyeimg1.image == UIImage(named: "eye-open"){
+                self.confirmPassword.isSecureTextEntry = true
+                
+                self.eyeimg1.image = UIImage(named: "eye close")
+            }else{
+                self.confirmPassword.isSecureTextEntry = false
+                
+                self.eyeimg1.image = UIImage(named: "eye-open")
+            }
         }
     }
     
@@ -264,6 +301,9 @@ extension ChangePasswordAlert{
         self.profilevm.successChangePAss = {
            showToast(msg:  self.profilevm.changepass?.message ?? "")
             self.deInitView()
+        }
+        self.profilevm.errorChangePAss = {
+            showToast(msg:  self.profilevm.errchangepass?.message ?? "")
         }
     }
     

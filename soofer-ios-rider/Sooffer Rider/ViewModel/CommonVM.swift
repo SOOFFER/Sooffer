@@ -281,6 +281,30 @@ class CommonVM{
             print("@@@errorData" ,errorData)
         })
     }
+    
+    func GetPushNotification(view : UIView ,fcm:String, Type:String, title:String , Message : String,   click_action : String){
+        let url = ServiceApi.sendchatFCM
+        let params: [String: Any] = [
+            "token": fcm,
+            "data": [
+                "type": "\(Type)",
+                "title": "\(title)",
+                "message": "\(Message)",
+                "click_action": "\(click_action)"
+            ]
+        ]
+        self.dataService?.postApi(view: view, url: url, params: params, jsonSuccess: { (success) in
+         
+        }, jsonError: { (jsonError) in
+            
+        }, error: { (Error) in
+            print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+            print("@@@responseData" ,responseData)
+        },dataError: { (errorData) in
+            print("@@@errorData" ,errorData)
+        })
+    }
 }
 
 

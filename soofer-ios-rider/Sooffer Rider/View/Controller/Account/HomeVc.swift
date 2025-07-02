@@ -173,6 +173,7 @@ class HomeVc: UIViewController {
         self.hourlyView.addTap { [unowned self] in
             let homeBookingVc = HomeVC.initWithStory()
             homeBookingVc.redirectHome = .hour
+            print("currentAddress:::,\(currentAddress)")
             homeBookingVc.currentAddress = currentAddress
             homeBookingVc.currentLocation = CLLocation(latitude: currentlat, longitude: currentLng)
             UserDefaults.standard.set(false, forKey: UserDefaultsKey.driver)

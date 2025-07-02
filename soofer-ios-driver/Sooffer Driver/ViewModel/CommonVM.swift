@@ -63,14 +63,14 @@ class CommonVM{
         }
     }
     
-    var payoutData : FavAddrModel?{
+    var payoutData : PayoutDataModel?{
         didSet{
             guard let favaddr = payoutData else { return }
             self.successPayoutClosure?()
             showToast(msg: "\(favaddr.message)!!!")
         }
     }
-    var errPayoutData : FavAddrModel?{
+    var errPayoutData : PayoutDataModel?{
         didSet{
             guard let error = errPayoutData else { return }
             self.errPayoutClosure?()
@@ -266,9 +266,9 @@ class CommonVM{
         params["description"] = "Amount to payout"
         
         self.dataService?.putApi(view: view, url: url, params: params, jsonSuccess: { (success) in
-            self.payoutData = FavAddrModel.init(json: success)
+            self.payoutData = PayoutDataModel.init(json: success)
         }, jsonError: { (jsonError) in
-            self.errPayoutData = FavAddrModel.init(json: jsonError)
+            self.errPayoutData = PayoutDataModel.init(json: jsonError)
         }, error: { (Error) in
             print("@@@Error" ,Error)
         }, dataSuccess: { (responseData) in
@@ -300,6 +300,29 @@ class CommonVM{
         })
     }
     
+    func GetPushNotification(view : UIView ,fcm:String, Type:String, title:String , Message : String,   click_action : String){
+        let url = ServiceApi.sendchatFCM
+        let params: [String: Any] = [
+            "token": fcm,
+            "data": [
+                "type": "\(Type)",
+                "title": "\(title)",
+                "message": "\(Message)",
+                "click_action": "\(click_action)"
+            ]
+        ]
+        self.dataService?.postApi(view: view, url: url, params: params, jsonSuccess: { (success) in
+         
+        }, jsonError: { (jsonError) in
+            
+        }, error: { (Error) in
+            print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+            print("@@@responseData" ,responseData)
+        },dataError: { (errorData) in
+            print("@@@errorData" ,errorData)
+        })
+    }
 }
 
 

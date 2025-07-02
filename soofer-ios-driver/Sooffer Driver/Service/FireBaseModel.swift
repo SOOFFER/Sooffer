@@ -281,6 +281,7 @@ struct FBTripDataModel {
     var driver_token : String = ""
     var rider_token : String = ""
     var gatewayCharge : String = ""
+    var walletdebt : String = ""
     var safeRide : SafeRideModel = SafeRideModel()
     init(){}
     
@@ -319,6 +320,7 @@ struct FBTripDataModel {
         self.invoiceBill = json["invoiceBill"].string ?? ""
         self.driver_token = json["driver_token"].string ?? "0"
         self.gatewayCharge = json["gatewayCharge"].string ?? "0"
+        self.walletdebt = json["walletdebt"].string ?? "0"
         
         self.rider_token = json["rider_token"].string ?? "0"
         self.safeRide = SafeRideModel(json: json["safeRideData"])

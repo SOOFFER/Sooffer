@@ -41,12 +41,15 @@ struct TripDetailModel
     var tripDetail : TripData = TripData()
     var profileDetail : ProfileDetail = ProfileDetail()
     var Mapurl : String = String()
+    var DriverTip : Int = Int()
+   
     init(){}
     init(json : JSON) {
         self.success = json["success"].bool ?? Bool()
         self.tripDetail = TripData.init(json: json["TripDetail"])
         self.profileDetail = ProfileDetail.init(json: json["ProfileDetail"])
         self.Mapurl = json["Mapurl"].string ?? String()
+        self.DriverTip = json["DriverTip"].int ?? Int()
     }
 }
 
@@ -87,6 +90,7 @@ struct TripData {
      var cpyid : String = String()
      var ridid : String = String()
      var dvrid : String = String()
+    
     
      var applyValues : ApplyValues = ApplyValues()
      var adsp : Adsp = Adsp()

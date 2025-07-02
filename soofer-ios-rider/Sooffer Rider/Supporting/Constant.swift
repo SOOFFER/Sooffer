@@ -23,6 +23,7 @@ struct ServiceApi{
     static let googleAutoComplete = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
     static let googlelatAdd = "https://maps.googleapis.com/maps/api/geocode/json"
     static let login = ServiceApi.Base_URL + "riderslogin"
+    static let AccountDeletion = ServiceApi.Base_URL + "deleteRider"
     static let otpVerification = ServiceApi.Base_URL + "verifyNumber"
     static let vechicleAdd     = ServiceApi.Base_URL + "safeRide/ridertaxi"
     static let riderForgotPassword = ServiceApi.Base_URL + "riderForgotPassword"
@@ -59,7 +60,10 @@ struct ServiceApi{
      static let requestOutstationTaxi = ServiceApi.Base_URL + "requestOutstationTaxi"
     static let outstationDetail = ServiceApi.Base_URL + "rental/outstationVehicleListWithFare"
     
+    static let updateLoc = ServiceApi.Base_URL + "updateDropLocation"
         static let emergencyMsg = ServiceApi.Base_URL + "emergencyMsg"
+    static let tips = ServiceApi.Base_URL + "addTips"
+    static let sendchatFCM = ServiceApi.Base_URL + "sendchatFCM"
     }
 
 struct UserDefaultsKey{
@@ -84,6 +88,7 @@ struct UserDefaultsKey{
     static let number = "number"
     static let model  = "model"
     static let last4 = "last4"
+    static let genderSetup = "genderSetup"
 }
 
 struct Constant {
@@ -108,11 +113,12 @@ struct Constant {
 //    "AIzaSyA0Rw4sntPKrobxyiRNSgh4x31aK9MvIxo"
 //    "AIzaSyCTyCb06T6VpIAr07qOHZJQfYLy3oVHqn4"
 // static let countryCode = "bd"
-//static let countryCode = ((NSLocale.current.regionCode)?.lowercased()) ?? "in"
-    static var countryCode =  "US"
+   static var countryCode = ((NSLocale.current.regionCode)?.lowercased()) ?? "in"
+ //   static var countryCode =  "US"
     static var profileData = ProfileModel()
     static var ConfigData = CONFIGMODEL()
-    static let stripkey = "pk_test_51JvLMsD9LszUmsLxMrARz8Aag0y5XeOMUnUNGzZ4oKfiyfSjnkGkGkntDJQvH3Z2nisIuNe1VsTGwJu5jPFIYljW008c1M23tQ"//"pk_test_p9ezyOwyrdBOTllMKBFgJXFg"
+    static let stripkey = //"pk_test_51JvLMsD9LszUmsLxMrARz8Aag0y5XeOMUnUNGzZ4oKfiyfSjnkGkGkntDJQvH3Z2nisIuNe1VsTGwJu5jPFIYljW008c1M23tQ"
+    "pk_live_51JvLMsD9LszUmsLxvA3vVVqJPXPCncqNSqE2RTiWDqaj0TvQPXTtyG4OqopDu68z6GEMlhcdea0HkmXsdc7pWtXM00xVZJANuo"//"pk_test_p9ezyOwyrdBOTllMKBFgJXFg"
 //    "pk_test_KIrZ4RKWQdCQwQ5hOvHcZXYM"
     
     static var walletMoney = "0"

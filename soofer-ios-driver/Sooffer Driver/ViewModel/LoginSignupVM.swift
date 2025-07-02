@@ -96,7 +96,20 @@ class LoginSignupVM{
             self.successnotification?()
         }
     }
+    var countryData : LoginSignupModel?{
+        didSet {
+            guard let login : LoginSignupModel = countryData else { return }
+            self.sucessscountry?()
+        }
+    }
     
+    var countryErr : LoginSignupModel?{
+        didSet {
+            guard let login : LoginSignupModel = countryErr else { return }
+            self.errorcountry?()
+            showToast(msg: login.message )
+        }
+    }
     //Mark :- Constructor
     init() { }
     
@@ -116,7 +129,8 @@ class LoginSignupVM{
     var successforgot : (() -> ())?
     var errforgot : (() -> ())?
     var successnotification : (() -> ())?
-    
+    var sucessscountry: (() -> ())?
+    var errorcountry: (() -> ())?
     // MARK: - Network call
     func loginApi(view : UIView,username : String , password : String , loginType : String , loginId :String ){
         let url = ServiceApi.login
@@ -169,9 +183,9 @@ class LoginSignupVM{
     
     
     // MARK: - Network call
-    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String, DOB : String){
+    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, countryname: String,cityname: String, statename : String, city: String, state: String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String, DOB : String, gender : String){
         let url = ServiceApi.driver
-        
+        print("fname : \(countryname),lname : \(cityname),email : \(statename),phone : \(phone),\ncnty : \(cnty),\ncntyname : \(cntyname), \ncityid : \(city), \nstateid : \(state)" )
         var params = Parameters()
          params["fname"] = fname
          params["lname"] = lname
@@ -188,7 +202,13 @@ class LoginSignupVM{
          params["fcmId"] = fcmId
         params["loginType"] = loginType
         params["loginId"] = loginId
+        params["countryname"] = cntyname
+        params["cityname"] = cityname
+        params["statename"] = statename
+        params["city"] = city
+        params["state"] = state
         params["DOB"] = DOB
+        params["gender"] = gender
         
         self.dataService?.postApi(view : view ?? UIView() ,url: url, params: params, jsonSuccess: { (success) in
            
@@ -268,4 +288,27 @@ class LoginSignupVM{
              print("@@@errorData" ,errorData)
          })
      }
+    
+    func countryList(view: UIView, with urls: String , with id : String) {
+        var url = ""
+        if id.isEmpty {
+            url = ServiceApi.Base_URL + "countries"
+        } else {
+            url = ServiceApi.Base_URL + urls + "/\(id)"
+        }
+        print("sadhakjsdh\(url)")
+        let params = Parameters()
+       
+        self.dataService?.getApiwithoutView( url: url, params: params, jsonSuccess: { (success) in
+            self.countryData = LoginSignupModel.init(json: success)
+        }, jsonError: { (jsonError) in
+            self.countryErr = LoginSignupModel.init(json: jsonError)
+        }, error: { (Error) in
+//            print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+//            print("@@@responseData" ,responseData)
+        },dataError: { (errorData) in
+//          print("@@@errorData" ,errorData)
+        })
+    }
 }

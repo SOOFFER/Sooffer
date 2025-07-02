@@ -14,7 +14,33 @@ import GoogleSignIn
 import FBSDKLoginKit
 import FSCalendar
 
-class SignupVC: UIViewController , UITextFieldDelegate{
+class SignupVC: UIViewController , UITextFieldDelegate, CountryDelegate{
+    func countryList(with id: String, with name: String){
+        print("Name :\(self.type) , type :\(id)")
+        if self.type == "countries" {
+            if self.country.text != name{
+                self.country.text! = name
+                setTextfieldApperance(textfild: self.country, title: Localize.stringForKey(key: "country"), color: UIColor(named: "AppColor")!, isError: false)
+                self.city.text! = ""
+                self.state.text! = ""
+            }
+            self.countryid = id
+        }else if self.type == "state" {
+            if self.state.text != name{
+                self.state.text! = name
+                setTextfieldApperance(textfild: self.state, title: Localize.stringForKey(key: "state"), color: UIColor(named: "AppColor")!, isError: false)
+                self.city.text! = ""
+            }
+            self.stateId = id
+        }else if self.type == "city"{
+            self.city.text! = name
+            setTextfieldApperance(textfild: self.city, title: Localize.stringForKey(key: "city"), color: UIColor(named: "AppColor")!, isError: false)
+            self.cityid = id
+        }
+        print("cityid : \(self.cityid), stateId : \(self.stateId), countryid : \(self.countryid)")
+        print("cityTf : \(self.city.text!), stateTf : \(self.state.text!), countryTf : \(self.country.text!)")
+    }
+    
     
     //UI Declaraction
     //Textfield
@@ -44,6 +70,9 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var eyeimage: UIImageView!
     @IBOutlet weak var ErrorMsgPaswd: UILabel!
     
+    @IBOutlet weak var country: SkyFloatingLabelTextField!
+    @IBOutlet weak var state: SkyFloatingLabelTextField!
+    @IBOutlet weak var city: SkyFloatingLabelTextField!
     
     @IBOutlet weak var GenderSegmentView: UISegmentedControl!
     
@@ -57,6 +86,11 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     
     @IBOutlet weak var datepicker: UIDatePicker!
     
+    @IBOutlet weak var maleLbl: UILabel!
+    
+    @IBOutlet weak var Register: UILabel!
+    @IBOutlet weak var FemaleLbl: UILabel!
+    
     //Variable Declaraction
     let Localize : Localizations = Localizations.instance
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -65,7 +99,12 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     let otpView = OTPView.getView
     var countryData : Country?
     var mobileNum : String = ""
-    
+    var selectedGender = "Male"
+    var accept : Bool = false
+    var countryid = String()
+    var type = String()
+    var cityid = String()
+    var stateId = String()
     //Firebase Object
     let FBCONNECT = FireBaseconnection.instanse
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,13 +141,16 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     }
     
     @IBAction func segmentControllClick(_ sender: UISegmentedControl) {
+        
         switch GenderSegmentView.selectedSegmentIndex {
         case 0:
+            self.selectedGender = "Male"
             print("its male")
 
             
             
         case 1:
+            self.selectedGender = "Female"
             print("its female")
             
 
@@ -230,16 +272,58 @@ extension SignupVC {
         self.mobileNumTXF.placeholder = Localize.stringForKey(key: "mobile_num")
         self.mobileNumTXF.title = Localize.stringForKey(key: "mobile_num")
         
+        self.DOBTxf.placeholder = Localize.stringForKey(key: "_DOB")
+        self.DOBTxf.title = Localize.stringForKey(key: "_DOB")
+        
         self.referralTXF.placeholder = Localize.stringForKey(key: "referral")
         self.referralTXF.title = Localize.stringForKey(key: "referral")
         
         self.acceptTermsCond.text = Localize.stringForKey(key: "tc_pp")
         
         self.submitBtn.setTitle(Localize.stringForKey(key: "submit"), for: .normal)
+        
+        self.maleLbl.text = Localize.stringForKey(key: "male")
+        self.FemaleLbl.text = Localize.stringForKey(key: "female")
+        
+        self.Register.text = Localize.stringForKey(key: "Register")
     }
     
     // View Actions
     func setupAction(){
+        self.country.addTap {
+            self.type = "countries"
+            let countryList = CountryVc.initWithStory()
+            countryList.delegate = self
+            countryList.idval  = ""
+            countryList.type = "countries"
+            self.navigationController?.present(countryList, animated: true, completion: nil)
+        }
+        self.state.addTap {
+            if !self.country.text!.isEmpty{
+                self.type = "state"
+                print("NEWWW DATASS ::\(self.countryid)")
+                let countryList = CountryVc.initWithStory()
+                countryList.delegate = self
+                countryList.idval  = self.countryid
+                countryList.type = "state"
+                self.navigationController?.present(countryList, animated: true, completion: nil)
+            } else{
+                showToast(msg: "Please Select Country")
+            }
+        }
+        self.city.addTap {
+            if !self.state.text!.isEmpty{
+                self.type = "city"
+                let countryList = CountryVc.initWithStory()
+                countryList.delegate = self
+        //        countryList.idval  = self.countryid
+                countryList.idval  = self.stateId
+                countryList.type = "city"
+                self.navigationController?.present(countryList, animated: true, completion: nil)
+            }else{
+                showToast(msg: self.country.text!.isEmpty ? "Please Select Country" : "Please Select State")
+            }
+        }
         self.loginLbl.addAction(for: .tap) {
             let vc = LoginVC.initWithStory()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -259,7 +343,9 @@ extension SignupVC {
         self.checkImg.addAction(for: .tap) {
             if self.checkImg.image == UIImage(named: "unchecked"){
                 self.checkImg.image = UIImage(named: "checked")
+                self.accept = true
             }else{
+                self.accept = false
                 self.checkImg.image = UIImage(named: "unchecked")
             }
         }
@@ -359,7 +445,7 @@ extension SignupVC {
                         let lang : String = UserDefaults.standard.value(forKey: UserDefaultsKey.language) as? String ?? ""
                         let fcmid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.fcmtoken) as? String ?? ""
                         
-                        // api call
+    // api call
 //                        self.signupApi(fname: res["name"]! as! String, lname: "", email: res["email"]! as! String, phone: self.mobileNum, cnty: "", cntyname: "", lang: lang, cur: Constant.priceTag, phcode: "", password: "", referal: "", scId: "", fcmId: fcmid, loginId: res["id"]! as! String , loginType: "facebook")
                     })
                 }
@@ -372,13 +458,25 @@ extension SignupVC {
         let fname : String = self.fireNameTXF.text ?? ""
         let lname : String = self.lastNameTXT.text ?? ""
         let email : String = self.emailAddressTXF.text ?? ""
+        let country = self.country.text ?? ""
+        let state = self.state.text ?? ""
+        let city = self.city.text ?? ""
+        let countyId = self.countryid//self.countryID
+        let countyName = self.country.text!
+        
+        let stateId = self.stateId
+        let stateName = self.state.text!
+        
+        let cityId = self.cityid
+        let cityName = self.city.text!
         let password : String = self.passwordTFX.text ?? ""
         let mobile : String = self.mobileNumTXF.text ?? ""
         let referral : String = self.referralTXF.text ?? ""
         let Dob : String = self.DOBTxf.text ?? ""
         let lang : String = UserDefaults.standard.value(forKey: UserDefaultsKey.language) as? String ?? ""
         let fcmid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.fcmtoken) as? String ?? ""
-        
+        let gender : String = self.selectedGender ?? ""
+        print("asdasd::,\(gender)")
         //firest name
         if !fname.isEmpty{
             setTextfieldApperance(textfild: self.fireNameTXF, title: Localize.stringForKey(key: "first_name"), color: UIColor(named: "AppColor")!, isError: false)
@@ -423,15 +521,19 @@ extension SignupVC {
                                                 
                                                 //country code
                                                 if !countryCode.isEmpty{
-                                                    
-                                                    if self.checkImg.image == UIImage(named: "unchecked"){
+                                                    if accept{
+                                                   /* if self.checkImg.image == UIImage(named: "unchecked"){
                                                         view.endEditing(true)
-                                                        showToast(msg: Localize.stringForKey(key: "err_agree"))
+                                                        showToast(msg: Localize.stringForKey(key: "err_agree"))*/
+               
+            // api call
+            self.signupApi(fname: fname, lname: lname, email: email, phone: mobile, cnty: countyId /*countryData?.code ?? ""*/, cntyname: countyName /*countryData?.name ?? ""*/, lang: lang, cur: Constant.priceTag, phcode: countryCode, password: password,countryname: countyName, cityname: cityName, statename: stateName, city: self.cityid, state: self.stateId, referal: referral, scId: "", fcmId: fcmid, loginId: "", loginType: "normal", DOB : self.DOBTxf.text ?? "", gender: gender)
                                                         
-                                                    }else{
-                                                        // api call
-                                                        self.signupApi(fname: fname, lname: lname, email: email, phone: mobile, cnty: countryData?.code ?? "", cntyname: countryData?.name ?? "", lang: lang, cur: Constant.priceTag, phcode: countryCode, password: password, referal: referral, scId: "", fcmId: fcmid, loginId: "", loginType: "normal", DOB : self.DOBTxf.text ?? "")
-                                                    }
+                                }else{
+                        view.endEditing(true)
+                showToast(msg: Localize.stringForKey(key: "err_agree"))
+                                    
+                }
                                                     
                                                     
                                                 }else{
@@ -694,7 +796,7 @@ extension SignupVC : CountryPickerViewDelegate, CountryPickerViewDataSource{
 // APi Call
 extension SignupVC{
     
-    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String, DOB : String){
+    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, countryname: String,cityname: String, statename : String, city: String, state: String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String, DOB : String, gender : String){
         
         self.loginVM.otpVerificationApi(email: email, phcode: phcode, phone: phone)
         
@@ -702,7 +804,7 @@ extension SignupVC{
             self.otpView.initView(view: self.view, pageFrom: "signup", tripRotue: TripStatusModel(), submit: { (otp) in
                 print("SDFASD",otp,"ADSFADSF",self.loginVM.otpVerfication?.otp)
                 if otp == (self.loginVM.otpVerfication?.otp ?? "1111").description{
-                    self.loginVM.signupApi(fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType, DOB: DOB)
+                    self.loginVM.signupApi(fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password,countryname: countryname,cityname: cityname, statename: statename,city: self.cityid,state:self.stateId, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType, DOB: DOB, gender: gender)
                 }else{
                     showToast(msg: "Wrong OTP , Please Enter Corrent One")
                 }

@@ -39,3 +39,17 @@ class FavAddrData{
         
     }
 }
+class PayoutDataModel{
+  
+    var message: String =  String()
+    var balance: Double =  Double()
+    var success: String =  String()
+    
+    init(json : JSON) {
+    
+        self.message = json["message"].string ?? String()
+        self.success = json["success"].string ?? String()
+        self.balance = json["balance"].double ?? Double()
+        
+    }
+}

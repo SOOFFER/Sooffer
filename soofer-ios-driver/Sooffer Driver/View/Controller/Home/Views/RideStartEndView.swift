@@ -93,6 +93,7 @@ class RideStartEndView : UIView{
         
     }
     func updateTripSttaus(Status: String){
+        print("upatat::,\(Status)")
         self.FBConnect.CreateFirebaseTripData(status: Status)
     }
     func setupData(address : String ,tripstatus : FBTripDataModel,tripRotue: TripStatusModel){

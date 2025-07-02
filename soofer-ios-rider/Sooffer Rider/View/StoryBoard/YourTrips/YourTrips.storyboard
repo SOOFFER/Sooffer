@@ -18,7 +18,7 @@
         <!--Your TripsVC-->
         <scene sceneID="Xh4-KS-QwX">
             <objects>
-                <viewController storyboardIdentifier="YourTripsVC" id="esh-rp-ToF" customClass="YourTripsVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YourTripsVC" id="esh-rp-ToF" customClass="YourTripsVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2AU-4t-gEg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,7 +32,7 @@
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="PR7-ej-l54" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="PR7-ej-l54" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                         <rect key="frame" x="15" y="12.5" width="25" height="25"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -121,7 +121,7 @@
         <!--Trip DetailVC-->
         <scene sceneID="QmI-Yo-ymL">
             <objects>
-                <viewController storyboardIdentifier="TripDetailVC" id="8UK-eZ-vcf" customClass="TripDetailVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TripDetailVC" id="8UK-eZ-vcf" customClass="TripDetailVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j4r-l0-jt0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -994,10 +994,10 @@
                                                 <rect key="frame" x="0.0" y="40" width="404" height="622"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfn-TO-JVa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="605"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="655"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="IGi-hh-tZV">
-                                                                <rect key="frame" x="0.0" y="30" width="388" height="545"/>
+                                                                <rect key="frame" x="0.0" y="30" width="388" height="595"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5m-W0-DTJ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="388" height="45"/>
@@ -1379,8 +1379,46 @@
                                                                             <constraint firstAttribute="trailing" secondItem="WBp-ob-pBf" secondAttribute="trailing" constant="10" id="zA6-tB-3wh"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-A5-kz2">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFz-rC-PHR">
                                                                         <rect key="frame" x="0.0" y="500" width="388" height="45"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8w-jY-VLA">
+                                                                                <rect key="frame" x="10" y="2.5" width="32.5" height="40"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g66-va-hae">
+                                                                                <rect key="frame" x="354" y="2.5" width="24" height="40"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uID-jc-cg0">
+                                                                                <rect key="frame" x="0.0" y="43" width="388" height="1"/>
+                                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="1" id="bM4-Ko-cZR"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="y8w-jY-VLA" firstAttribute="top" secondItem="QFz-rC-PHR" secondAttribute="top" constant="2.5" id="2X4-Nk-9PD"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="y8w-jY-VLA" secondAttribute="bottom" constant="2.5" id="2tj-2e-evX"/>
+                                                                            <constraint firstItem="uID-jc-cg0" firstAttribute="leading" secondItem="QFz-rC-PHR" secondAttribute="leading" id="7JP-YY-iLd"/>
+                                                                            <constraint firstItem="y8w-jY-VLA" firstAttribute="leading" secondItem="QFz-rC-PHR" secondAttribute="leading" constant="10" id="97S-mA-Gr4"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="uID-jc-cg0" secondAttribute="bottom" constant="1" id="9tQ-TU-sXf"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="g66-va-hae" secondAttribute="trailing" constant="10" id="BM7-Nf-cI9"/>
+                                                                            <constraint firstAttribute="height" constant="45" id="V82-EM-yzy"/>
+                                                                            <constraint firstItem="g66-va-hae" firstAttribute="top" secondItem="QFz-rC-PHR" secondAttribute="top" constant="2.5" id="pEG-5T-wz7"/>
+                                                                            <constraint firstItem="g66-va-hae" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="y8w-jY-VLA" secondAttribute="trailing" constant="20" id="rL1-SC-AwR"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="g66-va-hae" secondAttribute="bottom" constant="2.5" id="waT-Ec-Kxq"/>
+                                                                            <constraint firstItem="uID-jc-cg0" firstAttribute="centerX" secondItem="QFz-rC-PHR" secondAttribute="centerX" id="z2G-mQ-45A"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-A5-kz2">
+                                                                        <rect key="frame" x="0.0" y="550" width="388" height="45"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyT-Aj-dc2">
                                                                                 <rect key="frame" x="10" y="2.5" width="74" height="40"/>
@@ -1478,7 +1516,7 @@
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="WM7-zX-odI" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="WM7-zX-odI" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                         <rect key="frame" x="15" y="12.5" width="25" height="25"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1530,8 +1568,9 @@
                         <outlet property="NightChargeView" destination="M1b-nl-1ip" id="Jgr-VL-1Mw"/>
                         <outlet property="PickupFeeVal" destination="xw5-A7-y3U" id="mNP-4E-Lgc"/>
                         <outlet property="RentalOutstationView" destination="83B-ai-NmC" id="sp0-HZ-gsU"/>
-                        <outlet property="TAXVal" destination="dvu-fX-lsq" id="btJ-kN-yPN"/>
+                        <outlet property="TAXVal" destination="dvu-fX-lsq" id="AEp-4V-IeO"/>
                         <outlet property="TimeFareVal" destination="J1M-yP-vRG" id="V8w-Hr-ei7"/>
+                        <outlet property="TipsLbl" destination="g66-va-hae" id="t35-YF-0s9"/>
                         <outlet property="TollFeeVal" destination="jha-oW-ia2" id="Yzw-YJ-4hU"/>
                         <outlet property="TotalFareVal" destination="SP7-EN-7it" id="e8F-Pi-n7s"/>
                         <outlet property="TripFareDetailView" destination="qoD-s1-BCm" id="Dfo-VD-OAN"/>
@@ -1577,7 +1616,7 @@
         <!--Mail View Controller-->
         <scene sceneID="ER3-KF-VJ1">
             <objects>
-                <viewController storyboardIdentifier="MailViewController" id="XUt-kE-bGl" customClass="MailViewController" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MailViewController" id="XUt-kE-bGl" customClass="MailViewController" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z3F-kY-J86">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

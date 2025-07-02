@@ -39,6 +39,7 @@ struct TripDetailModel
 {
     var success : Bool = Bool()
     var tripDetail : TripData = TripData()
+    var DriverTip : Int = Int()
     var profileDetail : ProfileDetail = ProfileDetail()
     var Mapurl : String = String()
     init(){}
@@ -47,6 +48,7 @@ struct TripDetailModel
         self.tripDetail = TripData.init(json: json["TripDetail"])
         self.profileDetail = ProfileDetail.init(json: json["ProfileDetail"])
         self.Mapurl = json["Mapurl"].string ?? String()
+        self.DriverTip = json["DriverTip"].int ?? Int()
     }
 }
 
@@ -98,6 +100,7 @@ struct TripData {
      var cpyid : String = String()
      var ridid : String = String()
      var dvrid : String = String()
+     var tipsToDriver : Int = Int()
     
      var applyValues : ApplyValues = ApplyValues()
      var adsp : Adsp = Adsp()
@@ -124,6 +127,7 @@ struct TripData {
             return ReqDvr.init(json: jsonVal)
         })
         self.reqDvr = reqDvrList ?? [ReqDvr]()
+        
         
         self._id = json["_id"].string ?? String()
         self.tripno = json["tripno"].int ?? Int()
@@ -158,6 +162,7 @@ struct TripData {
         self.triptype = json["triptype"].string ?? String()
         self.requestId = json["requestId"].string ?? String()
         self.requestFrom = json["requestFrom"].string ?? String()
+        self.tipsToDriver = json["tipsToDriver"].int ?? Int()
     }
 }
 
@@ -349,11 +354,12 @@ struct  Acsp {
     var gatewayCharge : String = String()
     var booking : String = String()
     var tollFee : String = String()
+    var tipsToDriver : String = String()
     init(){
         
     }
     init(json : JSON) {
-        
+        self.tipsToDriver = json["tips"].string ?? String()
         self.packageName = json["packageName"].string ?? String()
         self.fareForExtraKM = json["fareForExtraKM"].string ?? String()
         self.fareForExtraTime = json["fareForExtraTime"].string ?? String()
@@ -397,6 +403,7 @@ struct  Acsp {
         self.isPeak = json["isPeak"].bool ?? Bool()
         self.isNight = json["isNight"].bool ?? Bool()
         self.hotelcommision = json["hotelcommision"].string ?? String()
+        
     }
 }
 

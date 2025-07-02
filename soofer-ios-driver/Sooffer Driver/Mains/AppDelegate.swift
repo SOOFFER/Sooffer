@@ -119,8 +119,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
         print("#####BecomeActive",value)
         
         if value == "true"{
-            NotificationCenter.default.post(name: .appEnterInForGorund, object: nil)
-            
+            print("Tri::::::::,\(self.tripId)")
+            if !self.tripId.isEmpty {
+                NotificationCenter.default.post(name: .appEnterInForGorund, object: nil)
+            }
         }else{
             NotificationCenter.default.post(name: .appEnterInBackGround, object: nil)
         }
@@ -180,13 +182,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate,
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool){
         print("@@@@@here")
-        if flag == true{
-            let value : String = UserDefaults.standard.value(forKey:UserDefaultsKey.isacceptedView) as? String ?? ""
-            
-            if value == "true"{
-                NotificationCenter.default.post(name: .appEnterInForGorund, object: nil)
-            }else{
-                NotificationCenter.default.post(name: .appEnterInBackGround, object: nil)
+        print("flag::::::::,\(self.tripId)")
+        if !self.tripId.isEmpty {
+            if flag == true{
+                let value : String = UserDefaults.standard.value(forKey:UserDefaultsKey.isacceptedView) as? String ?? ""
+                
+                if value == "true"{
+                    print("Tripid::::::::,\(self.tripId)")
+//                    if !self.tripId.isEmpty {
+                        NotificationCenter.default.post(name: .appEnterInForGorund, object: nil)
+//                    }
+                }else{
+                    NotificationCenter.default.post(name: .appEnterInBackGround, object: nil)
+                }
             }
         }
     }
@@ -311,14 +319,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate,MessagingDelegate{
         print("SHKDKAJSHDKJ\(notification)")
         let userInfo = notification.request.content.userInfo
         print("Usernfo : ",userInfo)
-       
+        if let NotifyMsg = userInfo["message"] as? String {
         print("useringoallert::\(userInfo["message"])")
-        if userInfo["message"] as! String == "Your Rider disconnected the call"{
-
+            print("String value: \(NotifyMsg)")
+            if NotifyMsg ==  "Your Rider disconnected the call"{
+            
             NotificationCenter.default.post(name: Notification.Name("EndVideocall"), object: nil)
-
+            
         }
-        
+    }
         playsound(userinfo: userInfo as NSDictionary)
         completionHandler([.alert, .badge, .sound])
        
@@ -416,18 +425,21 @@ extension AppDelegate{
     }
     
     func playsound(userinfo : NSDictionary){
-        print("alerting::::\(userinfo["message"])")
         
-        if userinfo["message"] as! String == "Your Rider inviting you to join call"{
-            //SoundManager.shared.playSound(numberOfLoops: 1)
-            SoundManager.shared.playSound()
+        let user =  userinfo["message"] as? String
+        if user != nil {
+            print("alerting::::\(userinfo["message"])")
+            
+            if userinfo["message"] as! String == "Your Rider inviting you to join call"{
+                //SoundManager.shared.playSound(numberOfLoops: 1)
+                SoundManager.shared.playSound()
+            }
+            
+            if userinfo["message"] as! String == "Your Rider disconnected the call"{
+                SoundManager.shared.stopSound()
+            }
+            
         }
-        
-         if userinfo["message"] as! String == "Your Rider disconnected the call"{
-             SoundManager.shared.stopSound()
-         }
-        
-        
         
     }
 }

@@ -47,13 +47,17 @@ class ProfileVC: UIViewController , UITextFieldDelegate {
     
     @IBOutlet weak var menuImg: UIImageView!
     @IBOutlet weak var Editbtn: UIImageView!
+    @IBOutlet weak var DeleteAccountView: UIView!
+    
+    @IBOutlet weak var hiddenView: UIView!
     
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     var profilevm = ProfileVM()
     var pickImage : UIImagePickerController? =  UIImagePickerController()
     var imagetopost = UIImage()
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var userid : String = String()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     }
@@ -79,6 +83,9 @@ class ProfileVC: UIViewController , UITextFieldDelegate {
         Editbtn.addTap {
             self.showEditView()
         }
+        print("aghsdh::,\(UserDefaults.standard.string(forKey: UserDefaultsKey.userid) ?? "")")
+        self.userid = (UserDefaults.standard.string(forKey: UserDefaultsKey.userid) ?? "")
+        print("userid::,\(userid)")
     }
     
     func setupDelegate(){
@@ -152,14 +159,14 @@ class ProfileVC: UIViewController , UITextFieldDelegate {
             self.ccTxt.text = "+1"
             self.mobileNumTxtF.text = profileData.phone
            
-//            var urls : String = ServiceApi.Base_Image_URL+profileData.profile ?? String()
-//            self.userProfileImage?.pin_setImage(from: URL(string: urls))
-            let url = URL(string: ServiceApi.Base_Image_URL+profileData.profile)
-            self.userProfileImage.kf.setImage(with: url)
+            var urls : String = ServiceApi.Base_Image_URL+profileData.profile ?? String()
+            self.userProfileImage?.pin_setImage(from: URL(string: urls))
+//            let url = URL(string: ServiceApi.Base_Image_URL+profileData.profile)
+//            self.userProfileImage.kf.setImage(with: url)
             self.userProfileImage.layer.cornerRadius = self.userProfileImage.frame.width / 2
             self.userProfileImage.clipsToBounds = true
-          //  self.edituserProfileImage?.pin_setImage(from: URL(string: urls))
-            self.edituserProfileImage.kf.setImage(with: url)
+           self.edituserProfileImage?.pin_setImage(from: URL(string: urls))
+         //   self.edituserProfileImage.kf.setImage(with: url)
             self.edituserProfileImage.layer.cornerRadius = self.edituserProfileImage.frame.width / 2
             self.edituserProfileImage.clipsToBounds = true
        
@@ -218,6 +225,7 @@ class ProfileVC: UIViewController , UITextFieldDelegate {
         
         self.passwordTxF.addAction(for: .tap) {
             ChangePasswordAlert.getView.initView(view: self.view, pagefrom: "profile", email: "")
+            self.hiddenView.isHidden = false
         }
         
         self.edituserProfileImage.addAction(for: .tap) {
@@ -227,6 +235,47 @@ class ProfileVC: UIViewController , UITextFieldDelegate {
         
         self.updateBtn.addAction(for: .tap) {
             self.validation()
+        }
+        self.DeleteAccountView.addTap {
+            self.deleteMyAccount(Confirm: false, isYes: { yes in
+                if yes {
+                    self.deleteMyAccount(Confirm: yes, isYes: { delete in
+                        if delete {
+                            print("userid::,\(self.userid)")
+                            self.profilevm.AccountDeletion(view: self.view,UserId: self.userid)
+                            self.profilevm.AccountDeletion = {
+                                let data = self.profilevm.AccountDeletionData
+                                if data?.success ?? false {
+                                    if #available(iOS 11.0, *) {
+                                        let menuRoot = SWRevealViewController(
+                                            rearViewController: MenuVC.initWithStory(),
+                                            frontViewController: UINavigationController(rootViewController: LauncherVC.initWithStoryBoard())
+                                        )
+                                        self.appDelegate.window?.rootViewController = menuRoot
+                                    } else {
+                                        let menuRoot = SWRevealViewController(
+                                            rearViewController: MenuVC.initWithStory(),
+                                            frontViewController: UINavigationController(rootViewController: LauncherVC.initWithStoryBoard())
+                                        )
+                                        self.appDelegate.window?.rootViewController = menuRoot
+                                    }
+                                    print("Data :\(String(describing: data))")
+                                    showToast(msg: data?.message ?? "OKAY! YOUR ACCOUNT DELETED WITHIN 1 WEEK")
+                                }
+                            }
+                            self.profilevm.ErrorAccountDeletion = {
+                                let errorData = self.profilevm.ErrDeletion
+                                print("Error data :\(String(describing: errorData))")
+                                showToast(msg: errorData?.message ?? "OKAY! YOUR ACCOUNT DELETED WITHIN 1 WEEK")
+                            }
+                        } else {
+                            // Handle the case when deletion is not confirmed
+                        }
+                    })
+                } else {
+                    // Handle the case when confirmation is not provided
+                }
+            })
         }
     }
     
@@ -449,11 +498,39 @@ extension ProfileVC {
     
         self.profilevm.successprofile = {
             Constant.profileData = self.profilevm.profileData ?? ProfileModel()
-            self.rightBarBtn()
+           // self.rightBarBtn()
+            self.setupView()
             self.setupData()
             self.editTableView.isHidden = true
             self.viewTable.isHidden = false
         }
     }
     
+}
+extension UIViewController{
+    func deleteMyAccount(Confirm : Bool , isYes : @escaping(Bool) -> ()){
+        let title = Confirm ? "Account Deletion".uppercased() : "DELETE ACCOUNT"
+        let msg = Confirm ? "If you want to delete your account permanently, you won't be able to retrieve your orders and your personal information and your messages. It's no longer stored in our database" : "Are you Sure you want to Delete this Account ?"
+        let noMsg = Confirm ? "DISMISS" : "CANCEL"
+        let yesMsg = Confirm ? "CONFIRM" : "DELETE"
+        let alertControl = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let noAction = UIAlertAction(title: noMsg, style: .default, handler: { cancel in
+            isYes(false)
+        })
+        let yesAction = UIAlertAction(title: yesMsg, style: Confirm ? .destructive : .default, handler: { delete in
+            isYes(true)
+//            let domain = Bundle.main.bundleIdentifier!
+//            UserDefaults.standard.removePersistentDomain(forName: domain)
+//            UserDefaults.standard.synchronize()
+//            GIDSignIn.sharedInstance().signOut()
+//            let loginManager = LoginManager()
+//            loginManager.logOut()
+//
+//            let navigation = UINavigationController(rootViewController: LoginVC.initWithStory())
+//            self.appDelegate.window?.rootViewController = navigation
+        })
+        alertControl.addAction(yesAction)
+        alertControl.addAction(noAction)
+      self.present(alertControl, animated: true, completion: nil)
+    }
 }

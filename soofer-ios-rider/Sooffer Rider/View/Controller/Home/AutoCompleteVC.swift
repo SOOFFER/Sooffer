@@ -10,6 +10,9 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
+protocol Delegate {
+    func address(address: String, lat: String, lng: String)
+}
 
 class AutoCompleteVC: UIViewController,GMSMapViewDelegate {
 
@@ -29,6 +32,8 @@ class AutoCompleteVC: UIViewController,GMSMapViewDelegate {
     var tag : String = ""
     var fromPage : String = ""
     var identifier : String = ""
+    var delegate: Delegate!
+    var deselect : Bool = false
     var addressList : AutoAddressModel?{
         didSet{
             self.addressTabel.reloadData()
@@ -169,11 +174,16 @@ extension AutoCompleteVC : UITableViewDataSource,UITableViewDelegate{
                     self.MultpleLocationdelegate?.getAddress(name: self.tag, address: address.description ?? "", loaction: location)
                 }
                 else{
-                    self.favdelegate?.selectedAddres(address: address.description ?? "", location: location)
+                    if self.deselect == false{
+                        self.favdelegate?.selectedAddres(address: address.description ?? "", location: location)
+                    }else{
+                        self.delegate.address(address: address.description ?? "", lat: location.coordinate.latitude.description, lng: location.coordinate.longitude.description)
+                    }
                 }
                 
                 self.dismiss(animated: true, completion: nil)
             }
+            
         }
     }
     

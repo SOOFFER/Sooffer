@@ -29,6 +29,11 @@ class EmergnecyContactVC: UIViewController {
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     var commonvm = CommonVM()
+    var contactModels: [EmergencyData] = [EmergencyData]()
+    var selectedContact: [EmergencyData] = [EmergencyData]()
+    var contactname = String()
+    var contactPhone = String()
+    
     var emergencyList : EmergencyModel?{
         didSet{
             if let contactsList = emergencyList{
@@ -154,12 +159,20 @@ extension EmergnecyContactVC : UITableViewDelegate,UITableViewDataSource{
 extension EmergnecyContactVC : CNContactPickerDelegate{
   
     //MARK: - Contact Delegates
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
-         contacts.forEach { contact in
-            let name = "\(contact.givenName) \(contact.familyName)"
-            let phone = "\(contact.phoneNumbers.first?.value.stringValue ?? "")"
-            self.addContact(name: name, phone: phone)
-        }
+    
+    
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        let name = "\( contact.givenName) \( contact.familyName)"
+        let phone = "\( contact.phoneNumbers.first?.value.stringValue ?? "")"
+        let formatPhonenum = phone.replacingOccurrences(of: "-", with: "")
+        print("Selectttt ::\(name)::\(selectedContact.count)")
+        contactname = name
+        contactPhone = formatPhonenum
+        
+        self.addContact(name: name, phone: formatPhonenum)
+        
+        
+       
         
     }
     
@@ -169,20 +182,58 @@ extension EmergnecyContactVC : CNContactPickerDelegate{
 }
 
 extension EmergnecyContactVC{
+    
+    
+
     func emergencyListApi(){
         self.commonvm.getEmgContectsList(view: self.view)
         self.commonvm.successContects = {
             self.emergencyList = self.commonvm.EmegencyList
+            self.selectedContact =  self.commonvm.EmegencyList?.emergencyList ?? [EmergencyData]()
+           
+            print("emg:::\(self.emergencyList)")
         }
     }
     
-    func addContact(name : String , phone : String){
-        self.commonvm.addEmgContectsList(view: self.view, name: name, number: phone)
-        self.commonvm.successContects = {
-                   
-            self.emergencyListApi()
-          }
+    func addContact(name: String, phone: String) {
+        print("SELECCCCCCC :: \(selectedContact.count)")
+        
+        contactname = name
+        contactPhone = phone
+        
+        // Check if selectedContact is empty
+        if selectedContact.isEmpty {
+            self.commonvm.addEmgContectsList(view: self.view, name: name, number: phone)
+            self.commonvm.successContects = { [unowned self] in
+                self.emergencyListApi()
+            }
+        } else {
+            var alreadyAdd = false
+            
+            for contact in selectedContact {
+                print("NAMEEEE ::\(contactPhone):::TESSS ::\(contact.number)")
+                  print("SECCCONDDD ::\(name):::TESSS ::\(contact.name)")
+                let trimname = contactname.trailingTrim(.whitespaces)
+                let name2 = contact.name.trailingTrim(.whitespaces)
+                print("SECCCONDDD ::\(name):::TESSS ::\(contact.name):::::,\(trimname)")
+                let trimcontact = contactPhone.replacingOccurrences(of:" ", with: "")
+                let contact2 = contact.number.replacingOccurrences(of:" ", with: "")
+                if trimcontact == contact2 && trimname == name2 {
+                    showToast(msg: "Sorry this Mobile Number Already Added")
+                    alreadyAdd = true
+                    break
+                }
+            }
+            
+            if !alreadyAdd {
+                self.commonvm.addEmgContectsList(view: self.view, name: name, number: phone)
+                self.commonvm.successContects = { [unowned self] in
+                    self.emergencyListApi()
+                }
+            }
+        }
     }
+
     
     func deleteContact( emgContactId : String){
         self.commonvm.deleteEmgContectsList(view: self.view, emgContactId: emgContactId)
@@ -191,5 +242,15 @@ extension EmergnecyContactVC{
         }
     }
 }
+extension String {
+    func trailingTrim(_ characterSet : CharacterSet) -> String {
+        if let range = rangeOfCharacter(from: characterSet,options: [.anchored,.backwards]){
+            return self.substring(to: range.lowerBound).trailingTrim(characterSet)
+        }
+        return self
+    }
+}
+
+
 
 

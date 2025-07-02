@@ -64,7 +64,17 @@
 
     "tc_pp" = "Acepto los términos y condiciones y la política de privacidad";
 
+    "male" = "Masculino";
+
+    "female" = "Femenino";
+
     "submit" = "ENVIAR";
+ 
+    "Register" = "Registro";
+
+    "notification" = "Notificación";
+
+    "manage Service" = "Administrar servicio";
 
     "terms_condition" = "Términos y condiciones";
 
@@ -113,6 +123,7 @@
     "manage_docs" = "Administrar documento";
 
     "earning" = "Ingresos";
+
 
     "feedback" = "FeedBacks";
 
@@ -324,7 +335,7 @@
 
     "insurance" = "Seguro";
 
-    "taxi_passing" = "Seguro de taxi";
+    "taxi_passing" = "Seguro de vehículo";
 
     "manage_doc" = "Administrar documento";
 
@@ -483,3 +494,14 @@
     "base_fare_km" = "Tarifa base (tarifa para";
 
 
+// new
+
+
+"No Data Found" = "Datos no encontrados";
+"bank"                  = "BANCO";
+"payout"                = "PAGAR";
+"viewtc"                = "VER TRANSACCIÓN";
+"availableBln"          = "Saldo disponible ";
+"subscriptionEndDate"   = "Fecha de finalización de la suscripción :";
+"Submit"                = "ENTREGAR";
+"enter amount"          = "Ingrese el monto del pago";

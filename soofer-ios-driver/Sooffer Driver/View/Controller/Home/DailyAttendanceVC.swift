@@ -16,7 +16,8 @@ class DailyAttendanceVC: UIViewController, UIImagePickerControllerDelegate, UINa
     var pickImage : UIImagePickerController? =  UIImagePickerController()
     let Localize : Localizations = Localizations.instance
     var homeVm = HomeVM()
-    
+    var profile = ProfileVM()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +31,7 @@ class DailyAttendanceVC: UIViewController, UIImagePickerControllerDelegate, UINa
         pickImage?.delegate = self
         pickImage?.allowsEditing = true
         self.homeVm = HomeVM(view: self.view, dataService: ApiRoot())
+        self.profile = ProfileVM(dataService: ApiRoot())
         self.SetupAction()
     }
     class func initWithStory()->DailyAttendanceVC{
@@ -114,6 +116,7 @@ extension DailyAttendanceVC {
             print("Success")
             let code = self.homeVm.selfieUpload?.success ?? Bool()
             if code {
+                Constant.profileData.attendance = true
                 self.dismiss(animated: true, completion: nil)
             }
         }
