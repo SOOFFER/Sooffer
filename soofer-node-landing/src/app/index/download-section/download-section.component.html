@@ -2,16 +2,16 @@
   <!-- <h2 class="text-center col-xs-12 estimatehead aloreach">Downloads</h2> -->
   <div class="d-flex flex-wrap w-100 justify-content-between" id="download_app_section">
       <div class="col-md-6 d-flex justify-content-center my-3" data-toggle="modal" data-target="#downloads">
-          <a href="{{list.driver_link_Android}}" target="_blank" class="Download_link p-sm-5 p-3">
+          <a *ngIf="list?.driver_link_Android" href="{{list.driver_link_Android}}" target="_blank" class="Download_link p-sm-5 p-3">
             <div class="row">
               <div class="col-lg-4">
-                <img src="assets/images/driver-download.png" class="my-3 scaner" height="100px"
+                <img src="assets/images/qrcode.png" class="my-3 scaner" height="100px"
                 width="100px">
               </div>
               <div class="col-lg-8 content">
                 <div class="">
                   <h3>{{'DOWNLOAD_SECTION.DRIVERAPP' | translate}}</h3>
-                  <h4>Scan to download</h4>
+                  <h4>{{'DOWNLOAD_SECTION.SCAN' | translate}}</h4>
                 </div>
                   <i class="fa fa-arrow-right" aria-hidden="true"></i>
               </div>
@@ -19,16 +19,16 @@
             </a>
       </div>
       <div class="col-md-6 d-flex justify-content-center my-3">
-          <a href="{{list.rider_link_Android}}" target="_blank" class="Download_link p-sm-5 p-3">
+          <a *ngIf="list?.rider_link_Android" href="{{list.rider_link_Android}}" target="_blank" class="Download_link p-sm-5 p-3">
             <div class="row">
               <div class="col-lg-4">
-                <img src="assets/images/rider-download.png" class="my-3 scaner" height="100px"
+                <img src="assets/images/qrcode.png" class="my-3 scaner" height="100px"
                 width="100px">
               </div>
               <div class="col-lg-8 content">
                 <div class="">
                   <h3>{{'DOWNLOAD_SECTION.RIDERAPP' | translate}}</h3>
-                  <h4>Scan to download</h4>
+                  <h4>{{'DOWNLOAD_SECTION.SCAN' | translate}}</h4>
                 </div>
                   <i class="fa fa-arrow-right" aria-hidden="true"></i>
               </div>

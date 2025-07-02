@@ -55,7 +55,7 @@
                                         <a routerLink="sign-in" (click)="menuoption(2)" routerLinkActive="active">{{'COMMON.SIGNIN' | translate}}</a>
                                       </li>
                                       <li>
-                                      <select class="home-lang" #langSelect (click)="clickMe(langSelect.value)">
+                                      <select class="home-lang" #langSelect (change)="clickMe(langSelect.value)">
                                         <option value="" selected hidden>Language</option>
                                         <option *ngFor="let list of translate.getLangs()" [value]="list"
                                           [selected]="list === translate.currentLang">

@@ -56,7 +56,8 @@
     "SELECTCARMAKE": "Seleccionar marca de coche",
     "RIDE": "Paseo",
     "HOUR": "Cada hora",
-    "DRIVER": "Conductor"
+    "DRIVER": "Conductor",
+    "DOWNLOADAPP":"Experimenta más con nuestras Apps"
   },
   "DASHBOARD": {
     "GETFAREESTIMATION": "Obtener una estimación de tarifa",
@@ -299,5 +300,10 @@
     "REGISTRATION": "Certificado de registro",
     "ADDTAXI": "Añadir taxi",
     "EDITTAXI": "editar taxi"
+  },
+  "DOWNLOAD_SECTION": {
+    "DRIVERAPP": "Descargue la aplicación del controlador",
+    "RIDERAPP": "Descarga la aplicación Rider",
+    "SCAN":"Escanear para descargar"
   }
 }

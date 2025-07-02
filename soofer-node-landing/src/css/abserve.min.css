@@ -3154,12 +3154,12 @@ td.mat-cell:last-child {
 }
 
 .leftlogin-sidbar {
-  left: -350px;
+  left: -100%;
   /*animation: 0.5s openmenu;*/
   z-index: 1000;
   transition: 0.5s;
   position: fixed;
-  width: 320px;
+  width: 100%;
   height: 100%;
   background-color:white;
   top: 0;

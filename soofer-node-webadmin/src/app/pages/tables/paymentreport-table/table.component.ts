@@ -84,6 +84,14 @@ export class PaymentReportComponent {
         title: "Deducted Fare",
         filter: false,
       },
+      booking: {
+        title: "Booking Fare",
+        filter: false,
+      },
+      GatewayCharge: {
+        title: "Gateway Charge",
+        filter: false,
+      },
       totalAmount2: {
         title: "Ride Status",
         filter: false,

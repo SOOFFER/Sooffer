@@ -304,6 +304,7 @@
   },
   "DOWNLOAD_SECTION": {
     "DRIVERAPP": "Download the Driver App",
-    "RIDERAPP": "Download the Rider App"
+    "RIDERAPP": "Download the Rider App",
+    "SCAN": "Scan to download"
   }
 }

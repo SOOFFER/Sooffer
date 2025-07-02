@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     }
     this.browserLang = translate.getBrowserLang();
     this.translate.use(localStorage.getItem('accept-language'));
-
+    console.log(translate.getLangs())
     this.dataSharingService.isUserLoggedIn.subscribe(value => {
       this.isUserLoggedIn = value;
       if (localStorage.getItem('Tok') == null) {
@@ -109,6 +109,7 @@ export class HeaderComponent implements OnInit {
 
 
   clickMe(data) {
+    console.log(data)
     window.location.reload();
     this.translate.use(data)
     localStorage.setItem('accept-language', data)

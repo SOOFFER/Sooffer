@@ -18,7 +18,9 @@ export class AppComponent {
   ) {
     translate.addLangs(LanguageSettings.languages);
     translate.setDefaultLang(LanguageSettings.defaultSelectedLang);
+    if (localStorage.getItem('accept-language') == null || !localStorage.getItem('accept-language')) {
     localStorage.setItem('accept-language', LanguageSettings.defaultSelectedLang)
+    }
   }
 
   onActivate(event: any) {

@@ -11,7 +11,7 @@ export class DownloadSectionComponent implements OnInit {
 
   constructor(private sectionService: SectionService) { 
     this.sectionService.gethomecontent().then(res => {
-      this.list = res[0];
+      if (res.length)  this.list = res[0];
     });
   }
 

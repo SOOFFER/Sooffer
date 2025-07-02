@@ -346,6 +346,8 @@ export class VehicleTypeTableComponent implements OnInit {
     this.filedata = '';
     this.selectedid = data._id;
     this.selectedDocs = data;
+    console.log(this.selectedDocs.lowCategoryOptions)
+    this.selectedDocs.lowCategoryOptions = data.lowCategoryOptions.filter(item => item !== "[object Object]");
     this.selectedImage = data.file;
     this.selectedDocs.base = data.baseFare;
     this.features = data.features;

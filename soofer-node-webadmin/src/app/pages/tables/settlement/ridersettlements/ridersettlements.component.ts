@@ -117,17 +117,19 @@ export class RidersettlementsComponent implements OnInit {
       .then(res => {
         this.serviceCityArray = res;
       });
-    this.source = new ServerDataSource(http, { endPoint: AppSettings.API_ENDPOINT + 'userWallet' });
+      this.source = new ServerDataSource(http, {
+        endPoint: AppSettings.API_ENDPOINT + "userWallet",
+      });
     if (featuresSettings.isCityWise === true
       && featuresSettings.isServiceAvailable === true
       && localStorage.getItem('userType') === 'superadmin')
       this.showCity = true;
     else this.showCity = false;
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
-        this.pageNo = 0;
-      }
-    });
+    // this.navigationSubscription = this.router.events.subscribe((e: any) => {
+    //   if (e instanceof NavigationEnd) {
+    //     this.pageNo = 0;
+    //   }
+    // });
   }
 
   SerachDriverForCity(data): void {
@@ -189,11 +191,11 @@ export class RidersettlementsComponent implements OnInit {
   }
 
   dispPayment() {
-    // console.log(this.list);
     this.commonservice.doAddFormControlNgSelectClass();
     this.list.type = 'credit';
     this.generateCode();
     this.pageNo = 1;
+    console.log(this.pageNo,"==================>");
   }
 
   generateCode(): void {
@@ -216,11 +218,11 @@ export class RidersettlementsComponent implements OnInit {
 
   btnClick(num: number) {
     this.pageNo = num;
-    setTimeout(() => this.source.setPage(this.currentIndex), 0);
-    console.log(this.currentIndex);
+    // setTimeout(() => this.source.setPage(this.currentIndex), 0);
+    // console.log(this.currentIndex);
     this.list = {};
     this.list.paymentDate = '';
-    // this.router.navigate(['/pages/tables/settlement/ridersettlements']);
+    this.router.navigate(['/pages/tables/settlement/ridersettlements']);
   }
 
   sendPayment(inputs) {

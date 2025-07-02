@@ -86,7 +86,7 @@ export class FareInvoiceDetails {
             isShow: true,
             label: 'Distance Fare',
             value: '0.00',
-            ref: 'MileFare',
+            ref: 'KMFare',
             unit: '',
             currency: AppSettings.defaultcur,
             type: '',
