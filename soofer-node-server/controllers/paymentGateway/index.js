@@ -1195,10 +1195,11 @@ export const checkoutRedirectURL = async (req, res) => {
 // }
 export const chargeExistingUserCard = async (cardId, desc, cur = featuresSettings.defaultcur, amt = 0, email = "", paymentMethod = config.paymentGateway.paymentGatewayName,additionalInfo = null) => {
   try {
-    let tripid = additionalInfo.referenceId
-     var resObj = false;
+    var resObj = false;
     if (paymentMethod == 'stripe') {
+      console.log("additionalInfo",additionalInfo)
       if(additionalInfo){
+        let tripid = additionalInfo.referenceId
         // let update ={
         //   referenceId:additionalInfo.tripid
         // }
@@ -1323,7 +1324,7 @@ export const captureHoldChargeExistingUserCard = async (payment) => {
     if(!getPayment.status)
       throw new Error(getPayment.message);
 
-
+    console.log(getPayment.data,"getPayment.data")
     if(!getPayment.data || !getPayment.data.paymentInfo || (["reversed"]).includes(getPayment.data.paymentInfo.status))
       throw new Error("Error while action over Payment");
 

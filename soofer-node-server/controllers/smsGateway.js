@@ -8,7 +8,6 @@ import mongoose, { Query } from 'mongoose';
 const request = require('request');
 
 if (curSmsGateway == 'twilio') {
-  console.log("__________stage 1");
   var twilio = require('twilio');
   var accountSid = config.smsGateway.twilioaccountSid; // Your Account SID from www.twilio.com/console
   var authToken = config.smsGateway.twilioauthToken;   // Your Auth Token from www.twilio.com/console
@@ -350,17 +349,33 @@ export const sendSmsMsg = (smsto, smsbody = '', phCode = config.phoneCode, subje
     }
 
     const payload = {
-      'from': config.smsGateway.telnyxNo,
-      'to': phCode + smsto,
-      'text': smsbody,
-      'delivery_status_webhook_url': 'https://example.com/campaign/7214'
+      // 'from': config.smsGateway.telnyxNo,
+      // 'to': '+14699009829',
+      // // 'to':phCode + '214-286-6536',
+      // 'text': 'hi Test MESSAGE',
+      // 'delivery_status_webhook_url': 'https://example.com/campaign/7214'
+      from: '+16062129030',
+      messaging_profile_id: '45b3b1f1-99eb-4f2d-b362-17c28ae12141',
+      to: '+14699009829',
+      text: 'Your OTP Verification Code for 1771',
+      webhook_url: 'http://telnyxwebhooks.com:8084/45b3b1f1-99eb-4f2d-b362-17c28ae12141',
+      webhook_failover_url: 'https://backup.example.com/hooks',
+      use_profile_webhooks: true,
+      type:'SMS'
     }
 
+
+  
+
+    console.log("payload",JSON.stringify(payload));
+    
     request.post({
       url: 'https://api.telnyx.com/v2/messages',
       headers: headers,
       json: payload
     }, function (err, resp, body) {
+      if(err) console.log("TELYNIX_ERROR:",err)
+      else console.log("TELYNIX_BODY:",JSON.stringify(body))
     });
   }
 

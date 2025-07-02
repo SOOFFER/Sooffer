@@ -237,7 +237,7 @@ export const addToWallet = (req, res) => {
  */
 export const chargeExistingUserCard = async (stripeCusid, desc, cur = "usd", amt = 0) => {
   var cusid = stripeCusid;
-  var newamt = parseFloat(amt) * 100;
+  var newamt = Number(parseFloat(amt * 100).toFixed(2));
 
   return new Promise(function (resolve, reject) {
 
@@ -247,6 +247,8 @@ export const chargeExistingUserCard = async (stripeCusid, desc, cur = "usd", amt
       customer: cusid,
       description: desc
     }, function (err, charge) {
+      console.log("STRIPE_ERROR",err)
+      console.log("STRIPE_CHARGE",JSON.stringify(charge || {}))
       if (err) {
         var obj = { 'success': false };
         reject(obj);
@@ -515,6 +517,7 @@ export const transferAmountNRechargeUser = (cardId, desc, cur = "usd", amt = 0) 
       customer: cusid,
       description: desc
     }, function (err, charge) {
+      console.log(charge,"charge")
       if (err) {
         var obj = { 'success': false, 'message': 'Error Adding Amount!' };
         reject(obj);

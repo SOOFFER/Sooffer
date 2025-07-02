@@ -992,7 +992,6 @@ export const login = (req, res) => {
   if (/^[0-9]*$/.test(userName)) {
     var phone = userName;
     userName = phone.replace(/^0+/, '');
-    console.log("______________userName",userName);
   }
   var checkPassword = true;
   if (req.body.loginType == 'facebook' || req.body.loginType == 'google' || req.body.loginType == 'apple') {
@@ -1003,8 +1002,7 @@ export const login = (req, res) => {
   }
 
   Rider.findOne(riderWhere, function (err, user) {
-    console.log("_________user",JSON.stringify(user));
-    console.log("____________req.body.password",req.body.password);
+
     var newDoc = Rider();
     if (err) return res.status(500).json({ 'success': false, 'message': req.i18n.__('ERROR_SERVER') });
     if (!user) return res.status(404).json({ 'success': false, 'message': req.i18n.__('USER_NOT_FOUND') });
@@ -1839,6 +1837,7 @@ export const updateRiderPerDayCancels = async (riderId, cancelledAmount, adminCo
     var todayDate = GFunctions.getISOTodayDate();
     var findQuery = { riderId: riderId, date: todayDate };
     var todayDataExists = await RiderPerDay.findOne(findQuery).exec();
+    console.log("todayDataExists",todayDataExists);
     if (todayDataExists) {
       var updateDate = {
         nooftripsCancelled: Number(todayDataExists.nooftripsCancelled) + Number(1),
@@ -1856,6 +1855,7 @@ export const updateRiderPerDayCancels = async (riderId, cancelledAmount, adminCo
         }
       );
       await newDoc.save();
+      console.log("newDoc",newDoc);
       return true;
     }
   } catch (error) {
@@ -1871,8 +1871,13 @@ export const updateAddCancelationChargeToRider = async (riderId, amtToDebit = 0,
     var todayDataExists = await RiderPerDay.findOne(findQuery).exec();
     if (todayDataExists) {
       // var cancelledAmount = Number(todayDataExists.cancelledAmount);
-      updateRiderWalletCancelationCredits(riderId, amtToDebit, tripId);
-      return true;
+      console.log("cancelLimitForDays",cancelLimitForDays, "todayDataExists.nooftripsCancelled",todayDataExists.nooftripsCancelled );
+      if(noOfDriverCancelAllowed < todayDataExists.nooftripsCancelled){
+        updateRiderWalletCancelationCredits(riderId, amtToDebit, tripId);
+        return true;
+      }else {
+        return false
+      }
     } else {
       return false;
     }
@@ -2236,6 +2241,20 @@ export const addRidertaxisData = (req, res) => {
 
     }
   };
+
+  export const deleteRiderForApp = (req,res)=> {
+    var update = {
+      "softdel": 'inactive'
+    }
+    Rider.findOneAndUpdate({ _id: req.params.id }, update, { new: true }, async (err, doc) => {
+      if (err) { return res.status(401).json({ 'success': false, 'message': req.i18n.__("SOME_ERROR"), 'err': err }); }
+      else {
+        updateDriverProofStatusInFB(req.params.id, 'pending');
+        await findAndSendFCMToDriver(req.params.id, "Your Account was InActived Please contact Support Team", "Inactive");
+        return res.json({ 'success': true, 'message': req.i18n.__("DRIVER_INACTIVATED_SUCCESSFULLY") });
+      }
+    })
+  }
   
 
 

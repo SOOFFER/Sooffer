@@ -41,7 +41,8 @@ var DriverPaymentSchema = new Schema({
 	scity: { type: String, default: "" },
 	totalDistTravelled: { type: Number, default: 0 },
 	distanceUnit: { type: String, default: config.distanceUnit },
-	GatewayCharge: { type: Number, default: 0 }
+	GatewayCharge: { type: Number, default: 0 },
+	tips: { type: Number, default: 0 }
 });
 
 var DriverPayment = mongoose.model('driverpayment', DriverPaymentSchema);

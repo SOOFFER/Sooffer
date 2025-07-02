@@ -112,6 +112,7 @@ export const suggestionDriver = async (req, res) => {
           { $push: { "safeRideData.secondDrivers": updateData } },
           { new: true },
           async (err, tripdata) => {
+            console.log(tripdata,"tripdata")
             if (err) {
               console.log("errr",err);
               return res.status(409).json({

@@ -11,6 +11,7 @@ const _ = require("lodash");
 var firebase = require("firebase");
 import { Parser } from "json2csv";
 import { truncate } from "@turf/turf";
+const mround = require('mongo-round');
 
 var config = require("../config");
 const notificationContent = require("../notificationContent");
@@ -1230,6 +1231,7 @@ export const login = (req, res) => {
     var taxi = user.taxis.id(user.currentTaxi);
 
     var userProfile = {};
+    userProfile.driverDocument = user.document
     userProfile.currentActiveTaxi = taxi;
     userProfile.isDriverCreditModuleEnabledForUseAfterLogin =
       featuresSettings.isDriverCreditModuleEnabled;
@@ -1251,7 +1253,7 @@ export const login = (req, res) => {
             userProfile,
           },
           walletType: user.walletType,
-          walletCredit: user.wallet,
+          walletCredit: (user.wallet).toFixed(2),
           walletLimit:
             featuresSettings.driverPayouts.driverCreditAmountOfflineLimit,
           LimitAlert:
@@ -1354,7 +1356,13 @@ export const addDrivertaxisData = async (req, res) => {
         var data = await Vehicletype.findOne({
           type: req.body.vehicletype,
         }).exec();
-        lowCategoryOptions = data.lowCategoryOptions;
+        console.log("data--",data);
+        if(data) {
+          lowCategoryOptions = data.lowCategoryOptions;
+        }
+        else {
+          lowCategoryOptions = [""];
+        }
       }
       else {
         lowCategoryOptions = [""];
@@ -2233,7 +2241,7 @@ export const getAppData = async (req, res) => {
               _id: "$mtd",
               earned: { $sum: "$amttodriver" },
               adminCommision: { $sum: "$commision" },
-              rideFare: { $sum: "$amttopay" },
+              rideFare: { $sum: mround('$amttopay', 2) },
               Tax:{$sum:"$tax"},
               GatewayCharge: {$sum:"$GatewayCharge"}
             },
@@ -2352,9 +2360,11 @@ export const getAppData = async (req, res) => {
         // docs.push({ driverPerDayRideStatus: driverRideStatus });
         if (featuresSettings.checkAttendance) {
           docs[0] = JSON.parse(JSON.stringify(docs[0]));
+          console.log(req.headers,"headers")
+          const utc = req.headers["utcoffset"]
           const today =
             req.body.date ||
-            moment().utcOffset(config.utcOffset).format("YYYY-MM-DD");
+            moment().utcOffset(utc).format("YYYY-MM-DD");
           // start today
           var start = `${today}T00:00:00.000Z`;
           // end today
@@ -4884,7 +4894,7 @@ export const driverEarningsBtDate = (req, res) => {
         {
           $group: {
             _id: "$month",
-            amttopay: { $sum: "$amttopay" },
+            amttopay: { $sum: mround("$amttopay",2) },
             amttodriver: { $sum: "$amttodriver" },
             commision: { $sum: "$commision" },
             GatewayCharge: {$sum:"$GatewayCharge"},
@@ -5025,7 +5035,7 @@ export const updateDriverCreditsInFB = (
 export const updateDriverSubscriptionInFB = (
   driverid,
   subcriptionEndDate = "NA",
-  isSubcriptionActive = true
+  isSubcriptionActive = false
 ) => {
   if (!firebase.apps.length) {
     firebase.initializeApp(config.firebasekey);
@@ -5034,11 +5044,17 @@ export const updateDriverSubscriptionInFB = (
   var ref = db.ref("drivers_data");
   var requestData = {};
   requestData.isSubcriptionActive = isSubcriptionActive;
-  requestData.subcriptionEndDate = GFunctions.getDateTimeinThisFormat(
-    subcriptionEndDate,
-    "YYYY-MM-DDTHH:mm:ss.SSS[Z]",
-    "D-M-YYYY"
-  );
+  if(subcriptionEndDate == 'NA'){
+    requestData.subcriptionEndDate = subcriptionEndDate
+  }
+  else{
+    requestData.subcriptionEndDate = GFunctions.getDateTimeinThisFormat(
+      subcriptionEndDate,
+      "YYYY-MM-DDTHH:mm:ss.SSS[Z]",
+      "D-M-YYYY"
+    );
+  }
+
   var child = driverid.toString();
   var usersRef = ref.child(child);
   requestData = GFunctions.convertAllNumbersToString(requestData);
@@ -5955,8 +5971,12 @@ export const updateAddCancelationChargeToDriver = async (
     var todayDataExists = await DriverPerDay.findOne(findQuery).exec();
     if (todayDataExists) {
       var cancelledAmount = Number(todayDataExists.cancelledAmount);
-      updateDriverWalletCredits(driverId, cancelledAmount);
-      return true;
+      if(noOfDriverCancelAllowed < todayDataExists.nooftripsCancelled) {
+        updateDriverWalletCredits(driverId, cancelledAmount);
+        return true;
+      }else {
+        return false;
+      }
     } else {
       return false;
     }
@@ -6162,7 +6182,6 @@ export const requestNearbyDriversETA = async (
     var requestRadius = config.requestRadius;
 
     var maxDistanceInMeter = Number(config.requestRadius) * 1000;
-    console.log("----pickupLng----",pickupLng, "pickupLat",pickupLat)
     var pipeline1 = {
       $geoNear: {
         near: {
@@ -6174,7 +6193,6 @@ export const requestNearbyDriversETA = async (
         distanceField: "distance",
       },
     };
-
     var driverFind = {
       online: true,
       curStatus: { $in: ["free"] },
@@ -6212,7 +6230,6 @@ export const requestNearbyDriversETA = async (
         },
       },
     ]).exec();
-    console.log("===driverData",driverData)
     if (driverData.length) {
       var from = {
         latitude: parseFloat(userreq.pickupLat),
@@ -6234,7 +6251,6 @@ export const requestNearbyDriversETA = async (
       ) {
         var data = await getDriverFilterByLocalDistance(nearestDrivers);
       } else {
-        console.log("----nearestDrivers---",nearestDrivers)
         var data = await filterNSendOBORequestToDrivers(
           nearestDrivers,
           parseFloat(userreq.pickupLng),
@@ -6243,8 +6259,8 @@ export const requestNearbyDriversETA = async (
       }
       if (data.length) {
         var newData = [];
-        vehicleData.forEach(function (u) {
-          var considerLowerVehicleToo = getNearByConsiderLowerVehicleToo(
+        vehicleData.forEach(async function (u) {
+          var considerLowerVehicleToo = await getNearByConsiderLowerVehicleToo(
             u.type,
             data,
             driverData
@@ -6312,7 +6328,6 @@ function getNearByConsiderLowerVehicleToo(type, data, driverData) {
       newData = newDataFromLowerCategory;
     }
   }
-
 
   return newData;
 }
@@ -6470,6 +6485,7 @@ function filterNSendOBORequestToDrivers(driverdata, pickupLng, pickupLat) {
     distance.units("metric");
     distance.mode("driving");
     distance.matrix(origins, destinations, function (err, distances) {
+      console.log(distances,"distances")
       if (err) {
         return resolve({ success: false });
       } else if (distances.status == "OK") {
@@ -6478,7 +6494,6 @@ function filterNSendOBORequestToDrivers(driverdata, pickupLng, pickupLat) {
           driverdata,
           resOutput
         ); //Merging In Driver and Geo
-        console.log("--distanceArray--",distanceArray)
         return resolve(distanceArray);
       } else {
         return resolve({ success: false });
@@ -7037,7 +7052,6 @@ export const getVehicleServiceAvailablity = async (req, res) => {
       }
       // }
     }
-    console.log("--tempArray---",tempArray);
     return res.status(200).json(tempArray);
   });
 
@@ -8435,9 +8449,10 @@ export const addAttendance = async (req, res) => {
       if (err) throw err;
     });
 
+    const utc = req.headers["utcoffset"]
     const today =
       req.body.date ||
-      moment().utcOffset(config.utcOffset).format("YYYY-MM-DD");
+      moment().utcOffset(utc).format("YYYY-MM-DD");
     // start today
     var start = `${today}T00:00:00.000Z`;
     // end today
@@ -8523,8 +8538,9 @@ export const addAttendance = async (req, res) => {
 
 // API to check attendance for currently logged in driver
 export const checkAttendance = async (req, res) => {
+  const utc = req.headers["utcoffset"]
   const today =
-    req.body.date || moment().utcOffset(config.utcOffset).format("YYYY-MM-DD");
+    req.body.date || moment().utcOffset(utc).format("YYYY-MM-DD");
   // start today
   var start = `${today}T00:00:00.000Z`;
   // end today
@@ -8677,3 +8693,17 @@ export const deleteAttendance = async (req, res) => {
     });
   }
 };
+
+export const deleteDriverForApp = async(req,res)=> {
+  var update = {
+    "softdel": 'inactive'
+  }
+  Driver.findOneAndUpdate({ _id: req.params.id }, update, { new: true }, async (err, doc) => {
+    if (err) { return res.status(401).json({ 'success': false, 'message': req.i18n.__("SOME_ERROR"), 'err': err }); }
+    else {
+      updateDriverProofStatusInFB(req.params.id, 'pending');
+      await findAndSendFCMToDriver(req.params.id, "Your Account was InActived Please contact Support Team", "Inactive");
+      return res.json({ 'success': true, 'message': req.i18n.__("DRIVER_INACTIVATED_SUCCESSFULLY") });
+    }
+  })
+}

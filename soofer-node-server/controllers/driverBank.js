@@ -410,6 +410,20 @@ export const driverWalletReportApp = async (req, res) => {
             { "$match": { driverId: new mongoose.Types.ObjectId(req.userId) } },
             { "$unwind": "$trx" },
             {
+              "$lookup":{
+                from: 'driverpayments',
+                localField: 'trx.trxId',
+                foreignField: 'tripno',
+                as: 'paymentinfo'
+                    }
+            },
+            {
+                $unwind: {
+                  path: "$paymentinfo",
+                  preserveNullAndEmptyArrays: true
+                }
+              },
+            {
                 $project:
                 {
                     _id: "$trx._id",
@@ -421,6 +435,7 @@ export const driverWalletReportApp = async (req, res) => {
                     trxId: "$trx.trxId",
                     trx: "$trx.trx",
                     createdAt: "$trx.createdAt",
+                    payment:{ $ifNull: ["$paymentinfo", {}] }
                 }
             },
             { $sort: { createdAt: -1 } },

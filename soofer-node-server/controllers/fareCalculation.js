@@ -48,7 +48,8 @@ export const getTollFare = async (params) => {
           return resolve({ success: false });
         } else {
         }
-        const tollCost =
+        if(body.routes) {
+          const tollCost =
           body &&
           body.routes &&
           body.routes[0] &&
@@ -64,8 +65,11 @@ export const getTollFare = async (params) => {
           tollCoordinates.push(coordinateData)
         })
         return resolve({ success: true, tollCoordinates });
+        }else {
+          return resolve({ success: false });
+        }
       });
-    } catch (er) {
+    } catch (err) {
       return resolve({ success: false });
     }
   });
@@ -345,7 +349,6 @@ export const getCityBasedVehicleCharge = async (
         reqtime,
         "peak"
       );
-console.log("=====fareee",fareDetails["nightObj"]["isApply"])
     //Pickup Charge //Final
     fareDetails["pickupCharge"] = getPickupCharge(
       vehicleData.conveyancePerKm,
@@ -524,7 +527,7 @@ console.log("=====fareee",fareDetails["nightObj"]["isApply"])
       ).toFixed(2);
       fareDetails["totalFare"] = Number(
         Number(fareDetails["totalFare"]) - Number(fareDetails["DetuctedFare"])
-      );
+      ).toFixed(2);
     }
 
     fareDetails["fareAmtBeforeSurge"] = Number(fareDetails["totalFare"]);
@@ -536,6 +539,7 @@ console.log("=====fareee",fareDetails["nightObj"]["isApply"])
       tollFee,
       fareDetails["taxType"]
     );
+    console.log(totalFare,"totalFare")
     fareDetails["minFareAdded"] = totalFare.minFareAdded;
     if (!featuresSettings.isPickupAddtoCommission)
       fareDetails["totalFare"] =
@@ -579,7 +583,7 @@ console.log("=====fareee",fareDetails["nightObj"]["isApply"])
       offers: _.cloneDeep(offers),
       applyValues: _.cloneDeep(applyValues),
     };
-
+    console.log(resData,"resData")
     return resData;
   } catch (error) {
     logger.error(error);
@@ -716,6 +720,7 @@ function getTotalFare(
 
   if (featuresSettings.isTollAdded) {
     if (Number(tollFee) > 0) {
+      console.log("inside the function")
       resObj["fareAmt"] = (Number(resObj["fareAmt"]) + Number(tollFee)).toFixed(
         2
       );
@@ -765,16 +770,12 @@ function getTotalFare(
   parseFloat((parseFloat(fareDetails["comison"]) *
       parseFloat(resObj["farewithoutTaxNBookingFee"])) /
     100).toFixed(2);
-console.log("-----------commisiionnn", parseFloat(resObj["totalFare"]),parseFloat(resObj["tax"]),parseFloat(fareDetails["bookingFare"]));
-console.log("-----------commisiionnn11", parseFloat(fareDetails["comison"]),parseFloat(resObj["farewithoutTaxNBookingFee"]));
-console.log("*******",resObj["comisonAmt"])
   if (Number(config.googleCharge) > 0) {
     resObj["totalFare"] =
     parseFloat(Number(resObj["totalFare"]) + Number(config.googleCharge)).toFixed(2);
     resObj["comisonAmt"] =
     parseFloat(Number(resObj["comisonAmt"]) + Number(config.googleCharge)).toFixed(2);
   }
-  console.log("****11***",resObj["comisonAmt"])
   // if (featuresSettings.addBookingFeeToCommision) {
   //   var amountwithoutBookingfee = Number(resObj['totalFareWithOutOldBal']) - Number(fareDetails['bookingFare']);
   //   resObj['comisonAmt'] = ((Number(fareDetails['comison']) * Number(amountwithoutBookingfee)) / 100) + Number(fareDetails['bookingFare']);
@@ -793,6 +794,7 @@ console.log("*******",resObj["comisonAmt"])
   }); //Round all to 2 Decimals
 
   GFunctions.clearObj(resObj);
+  console.log(resObj,"resObj")
   return resObj;
 }
 
@@ -883,15 +885,12 @@ function getWaitingFare(rate, minTime, isApplicable, waitingTime) {
             "alertLable": "Notes : Peak Fare x{PERCENTAGE} ({TIME})"
  */
 function getFareIfTimeFallsIn(hours, now, forType = "peak") {
-  console.log("-hours--",hours, "-now-",now)
   var resObj = { isApply: false, percentageIncrease: 0, alertLable: "",nightfarePer: 0 };
   var format = "HH:mm:ss";
   if (!now || now == "") {
     now = GFunctions.sendTimeNow(format);
   } else {
-    console.log("else")
     var time = now.split(" ");
-    console.log(("---time--",(time[1] == "AM" || time[1] == "PM")));
     if (time[1] == "AM" || time[1] == "PM") {
       var time = moment(now, "hh:mm A").format("HH:mm");
       now = time;

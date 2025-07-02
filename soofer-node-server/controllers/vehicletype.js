@@ -690,8 +690,8 @@ export const vehicletypelists = async (req, res) => {
     // softDel : false
   };
   var driverData = await Driver.findOne({ _id: req.userId }).lean().exec();
-  // if(driverData && (driverData.gender == "male" || driverData.gender == "Male")) { likeQuery['type'] = { '$nin' : ["Alo Damas", "AloDamas"] } }
-  // if(req.params.type == 'male') likeQuery['type'] = { '$neq' : "Alo Damas" }s
+  // if(driverData && (driverData.gender == "female" || driverData.gender == "Female")) { likeQuery['type'] = { '$nin' : ["Alo Damas", "AloDamas"] } }
+  // if(req.params.type == 'female') likeQuery['type'] = { '$neq' : "Alo Damas" }
   Vehicletype.find(likeQuery, {})
     .distinct("type")
     .exec((err, docs) => {
@@ -704,7 +704,7 @@ export const vehicletypelists = async (req, res) => {
             vehiclelists: docs,
           });
       }
-      // if(docs.length && driverData && (driverData.gender == "male" || driverData.gender == "Male")) {
+      // if(docs.length && driverData && (driverData.gender == "female" || driverData.gender == "Female")) {
       //  docs = _.pullAll(docs, ['Alo Damas']);
       // }
       return res.json({

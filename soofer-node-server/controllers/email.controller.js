@@ -50,7 +50,7 @@ export const viewEmail = async (req, res) => {
     var sortQuery = HelperFunc.sortQueryBuilder(req.query);
     likeQuery['status'] = "active"
     likeQuery['language'] = "en";
-    console.log("language", likeQuery['language']);
+    // console.log("language", likeQuery['language']);
     if (req.query.language == "en") likeQuery['language'] = "en";
     let TotCnt = Email.find(likeQuery).count();
     let Datas = Email.find(likeQuery).skip(pageQuery.skip).limit(pageQuery.take).sort(sortQuery);

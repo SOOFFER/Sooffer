@@ -156,7 +156,6 @@ connectWithRetry();
 
 app.post('/profile', (req, res, next) => {
   // console.dir(req.headers['content-type']);
-  console.log(req.body);
   return res.end('Api working');
 });
 

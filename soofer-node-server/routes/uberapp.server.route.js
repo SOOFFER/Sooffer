@@ -180,7 +180,7 @@ var tempUpload = multer({ storage: tempStorage });
 var tempFileUploadFaceComparison = tempUpload.fields([
   { name: "identityImg", maxCount: 1 },
 ]);
-// const tripstatusImages = multer({ dest: 'public/images/tripstatus/' }).array('imageArray', 4);
+const tripstatusImages = multer({ dest: 'public/images/tripstatus/' }).array('imageArray', 4);
 
 //import controller file
 // import * as todoController from '../controllers/uber.server.controller';
@@ -208,6 +208,7 @@ import * as driverBankCtrl from "../controllers/driverBank";
 import * as riderSuggestionCtrl from "../helpers/riderSuggesstionHistory";
 import * as razorpayCtrl from "../controllers/paymentGateway/razorpay";
 import * as imageCtrl from "../modules/imageCollection/image-collection.controller";
+import * as functionCntrl from '../controllers/functions' 
 
 // get an instance of express router
 const router = express.Router();
@@ -253,7 +254,7 @@ router
     mDPIupload,
     driverCtrl.updateAppData
   ); /* .put(verifyToken, awsFileUpload, commonCtrl.faceComparison, driverCtrl.updateAppDataWithFaceComparision) */
-
+router.route('/deleteDriver/:id?').delete(driverCtrl.deleteDriverForApp);
 router
   .route("/driverAttendance")
   .get(verifyToken, driverCtrl.attendanceList)
@@ -392,6 +393,7 @@ router
     riderUpload,
     ridersCtrl.updateAppData
   ); /* .put(verifyToken, awsFileUpload, commonCtrl.faceComparison, ridersCtrl.updateAppDataWithFaceComparision); */
+router.route('/deleteRider/:id').delete(ridersCtrl.deleteRiderForApp);
 router.route("/riderImage").put(verifyToken, cpUpload, ridersCtrl.riderImage);
 router
   .route("/riderUpdateVerifiedData")
@@ -482,7 +484,7 @@ router
 router
   .route("/tripRequestReceived")
   .patch(verifyToken, appCtrl.tripRequestReceived);
-// router.route('/tripImages').post(tripstatusImages, imageCtrl.imageAdd);
+router.route('/tripImages').post(tripstatusImages, imageCtrl.imageAdd);
 //verifyToken
 router.route("/tripDriverDetails").put(verifyToken, appCtrl.tripDriverDetails);
 router.route("/riderFeedback").put(verifyToken, appCtrl.riderFeedback);
@@ -656,6 +658,8 @@ router.route("/logout").get(verifyToken, commonCtrl.logout);
 router.route("/db").get(commonCtrl.getDbStatus);
 router.route("/rental").post(appCtrl.getRentalPackage);
 
+router.route('/faq/:id?').post(cmsCtrl.addfaq).get(cmsCtrl.getfaq).put(cmsCtrl.updatefaq).delete(cmsCtrl.deletefaq);
+router.route('/faqcategory/:id?').post(cmsCtrl.addfaqcategory).get(cmsCtrl.getfaqcategory).put(cmsCtrl.updatefaqcategory).delete(cmsCtrl.deletefaqcategory);
 router
   .route("/cityWiseOffice/:id?")
   .get(getServiceCityController.getcityWiseOfficeData);
@@ -714,5 +718,6 @@ router
   .get(getServiceCityController.getCityBoundaryPolygon);
 // http://10.1.1.31:3001/api/checkoutRedirectURL?clientTransactionId=VQ0H8S9E&msg=Su%20dominio%20no%20esta%20autorizado%20por%20la%20aplicaci%C3%B3n.%20Ingrese%20a%20la%20consola%20de%20developer%20para%20configurar%20correctamente.
 router.route("/StripeInvoice").post(ridersCtrl.sendStripeInvoice);
-
+router.route('/addTips').put(verifyToken, appCtrl.addTipsForDriver);
+router.route('/sendchatFCM').post(verifyToken,functionCntrl.sendchatFCM)
 export default router;

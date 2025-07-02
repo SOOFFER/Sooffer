@@ -58,6 +58,8 @@ var TripsSchema = new Schema({
   rid: String,
   ridid: { type: ObjectId, ref: "riders", default: null },
   fare: { type: String, default: 0 }, //total fare
+  tips: { type: Number , default: 0 },
+  tipsStatus: { type: Boolean, default: false },
   vehicle: String, //Taxi name
   service: String, //service Id
   paymentSts: { type: String, default: "pending" }, //Paid,pending
@@ -177,6 +179,7 @@ var TripsSchema = new Schema({
     peakPer: { type: Number, default: 0 },
     surgeReason: { type: String, default: "" },
     surgeAmt: { type: Number, default: 0 },
+    promoDiscount: { type: Number, default: 0 },
     walletdebt: { type: Number, default: 0 },
     carddebt: { type: Number, default: 0 }, //All Digital trans
     outstanding: { type: Number, default: 0 },

@@ -733,7 +733,7 @@ export const addDriverSubscription = async (req, res) => {
       //Update in Firebase and Driver
       if (packageStatus == "Activated") {
         var driverDetails = await Driver.findOne({ '_id': req.body.driverId, curService: vehicletype });
-        if (driverDetails) updateDriverSubscriptionInFB(req.body.driverId, uptoEndDate);
+        if (driverDetails) updateDriverSubscriptionInFB(req.body.driverId, uptoEndDate,true);
         updateSubcriptionEndDate(req.body.driverId, uptoEndDate, datas._id, datas.vehicletype);
       }
       return res.status(200).json({ 'success': true, 'message': req.i18n.__("SUBSCRIPTION_ADDED_SUCCESSFULLY"), "datas": datas });

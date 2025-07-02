@@ -382,10 +382,11 @@ export const paymentReport = async (req, res) => {
         "driverTaxTDS": 1,
         "tax": 1,
         "addittionalFee": 1,
-        "tripinfo": "$tripinfo",
+        "GatewayCharge": 1,
+        "booking": 1,
         // "tripDate": '$tripinfo.date',
-        "__v": 1,
-
+        "v": 1,
+        
         code: "$userinfo.code",
         referenceCode: "$userinfo.referenceCode",
         scity: "$userinfo.scity",
@@ -1201,7 +1202,7 @@ export const userWallet = async (req, res) => {
     { "$unwind": "$userinfo" },
     {
       "$project": {
-        "bal": 1,
+        "bal": mround('$bal', 2),
         "trx": 1,
         "fname": "$userinfo.fname",
         "riderId": "$userinfo._id",

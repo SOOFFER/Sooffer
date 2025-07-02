@@ -323,7 +323,6 @@ export const login = (req, res) => {
     if (!user) return res.status(401).json({ data: { token: '', messages: req.i18n.__("NO_USER_FOUND"), errors: 'No user found.', } });
     var passwordIsValid = newDoc.validPassword(req.body.password, user.salt, user.hash);
     if (!passwordIsValid) return res.status(401).json({ data: { token: '', messages: req.i18n.__("INVALID_PASSWORD"), errors: 'Invalid Password', } });
-    console.log(user,"user");
     var token = newDoc.generateJwt(user._id, user.email, user.fname, user.group, user.scIds[0].scId, user.scIds[0].name);
     return res.status(200).json({
       data: {
@@ -335,7 +334,6 @@ export const login = (req, res) => {
 }
 
 export const viewAdminProfile = (req, res) => {
-  console.log(req.params.id)
   Admin.findById(mongoose.Types.ObjectId(req.params.id), { salt: 0, hash: 0, group: 0 }, function (err, docs) {
 
     if (err) { return res.status(500).json({ 'success': false, 'message': req.i18n.__("INTERNAL_SERVER_ERROR"), 'error': err }) }

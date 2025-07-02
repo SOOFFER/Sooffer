@@ -6,9 +6,9 @@ const configObj = {
   "database": "rebustarv2server",
   "appName": "Sooffer",
   "resetPasswordTo": "Sooffer",
-  "utcOffset": "-06:00",
+  "utcOffset": "-05:00",
   "gmtZone": "GMT+05:30",
-  "phoneCode": true,
+  "phoneCode": "+1",
   "baseurl": "https://api.sooffer.com/",
   "fileurl": "https://api.sooffer.com/public/",
   "frontendurl": "https://sooffer.com/webadmin",
@@ -99,11 +99,11 @@ const configObj = {
       "ContentType": "image/jpeg",
       "Body": {
         "fd": null,
-        "path": "public/driverVehicle/fileFront-1683438927676.jpg",
+        "path": "public/driverVehicle/fileFront-1713431389131.jpg",
         "flags": "r",
         "mode": 438,
         "end": null,
-        "bytesRead": 376264,
+        "bytesRead": 460569,
         "closed": true,
         "_readableState": {
           "objectMode": false,
@@ -143,15 +143,16 @@ const configObj = {
         "_events": {},
         "_eventsCount": 3
       },
-      "Key": "fileFront-1683438927676.jpg"
+      "Key": "fileFront-1713431389131.jpg"
     }
   },
   "paymentGateway": {
     "paymentGatewayName": "stripe",
     "paymentGatewayCurrency": "USD",
     "clientId": "ca_KdtdPkQ2a4GPlVRxb3YscDNnAWRMcIAP",
-    "stripeSk": "sk_test_51JvLMsD9LszUmsLx4C61Ibw6FRHvFyYYpT2LtEl468FgV9uqL4l6ExgVSeZwdMt2Xpe2MOkKBkKJkehYe7XqLACC00djxxYDrI", 
-    // "stripeSk": "sk_test_51NhcSlCAQGxCiBl6V2Y68Y4dapctBnZmNZLgYVZRrL54GwEVSMg73nrvYJz9o0XkIsAWmw0MClvsmx4aikq0X8Fx004kvdXbWQ",
+    // "stripeSk": "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",
+    // "stripePk": "pk_live_51JvLMsD9LszUmsLxvA3vVVqJPXPCncqNSqE2RTiWDqaj0TvQPXTtyG4OqopDu68z6GEMlhcdea0HkmXsdc7pWtXM00xVZJANuo",
+    "stripeSk": "sk_test_51JvLMsD9LszUmsLx4C61Ibw6FRHvFyYYpT2LtEl468FgV9uqL4l6ExgVSeZwdMt2Xpe2MOkKBkKJkehYe7XqLACC00djxxYDrI",
     "stripePk": "pk_test_51JvLMsD9LszUmsLxMrARz8Aag0y5XeOMUnUNGzZ4oKfiyfSjnkGkGkntDJQvH3Z2nisIuNe1VsTGwJu5jPFIYljW008c1M23tQ",
     "stripeConnectAccountType": "express",
     "braintreeEnvironment": "Sandbox",
@@ -165,8 +166,8 @@ const configObj = {
     "razorpaySecretKey": "njbjb14565ff",
     "razorpayAccountNumber": ""
   },
-  "currency": "$",
-  "currencySymbol": "USD",
+  "currency": "USD",
+  "currencySymbol": "$",
   "distanceUnit": "Miles",
   "distanceSymbol": "Mi",
   "companyaddress": "PO Box 797231  Dallas TX 75379",

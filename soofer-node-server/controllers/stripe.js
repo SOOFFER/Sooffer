@@ -83,7 +83,6 @@ function addCardToMongo(userId, customer) {
       docs.save(function (err, op) {
         if (err) { }
         else {
-          console.log("addCardToMongo", userId);
           addCardDetailsToWallet(userId, customer);
         }
       })
@@ -94,7 +93,6 @@ function addCardToMongo(userId, customer) {
 
 
 function addCardDetailsToWallet(userId, customer) {
-  console.log("addCardDetailsToWallet", 1);
   // 1.chk Wallet
   Wallet.findOne({ ridid: userId }, function (err, doc) {
     if (err) { }
@@ -282,7 +280,6 @@ export const test = (stripeCusid = 1, desc = 1, cur = "usd", amt = 0) => {
  * @response
  */
 export const transferAmountNRecharge = (res, stripeCusid, desc, cur = "usd", amt = 0, userId, walletId) => {
-  console.log("chargeExistingUserCard", stripeCusid);
   var cusid = stripeCusid;
   var newamt = parseFloat(amt) * 100;
   stripe.charges.create({

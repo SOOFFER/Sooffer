@@ -353,8 +353,8 @@ export const getServiceBasicfare = async (req, res) => {
     if (req.type == "rider") {
       let data = await Rider.findOne({ _id: req.userId }).lean().exec();
       let gender = data.gender;
-      if (gender == "Male" || gender == "male")
-        where.push({ gender: gender });
+      // if (gender == "Female" || gender == "female")
+      //   where.push({ gender: gender });
     }
     if (countryId) {
       var filterDocumet = _.filter(countryDocs.defaultCountrySettings, {
@@ -459,13 +459,11 @@ export const getServiceBasicfare = async (req, res) => {
       )
         .sort({ displayorder: 1 })
         .exec(); // @v2TODO pass loc as null
-
       var nearbydriverEta = await requestNearbyDriversETA(
         body.pickupLat,
         body.pickupLng,
         vehicleData
       );
-      console.log("---nearbydriverEta--",nearbydriverEta)
       var newResArray = [];
       vehicleData.forEach(function (u) {
         newResArray.push({
@@ -872,10 +870,8 @@ export const getestimationFare = async (req, res, next) => {
 
     var timeInMinutes = parseFloat(gdmResult.timeValue / 60).toFixed(2);
     // timeInMinutes = 15; //DWC
-    console.log("=body.time==",body.time)
 
     var tripTime = body.time ? body.time : body.tripTime;
-    console.log("____________tripTime",tripTime);
     // let tripTime = "18:16"
     let vehicleCharge = await getCityBasedVehicleCharge(
       body.serviceTypeId,
@@ -997,8 +993,6 @@ export const getestimationFare = async (req, res, next) => {
 
     var vfareDetails = convertAllNumbersToString(vehicleCharge.fareDetails);
     vehicleCharge.fareDetails = vfareDetails;
-    console.log("--------gdmResult",gdmResult)
-    console.log("--------vehicleCharge",vehicleCharge)
     return res.status(200).json({
       success: true,
       message: req.i18n.__("ESTIMATION_FARE_DETAILS"),
@@ -1290,7 +1284,6 @@ export const setCurrentTaxi = (req, res) => {
 export const setOnlineStatus = async (req, res) => {
   var status = req.body.status;
   var lastUpdate = null;
-  console.log("====status===",status)
   if (status == "1" || status == 1) {
     lastUpdate = GFunctions.getRespCountryDateTime();
   }
@@ -1331,7 +1324,6 @@ export const setOnlineStatus = async (req, res) => {
         });
       }
       if (!doc) {
-        console.log("==doc===",doc)
         return res.status(409).json({
           success: false,
           message: req.i18n.__("APPROVE THE DRIVER FROM ADMIN"),
@@ -1439,7 +1431,7 @@ export const DriverLocation = async (req, res) => {
         {
           _id: req.userId,
           "status.docs": "Accepted",
-          isSubcriptionActive: true,
+          // isSubcriptionActive: true,
           wallet: {
             $gt: featuresSettings.driverPayouts.driverCreditAmountOfflineLimit,
           },
@@ -1547,8 +1539,8 @@ export const DriverLocationOffline = (req, res, attendanceExist) => {
  */
 export const requestTaxi = async (req, res, next) => {
   try {
+    console.log("REQUEST_BODY",JSON.stringify(req.body))
     const body = req.body || {};
-    console.log("--body----",body)
     var countryId,
       currencySymbol = config.currencySymbol;
 
@@ -1578,10 +1570,12 @@ export const requestTaxi = async (req, res, next) => {
 
       }
     }
+
     let response = await checkTripBalance(req,res);
-    if(response && response.status == false) {
+
+    if(response && response.status == false || response && response.success == false) {
       return res
-      .status(response.statusCode)
+      .status(response.code)
       .json({ success: false, message: response.message });
     }
     var ServiceId = { ScId: null, pickupCity: "", countryId: "" };
@@ -1684,6 +1678,7 @@ export const requestTaxi = async (req, res, next) => {
       req.body.safeRide = true;
     }
     var safeRideBool = req.body.safeRide;
+
     // var safeRideDataObj = { safeRidestatus: false }; /// If safeRide is false
     if (safeRideBool) {
       /// If safe Ride is True //
@@ -1718,12 +1713,20 @@ export const requestTaxi = async (req, res, next) => {
       dropLng:body.distanceDetails.endcoords[0],
     }
     var tollDetails = await getTollFare(tollObj)
-    const tollFare = (tollDetails && tollDetails.tollCost) ? tollDetails.tollCost : 0 ;
-    let transactionID = await Paymentflow.find({userId:mongoose.Types.ObjectId(req.userId)}).sort({createdAt:-1})
-    let id = null;
-    if(transactionID.length !=0) {
-      id = transactionID[0]._id;
+
+    // const tollFare = (tollDetails && tollDetails.tollCoordinates) ? tollDetails.tollCost : 0 ;
+    let tollFare
+    if(tollDetails.success != false && tollDetails && tollDetails.tollCoordinates.length != 0){
+      tollFare = tollDetails.tollCoordinates[0].toll
     }
+    else{
+      tollFare = 0
+    }
+    // let transactionID = await Paymentflow.find({userId:mongoose.Types.ObjectId(req.userId)}).sort({createdAt:-1})
+    // let id = null;
+    // if(transactionID.length !=0) {
+    //   id = transactionID[0]._id;
+    // }
     var newDoc = new Trips({
       // tripno: await TripHelpers.getTripNo(),
       // tripCode: TripCode,
@@ -1845,19 +1848,24 @@ export const requestTaxi = async (req, res, next) => {
       countryId: countryId,
       currencySymbol: currencySymbol,
       paymentMethod: body.paymentMethod,
-      paymentId: id,
+      // paymentId: id,
       acsp:{
         tollFee:Number(tollFare)
       }
     });
     newDoc.save(async(err, tripdata) => {
+      console.log("tripdata---",tripdata);
+      
       if (err) {
         return res
           .status(500)
           .json({ success: false, message: err.message, err: err });
       }
-      let paymentId = await Paymentflow.find({ userId: mongoose.Types.ObjectId(req.userId), referenceId: "", "status": "initiated" }).sort({ createdAt: -1 }).lean().exec();
-      let updateReferenceId = await Paymentflow.findOneAndUpdate({ _id: mongoose.Types.ObjectId(paymentId[0]._id) }, { referenceId: tripdata._id }).sort({ createdAt: -1 }).exec();
+      // if(body.paymentMethod == 'card'){
+      //   let paymentId = await Paymentflow.find({ userId: mongoose.Types.ObjectId(req.userId), referenceId: "", "status": "initiated" }).sort({ createdAt: -1 }).lean().exec();
+      //   let updateReferenceId = await Paymentflow.findOneAndUpdate({ _id: mongoose.Types.ObjectId(paymentId[0]._id) }, { referenceId: tripdata._id }).sort({ createdAt: -1 }).exec();
+      // }
+
       const safeRidestatus = tripdata.safeRideData.safeRidestatus;
       if (tripdata) {
         updatesafeRideDataInFB(tripdata, safeRidestatus);
@@ -1928,6 +1936,9 @@ export const requestTaxi = async (req, res, next) => {
 };
 
 async function checkTripBalance(req,res) {
+  let obj = {
+   "code": 500, 'success': false, 'message': req.i18n.__("Insufficient Balance")
+  }
   let body = req.body;
   let tripFare =  Math.round(body.vehicleDetailsAndFare["fareDetails"]["totalFare"])
   if(body.paymentMode && body.paymentMode == 'wallet') {
@@ -1935,7 +1946,7 @@ async function checkTripBalance(req,res) {
     if(walletdata) {
       let walletbalance = walletdata.bal;
       if(tripFare>walletbalance) {
-        return res.status(500).json({ 'success': false, 'message': req.i18n.__("Insufficient Balance")}); 
+        return obj
       }
     }
   }
@@ -1953,6 +1964,8 @@ async function checkTripBalance(req,res) {
       referenceId : "",
       description : `Trip Payment`,
     });
+    console.log("res---",res);
+    
     if(res && res.status == false) {
 return res  
 }
@@ -4457,6 +4470,7 @@ export const tripCurrentStatus = (req, res) => {
 
                 req.body.tollFee = 0
                 if(tollData.success == true && tollData.tollCoordinates.length > 0){
+                  console.log("inside toll fee")
                   for(const itreator of tollData.tollCoordinates){
                     const tollCoordinates = [itreator.lng,itreator.lat]
                     const tripCoordinates = findTripLocation.locations
@@ -4750,7 +4764,7 @@ export const getFareDetailsFromTripData = async (tripData) => {
     currency: config.currencySymbol,
     additionalFee: [],
     mandatorydiscountAmt: 0,
-    discountAmt: acsp.detect,
+    discountAmt: acsp.promDiscount,
     promoCode: acsp.discountName,
     nightObj: {
       isApply: acsp.isNight,
@@ -5515,7 +5529,6 @@ async function calculateFinalAmount(
       Number(fareDetails.bookingFare ? fareDetails.bookingFare:0) +
       Number(fareDetails.oldCancellationAmt ? fareDetails.oldCancellationAmt:0)+
       Number(req.body.tollFee ? req.body.tollFee:0)
-console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
     fareDetails.hotelcommisionAmt = 0;
     if (tripData.hotelid) {
       var hotelcommisionObj = await getHotelCommison(
@@ -5597,6 +5610,7 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
         tripData.paymentGateway
       );
     }
+    console.log(paymentRes,"paymentRes")
     //Updating Digital Payment if exists
     if (paymentRes) {
       if (paymentRes.success) {
@@ -5612,7 +5626,6 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
           Number(fareDetails.gatewayCharge ? fareDetails.gatewayCharge:0); //Only Trip amount except commision
         addToDriverWallet = paymentRes.addToWallet;
         fareDetails.cardPaymentSuccess = true;
-        console.log("---driverWalletDetuctionAmt2",driverWalletDetuctionAmt);
       }
       if (!paymentRes.success) {
         fareDetails.paymentMode = "cash";
@@ -5630,7 +5643,6 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
     ) {
       driverWalletDetuctionType = "credit";
       driverWalletDetuctionAmt = fareDetails.BalanceFare; //check
-      console.log("---driverWalletDetuctionAmt3",driverWalletDetuctionAmt);
 
     }
 
@@ -5640,7 +5652,6 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
     ) {
       driverWalletDetuctionType = "credit";
       driverWalletDetuctionAmt = fareDetails.BalanceFare;
-      console.log("---driverWalletDetuctionAmt4",driverWalletDetuctionAmt);
 
     }
 
@@ -5721,11 +5732,10 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
     var totalDetucted = (
       Number(totalDetuctFromWallet) + Number(fareDetails.tollFee)
     );
-    console.log("----Number(fareDetails.totalFare)-",Number(fareDetails.totalFare),Number(totalDetucted),Number(fareDetails.gatewayCharge));
+    console.log(fareDetails.tollFee,"fareDetails.tollFee")
     var totalEarnings =
       (Number(fareDetails.totalFare) - Number(totalDetucted)) -
       Number(fareDetails.gatewayCharge);
-
     DriverPaymentDetailsSplits.amttopay = Number(fareDetails.totalFare)
     DriverPaymentDetailsSplits.cashpaid = Number(cashpaid)
     DriverPaymentDetailsSplits.commision = Number(fareDetails.comisonAmt);
@@ -5759,7 +5769,6 @@ console.log("----driverWalletDetuctionAmt1-",driverWalletDetuctionAmt)
         success: false,
         message: req.i18n.__("Trip Details Not Updated..."),
       });
-console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
     //Deduct Driver Commsion from Driver Wallet
     // if (featuresSettings.deductDuringTripEnd) {
     //   if (
@@ -5861,7 +5870,6 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
 						fareDetails.comisonAmt = Number(fareDetails.comisonAmt) + Number(fareDetails.tax) + Number(fareDetails.bookingFare);
 						driverWalletDetuctionAmt = Number(fareDetails.comisonAmt);
 					}*/
-					console.log("----------TRIPDEDECT", driverWalletDetuctionAmt)
 					// if (Number(driverWalletDetuctionAmt) > 0) {
 					// 	driverWalletDetuctionType = 'debit';
 
@@ -5887,7 +5895,6 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
 					if (fareDetails.paymentMode == "wallet" || fareDetails.paymentMode == "card") {
 						driverWalletDetuctionType = 'credit';
 					}
-					console.log("8888888", driverWalletDetuctionAmt)
 					// driverWalletDetuctionAmt = Math.ceil(driverWalletDetuctionAmt)
 					driverWalletDetuctionAmt = driverWalletDetuctionAmt;
 					var tripParams = {
@@ -5904,25 +5911,21 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
 					//Update Driver Wallet.
 					if ((featuresSettings.payPackageTypes).length && featuresSettings.payPackageTypes.includes("subscription")) {
 						let tripDriverData = await Driver.findOne({ _id: tripData.dvrid }, { isSubcriptionActive: 1, subcriptionEndDate: 1, code: 1 });
-						console.log("----------tripDriverData", tripDriverData.isSubcriptionActive, "********",
-						)
+
 						if (tripDriverData && tripDriverData.isSubcriptionActive && driverWalletDetuctionType == 'debit') {
 							//no need to Debit the wallet
 						}
 						else if (tripDriverData && tripDriverData.isSubcriptionActive && driverWalletDetuctionType == 'credit') {
 							//no need to Debit the wallet
-							console.log("----------tRIPPARAMS", tripParams)
 							tripParams.amt = fareDetails.totalFare;
 							updateDriverWallet(tripParams.driverId, tripParams)
 						} else {
 							if (driverWalletDetuctionType == 'debit') {
 								tripParams.driverWalletDetuctionType = driverWalletDetuctionType;
-								console.log("-------driverwallet", tripParams)
 								updateDriverWallet(tripParams.driverId, tripParams)
 							}
 							else if (driverWalletDetuctionType == 'credit') {
 								tripParams.driverWalletDetuctionType = driverWalletDetuctionType;
-								console.log("-------driverwallet", tripParams)
 								updateDriverWallet(tripParams.driverId, tripParams)
 							}
 							else {
@@ -5932,7 +5935,6 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
 
 						}
 					} else {
-						console.log("-------driverwalletinside")
 						updateDriverWallet(tripParams.driverId, tripParams)
 
 					}
@@ -5961,10 +5963,8 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
               paymentDateSort: GFunctions.getISODate(),
               type: driverWalletDetuctionType
             }
-            console.log("-------drivercardinside8888888===============",tripParams,"=====driverWalletDetuctionAmt=====",driverWalletDetuctionAmt)
             updateDriverWallet(tripParams.driverId, tripParams)	
           }else {
-            console.log("----------else",Number(fareDetails.comisonAmt),Number(fareDetails.totalFare))
           driverWalletDetuctionType = 'credit'
           var tripParams = {
             driverId: tripData.dvrid,
@@ -5975,7 +5975,6 @@ console.log("pppDriverPaymentDetailsSplits",DriverPaymentDetailsSplits);
             paymentDateSort: GFunctions.getISODate(),
             type: driverWalletDetuctionType
           }
-          console.log("-------drivercardinside===============",tripParams,"=====driverWalletDetuctionAmt=====",driverWalletDetuctionAmt)
           updateDriverWallet(tripParams.driverId, tripParams)	
         }
         }
@@ -7115,6 +7114,7 @@ async function updateFareDetailsInTrip(
   DriverPaymentDetailsSplits,
   rentalPackageInvoiceDetailsData = ""
 ) {
+
   var paymentStatus = "Paid";
   var balancetopay = 0;
   fare.totalFare = Number(fare.totalFare).toFixed(2);
@@ -7185,6 +7185,9 @@ async function updateFareDetailsInTrip(
     "acsp.comison": Number(fare.comisonAmt) ? Number(fare.comisonAmt) : 0,
     "acsp.tollFee": Number(fare.tollFee) ? Number(fare.tollFee) : 0,
     "acsp.promoamt": Number(tripDetails.csp.promoamt)
+      ? Number(tripDetails.csp.promoamt)
+      : 0,
+      "acsp.promoDiscount": Number(tripDetails.csp.promoamt)
       ? Number(tripDetails.csp.promoamt)
       : 0,
     "acsp.walletdebt": Number(fare.DetuctedFare)
@@ -7272,10 +7275,10 @@ async function updateFareDetailsInTrip(
     "acsp.waitingTimeAterTripStart": Number(fare.waitingTimeAterTripStart)
       ? Number(fare.waitingTimeAterTripStart)
       : 0,
-    // paymentMode: fare.paymentMode,
-    // "acsp.via": fare.paymentMode,
-    paymentMode: "card",
-    "acsp.via": "card",
+    paymentMode: fare.paymentMode,
+    "acsp.via": fare.paymentMode,
+    // paymentMode: "card",
+    // "acsp.via": "card",
     cardPaymentSuccess: fare.cardPaymentSuccess,
     //India GST
     /* "acsp.fare1": fare.indiaGSTAmounts.totalfare1,
@@ -7452,6 +7455,7 @@ async function updateFareDetailsInTrip(
       DriverPaymentDetailsSplits.toSettle
     ),
     booking: GFunctions.sendFormatedNumber(DriverPaymentDetailsSplits.booking),
+    GatewayCharge: GFunctions.sendFormatedNumber(DriverPaymentDetailsSplits.GatewayCharge),
     tax: GFunctions.sendFormatedNumber(DriverPaymentDetailsSplits.tax),
     tollFee: GFunctions.sendFormatedNumber(DriverPaymentDetailsSplits.tollFee),
     mtd: fare.paymentMode,
@@ -7471,6 +7475,7 @@ async function updateFareDetailsInTrip(
       { new: true }
     );
     // function (err, doc) {
+
     if (!doc) {
       return false;
     } else {
@@ -7595,7 +7600,8 @@ function updateTripFinalDataInFirebase(
     cancelby: "0", //Todo
     convance_fare: tripDoc.acsp.conveyance ? tripDoc.acsp.conveyance : 0,
     datetime: "0", //Todo
-    discount: tripDoc.acsp.detect ? tripDoc.acsp.detect : 0,
+    discount: tripDoc.acsp.promoDiscount ? tripDoc.acsp.promoDiscount : 0,
+    walletdebt: tripDoc.acsp.walletdebt ? tripDoc.acsp.walletdebt : 0,
     distance: tripDoc.acsp.dist ? tripDoc.acsp.dist : tripDoc.dsp.distanceKM,
     distance_fare: distance_fare,
     driver_alavance_dis: "0", //Todo
@@ -7864,6 +7870,7 @@ async function updateActualFare(tripDetails, fare, reqdata, riderdoc, res) {
     "acsp.commision": fare.commision,
     "acsp.comison": fare.comison,
     "acsp.promoamt": fare.promoamt,
+    "acsp.promoDiscount": fare.promoamt,
     "acsp.walletdebt": 0,
     "acsp.stripedebt": 0,
     "acsp.outstanding": 0,
@@ -7907,6 +7914,7 @@ async function updateActualFare(tripDetails, fare, reqdata, riderdoc, res) {
         "acsp.commision": fare.commision,
         "acsp.comison": fare.comison,
         "acsp.promoamt": fare.promoamt,
+        "acsp.promoDiscount": fare.promoamt,
         "acsp.walletdebt": walletRes.detectedAmt,
         "acsp.stripedebt": 0,
         "acsp.outstanding": balancetopay,
@@ -7937,6 +7945,7 @@ async function updateActualFare(tripDetails, fare, reqdata, riderdoc, res) {
         "acsp.commision": fare.commision,
         "acsp.comison": fare.comison,
         "acsp.promoamt": fare.promoamt,
+        "acsp.promoDiscount": fare.promoamt,
         "acsp.walletdebt": 0,
         "acsp.stripedebt": 0,
         "acsp.outstanding": newfare,
@@ -7985,6 +7994,7 @@ async function updateActualFare(tripDetails, fare, reqdata, riderdoc, res) {
         "acsp.commision": fare.commision,
         "acsp.comison": fare.comison,
         "acsp.promoamt": fare.promoamt,
+        "acsp.promoDiscount": fare.promoamt,
         "acsp.walletdebt": 0,
         "acsp.stripedebt": stripeRes.detectedAmt,
         "acsp.outstanding": balancetopay,
@@ -8015,6 +8025,7 @@ async function updateActualFare(tripDetails, fare, reqdata, riderdoc, res) {
         "acsp.commision": fare.commision,
         "acsp.comison": fare.comison,
         "acsp.promoamt": fare.promoamt,
+        "acsp.promoDiscount": fare.promoamt,
         "acsp.walletdebt": 0,
         "acsp.stripedebt": 0,
         "acsp.outstanding": newfare,
@@ -8198,23 +8209,31 @@ async function findNChargeExistingUserCard(
             );
           }
         } else {
-          let transactionID = await Paymentflow.find({userId:mongoose.Types.ObjectId(userId)}).sort({createdAt:-1})
-          //Charging from Card Id Supported By = Stripe
-          // let update ={referenceId:tripid}
-          // let ab = await Paymentflow.findOneAndUpdate({transactionId:transactionID[0].transactionId},update,{new:true}).exce()
+          // let transactionID = await Paymentflow.find({userId:mongoose.Types.ObjectId(userId)}).sort({createdAt:-1})
+          // //Charging from Card Id Supported By = Stripe
+          // // let update ={referenceId:tripid}
+          // // let ab = await Paymentflow.findOneAndUpdate({transactionId:transactionID[0].transactionId},update,{new:true}).exce()
+          // res = await paymentCtrl.chargeExistingUserCard(
+          //   docs.card.id,
+          //   desc,
+          //   featuresSettings.defaultcur,
+          //   amt,
+          //   "",
+          //   paymentMethod,
+          //   {
+          //     userId : userId,
+          //     userType : "rider",
+          //     referenceId : tripid,
+          //     transactionId: transactionID[0].transactionId
+          //   }
+          // );dUpdate({transactionId:transactionID[0].transactionId},update,{new:true}).exce()
           res = await paymentCtrl.chargeExistingUserCard(
             docs.card.id,
             desc,
             featuresSettings.defaultcur,
             amt,
             "",
-            paymentMethod,
-            {
-              userId : userId,
-              userType : "rider",
-              referenceId : tripid,
-              transactionId: transactionID[0].transactionId
-            }
+            paymentMethod
           );
         }
       }
@@ -8656,15 +8675,15 @@ function UpdateRiderRating(rating = 0, ridid) {
  * @param {*} res
  */
 export const riderFeedback = async (req, res) => {
-  if (req.body.tips) {
-    if (req.body.tips == "") {
-      var tips = 0;
-      await addTips(req.body.tripId, tips);
-    } else {
-      var tips = parseFloat(req.body.tips);
-      await addTips(req.body.tripId, tips);
-    }
-  }
+  // if (req.body.tips) {
+  //   if (req.body.tips == "") {
+  //     var tips = 0;
+  //     await addTips(req.body.tripId, tips);
+  //   } else {
+  //     var tips = parseFloat(req.body.tips);
+  //     await addTips(req.body.tripId, tips);
+  //   }
+  // }
 
   var update = {
     riderfb: {
@@ -9221,10 +9240,10 @@ export const pastTripDetail = async (req, res) => {
 
     tripData.csp = GFunctions.convertAllNumbersToString(tripData.csp);
     tripData.acsp = GFunctions.convertAllNumbersToString(tripData.acsp);
-    console.log("========riderData",riderData)
     return res.status(200).json({
       success: true,
       TripDetail: tripData,
+      DriverTip: tripData.tips,
       ProfileDetail: riderData,
       Mapurl: tripData.adsp.map,
     });
@@ -9257,6 +9276,7 @@ export const pastTripDetailRider = async (req, res) => {
     return res.status(200).json({
       success: true,
       TripDetail: tripData,
+      DriverTip: tripData.tips,
       ProfileDetail: driverData,
       Mapurl: tripData.adsp.map,
     });
@@ -9481,7 +9501,7 @@ export const myWalletCreditHistory = (req, res) => {
       { $match: { ridid: new mongoose.Types.ObjectId(req.userId) } },
 
       { $unwind: "$trx" },
-      { $match: { "trx.type": "Credit" } },
+      { $match: { "trx.type": { $regex: /^Credit$/i } } },
 
       { $sort: { "trx._id": -1 } }, //working
 
@@ -9536,7 +9556,7 @@ export const myWalletDebitHistory = (req, res) => {
       { $match: { ridid: new mongoose.Types.ObjectId(req.userId) } },
 
       { $unwind: "$trx" },
-      { $match: { "trx.type": "Debit" } },
+      { $match: { "trx.type": { $regex: /^Debit$/i } } },
 
       { $sort: { "trx._id": -1 } }, //working
 
@@ -9599,7 +9619,7 @@ export const myWallet = (req, res) => {
       return res.status(200).json({
         success: true,
         message: req.i18n.__("WALLET_DETAILS"),
-        balance: bal.toString(),
+        balance: bal.toFixed(2),
       });
     } else {
       return res.status(200).json({
@@ -11108,7 +11128,7 @@ function addDriverSafePayment(doc, amt, req) {
     tripno: doc.tripno,
     driver: doc.dvrid,
     amttopay: doc.dvrid,
-    amtpaid: amttopay,
+    amtpaid: amttopay.toFixed(2),
     bal: amt,
     file: filepath,
   };
@@ -11747,7 +11767,6 @@ export const sendScheduleTaxiRequestToDriver = () => {
       },
     },
     function (err, docs) {
-      console.log("-----docs--",docs);
       if (docs) {
         docs.forEach(async function (doc) {
           var isRiderCurrentlyFreeToTakeNew = await isRiderCurrentlyFree(
@@ -13018,7 +13037,6 @@ export const sendScheduleOutstationTaxiRequestToDriver = () => {
 export const checkServiceAvailableInThisPoints = async (req, res) => {
   try {
     var body = req.body;
-    console.log("============body=----",body)
     var pickupCity = "";
     var ScId = [];
     var supportNo = config.supportNo.toString();
@@ -13698,31 +13716,141 @@ export const checkIsRiderBlocked = async (
   }
 };
 
-export const addTips = async (tripNo, tips) => {
-  var tripData = await Trips.findOne({ tripno: tripNo }).exec();
-  tripData.fare =
-    (parseFloat(tripData.fare) || 0) -
-    (parseFloat(tripData.tips) || 0) +
-    (parseFloat(tips) || 0);
-  tripData.tips = parseFloat(tips) || 0;
+export const addTipsForDriver = async (req, res) => {
+	let tripNo = req.body.tripNo;
+	let tips = req.body.tips;
+  try{
+    var tripData = await Trips.findOne({ tripno: tripNo }).exec();
+    let totalfarewithTips = Number(tripData.fare) + Number(tips);
+    if (tripData.tipsStatus == false) {
 
-  tripData.save();
+			Trips.findOneAndUpdate(
+				{ tripno: tripData.tripno },
+				{ $set: {tips: tips,"acsp.cost":totalfarewithTips.toFixed(2),fare:totalfarewithTips.toFixed(2), "acsp.bal":totalfarewithTips.toFixed(2), tipsStatus: true, } }, { new: true },
+			).exec();
 
-  var data = { totalFare: tripData.fare, tips: tripData.tips };
-  var walletUpdate = {
-    driverId: tripData.dvrid,
-    trxId: "Tips" + tripNo,
-    description: "tips - credit",
-    amt: tips,
-    type: "credit",
-    paymentDate: tripData.date,
-    paymentDateSort: GFunctions.getISODate(),
-  };
-  updateDriverWallet(walletUpdate.driverId, walletUpdate);
-  findAndSendFCMToDriver(
-    tripData.dvrid,
-    "CONGRATS_YOU_GOT AS_ A_ TIPS_FOR $" + tips
-  );
-  return data;
+      var walletUpdate = {
+        driverId: tripData.dvrid,
+        trxId: "Tips" + tripNo,
+        description: "tips - credit",
+        amt: tips,
+        type: "credit",
+        paymentDate: tripData.date,
+        paymentDateSort: GFunctions.getISODate(),
+      };
+			 updateTripTipsInFirebase(tripData, tips,totalfarewithTips.toFixed(2));
+       updateDriverPaymentTip(tripData.tripno,totalfarewithTips.toFixed(2),tips)
+       updateDriverWallet(walletUpdate.driverId, walletUpdate);
+      findAndSendFCMToDriver(
+        tripData.dvrid,
+        "CONGRATS YOU GOT AS A TIPS FOR $" + tips
+      );
+			return res
+				.status(200)
+				.json({ success: true, message: req.i18n.__("TIPS AMOUNT UPDATED") });
+		} else {
+			return res
+				.status(200)
+				.json({ success: true, message: req.i18n.__("TIPS AMOUNT UPDATED ALREADY") });
+		}
+  }catch (err) {
+		console.log(err);
+		return res
+			.status(500)
+			.json({ success: false, message: "error", err });
+	}
 };
 
+// export const addTipsForDriver = async (req, res) => {
+// 	let tripNo = req.body.tripNo;
+// 	let tips = req.body.tips;
+// 	try {
+// 		var tripData = await Trips.findOne({ tripno: tripNo }).exec();
+// 		if (tripData.tipsStatus == false) {
+
+// 			Trips.findOneAndUpdate(
+// 				{ tripno: tripData.tripno },
+// 				{ $set: {tips: tips, tipsStatus: true, } }, { new: true },
+// 			).exec();
+		
+// 			updateTripTipsInFirebase(tripData, tips);
+// 			findAndSendFCMToDriver(tripData.dvrid, `You Got a Tips amount ${config.currencySymbol} ${tips}`, 'Tips');
+// 			// var walletUpdate = {
+// 			// 	driverId: tripData.dvrid,
+// 			// 	trxId: tripData.tripno,
+// 			// 	description: "tips - credit",
+// 			// 	amt: req.body.tips,
+// 			// 	type: "credit",
+// 			// 	paymentDate: tripData.date,
+// 			// 	paymentDateSort: GFunctions.getISODate(),
+// 			// };
+// 			// updateDriverWallet(walletUpdate.driverId, walletUpdate);
+// 			return res
+// 				.status(200)
+// 				.json({ success: true, message: req.i18n.__("TIPS AMOUNT UPDATED") });
+// 		} else {
+// 			return res
+// 				.status(200)
+// 				.json({ success: true, message: req.i18n.__("TIPS AMOUNT UPDATED ALREADY") });
+// 		}
+// 	} catch (err) {
+// 		console.log(err);
+// 		return res
+// 			.status(500)
+// 			.json({ success: false, message: "error", err });
+// 	}
+
+// };
+
+function updateTripTipsInFirebase(tripDoc, tips,totalamount) {
+	if (!firebase.apps.length) {
+		firebase.initializeApp(config.firebasekey);
+	}
+	var db = firebase.database();
+	var ref = db.ref("trips_data"); //Todo
+	var requestData = {
+    tipsToDriver: tips ? tips.toString() : "0",
+		total_fare: totalamount ? totalamount.toString(): tripDoc.fare,
+		balance_fare: totalamount ? totalamount.toString(): tripDoc.fare,
+		ispay: totalamount ? totalamount.toString(): tripDoc.fare,
+
+	};
+	requestData = convertAllNumbersToString(requestData);
+	var child = tripDoc.tripno.toString();
+	var usersRef = ref.child(child);
+	usersRef.update(requestData, function (error) {
+		if (error) {
+		} else {
+		}
+	});
+}
+
+// function updateDriverPaymentTip (id,totalfarewithTips,tips) {
+// console.log("inside the function")
+// const data = DriverPayment.findOne({ tripno: id }).exec()
+// console.log(data,"data")
+// console.log(data.amttodriver,"data.amttodriver")
+// let amttodriverTip = Number(data.amttodriver) + Number(tips)
+// console.log(amttodriverTip,"amttodriverTip")
+//  DriverPayment.findOneAndUpdate(
+//     { tripno: id },
+//     { $set: {tips: tips, amttopay: totalfarewithTips, amttodriver: Number(amttodriverTip)} }, { new: true },
+//   ).exec();
+//   console.log(data,"data")
+// }
+async function updateDriverPaymentTip(id, totalfarewithTips, tips) {
+  try {
+      const data = await DriverPayment.findOne({ tripno: id }).exec();
+
+      let amttodriverTip = Number(data.amttodriver) + Number(tips);
+      const updatedData = await DriverPayment.findOneAndUpdate(
+          { tripno: id },
+          { $set: { tips: tips, amttopay: totalfarewithTips, amttodriver: Number(amttodriverTip) } },
+          { new: true }
+      ).exec();
+      // return updatedData; // Return the updated document
+  } catch (error) {
+      console.error("Error occurred:", error);
+      throw error; // Rethrow the error to be handled by the caller
+  }
+}

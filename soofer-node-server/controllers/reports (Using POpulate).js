@@ -311,7 +311,7 @@ function markSettledDvrPaymentFunc(element){
     { "$unwind": "$userinfo" },
     { "$match":likeQuery},
     { "$project": {
-      "bal": 1,
+      "bal": mround('$bal', 2),
       "trx": 1,
       "userinfo.fname": 1,
       "userinfo.phone": 1
@@ -499,7 +499,6 @@ function markSettledDvrPaymentFunc(element){
             },  
           },   
           ]);
-          console.log(likeQuery)
         let Datas     = DriverPayment.aggregate([  
           {
             "$lookup": {

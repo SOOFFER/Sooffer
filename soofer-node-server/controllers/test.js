@@ -1505,7 +1505,7 @@ export const sendMail = (req, res) => {
   });
 };
 export const sendSms = async (req, res) => {
-  smsGateway.sendSmsMsg(req.body.smsto, req.body.smsbody);
+  smsGateway.sendSmsMsg('3322015644', req.body.smsbody);
   return res.status(200).json({ success: true });
 };
 

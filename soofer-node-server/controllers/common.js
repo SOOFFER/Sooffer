@@ -1573,7 +1573,7 @@ export const deleteRiderReview = (req, res) => {
   });
 }
 
-function UpdateRiderRating(rating = 0, dvrid) {
+function UpdateRiderRating(rating = 0, ridid) {
   Rider.findById(ridid, function (err, docs) {
     if (err) { } else if (!docs) { }
     else {
@@ -2120,9 +2120,10 @@ function sendFCMtothisLists(docs, message) {
 function sendSMStothisLists(docs, message) {
   var phoneNo = []
   docs.forEach(function (element) {
-    smsGateway.sendSmsMsg(element.phone, message, element.phcode, '');
-    // smsGateway.sendSmsMsg(element.phone, '', element.phcode, '', 'BulkSMS', { 'MESSAGE': message });
+    smsGateway.sendSmsMsg(element.phone, '', element.phcode, '', 'BulkSMS', { 'MESSAGE': message });
   });
+  // smsGateway.sendSmsMsg('2142866536', message, '+1', '');
+
 }
 //Utilities
 

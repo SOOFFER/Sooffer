@@ -29,7 +29,6 @@ const cancelationConfig = require("../modules/cancelation/cancelationConfig");
  * @param {*} res
  */
 export const estimationFare = async (req, res, next) => {
-  console.log("___________________req.body",JSON.stringify(req.body))
   if (
     typeof req.body.pickupLat === "undefined" ||
     req.body.pickupLat === "" ||
@@ -188,7 +187,6 @@ export const requestTaxi = async (req, res, next) => {
       req.body.tripDate,
       req.body.tripTime
     );
-    console.log("---newDateFormat-",newDateFormat)
     var reqtripFDT = GFunctions.getDateTimeinThisFormat(
       newDateFormat,
       "MM/DD/YYYY HH:mm a"
@@ -198,7 +196,6 @@ export const requestTaxi = async (req, res, next) => {
       reqtripFDT,
       GFunctions.getISODate()
     );
-    console.log("---timeBtNowAndReq-",timeBtNowAndReq)
     if (Number(timeBtNowAndReq) < 15 && req.body.requestFrom != "admin") {
       return res.status(409).json({
         success: false,
@@ -248,7 +245,6 @@ export const requestTaxi = async (req, res, next) => {
     req.body.gmtTime = gmtFTime;
     // req.body.tripShownDate = reqtripDT;
 
-    console.log("After Appvalidation",JSON.stringify(req.body))
   }
 
   if (!req.body.driverAssignmentType) {
@@ -271,7 +267,6 @@ export const requestTaxi = async (req, res, next) => {
         });
       }
     } else {
-      console.log("__________________req.body.vehicleDetailsAndFare",req.body.vehicleDetailsAndFare);
       req.body.vehicleDetailsAndFare = JSON.parse(
         req.body.vehicleDetailsAndFare
       );
@@ -708,7 +703,6 @@ export const verifyNumberDriver = async (req, res, next) => {
 };
 
 export const driverAddData = async (req, res, next) => {
-  console.log("driverAddData", req.body);
   if (
     typeof req.body.requestFrom !== "undefined" &&
     req.body.requestFrom !== ""

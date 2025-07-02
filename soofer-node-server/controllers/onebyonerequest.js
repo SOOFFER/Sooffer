@@ -78,11 +78,11 @@ export const findNearbyDriversAndSendRequest = async (
     curService: neededService, //curStatus : 'free' or 'requested'
     // lastUpdate : { $gt: GFunctions.getUpcomingSchListMinusBuffer(0.5) }
   };
-  // if (gender == "" || gender == "Male" || gender == "male") {
-  //   driverFind["gender"] = { 
-  //     $in : ["male","Male"] 
-  //   };
-  // }
+  if (gender == "Female" || gender == "female") {
+    driverFind["gender"] = { 
+      $in : ["female","Female"] 
+    };
+  }
 
   // if (
   //   featuresSettings.payPackageTypes &&
@@ -252,6 +252,7 @@ export const findNearbyDriversAndSendRequest = async (
       $match: driverFind,
     }
   ])
+  console.log("DRIVER_DATA: ", JSON.stringify(pipeline1),JSON.stringify(driverFind)) 
   Driver.aggregate([
     pipeline1,
     {
@@ -261,7 +262,7 @@ export const findNearbyDriversAndSendRequest = async (
     .limit(config.driversNeedToPickFromSurrounding)
     .exec(async(err, driverdata) => {
       if (err) {
-        if (gender == "Female") {
+        if (gender == "Female" || gender == "female") {
           GFunctions.notifyRider(
             userid,
             "No Female Driver Found So Please You Can Try Male Driver",
@@ -270,10 +271,25 @@ export const findNearbyDriversAndSendRequest = async (
         } else {
         }
         GFunctions.notifyRider(userid, "No Driver Found", tripdata._id); //Error on Server
-      } else {
+      }
+      // else if(gender == "Female" || gender == "female"){
+      //   GFunctions.notifyRider(
+      //     userid,
+      //     "No Female Driver Found So Please You Can Try Male Driver",
+      //     tripdata._id
+      //   ); //Error on Server
+      // }
+      else {
+        console.log("DRIVER_DATA_LENGTH: ", driverdata.length) 
         if (driverdata.length == 0) {
           //SENDNOTIFICATIONTOADMIN
-
+          if (gender == "Female" || gender == "female") {
+            await GFunctions.notifyRider(
+              userid,
+              "No Female Driver Found So Please You Can Try Male Driver",
+              tripdata._id
+            ); //Error on Server
+          }else{
           sendNoDriverFoundSMSToAdmin(
             tripdata.tripno,
             tripdata.triptype,
@@ -286,6 +302,7 @@ export const findNearbyDriversAndSendRequest = async (
             tripdata.requestId
           );
           await GFunctions.notifyRider(userid, "No Driver Found", tripdata._id);
+          }
         } else {
           filterNSendOBORequestToDrivers(
             tripdata,

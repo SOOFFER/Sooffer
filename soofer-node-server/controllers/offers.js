@@ -178,7 +178,6 @@ export const showOfferList = async (req, res) => {
       likeQuery['scIds.name'] = { $in: [user.scity, 'Default'] }
     }
   }
-  console.log(likeQuery)
   Offers.find({ $and: [likeQuery] }).limit(50).sort({ edate: - 1 }).exec((err, docs) => {
     // Offers.find({ $and: [{ vdate: { "$lte": new Date() } }, { edate: { "$gte": new Date() } }] }).limit(50).sort({ edate: - 1 }).exec((err, docs) => {
     var resultarr = [];

@@ -34,6 +34,8 @@ const request = require("request");
 const md5 = require("md5");
 const redis = require("redis");
 const redis_client = redis.createClient(6379);
+const { google } = require('googleapis');
+const axios = require('axios');
 
 import pushNotificationPrivate from "../models/pushNotificationPrivate.model";
 import { saveTemplateToPdf, checkEndMeterPossible } from "./common";
@@ -134,7 +136,7 @@ export const sendFCMMsgTest = async (registrationTokens, pushmessage) => {
  * @return null
  * @response null
  */
-export const sendFCMMsg = (
+export const sendFCMMsg = async(
   touser,
   msg = "Message from " + config.appName,
   subject = null,
@@ -156,109 +158,302 @@ export const sendFCMMsg = (
 
   savePushNotificationPrivate(msg, subject, userId, forType);
   /*notificationContent[driverLangCode].${content type dynamically} If it is changed to dynamically the default lang is en */
-  if (touser) {
-    //If Only Device Token exists
+  if (touser) { //If Only Device Token exists
     touser = touser.toString();
-    var fcm = new FCM(serverKey);
+
 
     if (!onlyData) {
       var fcmmessage = {
-        to: touser,
-        priority: "high",
-        // collapse_key: 'your_collapse_key',
-        data: {
-          title: title,
-          message: msg,
-          sound: "default",
-        },
-        notification: {
-          title: title,
-          body: msg,
-          sound: "default",
-        },
-      };
-    } else {
-      if (sound) {
-        var fcmmessage = {
-          to: touser,
-          priority: "high",
-          // collapse_key: 'your_collapse_key',
+        message: {
+          token: touser,
+          android: {
+            priority: "HIGH",
+            notification: {
+              title: title,
+              body: msg,
+              sound: "default"
+            }
+          },
+          apns: {
+            payload: {
+              aps: {
+                alert: {
+                  title: title,
+                  body: msg
+                },
+                sound: "default"
+              }
+            }
+          },
+          webpush: {
+            notification: {
+              title: title,
+              body: msg,
+              icon: "your_icon_url" // Optional
+            }
+          },
           data: {
             title: title,
-            message: msg,
-            sound: "requesting_tone.mp3",
-          },
-          notification: {
-            title: title,
-            body: msg,
-            sound: "requesting_tone.mp3",
-          },
+            message: msg
+          }
+        }
+      };
+    
+
+    }
+    if (msg === "New Trip Request Received.") {
+      sound = true;
+      if (sound) {
+        var fcmmessage = {
+          message: {
+            token: touser,
+            android: {
+              priority: "HIGH",
+              notification: {
+                title: title,
+                body: msg,
+                sound: "requestSound.mp3"
+              }
+            },
+            apns: {
+              payload: {
+                aps: {
+                  alert: {
+                    title: title,
+                    body: msg
+                  },
+                  sound: "requestSound.mp3"
+                }
+              }
+            },
+            webpush: {
+              notification: {
+                title: title,
+                body: msg,
+                icon: "your_icon_url" // Optional
+              }
+            },
+            data: {
+              title: title,
+              message: msg
+            }
+          }
         };
       } else {
         var fcmmessage = {
-          to: touser,
-          priority: "high",
-          // collapse_key: 'your_collapse_key',
-          data: {
-            title: title,
-            message: msg,
-            sound: "default",
-          },
-          notification: {
-            title: title,
-            body: msg,
-            sound: "default",
-          },
+          message: {
+            token: touser,
+            android: {
+              priority: "HIGH",
+              notification: {
+                title: title,
+                body: msg,
+                sound: "default"
+              }
+            },
+            apns: {
+              payload: {
+                aps: {
+                  alert: {
+                    title: title,
+                    body: msg
+                  },
+                  sound: "default"
+                }
+              }
+            },
+            webpush: {
+              notification: {
+                title: title,
+                body: msg,
+                icon: "your_icon_url" // Optional
+              }
+            },
+            data: {
+              title: title,
+              message: msg
+            }
+          }
         };
       }
     }
-    console.log("------------fcmmessage---",fcmmessage)
-    //callback style
-    fcm.send(fcmmessage, function (err, response) {
-      if (err) {
-        logger.error("sendFCMMsgErr", err);
-      } else {
-        // logger.info("sendFCMMsg", response);
-      }
-    });
+    console.log("---fcmmessage---",fcmmessage)
+   
+  
+
+    try {
+
+      let token = await getAccessTokens(); 
+      // console.log("__________token",token);
+      let response = await axios.post(
+        `https://fcm.googleapis.com/v1/projects/${serviceAccount.project_id}/messages:send`,
+        fcmmessage,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      console.log("Notification sent:", response.data);
+
+    } catch (err) {
+      console.error("Error sending notification:", err.response ? err.response.data : err);
+    }
+
   }
 };
 
-export const sendAdminPushMsg = (
+export const sendAdminPushMsg = async(
   touser,
   msg = "Message from " + config.appName,
   title = config.appName
 ) => {
-  if (touser) {
-    //If Only Device Token exists
+  if (touser) { //If Only Device Token exists
     touser = touser.toString();
-    var fcm = new FCM(config.adminfcmServer);
 
-    var fcmmessage = {
-      to: touser,
-      priority: "high",
-      // collapse_key: 'your_collapse_key',
-      data: {
-        title: title,
-        message: msg,
-        sound: "default",
-      },
-      notification: {
-        title: title,
-        body: msg,
-        sound: "default",
-      },
-    };
 
-    //callback style
-    fcm.send(fcmmessage, function (err, response) {
-      if (err) {
+    if (!onlyData) {
+      var fcmmessage = {
+        message: {
+          token: touser,
+          android: {
+            priority: "HIGH",
+            notification: {
+              title: title,
+              body: msg,
+              sound: "default"
+            }
+          },
+          apns: {
+            payload: {
+              aps: {
+                alert: {
+                  title: title,
+                  body: msg
+                },
+                sound: "default"
+              }
+            }
+          },
+          webpush: {
+            notification: {
+              title: title,
+              body: msg,
+              icon: "your_icon_url" // Optional
+            }
+          },
+          data: {
+            title: title,
+            message: msg
+          }
+        }
+      };
+    
 
-        logger.error("sendFCMMsgErr", err);
+    }
+    if (msg === "New Trip Request Received.") {
+      sound = true;
+      if (sound) {
+        var fcmmessage = {
+          message: {
+            token: touser,
+            android: {
+              priority: "HIGH",
+              notification: {
+                title: title,
+                body: msg,
+                sound: "requestSound.mp3"
+              }
+            },
+            apns: {
+              payload: {
+                aps: {
+                  alert: {
+                    title: title,
+                    body: msg
+                  },
+                  sound: "requestSound.mp3"
+                }
+              }
+            },
+            webpush: {
+              notification: {
+                title: title,
+                body: msg,
+                icon: "your_icon_url" // Optional
+              }
+            },
+            data: {
+              title: title,
+              message: msg
+            }
+          }
+        };
       } else {
-        logger.info("sendFCMMsg");
+        var fcmmessage = {
+          message: {
+            token: touser,
+            android: {
+              priority: "HIGH",
+              notification: {
+                title: title,
+                body: msg,
+                sound: "default"
+              }
+            },
+            apns: {
+              payload: {
+                aps: {
+                  alert: {
+                    title: title,
+                    body: msg
+                  },
+                  sound: "default"
+                }
+              }
+            },
+            webpush: {
+              notification: {
+                title: title,
+                body: msg,
+                icon: "your_icon_url" // Optional
+              }
+            },
+            data: {
+              title: title,
+              message: msg
+            }
+          }
+        };
       }
-    });
+    }
+    console.log("---fcmmessage---",fcmmessage)
+   
+  
+
+    try {
+
+      let token = await getAccessTokens(); 
+      // console.log("__________token",token);
+      let response = await axios.post(
+        `https://fcm.googleapis.com/v1/projects/${serviceAccount.project_id}/messages:send`,
+        fcmmessage,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      console.log("Notification sent:", response.data);
+
+    } catch (err) {
+      console.error("Error sending notification:", err.response ? err.response.data : err);
+    }
+
   }
 };
 
@@ -935,10 +1130,9 @@ export const getScheduleTaxiRequestTime = (
   timeformat = "YYYY-MM-DDTHH:mm:00.000[Z]"
 ) => {
   var myDate = moment().add(addMinutes, "minutes").utc().format(timeformat);
-  console.log("----- new Dat", myDate);
-  console.log("----- new Date(myDate)", new Date(myDate));
+
   var myDate = new Date(myDate).toGMTString();
-  console.log("--myDate--",myDate);
+
   return myDate;
 };
 
@@ -1035,7 +1229,6 @@ export const getDistanceAndTimeFromGDM = async (
     from: "",
     to: "",
   }
-  console.log("---------insideee----")
   return new Promise(function (resolve, reject) {
     GoogleDistanceMatrix.matrix(
       origins,
@@ -1195,7 +1388,6 @@ export const getDistanceAndTimeFromGDM2 = async (origins, destinations) => {
     destinations +
     "&departure_time=now&key=" +
     config.googleApi;
-console.log("-------insideee***")
   return new Promise(function (resolve, reject) {
     request.get(
       {
@@ -1204,7 +1396,6 @@ console.log("-------insideee***")
       function (error, response, distances) {
         if (!error && response.statusCode == 200) {
           distances = JSON.parse(distances);
-          console.log("------distances--",distances)
           if (typeof distances !== "undefined") {
             data.from = distances.origin_addresses[0];
             data.to = distances.destination_addresses[0];
@@ -1217,7 +1408,6 @@ console.log("-------insideee***")
             if (featuresSettings.useRedisCache) {
               redis_client.setex(hashKey, 2592000, JSON.stringify(data)); //30Days
             }
-            console.log("--------ressss",data)
             resolve(data);
           } else {
             // If Api gives error response
@@ -1564,7 +1754,6 @@ export const notifyRider = async (
     status: tripstatus,
     review: msg,
   };
-
   Trips.findOneAndUpdate(
     { _id: requestId },
     update,
@@ -2027,9 +2216,7 @@ export const calculateDistanceBasedOnLimit = async (
   if (gdmResult.error) {
     return modifiedDistanceAndTime;
   }
-  console.log("-----gdmResult",gdmResult)
-  console.log("-----[from]",[from],[to])
-console.log("****** gdmResult.distanceValue", gdmResult.distanceValue)
+
   if (config.distanceUnit == "Miles") {
     var googleDistance = parseFloat(
       gdmResult.distanceValue * 0.000621371
@@ -2076,7 +2263,6 @@ console.log("****** gdmResult.distanceValue", gdmResult.distanceValue)
   //   }
   //   return modifiedDistanceAndTime;
   // }
-  console.log("---condi3---",Number(distanceInUnit) > Number(googleDistance))
   if (Number(distanceInUnit) > Number(googleDistance)) {
     var extraDistance = (
       (featuresSettings.calMaxDistancePercentage / 100) *
@@ -2108,7 +2294,6 @@ var MinDistance = (
       Number(googleDistance)
     ).toFixed(2);
     var MinDistanceLimit = Number(googleDistance) - Number(MinDistance);
-    console.log("=======cond5",Number(distanceInUnit) < Number(MinDistanceLimit))
     if (Number(distanceInUnit) < Number(MinDistanceLimit)) {
       distanceInUnit = Number(googleDistance).toFixed(2);
       modifiedDistanceAndTime["distanceValue"] = distanceInUnit;
@@ -2224,7 +2409,6 @@ function getFareIfTimeFallsIn(hours, now, noOfDays) {
   if (!now || now == "") {
     now = sendTimeNow(format);
   } else {
-    console.log("========now======",now)
     now = getDateTimeinThisFormat(now, "YYYY-MM-DDTHH:mm:ss.SSS[Z]", format);
   }
 
@@ -2328,3 +2512,95 @@ export const getNightsBtDateTimeNewMtd = (hours, endDate, startDate) => {
   }
   return noOfNight;
 };
+
+function getAccessTokens() {
+  let SCOPES = ['https://www.googleapis.com/auth/cloud-platform'];
+  return new Promise((resolve, reject) => {
+    let jwtClient = new google.auth.JWT(
+      serviceAccount.client_email,
+      null,
+      serviceAccount.private_key,
+      [SCOPES],
+      null
+    );
+
+    jwtClient.authorize((err, tokens) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(tokens.access_token);
+    });
+  });
+}
+
+
+
+export const sendchatFCM = async(req,res)=> {  ///Chat FCM Msg//
+  try {
+    let body = JSON.stringify(req.body)
+    body = JSON.parse(body)
+    let touser = body.token;
+    // if(typeof(body.data) == "string") {
+    //   body.data = JSON.parse(body.data)
+    // }
+    let fcmmessage = {
+      message: {
+        token: touser,
+        android: {
+          priority: "HIGH",
+          notification: {
+            title: body.data.title,
+            body: body.data.message,
+            sound: "default"
+          }
+        },
+        apns: {
+          payload: {
+            aps: {
+              alert: {
+                title: body.data.title,
+                body: body.data.message
+              },
+              sound: "default"
+            }
+          }
+        },
+        webpush: {
+          notification: {
+            title: body.data.title,
+            body: body.data.message,
+            icon: "your_icon_url" // Optional
+          }
+        },
+        data: {
+          title: body.data.title,
+          message: body.data.message,
+          type:body.data.type,
+          click_action:body.data.click_action,
+        }
+      }
+    };
+    let token = await getAccessTokens(); 
+    let response = await axios.post(
+      `https://fcm.googleapis.com/v1/projects/${serviceAccount.project_id}/messages:send`,
+      fcmmessage,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        } 
+      }
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Notification Sended successfully",
+      data:response.data
+    });
+  } catch (err) {
+    console.error("Error sending notification:", err.response ? err.response.data : err);
+    return res
+    .status(500)
+    .json({ success: false, message: err.message, err: err });
+  }
+}
