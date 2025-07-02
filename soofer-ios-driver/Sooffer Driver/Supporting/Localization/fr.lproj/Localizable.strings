@@ -75,7 +75,7 @@
 "low_blc_content" = "Désolé, vos crédits sont trop bas.";
 "enter_otp" = "Enter OTP";
 "otp" = "OTP";
-"same_pass" = "New password and Confirm password must be same";
+"same_pass" = "Le nouveau mot de passe et la confirmation du mot de passe doivent être identiques";
 
 //inivite frinds
 "share_invite" = "PARTAGEZ VOTRE CODE D'INVITE";
@@ -153,7 +153,7 @@
 "mmissing" = "Manquant";
 "driving_license" = "Permis de conduire";
 "insurance" = "Assurance";
-"taxi_passing" = "Passage de taxi";
+"taxi_passing" = "Assurance automobile";
 "manage_doc" = "Gérer le document";
 "select_doc" = "Sélectionner un document";
 "manage_vehi" = "Gérer un véhicule";

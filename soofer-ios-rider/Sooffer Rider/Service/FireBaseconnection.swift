@@ -137,6 +137,7 @@ class FireBaseconnection{
                     "requestId": "0",
                     "tripdriver": "0"
                 ]
+                UserDefaults.standard.set(false, forKey: "isarrive")
                 fireBaseref.child("riders_data").child(self.userid).updateChildValues(riderArray)
                 
                 
@@ -280,5 +281,24 @@ class FireBaseconnection{
             }
         }
     }
-    
+    func changeDropAddress(dropaddress: String, dropLatLng: String,completion : @escaping()->() ){
+        print("DROPPPP ADDRESS::\(dropaddress)")
+        print("DRDOP LAT LNG:: \(dropLatLng)")
+        
+        
+        
+        
+        let tripid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.tripid) as? String ?? ""
+        if let id : String = tripid as? String{
+          if !id.isEmpty{
+            print("TRIP IDDD :::\(tripid)")
+            let updateDrop = [
+              "Drop_address" : dropaddress,
+              "Drop_latlng" : dropLatLng
+            ]
+            fireBaseref.child("trips_data").child(tripid).updateChildValues(updateDrop)
+            completion()
+          }
+        }
+      }
 }

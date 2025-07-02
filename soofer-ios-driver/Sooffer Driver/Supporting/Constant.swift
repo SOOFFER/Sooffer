@@ -13,13 +13,16 @@ struct ServiceApi{
     static let Base_URL = "http://18.220.141.188:3001/api/"
     static let tc = "https://node.absera.com:3023/api/tnc"
     static let Base_Image_URL = "http://18.220.141.188:3001/" //"https://node.absera.com:3023/"
-    static let bankDetails = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_KdtdPkQ2a4GPlVRxb3YscDNnAWRMcIAP" //"https://connect.stripe.com/express/oauth/authorize?client_id=ca_EVohagOn5kgZGtiiRMuw1uGHqzIKmbT8" //"https://connect.stripe.com/express/oauth/authorize?client_id=ca_EVohEku8Lu72eMo6OJPZiqt8tEsckIkE"2
+    static let bankDetails = "https://connect.stripe.com/express/oauth/authorize?client_id=ca_KdtdAYDtmTOFx32L6fnKrsvfdWcC0ZVK"
+    //"https://connect.stripe.com/express/oauth/authorize?client_id=ca_KdtdPkQ2a4GPlVRxb3YscDNnAWRMcIAP"
+    //"https://connect.stripe.com/express/oauth/authorize?client_id=ca_EVohagOn5kgZGtiiRMuw1uGHqzIKmbT8" //"https://connect.stripe.com/express/oauth/authorize?client_id=ca_EVohEku8Lu72eMo6OJPZiqt8tEsckIkE"2
     static let appstoreLink = "https://node.absera.com:3023/#/"
     
     static let googleNearbyAddr = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
     static let googleDirection = "https://maps.googleapis.com/maps/api/directions/json"
     static let googleAutoComplete = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
     static let login = ServiceApi.Base_URL + "driverlogin"
+    static let AccountDeletion = ServiceApi.Base_URL + "deleteDriver/id"
     static let otpVerification = ServiceApi.Base_URL + "verifyNumberDriver"
     static let driverForgotPassword = ServiceApi.Base_URL + "driverForgotPassword"
     static let online = ServiceApi.Base_URL + "setOnlineStatus"
@@ -62,6 +65,7 @@ struct ServiceApi{
     
     static let myWalletHistory = ServiceApi.Base_URL + "driverWalletReport"
     static let logout = ServiceApi.Base_URL + "logout"
+    static let sendchatFCM = ServiceApi.Base_URL + "sendchatFCM"
 }
 
 struct UserDefaultsKey{

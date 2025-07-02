@@ -162,8 +162,32 @@ class RentalVC: UIViewController {
         }
         
         self.confimeBookingBtn.addAction(for: .tap) {
-            self.rentalBooking(packageId: self.slectedPackage?._id ?? "", vehicleTypeId: self.vehicleData?._id ?? "", serviceType: self.vehicleData?.type ?? "")
+            
+            if Constant.profileData.card.last4.isEmpty{
+                //showToast(msg: "please add card from menu")
+                
+                self.showalert()
+                
+            }else{
+                self.rentalBooking(packageId: self.slectedPackage?._id ?? "", vehicleTypeId: self.vehicleData?._id ?? "", serviceType: self.vehicleData?.type ?? "")
+            }
         }
+    }
+    func showalert() {
+        let refreshAlert = UIAlertController(title: "", message: "Pleas add your card", preferredStyle: UIAlertController.Style.alert)
+
+                   refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+                       let vc = PaymentVC.initWithStory()
+                       vc.pagefrom = true
+                       self.navigationController?.pushViewController(vc, animated: true)
+                     
+                     }))
+
+                   refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                   //  print("Handle Cancel Logic here")
+                     }))
+
+                   self.present(refreshAlert, animated: true, completion: nil)
     }
 }
 
@@ -356,7 +380,7 @@ extension RentalVC{
     
     func rentalBooking(packageId : String,vehicleTypeId : String,serviceType : String){
             
-        self.homevm.rentalConfirmBooking(view: self.view, date: self.date ?? "", paymentType: "cash", pickupCity: "", bookingtype: bookingtype ?? "", tripTime: self.time ?? "", estimateFare: EstimateFareDetails(), utc: "", packageId: packageId, vehicleTypeId: vehicleTypeId, serviceType: serviceType,pickupLoc : self.pickupLoaction ?? CLLocation() , pickupAddress : self.pickupAddress ?? "")
+        self.homevm.rentalConfirmBooking(view: self.view, date: self.date ?? "", paymentType: "Card", pickupCity: "", bookingtype: bookingtype ?? "", tripTime: self.time ?? "", estimateFare: EstimateFareDetails(), utc: "", packageId: packageId, vehicleTypeId: vehicleTypeId, serviceType: serviceType,pickupLoc : self.pickupLoaction ?? CLLocation() , pickupAddress : self.pickupAddress ?? "")
             
         self.homevm.getRequestClouser = {
          if let requestdata = self.homevm.request{

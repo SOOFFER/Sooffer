@@ -34,7 +34,8 @@ class FaqsubVC: UIViewController {
         // Do any additional setup after loading the view.
         backimg.addTap {
 //            self.sideMenuController?.revealMenu()
-            self.navigationController?.popToRootViewController(animated: true)
+//            self.navigationController?.popToRootViewController(animated: true)
+    self.navigationController?.popViewController(animated: true)
         }
     }
     

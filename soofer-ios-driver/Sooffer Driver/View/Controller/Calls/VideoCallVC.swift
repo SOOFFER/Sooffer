@@ -44,7 +44,8 @@ class VideoCallVC: UIViewController {
     // Track if the local user is in a call
     var joined: Bool = false
     var userRole: AgoraClientRole = .broadcaster
-    
+    var dismissPage: (()->())?
+    var Commonvm = CommonVM()
     
     
     class func initWithStory()->VideoCallVC{
@@ -78,6 +79,7 @@ class VideoCallVC: UIViewController {
             // Speaker is disabled
             soundBtn.setImage(UIImage(named: "speaker-off"), for: .normal)
         }
+        self.Commonvm = CommonVM(view: self.view, dataService: ApiRoot())
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -86,6 +88,7 @@ class VideoCallVC: UIViewController {
     }
     
     @objc func setupprint(){
+        self.dismissPage?()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -134,6 +137,7 @@ class VideoCallVC: UIViewController {
         self.endBtn.addTap {
             showToast(msg: "Call Ended...")
             self.firebaseNotiifcation(message: "Your Driver disconnected the call", fcm: self.riderfcm)
+            self.dismissPage?()
             self.navigationController?.popViewController(animated: true)
         }
         self.soundBtn.addTap {
@@ -164,6 +168,18 @@ extension VideoCallVC : AgoraRtcEngineDelegate{
     // Callback called when a new host joins the channel
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
 
+    }
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
+        print("Successfully joined channel \(channel) with uid \(uid), elapsed \(elapsed)")
+    }
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        print("user leaved the call : \(reason)")
+        self.leaveChannel()
+        self.dismissPage?()
+        self.navigationController?.popViewController(animated: true)
+    }
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didLeaveChannelWith stats: AgoraChannelStats) {
+        print("leave agora call with status : \(stats)")
     }
     func joinAction() {
         if !joined {
@@ -433,45 +449,49 @@ extension VideoCallVC{
     
     func firebaseNotiifcation(message : String,fcm : String){
         print("fcm id is::\(fcm)")
-        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
-        var request = URLRequest(url: url)
-        let header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
-        //"key=AIzaSyAXhSo8C6LWIWmUHUKlqUeJo2VuhTMmsQE"
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        request.httpMethod = "POST"
-        print("fcm is:: \(fcm)")
-        let params = ["to" : fcm,
-                      "notification" : [
-                        "title" : "Sooffer",
-                        "body" : "\(message)",
-                        "sound" : "default",
-                        "click_action" : "open_video"
-                      ],
-                      "data" : [
-                        "title" : "Huberswiss",
-                        "score" : "5x1",
-                        "message" :"\(message)",
-                        "click_action" : "open_video"
-                      ]
-        ] as [String : Any]
-        
-        print("params is:: \(params)")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
-        request.httpBody = httpbody
-        
-        URLSession.shared.dataTask(with: request) { (data, resule, error) in
-            guard let data = data else {return}
-            
-            do{
-                print("valuess:: \(data)")
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                print("====>postwithHeader",json)
-                
-            }catch{
-                print("JSONS Error")
-            }
-            
-        }.resume()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.Commonvm.GetPushNotification(view: self.view, fcm: fcm, Type: "chat", title: "Pirate", Message: message, click_action: "open_video")
+        }
+//        print("fcm id is::\(fcm)")
+//        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
+//        var request = URLRequest(url: url)
+//        let header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
+//        //"key=AIzaSyAXhSo8C6LWIWmUHUKlqUeJo2VuhTMmsQE"
+//        request.setValue(header, forHTTPHeaderField: "Authorization")
+//        request.httpMethod = "POST"
+//        print("fcm is:: \(fcm)")
+//        let params = ["to" : fcm,
+//                      "notification" : [
+//                        "title" : "Sooffer",
+//                        "body" : "\(message)",
+//                        "sound" : "default",
+//                        "click_action" : "open_video"
+//                      ],
+//                      "data" : [
+//                        "title" : "Huberswiss",
+//                        "score" : "5x1",
+//                        "message" :"\(message)",
+//                        "click_action" : "open_video"
+//                      ]
+//        ] as [String : Any]
+//        
+//        print("params is:: \(params)")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
+//        request.httpBody = httpbody
+//        
+//        URLSession.shared.dataTask(with: request) { (data, resule, error) in
+//            guard let data = data else {return}
+//            
+//            do{
+//                print("valuess:: \(data)")
+//                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+//                print("====>postwithHeader",json)
+//                
+//            }catch{
+//                print("JSONS Error")
+//            }
+//            
+//        }.resume()
     }
 }

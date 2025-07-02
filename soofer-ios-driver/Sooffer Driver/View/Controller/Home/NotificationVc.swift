@@ -38,7 +38,7 @@ class NotificationVc: UIViewController {
         return vc
     }
     func setupView(){
-           self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "Notification"))
+           self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "notification"))
            self.view.addGestureRecognizer((self.revealViewController()?.panGestureRecognizer())!)
            self.revealViewController().rearViewRevealWidth = 220
         
@@ -59,7 +59,7 @@ extension  NotificationVc : UITableViewDelegate, UITableViewDataSource {
 //                        ShowMsginWindow.instanse.nodataView(view: self.view)
 //                    }
 //                }
-        ShowMsginWindow.instanse.nodataView(view: self.view)
+//        ShowMsginWindow.instanse.nodataView(view: self.view)
         return notification.isEmpty ? 0 : notification.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,6 +79,10 @@ extension NotificationVc  {
             self.notification = self.loginVM.notification?.NotificationList ?? [NotificationData]()
             print("COUNTTTTT ::\(self.notification.count)")
             self.NotificationTableView.reloadData()
+            if self.notification.isEmpty{
+                ShowMsginWindow.instanse.nodataView(view: self.view)
+                showToast(msg: "No notification yet")
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ class InviteFrndsVC: UIViewController {
     
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
+    var referal: String = ""
     
     
     override func viewDidLoad() {
@@ -39,12 +40,14 @@ class InviteFrndsVC: UIViewController {
     }
     
     func setupView(){
-        
+        self.referal = Constant.profileData.referal
        // self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "invite_frirnds"))
+        print("Reffral::,\(self.referal)")
+        self.inviteCodeLbl.text = self.referal
 
 //        self.view.addGestureRecognizer((self.revealViewController()?.panGestureRecognizer())!)
 //        self.revealViewController().rearViewRevealWidth = 220
-        
+        print("Reffral::,\(Constant.profileData.referal)")
         self.inviteBtn.roundeCornorBorder = 20
     }
     
@@ -53,7 +56,7 @@ class InviteFrndsVC: UIViewController {
             self.sideMenuController?.revealMenu()
         }
         self.inviteBtn.addAction(for: .tap) {
-            let text : String = "HIIHIHIHIHI" + "invite's you with this code -> " + self.inviteCodeLbl.text!
+            let text : String = "HIIHIHIHIHI" + "invite's you with this code -> " + self.referal + " https://apps.apple.com/in/app/sooffer-rider/id6475039376"
             print("INVIT:::\(self.inviteCodeLbl)")
             let vc = UIActivityViewController(activityItems: [text], applicationActivities: nil)
             vc.excludedActivityTypes = [.print, .copyToPasteboard, .assignToContact, .saveToCameraRoll, .airDrop]

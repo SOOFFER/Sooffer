@@ -411,7 +411,7 @@ extension PaymentDetailView{
     
    func sendRideRequest(view: UIView, date: String, paymentType: String, pickupCity: String, bookingtype: String, tripTime: String,utc: String, estimateFare: EstimateFareDetails,requestResponse : @escaping(RideRequestModel) -> ())
         {
-    self.homevm.sendRideRequest(view: self, date: date, paymentType: paymentType, pickupCity: pickupCity, bookingtype: bookingtype, tripTime: tripTime, estimateFare: self.fareDetail ?? EstimateFareDetails(), utc: utc, isMultiLocation: "false", multiLocation: "", homeType: redirectHome, withId: "", withNo: "", withName: "", withMake: "")
+            self.homevm.sendRideRequest(view: self, date: date, paymentType: paymentType, pickupCity: pickupCity, bookingtype: bookingtype, tripTime: tripTime, estimateFare: self.fareDetail ?? EstimateFareDetails(), utc: utc, isMultiLocation: "false", multiLocation: "", homeType: redirectHome, withId: "", withNo: "", withName: "", withMake: "", drivergender: "Male")
         self.homevm.getRequestClouser = {
             if let requestdata = self.homevm.request{
     //                 let requestInfo = ["requestID": requestdata.requestDetails ?? ""]

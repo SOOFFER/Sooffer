@@ -106,6 +106,7 @@ extension NotificationVc  {
             print("COUNTTTTT ::\(self.notification.count)")
             self.notificationTableView.reloadData()
             if self.notification.isEmpty{
+                ShowMsginWindow.instanse.nodataView(view: self.view)
                 showToast(msg: "No notification yet")
             }
          //   print("typ@",self.type)

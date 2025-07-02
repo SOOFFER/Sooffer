@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -302,7 +302,7 @@
 		90F877AC22A97AD9001D41EF /* car.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = car.json; sourceTree = "<group>"; };
 		90F877AF22A98483001D41EF /* GoogleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleVM.swift; sourceTree = "<group>"; };
 		90F877B122A9916E001D41EF /* GoogleAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAddressModel.swift; sourceTree = "<group>"; };
-		90F8AB7F229DAA46002E1486 /* RebuStar Enterprise Rider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RebuStar Enterprise Rider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F8AB7F229DAA46002E1486 /* Sooffer Rider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sooffer Rider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F8AB82229DAA46002E1486 /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90F8AB84229DAA46002E1486 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		90F8AB87229DAA46002E1486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -447,6 +447,7 @@
 		90B1F2CF23DEF312009A0DB7 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				9007DD332322D6F00025A78A /* Montserrat-Regular.ttf */,
 				90B1F2D223DEF31E009A0DB7 /* userChatCell.xib */,
 				90B1F2D023DEF31D009A0DB7 /* Chat.storyboard */,
 				90B1F2D423DEF31E009A0DB7 /* frienChatCell.xib */,
@@ -736,11 +737,12 @@
 				E30E8D4743CD5C22BCF313B6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			wrapsLines = 1;
 		};
 		90F8AB80229DAA46002E1486 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				90F8AB7F229DAA46002E1486 /* RebuStar Enterprise Rider.app */,
+				90F8AB7F229DAA46002E1486 /* Sooffer Rider.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -750,7 +752,6 @@
 			children = (
 				90B1F2CF23DEF312009A0DB7 /* Chat */,
 				9007DD322322D6EF0025A78A /* Montserrat-Bold.ttf */,
-				9007DD332322D6F00025A78A /* Montserrat-Regular.ttf */,
 				9007DD312322D6EE0025A78A /* Montserrat-SemiBold.ttf */,
 				90FB4F2A22AD771000178B51 /* Sooffer Rider.entitlements */,
 				90F8AB91229DAA48002E1486 /* Info.plist */,
@@ -1043,9 +1044,9 @@
 				90F8AB7B229DAA46002E1486 /* Sources */,
 				90F8AB7C229DAA46002E1486 /* Frameworks */,
 				90F8AB7D229DAA46002E1486 /* Resources */,
-				5DDDCE7070F6C796FCAAC8C2 /* [CP] Embed Pods Frameworks */,
-				C4A404401626B51204A067B1 /* [CP] Copy Pods Resources */,
 				90B2B366239940C700E8BC58 /* ShellScript */,
+				18EA9F194F5215F84748BDE0 /* [CP] Embed Pods Frameworks */,
+				35DA61EA13D791D00E264797 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1060,7 +1061,7 @@
 				90DBD65029ED54F900402C52 /* SpatialAudio */,
 			);
 			productName = "RebuStar Rider";
-			productReference = 90F8AB7F229DAA46002E1486 /* RebuStar Enterprise Rider.app */;
+			productReference = 90F8AB7F229DAA46002E1486 /* Sooffer Rider.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1173,7 +1174,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5DDDCE7070F6C796FCAAC8C2 /* [CP] Embed Pods Frameworks */ = {
+		18EA9F194F5215F84748BDE0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1188,6 +1189,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35DA61EA13D791D00E264797 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		90B2B366239940C700E8BC58 /* ShellScript */ = {
@@ -1228,23 +1246,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C4A404401626B51204A067B1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sooffer Rider/Pods-Sooffer Rider-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1516,25 +1517,25 @@
 			baseConfigurationReference = CE3109B486A17DC74E30D213 /* Pods-Sooffer Rider.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Sooffer Rider.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Sooffer Rider.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F6G9374LLZ;
-				INFOPLIST_FILE = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Info.plist";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3766449B3Q;
+				INFOPLIST_FILE = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sooffer.Rider1;
-				PRODUCT_NAME = "RebuStar Enterprise Rider";
+				PRODUCT_NAME = "Sooffer Rider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SooferRiderAddhoc;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Mains/Sooffer Rider-Bridging-Header.h";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Soofer Rider Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Mains/Sooffer Rider-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1545,25 +1546,25 @@
 			baseConfigurationReference = 2DE379543C326B3ED9A601A4 /* Pods-Sooffer Rider.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Sooffer Rider.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Sooffer Rider.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F6G9374LLZ;
-				INFOPLIST_FILE = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Info.plist";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3766449B3Q;
+				INFOPLIST_FILE = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sooffer.Rider1;
-				PRODUCT_NAME = "RebuStar Enterprise Rider";
+				PRODUCT_NAME = "Sooffer Rider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SooferRiderAddhoc;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/Rider/soofer/Sooffer Rider/Mains/Sooffer Rider-Bridging-Header.h";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Soofer Rider Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/Git Aug 1/Sooffer/Soofer Rider/Sooffer Rider/Mains/Sooffer Rider-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

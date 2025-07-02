@@ -72,7 +72,7 @@ class ViewTranscationVC: UIViewController {
     }
     
     func setupView(){
-        self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "mywallet"))
+    self.title = Localize.stringForKey(key: "Wallet Transaction")
     }
     
     func setupDelegate(){
@@ -90,8 +90,8 @@ class ViewTranscationVC: UIViewController {
     }
     
     func setupLang(){
-        self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "mywallet"))
-        self.navigationItem.leftBarButtonItem = nil
+//        self.barButtonItem(ViewController: self, title: Localize.stringForKey(key: "mywallet"))
+//        self.navigationItem.leftBarButtonItem = nil
     }
     
     class func initWithStory()->ViewTranscationVC{

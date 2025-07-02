@@ -35,25 +35,27 @@ class InvoiceVC: UIViewController {
     @IBOutlet weak var dicountLbl: UILabel!
     @IBOutlet weak var discountPriceLbl: UILabel!
     
+    @IBOutlet weak var TipsVIew: UIView!
     @IBOutlet weak var Tipsfordriver: UITextField!
     
     var outstationBill : BillingModel = BillingModel()
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-   
+    
     var homevm = HomeVM()
     var ratings : String = ""
     var triproute : TripRoutes?
-    
+    var loginVM = LoginSignupVM()
     //Firebase object
     var FBConnect = FireBaseconnection.instanse
     
     var priceTitleArray : [String] = []
     var priceValueArray : [String] = []
     var desc : [String] = []
-    
-    
+    var paytypeval  = String()
+    var tipsamount = String()
+    var totalamt = ""
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
@@ -73,6 +75,7 @@ class InvoiceVC: UIViewController {
         self.setupAction()
         self.setupLang()
         self.setupDelegate()
+        self.loginVM = LoginSignupVM(view: self.view, dataService: ApiRoot())
     }
     
     func setupView(){
@@ -93,19 +96,30 @@ class InvoiceVC: UIViewController {
         }
         
         self.submitBtn.addAction(for: .tap) {
-//            self.dismiss(animated: true, completion: nil)
-           
+            //            self.dismiss(animated: true, completion: nil)
+            self.tipsAmount()
+            print("tipsamount:::,\(self.tipsamount)")
+            print("total:::,\(self.totalamt)")
+            self.loginVM.tipsApi(with: self.view, with: self.tipsamount)
+            self.loginVM.successLogin = {
+                showToast(msg: self.loginVM.loginData?.message ?? "")
+                print("asdjhasjkd\(self.loginVM.loginData)")
+            }
+            self.loginVM.errorLogin = {
+                showToast(msg: self.loginVM.loginErr?.message ?? "")
+                print("error")
+            }
             self.ratings = self.startRatingView.rating.description
             
             var comment : String = self.commentTxt.text ?? ""
             
-            var Tips : String = self.Tipsfordriver.text ?? ""
+            //  var Tips : String = self.Tipsfordriver.text ?? ""
             
-//            if (!comment.isEmpty && !self.ratings.isEmpty){
-                self.riderFeedback(rating: self.ratings, comment: comment)
-//            }else{
-//                showToast(msg: "Must give Star Rating and comments for you Driver")
-//            }
+            //            if (!comment.isEmpty && !self.ratings.isEmpty){
+            self.riderFeedback(rating: self.ratings, comment: comment)
+            //            }else{
+            //                showToast(msg: "Must give Star Rating and comments for you Driver")
+            //            }
         }
     }
     
@@ -131,10 +145,24 @@ class InvoiceVC: UIViewController {
     
     func setupDate(tripDetails : FBTripDataModel){
         if let details :FBTripDataModel = tripDetails as? FBTripDataModel{
+     print("pickup_address::::\(details.pickup_address),Drop_address:::::\(details.Drop_address)")
             self.currentAddrssLbl.text = details.pickup_address
             self.dropAddress.text = details.Drop_address
-            self.totalPriceLbl.text = Constant.priceTag + details.total_fare
+           // self.totalPriceLbl.text = Constant.priceTag + details.total_fare
             self.discountPriceLbl.text = Constant.priceTag + details.discount
+            self.paytypeval = details.pay_type
+            
+            print("dfdfsdsf::,\(self.totalamt)")
+            if  self.paytypeval == "wallet" {
+                self.TipsVIew.isHidden = true
+                self.totalPriceLbl.text = Constant.priceTag + details.total_fare
+            }
+            else{
+                self.TipsVIew.isHidden = false
+                self.totalamt = details.total_fare
+                self.totalPriceLbl.text = Constant.priceTag + self.totalamt
+                
+            }
             print("Invoice_Data" , details.invoiceBill)
             let formatter = DateFormatter()
             formatter.dateFormat = "YYYY-MM-dd"
@@ -142,91 +170,90 @@ class InvoiceVC: UIViewController {
             
             self.dateLbl.text = date
             if details.triptype == "rental" || details.triptype == "outstation"{
-                 self.jsonconversion(tripDetails: tripDetails)
+                self.jsonconversion(tripDetails: tripDetails)
             }else{
-            self.priceTitleArray = [self.Localize.stringForKey(key: "balance_payment") ,
-                                    self.Localize.stringForKey(key: "distance") ,
-                                    self.Localize.stringForKey(key: "gateway_fare") ,
-                                    self.Localize.stringForKey(key: "booking_fee") ,
-                                    self.Localize.stringForKey(key: "time") ,
-//                                    self.Localize.stringForKey(key: "base_fare") ,
-                                    self.Localize.stringForKey(key: "Waiting_Time") ,
-                                    self.Localize.stringForKey(key: "time_fare") ,
-                                    self.Localize.stringForKey(key: "base_fare") ,
-                                    self.Localize.stringForKey(key: "minimun_fare") ,
-                                    self.Localize.stringForKey(key: "waiting_fare") ,
-                                    self.Localize.stringForKey(key: "pickup_fee") ,
-                                    self.Localize.stringForKey(key: "distance_fare") ,
-                                    self.Localize.stringForKey(key: "tax_") ,
-                                    self.Localize.stringForKey(key: "surge_amt") ,
-                                    self.Localize.stringForKey(key: "cancelleantion_fee") ,
-                                    self.Localize.stringForKey(key: "toll_fee") ,
-//                                    self.Localize.stringForKey(key: "time_fare") ,
-                               //     self.Localize.stringForKey(key: "ride_fare") ,
-                                    
-                                    
-                            //        self.Localize.stringForKey(key: "access_fee") ,
-                                    
-                                    self.Localize.stringForKey(key: "payment_method")]
-            
-            
-            
-            self.priceValueArray = [
-                decimalDataString(data : details.oldBalance),
-                details.distance + " \(Constant.distanceUnit)",
-                decimalDataString(data : details.gatewayCharge) ,
-                decimalDataString(data : details.booking) ,
-                details.time + " Mins",
-//                Constant.priceTag + details.basefare,
-                  details.waitingTime + " Mins",
-                decimalDataString(data : details.time_fare),
-                decimalDataString(data : details.basefare),
-                decimalDataString(data : details.minFare),
-                  decimalDataString(data : details.waiting_fare),
-                  decimalDataString(data : details.convance_fare),
-//                  decimalDataString(data : details.time_fare),
-                  decimalDataString(data : details.distance_fare),
-//                  decimalDataString(data : details.convance_fare),
-//                  decimalDataString(data : details.distance_fare) ,
+                self.priceTitleArray = [self.Localize.stringForKey(key: "balance_payment") ,
+                    self.Localize.stringForKey(key: "distance") ,
+                    self.Localize.stringForKey(key: "gateway_fare") ,
+                    self.Localize.stringForKey(key: "booking_fee") ,
+                    self.Localize.stringForKey(key: "time") ,
+                //                            self.Localize.stringForKey(key: "base_fare") ,
+                self.Localize.stringForKey(key: "Waiting_Time") ,
+                self.Localize.stringForKey(key: "time_fare") ,
+                self.Localize.stringForKey(key: "base_fare") ,
+                self.Localize.stringForKey(key: "minimun_fare") ,
+                self.Localize.stringForKey(key: "waiting_fare") ,
+                self.Localize.stringForKey(key: "pickup_fee") ,
+                self.Localize.stringForKey(key: "distance_fare") ,
+                self.Localize.stringForKey(key: "tax_") ,
+                self.Localize.stringForKey(key: "surge_amt") ,
+                self.Localize.stringForKey(key: "cancelleantion_fee") ,
+                self.Localize.stringForKey(key: "toll_fee") ,
+    //         self.Localize.stringForKey(key: "time_fare") ,
+        //     self.Localize.stringForKey(key: "ride_fare") ,
+        //        self.Localize.stringForKey(key: "access_fee") ,
+                self.Localize.stringForKey(key: "payment_method"),
+                self.Localize.stringForKey(key: "walletDetect")]
                 
-                  decimalDataString(data : details.tax),
-                  decimalDataString(data : details.surgeAmt),
-                  decimalDataString(data : details.cancel_fare),
-                  decimalDataString(data : details.tollFee),
-//                  decimalDataString(data : details.cancel_fare),
-                details.pay_type
-            ]
+                
+                
+                self.priceValueArray = [
+                    decimalDataString(data : details.oldBalance),
+                    details.distance + " \(Constant.distanceUnit)",
+                    decimalDataString(data : details.gatewayCharge) ,
+                    decimalDataString(data : details.booking) ,
+                    details.time + " Mins",
+               //   Constant.priceTag + details.basefare,
+                    details.waitingTime + " Mins",
+                    decimalDataString(data : details.time_fare),
+                    decimalDataString(data : details.basefare),
+                    decimalDataString(data : details.minFare),
+                    decimalDataString(data : details.waiting_fare),
+                    decimalDataString(data : details.convance_fare),
+            //      decimalDataString(data : details.time_fare),
+                    decimalDataString(data : details.distance_fare),
+         //         decimalDataString(data : details.convance_fare),
+        //          decimalDataString(data : details.distance_fare) ,
+                    
+                    decimalDataString(data : details.tax),
+                    decimalDataString(data : details.surgeAmt),
+                    decimalDataString(data : details.cancel_fare),
+                    decimalDataString(data : details.tollFee),
+    //              decimalDataString(data : details.cancel_fare),
+                    details.pay_type,
+                    "-" + details.walletdebt
+                ]
             }
             
-//            if details.isWaiting == "0"{
-//                self.priceValueArray.remove(at: 4)
-//                self.priceTitleArray.remove(at: 4)
-//            }
+            //            if details.isWaiting == "0"{
+            //                self.priceValueArray.remove(at: 4)
+            //                self.priceTitleArray.remove(at: 4)
+            //            }
             
             
             
-//            if details.trip_type != "flatrate"{
-//
-//                self.priceValueArray.remove(at: 7)
-//                self.priceTitleArray.remove(at: 7)
-//
-//
-//                self.priceValueArray.remove(at: 8)
-//                self.priceTitleArray.remove(at: 8)
-//
-//
-//                self.priceValueArray.remove(at: 9)
-//                self.priceTitleArray.remove(at: 9)
-//            }else{
-//                if details.tax == "0"{
-//                    self.priceValueArray.remove(at: 9)
-//                    self.priceTitleArray.remove(at: 9)
-//                }
-//                if details.isPickup == "0"{
-//                    self.priceValueArray.remove(at: 7)
-//                    self.priceTitleArray.remove(at: 7)
-//                }
-//            }
+            //            if details.trip_type != "flatrate"{
+            //
+            //                self.priceValueArray.remove(at: 7)
+            //                self.priceTitleArray.remove(at: 7)
+            //
+            //
+            //                self.priceValueArray.remove(at: 8)
+            //                self.priceTitleArray.remove(at: 8)
+            //
+            //
+            //                self.priceValueArray.remove(at: 9)
+            //                self.priceTitleArray.remove(at: 9)
+            //            }else{
+            //                if details.tax == "0"{
+            //                    self.priceValueArray.remove(at: 9)
+            //                    self.priceTitleArray.remove(at: 9)
+            //                }
+            //                if details.isPickup == "0"{
+            //                    self.priceValueArray.remove(at: 7)
+            //                    self.priceTitleArray.remove(at: 7)
+            //                }
+            //            }
             
             print("PRICETABLEDATA",self.priceValueArray)
             print("details.pay_type",details.pay_type)
@@ -234,7 +261,65 @@ class InvoiceVC: UIViewController {
         }
     }
 }
-
+extension InvoiceVC  {
+    func tipsAmount() {
+        
+        
+        if !self.Tipsfordriver.text!.isEmpty {
+            tipsamount = self.Tipsfordriver.text!
+        }
+        print("total amount:\(self.totalPriceLbl.text ?? "")")
+        print("tips :::,\(tipsamount)")
+        let string = totalamt.trimmingCharacters(in: .whitespaces)
+        let filterstring = string
+        print("filterrrrrs:",filterstring)
+        let sum = (Int(filterstring) ?? 0) + (Int(tipsamount) ?? 0)
+        print("total .....",sum)
+        self.totalPriceLbl.text = Constant.priceTag + sum.description
+        //        self.priceValueArray[8] = self.totalPriceLbl.text ?? ""
+        //        self.priceValueArray[11] = Constant.priceTag + self.tipsamount
+        for (i, n) in self.priceTitleArray.enumerated() {
+            if n == "Balance Fare" {
+                self.priceValueArray[i] = self.totalPriceLbl.text ?? ""
+            }
+            else if n == "Tip Amount"{
+                self.priceValueArray[i] = Constant.priceTag + self.tipsamount
+            }
+            else if n == "Total Fare"
+            {
+                self.priceValueArray[i] = self.totalPriceLbl.text ?? ""
+            }
+        }
+        
+        
+        
+        
+        
+        //        for i in self.priceTitleArray{
+        //            if self.priceTitleArray[i].description == "Total Fare"
+        //            {
+        //                self.priceValueArray[i] = self.totalPriceLbl.text ?? ""
+        //            }
+        //            else if priceTitleArray[i] == "Tip Amount"
+        //            {
+        //                self.priceValueArray[i] = Constant.priceTag + self.tipsamount
+        //            }
+        //        }
+        //  self.priceTable.reloadData()
+        print("TIPSSS AMOUNTT\(tipsamount)")
+        //self.tipbackview.isHidden = true
+        //   self.loginVM.tipsApi(with: view, with: tipsamount)
+        //        self.loginVM.successLogin = {
+        //            self.tipbackview.isHidden = true
+        //            showToast(msg: self.loginVM.loginData?.message ?? "")
+        //            print("asdjhasjkd\(self.loginVM.loginData)")
+        //        }
+        //        self.loginVM.errorLogin = {
+        //            showToast(msg: self.loginVM.loginErr?.message ?? "")
+        //            print("error")
+        //        }
+    }
+}
 
 extension InvoiceVC: UITableViewDataSource,UITableViewDelegate{
     
@@ -254,16 +339,22 @@ extension InvoiceVC: UITableViewDataSource,UITableViewDelegate{
         if self.priceTitleArray.count == self.priceValueArray.count{
             cell.priceLbl.text = self.priceValueArray[indexPath.row]
         }
-        
-      if self.desc.count > 0{
-        if self.desc[indexPath.row].isEmpty{
-            cell.descdummyLbl.isHidden = true
-            cell.desclbl.isHidden = true
-        }else{
-            cell.descdummyLbl.isHidden = false
-            cell.desclbl.isHidden = false
-            cell.desclbl.text = self.desc[indexPath.row]
+        if cell.priceTitlelbl.text == "walletDetect" {
+            if self.paytypeval == "wallet" {
+                
+            }else{
+                cell.priceLbl.text =  Constant.priceTag + "0.00"
+            }
         }
+        if self.desc.count > 0{
+            if self.desc[indexPath.row].isEmpty{
+                cell.descdummyLbl.isHidden = true
+                cell.desclbl.isHidden = true
+            }else{
+                cell.descdummyLbl.isHidden = false
+                cell.desclbl.isHidden = false
+                cell.desclbl.text = self.desc[indexPath.row]
+            }
         }else{
             cell.descdummyLbl.isHidden = true
             cell.desclbl.isHidden = true
@@ -289,17 +380,18 @@ extension InvoiceVC: UITableViewDataSource,UITableViewDelegate{
 
 extension InvoiceVC{
     func riderFeedback(rating : String , comment : String){
+        UserDefaults.standard.set(false, forKey: "isarrive")
         let tripid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.tripid) as? String ?? ""
         if tripid.isEmpty{
             UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverid)
             UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverVehcile)
             UserDefaults.standard.set(nil, forKey: UserDefaultsKey.tripid)
-             UserDefaults.standard.set("false", forKey: UserDefaultsKey.tripwillstart)
+            UserDefaults.standard.set("false", forKey: UserDefaultsKey.tripwillstart)
             
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
-//                let root : UIViewController?
-//                root = UINavigationController(rootViewController:  HomeVC.initWithStory())
-//                self.appDelegate.window?.rootViewController = root
+                //                let root : UIViewController?
+                //                root = UINavigationController(rootViewController:  HomeVC.initWithStory())
+                //                self.appDelegate.window?.rootViewController = root
                 let homeVc = HomeVc.initWithStory()
                 let nav = UINavigationController(rootViewController: homeVc)
                 nav.navigationBar.isHidden = true
@@ -307,40 +399,41 @@ extension InvoiceVC{
                 self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
             })
         }else{
-        self.homevm.riderFeedBack(view: self.view, tripId: tripid, rating: rating, comments: comment)
-        self.homevm.getfeedbackClouser = {
-            showToast(msg: self.homevm.feedback?.message ?? "")
-            self.FBConnect.clearRiderData()
-            self.triproute?.clearMapView()
-            
-            UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverid)
-            UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverVehcile)
-            UserDefaults.standard.set(nil, forKey: UserDefaultsKey.tripid)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
-//                let MenuRoot = SWRevealViewController(rearViewController: MenuVC.initWithStory(), frontViewController: UINavigationController(rootViewController: HomeVC.initWithStory()))
-//                self.appDelegate.window?.rootViewController = MenuRoot
-                let homeVc = HomeVc.initWithStory()
-                let nav = UINavigationController(rootViewController: homeVc)
-                nav.navigationBar.isHidden = true
-                let menuVc = MenuVC.initWithStory()
-                self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
-            })
-        }
+            self.homevm.riderFeedBack(view: self.view, tripId: tripid, rating: rating, comments: comment)
+            self.homevm.getfeedbackClouser = {
+                showToast(msg: self.homevm.feedback?.message ?? "")
+                self.FBConnect.clearRiderData()
+                self.triproute?.clearMapView()
+                
+                UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverid)
+                UserDefaults.standard.set(nil, forKey: UserDefaultsKey.driverVehcile)
+                UserDefaults.standard.set(nil, forKey: UserDefaultsKey.tripid)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                    //                let MenuRoot = SWRevealViewController(rearViewController: MenuVC.initWithStory(), frontViewController: UINavigationController(rootViewController: HomeVC.initWithStory()))
+                    //                self.appDelegate.window?.rootViewController = MenuRoot
+                    let homeVc = HomeVc.initWithStory()
+                    let nav = UINavigationController(rootViewController: homeVc)
+                    nav.navigationBar.isHidden = true
+                    let menuVc = MenuVC.initWithStory()
+                    self.appDelegate.window?.rootViewController = SideMenuController(contentViewController: nav, menuViewController: menuVc)
+                })
+            }
         }
     }
+    
 }
 
 extension InvoiceVC{
     func getFBDriverDetails(){
         self.FBConnect.getTripData { (tripDetails) in
             self.setupDate(tripDetails: tripDetails)
-           
+            
             
         }
     }
     
     func 
-        jsonconversion(tripDetails : FBTripDataModel){
+    jsonconversion(tripDetails : FBTripDataModel){
         print("invoice trip::\(tripDetails)")
         
         do{
@@ -349,9 +442,9 @@ extension InvoiceVC{
             let json : AnyObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as AnyObject
             self.parseJson(anyObj: json)
             
-           print("jsonjsonjsonjsonjson: \(json)")
+            print("jsonjsonjsonjsonjson: \(json)")
             
-  
+            
         }catch{
             print("JSONS Error")
         }
@@ -359,19 +452,19 @@ extension InvoiceVC{
     }
     
     func parseJson(anyObj:AnyObject){
-
-
-         if  anyObj is Array<AnyObject> {
-
-
+        
+        
+        if  anyObj is Array<AnyObject> {
+            
+            
             for json in anyObj as! Array<AnyObject>{
                 self.priceTitleArray.append((json["label"]  as AnyObject? as? String) ?? "")
-                 self.priceValueArray.append((json["value"]  as AnyObject? as? String) ?? "")
+                self.priceValueArray.append((json["value"]  as AnyObject? as? String) ?? "")
                 self.desc.append((json["desc"]  as AnyObject? as? String) ?? "")
-
+                
             }
             self.priceTable.reloadData()
         }
-
+        
     }
 }

@@ -107,8 +107,8 @@ extension LoginVC {
         self.passView.roundeCornorBorder = 10
         self.emailAddressTXF.delegate = self
         self.emailAddressTXF.keyboardType = UIKeyboardType.emailAddress
-        self.emailAddressTXF.placeholder = Localize.stringForKey(key: "email_address")
-        self.emailAddressTXF.title = Localize.stringForKey(key: "email_address")
+        self.emailAddressTXF.placeholder = Localize.stringForKey(key: "ent_mobile_num")
+        self.emailAddressTXF.title = Localize.stringForKey(key: "ent_mobile_num")
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.darkGray]
         
         let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.AppColors]
@@ -164,10 +164,11 @@ extension LoginVC {
         }
                self.forgotsubmitBtn.addAction(for: .tap) {
                    self.emailid = self.emailAddressTXF.text ?? ""
-                   if !self.emailid.isEmpty && (self.emailid.isValidEmail()){
+                   if !self.emailid.isEmpty && (self.emailid.isValidPhoneNumber()){
                        self.forgotPassword(email: self.emailid)
                    }else{
-                       self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:  self.Localize.stringForKey(key: "enter_email"), color: UIColor.red, isError: true)
+             self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:  self.Localize.stringForKey(key: "ent_mobile_num"), color: UIColor.red, isError: true)
+                       showToast(msg: "Enter Valid Mobile Number")
                    }
                }
         

@@ -52,12 +52,13 @@ class ApiRoot{
     func getApiwithoutView( url : String , params : Parameters, jsonSuccess : @escaping (JSON) -> (), jsonError : @escaping (JSON) -> () , error : @escaping (Error) -> (),dataSuccess : @escaping (Data) -> (),dataError : @escaping (Data) -> () ){
         if  NetworkReachabilityManager()!.isReachable {
             var header : HTTPHeaders = [:]
+            let localTimeZoneOffset = TimeZone.current.offsetString
             if let AccessToken = UserDefaults.standard.value(forKey: UserDefaultsKey.token) as? String {
                 if UserDefaults.standard.bool(forKey: "area"){
-                    header = [ "x-access-token" : AccessToken,"x-ios-bundle-identifier" : "com.Sooffer.Rider1"]
+                    header = [ "x-access-token" : AccessToken,"x-ios-bundle-identifier" : "com.Sooffer.Rider1"/*, "utcoffset" : localTimeZoneOffset*/]
                 }
                 else{
-                    header = [ "x-access-token" : AccessToken]
+                    header = [ "x-access-token" : AccessToken, "utcoffset" : localTimeZoneOffset]
                 }
             }else{
             }
@@ -209,14 +210,16 @@ class ApiRoot{
     func fileUploadPostApi1(view : UIView ,url : String , params : Parameters ,image: UIImage, jsonSuccess : @escaping (JSON) -> (), jsonError : @escaping (JSON) -> () , error : @escaping (Error) -> () ,dataSuccess : @escaping (Data) -> (),dataError : @escaping (Data) -> () ){
        
         ShowMsginWindow.instanse.LoadingShow(view: view)
+        let localTimeZoneOffset = TimeZone.current.offsetString
         
         if  NetworkReachabilityManager()!.isReachable {
             guard let AccessToken = UserDefaults.standard.value(forKey: UserDefaultsKey.token) as? String else{
                 return
             }
-            
+            print("local::,\(localTimeZoneOffset)")
             let header : HTTPHeaders = [
-                "x-access-token" : AccessToken
+                "x-access-token" : AccessToken,
+                "utcoffset" : localTimeZoneOffset
             ]
             var imageData = NSData()
             if let images : UIImage = image as? UIImage{
@@ -448,5 +451,15 @@ class ApiRoot{
         }else{
             showToast(msg: "Poor internet connection, Check your Internet Connection")
         }
+    }
+    
+    }
+extension TimeZone {
+    var offsetString: String {
+        let seconds = secondsFromGMT()
+        let hours = abs(seconds) / 3600
+        let minutes = (abs(seconds) % 3600) / 60
+        let sign = seconds >= 0 ? "+" : "-"
+        return String(format: "%@%02d:%02d", sign, hours, minutes)
     }
 }

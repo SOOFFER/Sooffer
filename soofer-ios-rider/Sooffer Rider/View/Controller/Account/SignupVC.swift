@@ -12,6 +12,7 @@ import CountryPickerView
 import JWTDecode
 import GoogleSignIn
 import FBSDKLoginKit
+import SideMenuSwift
 
 class SignupVC: UIViewController , UITextFieldDelegate{
     
@@ -42,7 +43,7 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     
     @IBOutlet weak var ErrorMsgPswrd : UILabel!
     
-    
+    @IBOutlet weak var GenderSegmentView: UISegmentedControl!
     @IBOutlet weak var eyeImage: UIImageView!
     
     
@@ -55,6 +56,10 @@ class SignupVC: UIViewController , UITextFieldDelegate{
     let otpView = OTPView.getView
     var countryData : Country?
     var mobileNum : String = ""
+    var rootVc: UIViewController?
+    var selectedGender = "Male"
+    var accept : Bool = false
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         self.navigationController?.isNavigationBarHidden = false
@@ -82,8 +87,27 @@ class SignupVC: UIViewController , UITextFieldDelegate{
         self.setupCountryPicker()
         self.setupTextFieldDelegate()
 //        self.configureGoogleSignIn()
+        self.GenderSegmentView.addTarget(self, action: #selector(segmentControllClick(_:)), for: .valueChanged)
     }
-    
+    @IBAction func segmentControllClick(_ sender: UISegmentedControl) {
+        
+        switch GenderSegmentView.selectedSegmentIndex {
+        case 0:
+            self.selectedGender = "Male"
+            print("its male")
+
+            
+            
+        case 1:
+            self.selectedGender = "Female"
+            print("its female")
+            
+
+            
+        default:
+            break
+        }
+    }
     
     class func initWithStory()->SignupVC{
         let vc = UIStoryboard.init(name: "Account", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
@@ -185,7 +209,9 @@ extension SignupVC {
         self.checkImg.addAction(for: .tap) {
             if self.checkImg.image == UIImage(named: "unchecked"){
                 self.checkImg.image = UIImage(named: "checked")
+                self.accept = true
             }else{
+                self.accept = false
                 self.checkImg.image = UIImage(named: "unchecked")
             }
         }
@@ -280,7 +306,7 @@ extension SignupVC {
                         let fcmid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.fcmtoken) as? String ?? ""
                         
                         // api call
-                        self.signupApi(fname: res["name"]! as! String, lname: "", email: res["email"]! as! String, phone: self.mobileNum, cnty: "", cntyname: "", lang: lang, cur: Constant.priceTag, phcode: "", password: "", referal: "", scId: "", fcmId: fcmid, loginId: res["id"]! as! String , loginType: "facebook")
+                        self.signupApi(fname: res["name"]! as! String, lname: "", email: res["email"]! as! String, phone: self.mobileNum, cnty: "", cntyname: "", lang: lang, cur: Constant.priceTag, phcode: "", password: "", referal: "", scId: "", fcmId: fcmid, loginId: res["id"]! as! String , loginType: "facebook",gender: self.selectedGender)
                     })
                 }
             }
@@ -296,6 +322,8 @@ extension SignupVC {
         let referral : String = self.referralTXF.text ?? ""
         let lang : String = UserDefaults.standard.value(forKey: UserDefaultsKey.language) as? String ?? ""
         let fcmid : String = UserDefaults.standard.value(forKey: UserDefaultsKey.fcmtoken) as? String ?? ""
+        let gender : String = self.selectedGender
+        print("asdasd::,\(gender)")
         
         //firest name
         if !fname.isEmpty{
@@ -340,13 +368,17 @@ extension SignupVC {
                                                 
                                                 //country code
                                                 if !countryCode.isEmpty{
-                                                    if self.checkImg.image == UIImage(named: "unchecked"){
+                                                    if accept{
+                                                  /*  if self.checkImg.image == UIImage(named: "unchecked"){
+                                                        view.endEditing(true)
+                                                        showToast(msg: Localize.stringForKey(key: "err_agree"))*/
+                                                        
+                
+                                                        // api call
+                                                        self.signupApi(fname: fname, lname: lname, email: email, phone: mobile, cnty: countryData?.code ?? "", cntyname: countryData?.name ?? "", lang: lang, cur: Constant.priceTag, phcode: countryCode, password: password, referal: referral, scId: "", fcmId: fcmid, loginId: "", loginType: "normal", gender: gender)
+                                                    }else{
                                                         view.endEditing(true)
                                                         showToast(msg: Localize.stringForKey(key: "err_agree"))
-                                                        
-                                                    }else{
-                                                        // api call
-                                                        self.signupApi(fname: fname, lname: lname, email: email, phone: mobile, cnty: countryData?.code ?? "", cntyname: countryData?.name ?? "", lang: lang, cur: Constant.priceTag, phcode: countryCode, password: password, referal: referral, scId: "", fcmId: fcmid, loginId: "", loginType: "normal")
                                                     }
                                                     
                                                     
@@ -594,9 +626,9 @@ extension SignupVC : CountryPickerViewDelegate, CountryPickerViewDataSource{
 // APi Call
 extension SignupVC{
     
-    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String){
+    func signupApi(fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String , gender: String){
         if loginType != "normal"{
-             self.loginVM.signupApi(view : self.view,fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType)
+             self.loginVM.signupApi(view : self.view,fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType , gender: gender)
         }else{
             self.loginVM.otpVerificationApi(email: email, phcode: phcode, phone: phone)
         }
@@ -606,7 +638,7 @@ extension SignupVC{
                 print("sdasdgjhasdgj\(self.loginVM.otpVerfication?.code)")
                 if otp == (self.loginVM.otpVerfication?.code ?? "0").description {
                     self.otpView.deInitView()
-                    self.loginVM.signupApi(view : self.view,fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType)
+                    self.loginVM.signupApi(view : self.view,fname: fname, lname: lname, email: email, phone: phone, cnty: cnty, cntyname: cntyname, lang: lang, cur: cur, phcode: phcode, password: password, referal: referal, scId: scId, fcmId: fcmId, loginId : loginId , loginType : loginType, gender: gender)
                    
                 }else{
                     showToast(msg: self.Localize.stringForKey(key: "worng_otp"))
@@ -634,8 +666,14 @@ extension SignupVC{
                     UserDefaults.standard.set(signupResponse.token , forKey: UserDefaultsKey.token)
                     UserDefaults.standard.set("LoggedIn", forKey: UserDefaultsKey.loginstatus)
                     self.updateToken()
-                    let MenuRoot = SWRevealViewController(rearViewController: MenuVC.initWithStory(), frontViewController: UINavigationController(rootViewController: HomeVC.initWithStory()))
-                    self.appDelegate.window?.rootViewController = MenuRoot
+//                    let MenuRoot = SWRevealViewController(rearViewController: MenuVC.initWithStory(), frontViewController: UINavigationController(rootViewController: HomeVC.initWithStory()))
+//                    self.appDelegate.window?.rootViewController = MenuRoot
+                    let homeVc = HomeVc.initWithStory()
+                    let nav = UINavigationController(rootViewController: homeVc)
+                    nav.navigationBar.isHidden = true
+                    let menuVc = MenuVC.initWithStory()
+                    self.rootVc = SideMenuController(contentViewController: nav, menuViewController: menuVc)
+                    self.appDelegate.window?.rootViewController = self.rootVc
                 }
                 
             }

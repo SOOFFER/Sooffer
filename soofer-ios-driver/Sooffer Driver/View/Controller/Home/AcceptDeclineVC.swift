@@ -55,6 +55,7 @@ class AcceptDeclineVC: UIViewController {
     var homevm = HomeVM()
     var requestID : String = ""
     var requestType : String = ""
+    var tripiid : String = ""
     var triptype : String = ""
     let Localize : Localizations = Localizations.instance
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -62,6 +63,7 @@ class AcceptDeclineVC: UIViewController {
     var secondDelegate: SecondDriverDelegate!
     var saferideStatus : String = ""
     var isdriver : String = ""
+    var onetimehit : Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidLoad()
@@ -96,6 +98,7 @@ class AcceptDeclineVC: UIViewController {
         self.setupLang()
         self.observeNotification()
         self.setupData()
+        print("onetime:::,\(self.onetimehit)")
     }
 
   func prepareSongAndSession() {
@@ -117,9 +120,9 @@ class AcceptDeclineVC: UIViewController {
     }
     
     func setupAction(){
-        self.detView.addTap {
-            self.detView.isHidden = true
-        }
+//        self.detView.addTap {
+//            self.detView.isHidden = true
+//        }
         self.acceptBtn.addAction(for: .tap) {
             print("FbTripsData::::", self.fbDateModel)
             self.acceptTrip()
@@ -218,7 +221,10 @@ class AcceptDeclineVC: UIViewController {
        {
            self.stopPlayer()
        }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func stopPlayer(){
         if self.appDelegate.songPlayer.isPlaying{
             self.appDelegate.songPlayer.stop()
@@ -236,9 +242,9 @@ extension AcceptDeclineVC {
                 if let tripdatas : FBTripDataModel = tripdata as? FBTripDataModel{
                     print("tripsData::", tripdatas.safeRide.safeRidetripStatus)
                     print("driver id:: \(tripdatas.driver_id), and:: \(tripdatas.safeRide.secondDriver)")
-                
-                    self.setFBTripData()
-                  
+                    if !self.onetimehit  {
+                        self.setFBTripData()
+                    }
                     self.backDelegate?.getbackPress()
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -347,6 +353,7 @@ extension AcceptDeclineVC{
     }
     
     func setFBTripData(){
+        self.onetimehit = true
         self.FBConnect.CreateFirebaseTripData(status: "1")
     }
     func setFBTripData2(){

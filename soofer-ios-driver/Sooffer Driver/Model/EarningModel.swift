@@ -31,7 +31,7 @@ class EarningModel{
 class EarningData {
     
     var id : Int = Int()
-    var amttopay : Int = Int()
+    var amttopay : Double = Double()
     var commision : Float = Float()
     var date : String = String()
     var nos : Int = Int()
@@ -41,7 +41,7 @@ class EarningData {
     
     init(json : JSON){
         self.id = json["_id"].int ?? Int()
-        self.amttopay = json["amttopay"].int ?? Int()
+        self.amttopay = json["amttopay"].double ?? Double()
         self.commision = json["commision"].float ?? Float()
         self.date = json["date"].string ?? String()
         self.nos = json["nos"].int ?? Int()

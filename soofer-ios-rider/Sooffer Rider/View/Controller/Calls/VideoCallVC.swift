@@ -39,7 +39,8 @@ class VideoCallVC: UIViewController {
     var joinButton: UIButton!
     
   var joined: Bool = false
-    
+    var dismissPage: (()->())?
+    var Commonvm = CommonVM()
     
     class func initWithStory()->VideoCallVC{
         let vc = UIStoryboard.init(name: "Call", bundle: Bundle.main).instantiateViewController(withIdentifier: "VideoCallVC") as! VideoCallVC
@@ -50,6 +51,7 @@ class VideoCallVC: UIViewController {
     
     override func viewDidLoad() {
       super.viewDidLoad()
+        print("DRiver::,\(driverfcm)")
       // Do any additional setup after loading the view.
       SoundManager.shared.stopSound()
       initializeAgoraEngine()
@@ -77,12 +79,13 @@ class VideoCallVC: UIViewController {
             speakerBtn.setImage(UIImage(named: "speaker-off"), for: .normal)
         }
         NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil)
-
+        self.Commonvm = CommonVM(view: self.view, dataService: ApiRoot())
     }
     
     
     
     @objc func setupprint(){
+        self.dismissPage?()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -174,6 +177,8 @@ class VideoCallVC: UIViewController {
       self.redBtn.addTap {
           showToast(msg: "Call Ended...")
         self.leaveChannel()
+          self.dismissPage?()
+          print("self.driverfcm,\(self.driverfcm)")
         self.firebaseNotiifcation(message: "Your rider disconnected the call", fcm: self.driverfcm, playSound: false)
                //   AlertManager.instance.showToast(msg: "Call Ended...")
 //self.dismiss(animated: true, completion: nil)
@@ -184,7 +189,20 @@ class VideoCallVC: UIViewController {
   extension VideoCallVC : AgoraRtcEngineDelegate{
     // Callback called when a new host joins the channel
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        
     }
+      func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
+          print("Successfully joined channel \(channel) with uid \(uid), elapsed \(elapsed)")
+      }
+      func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+          print("user leaved the call : \(reason)")
+          self.leaveChannel()
+          self.dismissPage?()
+          self.navigationController?.popViewController(animated: true)
+      }
+      func rtcEngine(_ engine: AgoraRtcEngineKit, didLeaveChannelWith stats: AgoraChannelStats) {
+          print("leave agora call with status : \(stats)")
+      }
     func joinAction() {
       if !joined {
          joinChannel()
@@ -415,46 +433,49 @@ extension VideoCallVC{
     
     func firebaseNotiifcation(message : String,fcm : String,playSound: Bool = false){
         print("fcm id is::\(fcm)")
-        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
-        var request = URLRequest(url: url)
-        let header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
-        //"key=AIzaSyAXhSo8C6LWIWmUHUKlqUeJo2VuhTMmsQE"
-        request.setValue(header, forHTTPHeaderField: "Authorization")
-        request.httpMethod = "POST"
-        print("fcm is:: \(fcm)")
-        let params = ["to" : fcm,
-                      "notification" : [
-                        "title" : "Sooffer",
-                        "body" : "\(message)",
-                        "sound" : playSound ? "phone_loud.mp3" : "default",
-                        "click_action" : "open_video"
-                      ],
-                      "data" : [
-                        "title" : "Huberswiss",
-                        "score" : "5x1",
-                        "message" :"\(message)",
-                        "sound" : "default",
-                        "click_action" : "open_video"
-                      ]
-        ] as [String : Any]
-        
-        print("params is:: \(params)")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
-        request.httpBody = httpbody
-        
-        URLSession.shared.dataTask(with: request) { (data, resule, error) in
-            guard let data = data else {return}
-            
-            do{
-                print("valuess:: \(data)")
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                print("====>postwithHeader",json)
-                
-            }catch{
-                print("JSONS Error")
-            }
-            
-        }.resume()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            self.Commonvm.GetPushNotification(view: self.view, fcm: fcm, Type: "chat", title: "Sooffer", Message: message, click_action: "open_video")
+        }
+//        guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
+//        var request = URLRequest(url: url)
+//        let header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
+//        //"key=AIzaSyAXhSo8C6LWIWmUHUKlqUeJo2VuhTMmsQE"
+//        request.setValue(header, forHTTPHeaderField: "Authorization")
+//        request.httpMethod = "POST"
+//        print("fcm is:: \(fcm)")
+//        let params = ["to" : fcm,
+//                      "notification" : [
+//                        "title" : "Sooffer",
+//                        "body" : "\(message)",
+//                        "sound" : playSound ? "phone_loud.mp3" : "default",
+//                        "click_action" : "open_video"
+//                      ],
+//                      "data" : [
+//                        "title" : "Huberswiss",
+//                        "score" : "5x1",
+//                        "message" :"\(message)",
+//                        "sound" : "default",
+//                        "click_action" : "open_video"
+//                      ]
+//        ] as [String : Any]
+//        
+//        print("params is:: \(params)")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
+//        request.httpBody = httpbody
+//        
+//        URLSession.shared.dataTask(with: request) { (data, resule, error) in
+//            guard let data = data else {return}
+//            
+//            do{
+//                print("valuess:: \(data)")
+//                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+//                print("====>postwithHeader",json)
+//                
+//            }catch{
+//                print("JSONS Error")
+//            }
+//            
+//        }.resume()
     }
 }

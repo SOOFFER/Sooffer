@@ -82,6 +82,7 @@ class InvoiceVC: UIViewController {
     var priceTitleArray : [String] = []
     var priceValueArray : [String] = []
     var desc : [String] = []
+    var paytypeval  = String()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,6 +168,7 @@ class InvoiceVC: UIViewController {
     
     func setupDate(tripDetails : FBTripDataModel){
         if let details :FBTripDataModel = tripDetails as? FBTripDataModel{
+            print("pickup_address::::\(details.pickup_address),Drop_address:::::\(details.Drop_address)")
             self.currentAddrssLbl.text = details.pickup_address
             self.dropAddress.text = details.Drop_address
             self.totalPriceLbl.text = Constant.priceTag + details.total_fare
@@ -175,7 +177,7 @@ class InvoiceVC: UIViewController {
             self.modelname.text = details.safeRide.edtModel
             self.colorname.text = details.safeRide.edtcolor
             self.numberlabel.text = details.safeRide.edtPhoneNumber
-            
+            self.paytypeval = details.pay_type
             
             if details.safeRide.safeRidestatus == "true"{
               //  self.hidestatckeview.isHidden = false
@@ -211,20 +213,22 @@ class InvoiceVC: UIViewController {
             self.Localize.stringForKey(key: "gateway_fare") ,
                 self.Localize.stringForKey(key: "access_fee") ,
             //                                    self.Localize.stringForKey(key: "cancelleantion_fee") ,
-                self.Localize.stringForKey(key: "payment_method")]
+                self.Localize.stringForKey(key: "payment_method"),
+                self.Localize.stringForKey(key: "walletDetect")]
                 self.priceValueArray = [
-                            details.distance + " \(Constant.distanceUnit)",
-                            details.time + " Mins",
+                details.distance + " \(Constant.distanceUnit)",
+                details.time + " Mins",
             //                Constant.priceTag + details.basefare,
-                              details.waitingTime + " Mins",
-                              decimalDataString(data : details.waiting_fare),
+                details.waitingTime + " Mins",
+                decimalDataString(data : details.waiting_fare),
             //                  decimalDataString(data : details.time_fare),
-                              decimalDataString(data : details.distance_fare),
+                decimalDataString(data : details.distance_fare),
             //                  decimalDataString(data : details.convance_fare),
-                              decimalDataString(data : details.gatewayCharge) ,
-                              decimalDataString(data : details.tax),
+                decimalDataString(data : details.gatewayCharge) ,
+                decimalDataString(data : details.tax),
             //                  decimalDataString(data : details.cancel_fare),
-                            details.pay_type
+                details.pay_type,
+                "-" + details.walletdebt
                         ]
             }
             print("PRICETABLEDATA",self.priceValueArray)
@@ -251,6 +255,13 @@ extension InvoiceVC: UITableViewDataSource,UITableViewDelegate{
         cell.priceTitlelbl.text = self.priceTitleArray[indexPath.row]
         if self.priceTitleArray.count == self.priceValueArray.count{
             cell.priceLbl.text = self.priceValueArray[indexPath.row]
+        }
+        if cell.priceTitlelbl.text == "walletDetect" {
+            if self.paytypeval == "wallet" {
+                
+            }else{
+                cell.priceLbl.text =  Constant.priceTag + "0.00"
+            }
         }
         if self.desc.count > 0{
         if self.desc[indexPath.row].isEmpty{

@@ -32,7 +32,7 @@ class PaymentVC: UIViewController {
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     
-    var animationViewLarge = AnimationView()
+    var animationViewLarge = LottieAnimationView()
     
     var payoutVM = CommonVM()
     
@@ -61,9 +61,9 @@ class PaymentVC: UIViewController {
          self.view.addGestureRecognizer((self.revealViewController()?.panGestureRecognizer())!)
         self.revealViewController().rearViewRevealWidth = 220
         self.viewTransactinBtn.roundeCornorBorder = 20
-        self.animationViewLarge = AnimationView(name: "wallet")
-        let starbuildingAnimation = Animation.named("wallet")
-        self.animationViewLarge.animation = starbuildingAnimation
+        self.animationViewLarge = LottieAnimationView(name: "wallet")
+//        let starbuildingAnimation = Animation.named("wallet")
+//        self.animationViewLarge.animation = starbuildingAnimation
         self.animationViewLarge.animationSpeed = 0.2
         self.animationViewLarge.frame = CGRect(x: -25, y: -20, width: self.lottieVIew.frame.width, height: self.lottieVIew.frame.height)
         self.lottieVIew.addSubview(self.animationViewLarge)
@@ -73,6 +73,14 @@ class PaymentVC: UIViewController {
         UIView.animate(withDuration: 2.0, delay: 0, options: [.repeat, .autoreverse], animations: {
             self.animationViewLarge.play()
         }, completion: nil)
+        self.bankBtn.setTitle(Localize.stringForKey(key: "bank"), for: .normal)
+        self.payoutBtn.setTitle(Localize.stringForKey(key: "payoutt"), for: .normal)
+        self.viewTransactinBtn.setTitle(Localize.stringForKey(key: "viewtc"), for: .normal)
+        self.availableBln.text = Localize.stringForKey(key: "availableBln")
+        self.subscriptionEndDate.text = Localize.stringForKey(key: "subscriptionEndDate")
+        self.payoutSubmitBtn.setTitle(Localize.stringForKey(key: "Submit"), for: .normal)
+        self.payoutAmount.placeholder = Localize.stringForKey(key: "enter amount")
+        self.payoutAmount.title = Localize.stringForKey(key: "enter amount")
         
     }
     func setupAction(){
@@ -100,10 +108,10 @@ class PaymentVC: UIViewController {
     }
     
     func setupData(){
-        self.availableBln.text = "Available Balance  : " + Constant.priceTag + Constant.credits ?? "0.0"
+        self.availableBln.text = Localize.stringForKey(key: "availableBln") + Constant.priceTag + Constant.credits ?? "0.0"
         
         var date = Constant.profileData.subcriptionEndDate
-        self.subscriptionEndDate.text = "Subscription End Date  : " + String(date.prefix(10))
+        self.subscriptionEndDate.text = Localize.stringForKey(key: "subscriptionEndDate") + String(date.prefix(10))
     }
    
     class func initWithStory()->PaymentVC{
@@ -113,8 +121,10 @@ class PaymentVC: UIViewController {
     
     func payoutAttemptApi(){
         payoutVM.payoutApi(view: self.view, amount: payoutAmount.text ?? "")
-        payoutVM.successPayoutClosure = {
-             self.payoutMainView.isHidden = true
+        payoutVM.successPayoutClosure = {           
+            self.availableBln.text =  self.Localize.stringForKey(key: "availableBln") + Constant.priceTag + String(self.payoutVM.payoutData?.balance ?? 0.0)
+            self.payoutMainView.isHidden = true
+            
         }
     }
 }

@@ -34,7 +34,7 @@ class GoogleVM{
     var getAddressError : GoogleAddressModel? {
         didSet {
             guard let address = getAddressError else {return}
-            showToast(msg: "\(address.status ?? "")!!! Try Again Later")
+           // showToast(msg: "\(address.status ?? "")!!! Try Again Later")
             self.errorAddressClosure?()
         }
     }
@@ -49,7 +49,7 @@ class GoogleVM{
     var getDirectionError : GoogleDirection? {
         didSet {
             guard let drirection = getDirectionError else {return}
-            showToast(msg: "\(drirection.status ?? "")!!! Try Again Later")
+           // showToast(msg: "\(drirection.status ?? "")!!! Try Again Later")
             self.errDirectionClouser?()
         }
     }
@@ -64,7 +64,7 @@ class GoogleVM{
     var getAutoAddressError : AutoAddressModel? {
         didSet {
             guard let drirection = getAutoAddressError else {return}
-            showToast(msg: "\(drirection.status ?? "")!!! Try Again Later")
+         //   showToast(msg: "\(drirection.status ?? "")!!! Try Again Later")
             self.errautoCompleteClouser?()
         }
     }

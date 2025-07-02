@@ -95,7 +95,7 @@ class TripDetailVC: UIViewController {
     
     @IBOutlet weak var GatewayChargeVal: UILabel!
     
-    
+    @IBOutlet weak var TipsVal: UILabel!
     @IBOutlet weak var TotalFareVal: UILabel!
     
     //initilaze Variable
@@ -198,6 +198,7 @@ extension TripDetailVC{
         self.vehcileNameLbl.text = data.tripDetail.vehicle
         self.cashTypeLbl.text = data.tripDetail.paymentMode
         self.rideStatus.text = data.tripDetail.status
+        self.TipsVal.text = Constant.priceTag + data.DriverTip.description/*decimalDataString(data: data.tripDetail.tipsToDriver.description)*/
         self.totalCostLbl.text = decimalDataString(data: data.tripDetail.acsp.cost.description)
         self.rideCashLbl.text = decimalDataString(data: data.tripDetail.acsp.cost.description)
         
@@ -252,6 +253,7 @@ extension TripDetailVC{
         self.TimeFareVal.text = decimalDataString(data: data.tripDetail.acsp.timefare.description)
         self.TollFeeVal.text = decimalDataString(data: data.tripDetail.acsp.tollFee.description)
         self.GatewayChargeVal.text = decimalDataString(data: data.tripDetail.acsp.gatewayCharge.description)
+        
         self.TotalFareVal.text = decimalDataString(data: data.tripDetail.acsp.cost.description)
         
     }

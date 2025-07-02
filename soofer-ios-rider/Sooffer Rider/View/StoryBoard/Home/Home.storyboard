@@ -13,7 +13,7 @@
         <!--New Menu Vc-->
         <scene sceneID="m4l-9w-7TP">
             <objects>
-                <viewController storyboardIdentifier="NewMenuVc" id="fhK-DX-Lsr" customClass="NewMenuVc" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewMenuVc" id="fhK-DX-Lsr" customClass="NewMenuVc" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V8w-PZ-Nme">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +110,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2n7-Jq-3a4">
                                         <rect key="frame" x="0.0" y="3" width="324" height="57"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="g3Z-Si-z15" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="g3Z-Si-z15" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="10" width="30" height="37"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -184,7 +184,7 @@
         <!--MenuVC-->
         <scene sceneID="lPw-GD-87f">
             <objects>
-                <viewController storyboardIdentifier="MenuVC" id="bKB-6a-36g" customClass="MenuVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuVC" id="bKB-6a-36g" customClass="MenuVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O3m-gq-Jvm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,7 +267,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6z-lc-1Pc">
                                         <rect key="frame" x="0.0" y="3" width="324" height="57"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-7T-Rzl" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="hhe-7T-Rzl" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="10" width="30" height="37"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -342,7 +342,7 @@
         <!--HomeVC-->
         <scene sceneID="73G-UB-HPn">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="IqT-u5-fSx" customClass="HomeVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="IqT-u5-fSx" customClass="HomeVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hP3-qR-uen">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -642,7 +642,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="VechileCells" reuseIdentifier="VechileCells" id="4eh-0U-OhB" customClass="VechileCells" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="VechileCells" reuseIdentifier="VechileCells" id="4eh-0U-OhB" customClass="VechileCells" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="5" width="65" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -664,7 +664,7 @@
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzi-Yz-CEK" customClass="AJDotLoadingView" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzi-Yz-CEK" customClass="AJDotLoadingView" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="70" width="45" height="10"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
@@ -738,7 +738,7 @@
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H40-jn-tnZ">
                                                         <rect key="frame" x="-38" y="0.0" width="38" height="50"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="payment" translatesAutoresizingMaskIntoConstraints="NO" id="pR1-FD-Pm1" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="payment" translatesAutoresizingMaskIntoConstraints="NO" id="pR1-FD-Pm1" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="3" y="12.5" width="20" height="25"/>
                                                                 <color key="tintColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -775,7 +775,7 @@
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igc-yO-MCv">
                                                         <rect key="frame" x="-40" y="0.0" width="40" height="50"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discount" translatesAutoresizingMaskIntoConstraints="NO" id="jdd-LI-aPt" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discount" translatesAutoresizingMaskIntoConstraints="NO" id="jdd-LI-aPt" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="5" y="12.5" width="20" height="25"/>
                                                                 <color key="tintColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -891,7 +891,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gjB-Pi-a8O">
                                         <rect key="frame" x="354" y="25" width="50" height="50"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emrgncy_conct" translatesAutoresizingMaskIntoConstraints="NO" id="qvt-7e-lai" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emrgncy_conct" translatesAutoresizingMaskIntoConstraints="NO" id="qvt-7e-lai" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="7.5" y="7.5" width="35" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -987,7 +987,7 @@
                                         <rect key="frame" x="10" y="90.5" width="394" height="399.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressListCell" rowHeight="125" id="TEe-46-cWn" customClass="addressListCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressListCell" rowHeight="125" id="TEe-46-cWn" customClass="addressListCell" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="50" width="394" height="125"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TEe-46-cWn" id="8PT-RQ-rvN">
@@ -1135,7 +1135,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-zZ-zOu">
                                                                         <rect key="frame" x="0.0" y="0.0" width="197" height="77"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="hzD-wy-3y9" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="hzD-wy-3y9" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                 <rect key="frame" x="10" y="18.5" width="40" height="40"/>
                                                                                 <color key="tintColor" name="AppColor"/>
                                                                                 <constraints>
@@ -1174,7 +1174,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZd-71-Xev">
                                                                         <rect key="frame" x="197" y="0.0" width="197" height="77"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollar" translatesAutoresizingMaskIntoConstraints="NO" id="XcI-OO-lux" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollar" translatesAutoresizingMaskIntoConstraints="NO" id="XcI-OO-lux" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                 <rect key="frame" x="5" y="23.5" width="30" height="30"/>
                                                                                 <color key="tintColor" name="AppColor"/>
                                                                                 <constraints>
@@ -1245,7 +1245,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="zzb-kw-qLj" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="zzb-kw-qLj" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="23.5" width="30" height="30"/>
                                                                         <color key="tintColor" name="AppColor"/>
                                                                         <constraints>
@@ -1298,7 +1298,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_icon" translatesAutoresizingMaskIntoConstraints="NO" id="9CL-F9-uii" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_icon" translatesAutoresizingMaskIntoConstraints="NO" id="9CL-F9-uii" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="23.5" width="30" height="30"/>
                                                                         <color key="tintColor" name="AppColor"/>
                                                                         <constraints>
@@ -1566,7 +1566,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNc-9z-268">
                                                 <rect key="frame" x="0.0" y="40" width="354" height="210"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Express Track Outstation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfj-o6-Lim">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Sooffer Rider Outstation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfj-o6-Lim">
                                                         <rect key="frame" x="20" y="45" width="314" height="23"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
@@ -1844,6 +1844,73 @@
                                     <constraint firstItem="mzd-Te-PTN" firstAttribute="leading" secondItem="zWC-yN-Yd3" secondAttribute="leading" constant="20" id="rs6-oK-Krb"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eMm-r5-w6t">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ED-RK-dpc">
+                                        <rect key="frame" x="47" y="321" width="320" height="220"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Female Driver Available , Kindly Choose Male Drivers !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HJ-XT-Z1X">
+                                                <rect key="frame" x="40" y="40" width="240" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="ndt-vD-Agr"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wha-Xt-LFZ">
+                                                <rect key="frame" x="25" y="150" width="125" height="35"/>
+                                                <color key="backgroundColor" name="AppColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="3nl-99-7pO"/>
+                                                    <constraint firstAttribute="width" constant="125" id="WZm-72-ZGL"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="OK"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KqT-hV-2Oh">
+                                                <rect key="frame" x="175" y="150" width="125" height="35"/>
+                                                <color key="backgroundColor" name="AppColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="125" id="Kdw-8w-Xe8"/>
+                                                    <constraint firstAttribute="height" constant="35" id="aW6-uE-rrl"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="qOj-CC-uO7">
+                                                <rect key="frame" x="123" y="-40" width="75" height="75"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="75" id="Cu6-pW-4Cc"/>
+                                                    <constraint firstAttribute="width" constant="75" id="tk0-jN-MJp"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="KqT-hV-2Oh" secondAttribute="trailing" constant="20" id="0hw-D2-eD5"/>
+                                            <constraint firstAttribute="width" constant="320" id="5VM-fc-mqa"/>
+                                            <constraint firstItem="0HJ-XT-Z1X" firstAttribute="top" secondItem="qOj-CC-uO7" secondAttribute="bottom" constant="5" id="E4S-BW-tai"/>
+                                            <constraint firstAttribute="bottom" secondItem="KqT-hV-2Oh" secondAttribute="bottom" constant="35" id="HmX-jh-tFZ"/>
+                                            <constraint firstAttribute="height" constant="220" id="Hsj-27-80I"/>
+                                            <constraint firstItem="0HJ-XT-Z1X" firstAttribute="leading" secondItem="5ED-RK-dpc" secondAttribute="leading" constant="40" id="IQx-UI-xVa"/>
+                                            <constraint firstItem="qOj-CC-uO7" firstAttribute="leading" secondItem="5ED-RK-dpc" secondAttribute="leading" constant="123" id="KXP-8Y-jxt"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wha-Xt-LFZ" secondAttribute="bottom" constant="35" id="RXv-DV-gmr"/>
+                                            <constraint firstAttribute="trailing" secondItem="0HJ-XT-Z1X" secondAttribute="trailing" constant="40" id="evY-2x-7x1"/>
+                                            <constraint firstItem="Wha-Xt-LFZ" firstAttribute="leading" secondItem="5ED-RK-dpc" secondAttribute="leading" constant="25" id="khC-6O-cHF"/>
+                                            <constraint firstItem="0HJ-XT-Z1X" firstAttribute="top" secondItem="5ED-RK-dpc" secondAttribute="top" constant="40" id="ooJ-5j-ngl"/>
+                                            <constraint firstAttribute="trailing" secondItem="qOj-CC-uO7" secondAttribute="trailing" constant="122" id="qUy-mt-lOX"/>
+                                            <constraint firstItem="qOj-CC-uO7" firstAttribute="top" secondItem="5ED-RK-dpc" secondAttribute="top" constant="-40" id="sXx-Me-BNa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                <constraints>
+                                    <constraint firstItem="5ED-RK-dpc" firstAttribute="centerX" secondItem="eMm-r5-w6t" secondAttribute="centerX" id="o9i-pb-pEE"/>
+                                    <constraint firstItem="5ED-RK-dpc" firstAttribute="centerY" secondItem="eMm-r5-w6t" secondAttribute="centerY" id="yRQ-WM-JqY"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3UA-fZ-0Ez">
                                 <rect key="frame" x="0.0" y="48" width="414" height="814"/>
                                 <subviews>
@@ -1894,7 +1961,7 @@
                                                 <rect key="frame" x="0.0" y="75" width="414" height="729"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeVechListVc" rowHeight="128" id="AO6-8e-b7f" customClass="HomeVechListVc" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HomeVechListVc" rowHeight="128" id="AO6-8e-b7f" customClass="HomeVechListVc" customModule="Sooffer_Rider" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="50" width="414" height="128"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AO6-8e-b7f" id="ytW-xK-QvI">
@@ -2304,6 +2371,7 @@
                             <constraint firstItem="8XG-37-IKE" firstAttribute="leading" secondItem="ghy-WE-ZeY" secondAttribute="leading" id="MFY-Jz-5AJ"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="1Sq-L8-OR7" secondAttribute="trailing" id="Mwg-G4-6PB"/>
                             <constraint firstItem="lLA-i0-Mgq" firstAttribute="trailing" secondItem="ghy-WE-ZeY" secondAttribute="trailing" id="ODr-WW-PNX"/>
+                            <constraint firstItem="eMm-r5-w6t" firstAttribute="bottom" secondItem="ghy-WE-ZeY" secondAttribute="bottom" id="P4J-Vr-fpp"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="bottom" secondItem="tJK-rM-IRT" secondAttribute="bottom" id="RM8-ia-Xeo"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="fkD-CI-RVV" secondAttribute="trailing" id="RXU-LK-J6e"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="bottom" secondItem="fkD-CI-RVV" secondAttribute="bottom" id="UUq-TB-8pV"/>
@@ -2315,6 +2383,7 @@
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="eoZ-hv-cUs" secondAttribute="trailing" id="aHB-kq-72c"/>
                             <constraint firstItem="nD8-5X-X6E" firstAttribute="leading" secondItem="ghy-WE-ZeY" secondAttribute="leading" id="aTj-Hh-vpA"/>
                             <constraint firstItem="8XG-37-IKE" firstAttribute="top" secondItem="xzj-pb-KYB" secondAttribute="bottom" constant="120" id="aoO-V5-yIo"/>
+                            <constraint firstItem="eMm-r5-w6t" firstAttribute="top" secondItem="hP3-qR-uen" secondAttribute="top" id="bqX-Kg-1RO"/>
                             <constraint firstItem="zWC-yN-Yd3" firstAttribute="leading" secondItem="ghy-WE-ZeY" secondAttribute="leading" id="cA0-j4-I1F"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="8XG-37-IKE" secondAttribute="trailing" id="cw3-QF-Lc3"/>
                             <constraint firstAttribute="bottom" secondItem="e1U-ki-YVK" secondAttribute="bottom" id="eMq-Q2-vmb"/>
@@ -2335,6 +2404,8 @@
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="zWC-yN-Yd3" secondAttribute="trailing" id="qBP-B9-DRX"/>
                             <constraint firstItem="1Sq-L8-OR7" firstAttribute="top" secondItem="ghy-WE-ZeY" secondAttribute="top" id="r1G-5g-K1G"/>
                             <constraint firstItem="3UA-fZ-0Ez" firstAttribute="top" secondItem="ghy-WE-ZeY" secondAttribute="top" id="sgu-WA-cvF"/>
+                            <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="eMm-r5-w6t" secondAttribute="trailing" id="t4x-yg-lxg"/>
+                            <constraint firstItem="eMm-r5-w6t" firstAttribute="leading" secondItem="ghy-WE-ZeY" secondAttribute="leading" id="uEp-w6-Ghh"/>
                             <constraint firstItem="ghy-WE-ZeY" firstAttribute="trailing" secondItem="7bW-XY-xWa" secondAttribute="trailing" id="uaf-1G-v4a"/>
                             <constraint firstItem="fkD-CI-RVV" firstAttribute="leading" secondItem="ghy-WE-ZeY" secondAttribute="leading" id="wQ3-0e-J8C"/>
                         </constraints>
@@ -2346,6 +2417,7 @@
                     </view>
                     <connections>
                         <outlet property="AlertView" destination="zWC-yN-Yd3" id="UN5-5b-Weu"/>
+                        <outlet property="AlertpopUp" destination="eMm-r5-w6t" id="NPT-MP-jMS"/>
                         <outlet property="BasefareVal" destination="Uqn-yX-14v" id="GDm-es-WAR"/>
                         <outlet property="BookingFareVal" destination="e4m-4Y-Sp3" id="jaI-aF-TpE"/>
                         <outlet property="CancelVall" destination="eXf-KV-bmn" id="fXM-XI-RhR"/>
@@ -2356,6 +2428,8 @@
                         <outlet property="MylocationView" destination="H5x-ru-uFN" id="afp-0z-Ky7"/>
                         <outlet property="NightChargeVal" destination="6Du-0y-xLi" id="Hfp-IU-Pn2"/>
                         <outlet property="PickupChargeVal" destination="otO-gM-aH0" id="lbl-PX-T5p"/>
+                        <outlet property="PopupCancelBtn" destination="KqT-hV-2Oh" id="608-0G-HgJ"/>
+                        <outlet property="PopupOkbtn" destination="Wha-Xt-LFZ" id="7n6-ON-LPT"/>
                         <outlet property="Ridefareval" destination="dqH-Bs-UhX" id="h2d-iU-Iiv"/>
                         <outlet property="SubtotalVal" destination="6c5-D5-e5O" id="WZ9-IH-lIe"/>
                         <outlet property="SupportView" destination="EAs-cx-gT5" id="piB-if-mTQ"/>
@@ -2453,7 +2527,7 @@
         <!--Pin AddressVC-->
         <scene sceneID="N35-Bv-rlW">
             <objects>
-                <viewController storyboardIdentifier="PinAddressVC" id="n71-Ow-z1b" customClass="PinAddressVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PinAddressVC" id="n71-Ow-z1b" customClass="PinAddressVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zmz-FS-MCm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2484,7 +2558,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="a5h-GB-yrf" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="a5h-GB-yrf" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                         <rect key="frame" x="382" y="11.5" width="15" height="15"/>
                                                         <color key="tintColor" name="AppColor"/>
                                                         <constraints>
@@ -2583,7 +2657,7 @@
         <!--Notification Vc-->
         <scene sceneID="6SL-dm-xf0">
             <objects>
-                <viewController storyboardIdentifier="NotificationVc" id="4VB-8k-7jy" customClass="NotificationVc" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationVc" id="4VB-8k-7jy" customClass="NotificationVc" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6SN-eB-9IQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2595,7 +2669,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="764"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="10" reuseIdentifier="cell" rowHeight="110" id="Tca-ah-XlE" customClass="NotificationCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="10" reuseIdentifier="cell" rowHeight="110" id="Tca-ah-XlE" customClass="NotificationCell" customModule="Sooffer_Rider" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="50" width="414" height="110"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tca-ah-XlE" id="xJh-Z7-dsJ">
@@ -2721,7 +2795,7 @@
                                         <color key="textColor" name="TextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-dX-3kf" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-dX-3kf" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                         <rect key="frame" x="15" y="12.5" width="25" height="25"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2786,7 +2860,7 @@
         <!--Auto CompleteVC-->
         <scene sceneID="Geq-F6-kN6">
             <objects>
-                <viewController storyboardIdentifier="AutoCompleteVC" id="Sd6-88-a6w" customClass="AutoCompleteVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AutoCompleteVC" id="Sd6-88-a6w" customClass="AutoCompleteVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cY8-v3-0WX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2828,7 +2902,7 @@
         <!--InvoiceVC-->
         <scene sceneID="Ipy-gE-30Q">
             <objects>
-                <viewController storyboardIdentifier="InvoiceVC" id="UsJ-R6-py6" customClass="InvoiceVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InvoiceVC" id="UsJ-R6-py6" customClass="InvoiceVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="deS-p3-sA3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2952,7 +3026,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbY-lv-3cZ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="40"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker_location" translatesAutoresizingMaskIntoConstraints="NO" id="SUs-MK-KU7" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker_location" translatesAutoresizingMaskIntoConstraints="NO" id="SUs-MK-KU7" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="12.5" width="15" height="15"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" red="0.16976371979999999" green="0.69454339379999996" blue="0.18315465319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2983,7 +3057,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vmj-1D-efj">
                                                                 <rect key="frame" x="0.0" y="45" width="394" height="40"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker_location" translatesAutoresizingMaskIntoConstraints="NO" id="DKn-kc-a0n" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marker_location" translatesAutoresizingMaskIntoConstraints="NO" id="DKn-kc-a0n" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                         <rect key="frame" x="10" y="12.5" width="15" height="15"/>
                                                                         <color key="tintColor" red="1" green="0.23529411759999999" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
@@ -3039,7 +3113,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55S-y5-EHi">
-                                                <rect key="frame" x="30" y="730" width="354" height="45"/>
+                                                <rect key="frame" x="30" y="731" width="354" height="45"/>
                                                 <color key="backgroundColor" name="AppColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="RE8-wg-Cy7"/>
@@ -3049,7 +3123,7 @@
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecv-Oc-Cc1">
-                                                <rect key="frame" x="0.0" y="795" width="414" height="91"/>
+                                                <rect key="frame" x="0.0" y="796" width="414" height="90"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="kv1-6W-mgv" customClass="CosmosView" customModule="Cosmos">
@@ -3101,57 +3175,69 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips For Driver :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-wE-ubN">
-                                                <rect key="frame" x="20" y="630" width="374" height="20"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mda-LV-zT8">
+                                                <rect key="frame" x="10" y="625" width="394" height="91"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips For Driver :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-wE-ubN">
+                                                        <rect key="frame" x="10" y="0.0" width="374" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="3Gn-oQ-pUt"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Tip Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bdS-4c-f4p">
+                                                        <rect key="frame" x="10" y="31" width="374" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="S0p-8s-xzL"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="3Gn-oQ-pUt"/>
+                                                    <constraint firstAttribute="height" constant="91" id="9zQ-S4-75U"/>
+                                                    <constraint firstItem="bdS-4c-f4p" firstAttribute="leading" secondItem="mda-LV-zT8" secondAttribute="leading" constant="10" id="Ouh-xl-v5W"/>
+                                                    <constraint firstAttribute="bottom" secondItem="bdS-4c-f4p" secondAttribute="bottom" constant="10" id="Qbc-r6-rut"/>
+                                                    <constraint firstItem="NYt-wE-ubN" firstAttribute="leading" secondItem="mda-LV-zT8" secondAttribute="leading" constant="10" id="Skz-T9-3DK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bdS-4c-f4p" secondAttribute="trailing" constant="10" id="edn-Ks-Je0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="NYt-wE-ubN" secondAttribute="trailing" constant="10" id="gYH-hM-iy1"/>
+                                                    <constraint firstItem="NYt-wE-ubN" firstAttribute="top" secondItem="mda-LV-zT8" secondAttribute="top" id="jIo-aL-Dl0"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Tip Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bdS-4c-f4p">
-                                                <rect key="frame" x="20" y="665" width="374" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="S0p-8s-xzL"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="NYt-wE-ubN" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="20" symbolic="YES" id="3J2-rv-bA9"/>
                                             <constraint firstItem="55S-y5-EHi" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="30" id="3ek-KZ-ypp"/>
                                             <constraint firstItem="6GY-Q6-qii" firstAttribute="top" secondItem="5KM-R7-n6E" secondAttribute="bottom" constant="10" id="5cN-tQ-lQQ"/>
                                             <constraint firstAttribute="trailing" secondItem="5KM-R7-n6E" secondAttribute="trailing" constant="10" id="60l-sV-gQR"/>
-                                            <constraint firstItem="NYt-wE-ubN" firstAttribute="top" secondItem="wjP-4K-CeA" secondAttribute="bottom" constant="15" id="6t4-yq-JBd"/>
                                             <constraint firstItem="tA5-QD-ERv" firstAttribute="centerX" secondItem="IIu-AP-BUa" secondAttribute="centerX" id="7Ff-we-hlO"/>
                                             <constraint firstItem="IIu-AP-BUa" firstAttribute="top" secondItem="6GY-Q6-qii" secondAttribute="bottom" constant="10" id="8xe-nq-Mf1"/>
                                             <constraint firstItem="wjP-4K-CeA" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="20" symbolic="YES" id="AND-a2-WMp"/>
-                                            <constraint firstAttribute="trailing" secondItem="NYt-wE-ubN" secondAttribute="trailing" constant="20" symbolic="YES" id="EUf-Z2-POe"/>
                                             <constraint firstItem="kv1-6W-mgv" firstAttribute="top" secondItem="tA5-QD-ERv" secondAttribute="bottom" constant="15" id="Eui-Qf-L6l"/>
                                             <constraint firstItem="wjP-4K-CeA" firstAttribute="top" secondItem="kv1-6W-mgv" secondAttribute="bottom" constant="15" id="FV0-1i-f9Y"/>
                                             <constraint firstItem="IIu-AP-BUa" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="10" id="K5d-5K-aGL"/>
                                             <constraint firstItem="ecv-Oc-Cc1" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" id="KEd-Rh-n6n"/>
                                             <constraint firstItem="tA5-QD-ERv" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="20" symbolic="YES" id="LXe-e3-zMZ"/>
                                             <constraint firstAttribute="trailing" secondItem="55S-y5-EHi" secondAttribute="trailing" constant="30" id="Npp-7R-323"/>
-                                            <constraint firstItem="bdS-4c-f4p" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="20" symbolic="YES" id="OOi-56-611"/>
                                             <constraint firstItem="tA5-QD-ERv" firstAttribute="top" secondItem="IIu-AP-BUa" secondAttribute="bottom" constant="30" id="RHY-kd-2X7"/>
-                                            <constraint firstAttribute="trailing" secondItem="bdS-4c-f4p" secondAttribute="trailing" constant="20" symbolic="YES" id="WE2-Gf-eQx"/>
-                                            <constraint firstItem="bdS-4c-f4p" firstAttribute="top" secondItem="NYt-wE-ubN" secondAttribute="bottom" constant="15" id="XKW-Ve-eBk"/>
+                                            <constraint firstItem="mda-LV-zT8" firstAttribute="top" secondItem="wjP-4K-CeA" secondAttribute="bottom" constant="10" id="VDk-Bj-ApE"/>
                                             <constraint firstAttribute="trailing" secondItem="tA5-QD-ERv" secondAttribute="trailing" constant="20" symbolic="YES" id="YLJ-yk-Uvy"/>
                                             <constraint firstAttribute="trailing" secondItem="ecv-Oc-Cc1" secondAttribute="trailing" id="Zin-xP-MNx"/>
-                                            <constraint firstItem="55S-y5-EHi" firstAttribute="top" secondItem="bdS-4c-f4p" secondAttribute="bottom" constant="15" id="akp-eq-izn"/>
+                                            <constraint firstItem="mda-LV-zT8" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="10" id="bHe-Ip-Eq5"/>
                                             <constraint firstItem="kv1-6W-mgv" firstAttribute="centerX" secondItem="IIu-AP-BUa" secondAttribute="centerX" id="dd0-VE-QTE"/>
                                             <constraint firstAttribute="trailing" secondItem="IIu-AP-BUa" secondAttribute="trailing" constant="10" id="eH9-pN-f4h"/>
                                             <constraint firstItem="5KM-R7-n6E" firstAttribute="top" secondItem="35v-JL-WOl" secondAttribute="top" constant="10" id="gF2-Gl-kfg"/>
                                             <constraint firstAttribute="trailing" secondItem="6GY-Q6-qii" secondAttribute="trailing" constant="10" id="hH8-jt-dGE"/>
+                                            <constraint firstAttribute="trailing" secondItem="mda-LV-zT8" secondAttribute="trailing" constant="10" id="ifh-lc-jUh"/>
                                             <constraint firstItem="ecv-Oc-Cc1" firstAttribute="top" secondItem="55S-y5-EHi" secondAttribute="bottom" constant="20" id="jLl-K4-fwc"/>
                                             <constraint firstItem="5KM-R7-n6E" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="10" id="xDf-o6-3RX"/>
                                             <constraint firstAttribute="bottom" secondItem="ecv-Oc-Cc1" secondAttribute="bottom" constant="10" id="xEG-Od-IqW"/>
                                             <constraint firstAttribute="trailing" secondItem="wjP-4K-CeA" secondAttribute="trailing" constant="20" symbolic="YES" id="xj4-jn-fBU"/>
                                             <constraint firstItem="6GY-Q6-qii" firstAttribute="leading" secondItem="35v-JL-WOl" secondAttribute="leading" constant="10" id="xjM-o8-mfG"/>
+                                            <constraint firstItem="55S-y5-EHi" firstAttribute="top" secondItem="mda-LV-zT8" secondAttribute="bottom" constant="15" id="xuf-Em-WfA"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -3179,6 +3265,7 @@
                     </view>
                     <connections>
                         <outlet property="PriceTabeleHeight" destination="c3R-DJ-kCG" id="Jgg-GO-VFX"/>
+                        <outlet property="TipsVIew" destination="mda-LV-zT8" id="4dq-kb-Xk6"/>
                         <outlet property="Tipsfordriver" destination="bdS-4c-f4p" id="iez-Xt-j3r"/>
                         <outlet property="addressView" destination="6GY-Q6-qii" id="Pu7-0C-X4b"/>
                         <outlet property="billLbl" destination="F58-6w-5yh" id="bJZ-9J-RpK"/>
@@ -3205,7 +3292,7 @@
         <!--Out StationVC-->
         <scene sceneID="d50-N5-HTu">
             <objects>
-                <viewController storyboardIdentifier="OutStationVC" id="vPY-As-L4k" customClass="OutStationVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OutStationVC" id="vPY-As-L4k" customClass="OutStationVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3MQ-Bc-IoS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3553,7 +3640,7 @@
                                                                 <rect key="frame" x="10" y="10" width="394" height="451"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <prototypes>
-                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CabListTable" rowHeight="86" id="Qur-cz-Flt" customClass="CabListTable" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CabListTable" rowHeight="86" id="Qur-cz-Flt" customClass="CabListTable" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="50" width="394" height="86"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qur-cz-Flt" id="5D0-ME-eUN">
@@ -3563,7 +3650,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhh-vf-0du">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="394" height="86"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="PLT-fE-lKD" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="PLT-fE-lKD" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                             <rect key="frame" x="10" y="23" width="40" height="40"/>
                                                                                             <color key="tintColor" name="AppColor"/>
                                                                                             <constraints>
@@ -3586,7 +3673,7 @@
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unselect" translatesAutoresizingMaskIntoConstraints="NO" id="hT6-HL-pOt" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unselect" translatesAutoresizingMaskIntoConstraints="NO" id="hT6-HL-pOt" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                             <rect key="frame" x="364" y="33" width="20" height="20"/>
                                                                                             <color key="tintColor" name="AppColor"/>
                                                                                             <constraints>
@@ -3797,7 +3884,7 @@
         <!--Outstation DetailVC-->
         <scene sceneID="Zel-RH-E6l">
             <objects>
-                <viewController storyboardIdentifier="OutstationDetailVC" id="9Va-46-3LE" customClass="OutstationDetailVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OutstationDetailVC" id="9Va-46-3LE" customClass="OutstationDetailVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I6E-kt-DDe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4448,7 +4535,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vth-pr-6Hj">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="197" height="85"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="VNv-id-L8Y" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="VNv-id-L8Y" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                                 <rect key="frame" x="10" y="22.5" width="40" height="40"/>
                                                                                                 <color key="tintColor" name="AppColor"/>
                                                                                                 <constraints>
@@ -4487,7 +4574,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sz-58-45f">
                                                                                         <rect key="frame" x="197" y="0.0" width="197" height="85"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rupee" translatesAutoresizingMaskIntoConstraints="NO" id="fEh-Xe-NaQ" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rupee" translatesAutoresizingMaskIntoConstraints="NO" id="fEh-Xe-NaQ" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                                 <rect key="frame" x="5" y="27.5" width="30" height="30"/>
                                                                                                 <color key="tintColor" name="AppColor"/>
                                                                                                 <constraints>
@@ -4547,7 +4634,7 @@
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="5hG-Q4-YMe" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="5hG-Q4-YMe" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                 <rect key="frame" x="10" y="27.5" width="30" height="30"/>
                                                                                 <color key="tintColor" name="AppColor"/>
                                                                                 <constraints>
@@ -4839,7 +4926,7 @@
         <!--RentalVC-->
         <scene sceneID="BnS-xK-81N">
             <objects>
-                <viewController storyboardIdentifier="RentalVC" id="5KP-kU-Wlc" customClass="RentalVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RentalVC" id="5KP-kU-Wlc" customClass="RentalVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k56-uH-TuE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4933,7 +5020,7 @@
                                                     <rect key="frame" x="5" y="30.5" width="404" height="660.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PackageCell" rowHeight="88" id="i2m-VC-Xos" customClass="PackageCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PackageCell" rowHeight="88" id="i2m-VC-Xos" customClass="PackageCell" customModule="Sooffer_Rider" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="50" width="404" height="88"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i2m-VC-Xos" id="5pi-yj-Jr1">
@@ -5059,7 +5146,7 @@
                                                             <rect key="frame" x="5" y="30.5" width="404" height="555.5"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <prototypes>
-                                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cabCell" rowHeight="102" id="CN1-dw-3gb" customClass="cabCell" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cabCell" rowHeight="102" id="CN1-dw-3gb" customClass="cabCell" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="50" width="404" height="102"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CN1-dw-3gb" id="TZC-Aq-nxN">
@@ -5076,7 +5163,7 @@
                                                                                             <constraint firstAttribute="height" constant="25" id="U2M-94-SuR"/>
                                                                                         </constraints>
                                                                                     </imageView>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="Bc2-Ah-fzF" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="Bc2-Ah-fzF" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                         <rect key="frame" x="60" y="31" width="40" height="40"/>
                                                                                         <color key="tintColor" name="AppColor"/>
                                                                                         <constraints>
@@ -5166,7 +5253,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="dvq-c4-kIz"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nPd-I0-6PX" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nPd-I0-6PX" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="35.5" width="50" height="50"/>
                                                             <color key="tintColor" name="AppColor"/>
                                                             <constraints>
@@ -5260,7 +5347,7 @@
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEC-cS-9Ni">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="187" height="82.5"/>
                                                                                                     <subviews>
-                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-sp-4aY" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-sp-4aY" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                                             <rect key="frame" x="10" y="24" width="35" height="35"/>
                                                                                                             <color key="tintColor" name="AppColor"/>
                                                                                                             <constraints>
@@ -5299,7 +5386,7 @@
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peQ-Hp-dQY">
                                                                                                     <rect key="frame" x="187" y="0.0" width="187" height="82.5"/>
                                                                                                     <subviews>
-                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rupee" translatesAutoresizingMaskIntoConstraints="NO" id="j2e-zF-JtL" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rupee" translatesAutoresizingMaskIntoConstraints="NO" id="j2e-zF-JtL" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                                             <rect key="frame" x="5" y="26.5" width="30" height="30"/>
                                                                                                             <color key="tintColor" name="AppColor"/>
                                                                                                             <constraints>
@@ -5310,7 +5397,7 @@
                                                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="change_image" value="YES"/>
                                                                                                             </userDefinedRuntimeAttributes>
                                                                                                         </imageView>
-                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yj-hs-1ei">
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yj-hs-1ei">
                                                                                                             <rect key="frame" x="39" y="20" width="138" height="19.5"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                                             <nil key="textColor"/>
@@ -5359,7 +5446,7 @@
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="tuf-Ba-1Hg" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupon" translatesAutoresizingMaskIntoConstraints="NO" id="tuf-Ba-1Hg" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                                             <rect key="frame" x="10" y="26.5" width="30" height="30"/>
                                                                                             <color key="tintColor" name="AppColor"/>
                                                                                             <constraints>
@@ -5630,6 +5717,11 @@
                             <constraint firstItem="OWd-EJ-WWh" firstAttribute="leading" secondItem="xmX-cx-jIt" secondAttribute="leading" id="mIR-Th-CaA"/>
                             <constraint firstItem="xmX-cx-jIt" firstAttribute="bottom" secondItem="OWd-EJ-WWh" secondAttribute="bottom" id="ux3-6e-Jwv"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="OWd-EJ-WWh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="AlertView" destination="OWd-EJ-WWh" id="fug-Fg-HdO"/>
@@ -5671,7 +5763,7 @@
         <!--Multiple StopVC-->
         <scene sceneID="RGC-eA-WDf">
             <objects>
-                <viewController storyboardIdentifier="MultipleStopVC" id="TqR-kp-siR" customClass="MultipleStopVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MultipleStopVC" id="TqR-kp-siR" customClass="MultipleStopVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xyc-85-76d">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5704,7 +5796,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qds-Cx-jxe">
                                                                 <rect key="frame" x="0.0" y="0.0" width="369" height="50"/>
                                                             </button>
-                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-mm-aJL" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="ybG-mm-aJL" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="379" y="17.5" width="15" height="15"/>
                                                                 <color key="tintColor" name="AppColor"/>
                                                                 <constraints>
@@ -5759,7 +5851,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swa-td-WtL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="369" height="50"/>
                                                             </button>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="LTJ-4J-MYA" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="LTJ-4J-MYA" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="379" y="17.5" width="15" height="15"/>
                                                                 <color key="tintColor" name="AppColor"/>
                                                                 <constraints>
@@ -5814,7 +5906,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWl-FK-8yo">
                                                                 <rect key="frame" x="0.0" y="0.0" width="369" height="50"/>
                                                             </button>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="Qs2-Kf-O4X" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="Qs2-Kf-O4X" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="379" y="17.5" width="15" height="15"/>
                                                                 <color key="tintColor" name="AppColor"/>
                                                                 <constraints>
@@ -5869,7 +5961,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIr-fg-n3y">
                                                                 <rect key="frame" x="0.0" y="0.0" width="369" height="50"/>
                                                             </button>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-mC-8Cl" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="YDM-mC-8Cl" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="379" y="17.5" width="15" height="15"/>
                                                                 <color key="tintColor" name="AppColor"/>
                                                                 <constraints>
@@ -6022,7 +6114,7 @@
         <!--Ride Later Vc-->
         <scene sceneID="1SC-PY-IIz">
             <objects>
-                <viewController storyboardIdentifier="RideLaterVc" modalPresentationStyle="overCurrentContext" id="PIZ-wy-Ktl" customClass="RideLaterVc" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RideLaterVc" modalPresentationStyle="overCurrentContext" id="PIZ-wy-Ktl" customClass="RideLaterVc" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w9q-ug-xtR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6171,7 +6263,7 @@
         <!--Search AddressVC-->
         <scene sceneID="vjy-1a-pbB">
             <objects>
-                <viewController storyboardIdentifier="SearchAddressVC" id="gHl-Ro-JbA" customClass="SearchAddressVC" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchAddressVC" id="gHl-Ro-JbA" customClass="SearchAddressVC" customModule="Sooffer_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N91-Ie-1Uq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6179,7 +6271,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKf-1o-GUe">
                                 <rect key="frame" x="0.0" y="48" width="414" height="170"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="9Z9-r0-SKm" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="9Z9-r0-SKm" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                         <rect key="frame" x="15" y="25" width="25" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6203,7 +6295,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="S5E-hJ-gVc" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="S5E-hJ-gVc" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                         <rect key="frame" x="351" y="10.5" width="15" height="15"/>
                                                         <color key="tintColor" name="AppColor"/>
                                                         <constraints>
@@ -6225,6 +6317,44 @@
                                                     <constraint firstItem="S5E-hJ-gVc" firstAttribute="leading" secondItem="ig1-nJ-Oce" secondAttribute="trailing" id="hQU-mj-k1a"/>
                                                     <constraint firstItem="ig1-nJ-Oce" firstAttribute="leading" secondItem="LhW-As-Ouh" secondAttribute="leading" constant="8" id="z2v-tw-rls"/>
                                                 </constraints>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VaG-I6-Jbw">
+                                                <rect key="frame" x="0.0" y="42.5" width="374" height="36"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aUc-Nj-3lp">
+                                                        <rect key="frame" x="8" y="0.0" width="343" height="36"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="VbP-FY-nvw" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
+                                                        <rect key="frame" x="351" y="10.5" width="15" height="15"/>
+                                                        <color key="tintColor" name="AppColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="T6C-eZ-H56"/>
+                                                            <constraint firstAttribute="height" constant="15" id="r0T-zN-nXC"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="change_image" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="VbP-FY-nvw" secondAttribute="trailing" constant="8" id="7Q9-v2-hd1"/>
+                                                    <constraint firstAttribute="bottom" secondItem="aUc-Nj-3lp" secondAttribute="bottom" id="NMz-Na-SeW"/>
+                                                    <constraint firstAttribute="height" constant="36" id="Ynq-eK-HGw"/>
+                                                    <constraint firstItem="aUc-Nj-3lp" firstAttribute="leading" secondItem="VaG-I6-Jbw" secondAttribute="leading" constant="8" id="eMW-4L-SJg"/>
+                                                    <constraint firstItem="VbP-FY-nvw" firstAttribute="leading" secondItem="aUc-Nj-3lp" secondAttribute="trailing" id="nuJ-SE-E7C"/>
+                                                    <constraint firstItem="VbP-FY-nvw" firstAttribute="centerY" secondItem="VaG-I6-Jbw" secondAttribute="centerY" id="rsd-KP-dQ5"/>
+                                                    <constraint firstItem="aUc-Nj-3lp" firstAttribute="top" secondItem="VaG-I6-Jbw" secondAttribute="top" id="wu7-Ld-MzB"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="aUc-Nj-3lp"/>
+                                                        <exclude reference="VbP-FY-nvw"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utZ-Gn-WLf">
                                                 <rect key="frame" x="0.0" y="49" width="374" height="36"/>
@@ -6259,7 +6389,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
                                                             </textField>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="L71-uB-8cC" customClass="ImageLoader" customModule="RebuStar_Enterprise_Rider" customModuleProvider="target">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="L71-uB-8cC" customClass="ImageLoader" customModule="Sooffer_Rider" customModuleProvider="target">
                                                                 <rect key="frame" x="309" y="10.5" width="15" height="15"/>
                                                                 <color key="tintColor" name="AppColor"/>
                                                                 <constraints>
@@ -6350,6 +6480,7 @@
                         <outlet property="backArrowIMG" destination="9Z9-r0-SKm" id="GnT-Qx-0uc"/>
                         <outlet property="dropCloseImg" destination="L71-uB-8cC" id="Lkm-Vr-n9n"/>
                         <outlet property="dropView" destination="s5F-Jh-tmu" id="Oeh-8n-ySY"/>
+                        <outlet property="dummyview" destination="VaG-I6-Jbw" id="Bbl-JG-GGN"/>
                         <outlet property="pickupCliseImg" destination="S5E-hJ-gVc" id="bQr-VF-TgR"/>
                         <outlet property="pickupTXF" destination="ig1-nJ-Oce" id="F4z-x2-L1m"/>
                         <outlet property="pickupView" destination="LhW-As-Ouh" id="vIh-PI-wj8"/>

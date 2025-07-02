@@ -38,6 +38,12 @@
 "ent_mobile_num" = "Enter Mobile Number";
 "referral" = "Referral / Invite code (Optional)";
 "tc_pp" = "I agree to the terms & condition and privacy policy";
+"male" = "Male";
+"female" = "Female";
+"Register" = "Register";
+"notification" = "Notification";
+"manage Service" = "Manage Service";
+"Logout (Version : )" = "Cerrar sesión (Versión: )";
 "submit" = "SUBMIT";
 "terms_condition" = "Terms & Condition";
 "err_count" = "required mini 4 charactes";
@@ -84,7 +90,7 @@
 "low_blc_content" = "Sorry , Your credits is too low.";
 "enter_otp" = "Enter OTP";
 "otp" = "OTP";
-"same_pass" = "Nouveau mot de passe et Confirmer le mot de passe doit être identique";
+"same_pass" = "New password and Confirm password must be same";
 
 //inivite frinds
 "share_invite" = "SHARE YOUR INVITE CODE";
@@ -168,7 +174,7 @@
 "dr_Addrs_back" = "Driver Address Proof(Back)";
 "driving_license" = "Driving Licence";
 "insurance" = "Insurance";
-"taxi_passing" = "Taxi Insurance";
+"taxi_passing" = "Vehicle Insurance";
 "manage_doc" = "Manage Document";
 "select_doc" = "Select Document";
 "manage_vehi" = "Manage Vehicle";
@@ -248,3 +254,13 @@
 //invoice rental
 "package" = "Package";
 "base_fare_km" = "Base Fare (Fare for ";
+
+///New
+"No Data Found"     = "No Data Found";
+"bank"               = "BANK";
+"payoutt"              = "PAYOUT";
+"viewtc"               =  "VIEW TRANSACTION";
+"availableBln"        = "Available Balance ";
+"subscriptionEndDate"   = "Subscription End Date :";
+"Submit"              = "SUBMIT";
+"enter amount"              = "Enter Payout Amount";

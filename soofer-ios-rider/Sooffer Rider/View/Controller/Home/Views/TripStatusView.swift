@@ -44,13 +44,15 @@ class TripStatusView : UIView{
         super.awakeFromNib()
     }
     
-    func initView(view : UIView ,driverDetail : RideDetailModel,rideStatus : String,  call : @escaping(String) -> () , message : @escaping(String) -> (),cancel : @escaping(String) -> (),share : @escaping(String) -> ()){
+    func initView(view : UIView ,driverDetail : RideDetailModel,rideStatus : OnGoingTrip,  call : @escaping(String) -> () , message : @escaping(String) -> (),cancel : @escaping(String) -> (),share : @escaping(String) -> ()){
         self.setView(view: view)
         self.setupLang()
         self.setupAction()
         self.setupData(driverDetail: driverDetail)
-        if rideStatus == "started"{
+        print("New...::,\(rideStatus)")
+        if rideStatus == .started{//"started"{
             self.cancelView.isHidden = true
+            self.otpLbl.isHidden = true
         }else{
             self.cancelView.isHidden = false
         }

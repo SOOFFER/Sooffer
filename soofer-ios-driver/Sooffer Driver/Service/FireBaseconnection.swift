@@ -264,6 +264,7 @@ class FireBaseconnection{
                     print("drivers_data",driverjson)
                     let reason = FBDriverDataModel.init(json: driverjson)
                     print("FbModel:::", reason.accept.trip_id, reason)
+                    
                     driverdata(reason)
                 }
             }
@@ -297,6 +298,7 @@ class FireBaseconnection{
                 if let trip_id : String = UserDefaults.standard.value(forKey: UserDefaultsKey.tripId) as? String ?? "" as? String{
                     if !trip_id.isEmpty {
                         fireBaseref.child("trips_data").child(trip_id).observe(.value) { (snapShot) in
+//                            fireBaseref.child("trips_data").child(trip_id).observeSingleEvent(of: .value) {
                             let tripData = JSON(snapShot.value)
                             let reason = FBTripDataModel.init(json: tripData)
                             print("tripDateModel", reason.safeRide)
@@ -357,15 +359,17 @@ class FireBaseconnection{
     func updateVehicleLocation(loc : CLLocation){
         let defaultVehicle : String = UserDefaults.standard.value(forKey: UserDefaultsKey.defaultVehicle) as? String ?? ""
         self.driverid = UserDefaults.standard.string(forKey: UserDefaultsKey.userid) as? String ?? ""
-        let fireBase : DatabaseReference = Database.database().reference().child("drivers_location")  .child(defaultVehicle)
-        let geoFire = GeoFire(firebaseRef: fireBase)
-        print("oferdatasss",self.driverid)
-        print("Driverlocationsss",defaultVehicle)
-        geoFire.setLocation(loc, forKey: self.driverid) { (error) in
-            if (error != nil) {
-                print("An error occured: \(String(describing: error))")
-            } else {
-                print("Saved location successfully!")
+        if !self.driverid.isEmpty && !defaultVehicle.isEmpty{
+            let fireBase : DatabaseReference = Database.database().reference().child("drivers_location")  .child(defaultVehicle)
+            let geoFire = GeoFire(firebaseRef: fireBase)
+            print("oferdatasss",self.driverid)
+            print("Driverlocationsss",defaultVehicle)
+            geoFire.setLocation(loc, forKey: self.driverid) { (error) in
+                if (error != nil) {
+                    print("An error occured: \(String(describing: error))")
+                } else {
+                    print("Saved location successfully!")
+                }
             }
         }
     }

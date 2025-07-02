@@ -205,10 +205,34 @@ class LoginSignupVM{
             print("@@@errorData" ,errorData)
         })
     }
-    
+    //MARK: -- TIPS FLOW
+    func tipsApi(with view: UIView, with amount: String) {
+        let url = ServiceApi.tips
+        
+        var params = Parameters()
+        let tripid = UserDefaults.standard.string(forKey: UserDefaultsKey.tripid) ?? ""
+        print("TRIPS ID::\(tripid)")
+        print("amount ID::\(amount)")
+        params["tripNo"] = tripid
+        params["tips"] = amount
+        
+        
+        self.dataService?.putApi(view: view, url: url, params: params,  jsonSuccess: { (success) in
+            
+            self.loginData = LoginModel.init(json: success)
+        }, jsonError: { (jsonError) in
+            self.errVerfication = LoginModel.init(json: jsonError)
+        }, error: { (Error) in
+            print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+            print("@@@responseData" ,responseData)
+        },dataError: { (errorData) in
+            print("@@@errorData" ,errorData)
+        })
+    }
     
     // MARK: - Network call
-    func signupApi(view :  UIView ,fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String){
+    func signupApi(view :  UIView ,fname : String , lname : String , email : String , phone : String , cnty : String, cntyname : String, lang : String, cur : String, phcode : String, password : String, referal : String, scId : String , fcmId : String, loginId : String , loginType : String, gender : String){
         let url = ServiceApi.signup
         
         var params = Parameters()
@@ -227,7 +251,8 @@ class LoginSignupVM{
         params["fcmId"] = fcmId
         params["loginType"] = loginType
         params["loginId"] = loginId
-        
+        params["gender"] = gender
+         
         self.dataService?.postApi(view : view,url: url, params: params, jsonSuccess: { (success) in
             
             self.signupData = LoginModel.init(json: success)

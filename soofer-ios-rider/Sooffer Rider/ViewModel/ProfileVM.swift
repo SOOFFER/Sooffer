@@ -59,7 +59,16 @@ class ProfileVM{
             self.errorChangePAss?()
         }
     }
-    
+    var AccountDeletionData : changePasswprd?{
+        didSet {
+            self.AccountDeletion?()
+        }
+    }
+    var ErrDeletion : changePasswprd?{
+        didSet {
+            self.ErrorAccountDeletion?()
+        }
+    }
     //Mark :- Constructor
     init() { }
     
@@ -78,6 +87,9 @@ class ProfileVM{
     var errorprofile : (() -> ())?
     var successChangePAss : (() -> ())?
     var errorChangePAss : (() -> ())?
+    
+    var ErrorAccountDeletion : (() -> ())?
+    var AccountDeletion : (() -> ())?
     
     // MARK: - Network call
     func getProfile(){
@@ -151,6 +163,22 @@ class ProfileVM{
             print("@@@responseData" ,responseData)
         },dataError: { (errorData) in
             print("@@@errorData" ,errorData)
+        })
+    }
+    func AccountDeletion(view : UIView,UserId :String){
+        print("userid::,\(UserId)")
+        let url = ServiceApi.AccountDeletion + "/" + UserId
+        let params = Parameters()
+        self.dataService?.deleteApi(view: view, url: url, params: params, jsonSuccess: { (success) in
+            self.AccountDeletionData = changePasswprd.init(json: success)
+        }, jsonError: { (jsonError) in
+            self.ErrDeletion = changePasswprd.init(json: jsonError)
+        }, error: { (Error) in
+            //print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+            //print("@@@responseData" ,responseData)
+        }, dataError: { (errorData) in
+            //print("@@@errorData" ,errorData)
         })
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,6 +55,8 @@
 		9057EFB82B1D95D900E54895 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9057EFB72B1D95D900E54895 /* SoundManager.swift */; };
 		9057EFBA2B1D960E00E54895 /* phone_loud.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9057EFB92B1D960E00E54895 /* phone_loud.mp3 */; };
 		9057EFBC2B1D9E8300E54895 /* requesting_tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9057EFBB2B1D9E8300E54895 /* requesting_tone.mp3 */; };
+		906A3A522C526F3900A259F5 /* CountryVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906A3A512C526F3900A259F5 /* CountryVc.swift */; };
+		906A3A542C52739800A259F5 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906A3A532C52739800A259F5 /* ListTableViewCell.swift */; };
 		908EE29A294212E400DC304F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908EE299294212E400DC304F /* ImagePicker.swift */; };
 		90961F7E296E8AD0005B6992 /* NotificationVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90961F7D296E8AD0005B6992 /* NotificationVc.swift */; };
 		90961F80296E8C4D005B6992 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90961F7F296E8C4D005B6992 /* NotificationModel.swift */; };
@@ -229,6 +231,8 @@
 		9057EFB72B1D95D900E54895 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		9057EFB92B1D960E00E54895 /* phone_loud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phone_loud.mp3; sourceTree = "<group>"; };
 		9057EFBB2B1D9E8300E54895 /* requesting_tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = requesting_tone.mp3; sourceTree = "<group>"; };
+		906A3A512C526F3900A259F5 /* CountryVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryVc.swift; sourceTree = "<group>"; };
+		906A3A532C52739800A259F5 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		908EE299294212E400DC304F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		90961F7D296E8AD0005B6992 /* NotificationVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVc.swift; sourceTree = "<group>"; };
 		90961F7F296E8C4D005B6992 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -507,6 +511,7 @@
 				90F0F53E22DA216A00197F24 /* CurrentVehicleCell.swift */,
 				9005D0CD22DCDCF5005F4750 /* PriceCell.swift */,
 				90961F81296E95E8005B6992 /* NotificationCell.swift */,
+				906A3A532C52739800A259F5 /* ListTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				90F8ABB0229DBB69002E1486 /* LoginVC.swift */,
 				90EE476522A050AC0005669C /* SignupVC.swift */,
 				9007346027D22CB400AAC3D1 /* DriverDetailVc.swift */,
+				906A3A512C526F3900A259F5 /* CountryVc.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1223,6 +1229,7 @@
 				90FC5A0D22A8B588007B9DD4 /* VechileCells.swift in Sources */,
 				90F877B222A9916E001D41EF /* GoogleAddressModel.swift in Sources */,
 				90F9AF8F22CFC81C005C5CC1 /* RatingVC.swift in Sources */,
+				906A3A542C52739800A259F5 /* ListTableViewCell.swift in Sources */,
 				9006DF6F22D05D4700C61A05 /* DocumentCell.swift in Sources */,
 				90F8AB85229DAA46002E1486 /* ViewController.swift in Sources */,
 				90961F7E296E8AD0005B6992 /* NotificationVc.swift in Sources */,
@@ -1307,6 +1314,7 @@
 				90D4B259229F0455006B26F4 /* UXView.swift in Sources */,
 				9005D0CE22DCDCF5005F4750 /* PriceCell.swift in Sources */,
 				90E697402330C10900C2DCB1 /* BankDetailsVC.swift in Sources */,
+				906A3A522C526F3900A259F5 /* CountryVc.swift in Sources */,
 				90961F82296E95E8005B6992 /* NotificationCell.swift in Sources */,
 				9050103C23A377F7002DA5A8 /* ViewTranscationVC.swift in Sources */,
 				90BBB4F823964626006B785A /* ManageVehicleServiceVC.swift in Sources */,
@@ -1477,25 +1485,25 @@
 			baseConfigurationReference = 87143225ABD4F65186B51D85 /* Pods-Sooffer Driver.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Sooffer Driver.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Sooffer Driver.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F6G9374LLZ;
-				INFOPLIST_FILE = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Info.plist";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3766449B3Q;
+				INFOPLIST_FILE = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sooffer.driver;
 				PRODUCT_NAME = "RebuStar Enterprise Driver";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SoofferDriverAdHoc;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Mains/Sooffer Driver-Bridging-Header.h";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sooffer Driver Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Mains/Sooffer Driver-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1506,25 +1514,25 @@
 			baseConfigurationReference = 5D51698698B8252EE7D2ECE2 /* Pods-Sooffer Driver.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Sooffer Driver.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Sooffer Driver.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = F6G9374LLZ;
-				INFOPLIST_FILE = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Info.plist";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3766449B3Q;
+				INFOPLIST_FILE = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sooffer.driver;
 				PRODUCT_NAME = "RebuStar Enterprise Driver";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = SoofferDriverAdHoc;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/BackUp Folder/Projects/Soofer/sooffer git/driver/soofer/Sooffer Driver/Mains/Sooffer Driver-Bridging-Header.h";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sooffer Driver Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/abservetech/Documents/Sooffer/soofer/Sooffer Driver/Mains/Sooffer Driver-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

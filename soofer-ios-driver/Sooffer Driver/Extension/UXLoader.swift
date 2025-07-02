@@ -16,17 +16,18 @@ class ShowMsginWindow{
     static let instanse = ShowMsginWindow()
     
     private var lable : UILabel!
-    var animationView = AnimationView()
+    var animationView = LottieAnimationView()
     let blureffect : UIBlurEffect!
     let blurview : UIVisualEffectView!
     var nodataImage : UIImageView!
     var image = UIImage()
     var textlable = UILabel()
+    let Localize : Localizations = Localizations.instance
     
     private init() {
         self.lable = UILabel()
         self.nodataImage = UIImageView()
-        self.animationView = AnimationView(name: "car")
+        self.animationView = LottieAnimationView(name: "car")
         self.blureffect = UIBlurEffect(style: UIBlurEffect.Style.extraLight)
         self.blurview = UIVisualEffectView(effect: self.blureffect)
     }
@@ -72,7 +73,7 @@ class ShowMsginWindow{
             textlable.frame = CGRect(x: 20, y: 0, width: view.frame.width - 30, height: 20)
             let customFont = UIFont(name: "Montserrat", size: 17.0)
             textlable.font = customFont
-            textlable.text = "No Data Found"
+            textlable.text = Localize.stringForKey(key: "No Data Found")
             textlable.center.x = view.center.x
             textlable.center.y = view.center.y
             textlable.textAlignment = .center

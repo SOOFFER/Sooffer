@@ -130,8 +130,8 @@ extension LoginVC {
         self.passTxt.delegate = self
         self.emailAddressTXF.delegate = self
         self.emailAddressTXF.keyboardType = UIKeyboardType.emailAddress
-        self.emailAddressTXF.placeholder = Localize.stringForKey(key: "email_address")
-        self.emailAddressTXF.title = Localize.stringForKey(key: "email_address")
+        self.emailAddressTXF.placeholder = Localize.stringForKey(key: "ent_mobile_num")
+        self.emailAddressTXF.title = Localize.stringForKey(key: "ent_mobile_num")
              
     }
     
@@ -162,10 +162,10 @@ extension LoginVC {
         
         self.forgotsubmitBtn.addAction(for: .tap) {
             self.emailid = self.emailAddressTXF.text ?? ""
-            if !self.emailid.isEmpty && (self.emailid.isValidEmail()){
+            if !self.emailid.isEmpty && (self.emailid.isValidPhoneNumber()){
                 self.forgotPassword(email: self.emailid)
             }else{
-                self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:  self.Localize.stringForKey(key: "enter_email"), color: UIColor.red, isError: true)
+                self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:  self.Localize.stringForKey(key: "ent_mobile_num"), color: UIColor.red, isError: true)
             }
         }
         
@@ -305,14 +305,14 @@ extension LoginVC {
                 setTextfieldApperance(textfild: textField as! UITextField, title: Localize.stringForKey(key: "err_valid_data"), color: UIColor.red, isError: true)
             }
             if textField == self.emailAddressTXF{
-                self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "email_address"), color: UIColor.AppColors, isError: true)
+                self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "ent_mobile_num"), color: UIColor.AppColors, isError: true)
             }
         }
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
           if textField == self.emailAddressTXF{
-            self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "email_address"), color: UIColor.AppColors, isError: true)
+            self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "ent_mobile_num"), color: UIColor.AppColors, isError: true)
         }
         return true
     }
@@ -341,7 +341,7 @@ extension LoginVC {
             }
         }
         if textField == self.emailAddressTXF{
-                   self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "email_address"), color: UIColor.AppColors, isError: true)
+                   self.setforgotTextfieldApperance(textfild: self.emailAddressTXF as! SkyFloatingLabelTextField, title:   self.Localize.stringForKey(key: "ent_mobile_num"), color: UIColor.AppColors, isError: true)
                }
        
         return true

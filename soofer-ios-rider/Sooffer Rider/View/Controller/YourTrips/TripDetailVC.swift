@@ -71,7 +71,7 @@ class TripDetailVC: UIViewController {
     
     @IBOutlet weak var GatewayChargeVal: UILabel!
     
-    
+    @IBOutlet weak var TipsLbl: UILabel!
     @IBOutlet weak var TotalFareVal: UILabel!
     
     
@@ -219,7 +219,9 @@ extension TripDetailVC{
     
     func setData(data : TripDetailModel){
         self.userNameLbl.text = data.profileDetail.fname
+        print("DriverTip::,\(data.DriverTip)")
         self.tripType = data.tripDetail.triptype
+        self.TipsLbl.text =  Constant.priceTag + data.DriverTip.description
         var urls : String = data.profileDetail.profile ?? String()
         //self.userImg?.pin_setImage(from: URL(string: urls))
         let urlkf = URL(string: urls)

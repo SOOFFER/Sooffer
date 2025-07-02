@@ -36,7 +36,7 @@ class GoogleVM{
     var getAddressError : AutoAddressModel? {
         didSet {
             guard let address = getAddressError else {return}
-            showToast(msg: "\(address.status ?? "")!!! Try Again Later")
+         //   showToast(msg: "\(address.status ?? "")!!! Try Again Later")
             self.errorAddressClosure?()
         }
     }

@@ -28,7 +28,7 @@ class ChatVC: UIViewController , UITextFieldDelegate {
         var firebaseChatList : [FBchatmsg] = [FBchatmsg]()
     var name : String = ""
     var fcm : String = ""
-    
+    var Commonvm = CommonVM()
    override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 13.0, *) {
@@ -47,7 +47,7 @@ class ChatVC: UIViewController , UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-       
+       self.Commonvm = CommonVM(view: self.view, dataService: ApiRoot())
        
     }
     @objc func keyboardWillShow(notification:NSNotification){
@@ -195,39 +195,42 @@ extension ChatVC : UITableViewDataSource, UITableViewDelegate{
     
     
     func firebaseNotiifcation(message : String,fcm : String){
-           guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
-           var request = URLRequest(url: url)
-           var header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
-           request.setValue(header, forHTTPHeaderField: "Authorization")
-           request.httpMethod = "POST"
-        let params = ["to" : fcm,
-                         "notification" : [
-                           "title" : "Sooffer Driver",
-                           "body" : "\(message)",
-                           "sound" : "default"
-                           ],
-                         "data" : [
-                         "title" : "Huberswiss",
-                         "score" : "5x1",
-                          "message" :"\(message)"
-                           ]
-               ] as [String : Any]
-           request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-           guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
-           request.httpBody = httpbody
-           
-           URLSession.shared.dataTask(with: request) { (data, resule, error) in
-               guard let data = data else {return}
-               
-               do{
-                   
-                   let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                   print("====>postwithHeader",json)
-                   
-               }catch{
-                   print("JSONS Error")
-               }
-               
-               }.resume()
+        
+        self.Commonvm.GetPushNotification(view: self.view, fcm: fcm, Type: "chat", title: "Message From Rider", Message: message, click_action: "open_chat")
+        
+//           guard let url = URL(string: "https://fcm.googleapis.com/fcm/send") else {return}
+//           var request = URLRequest(url: url)
+//           var header : String = "key=AAAAGAksKio:APA91bFYOC9P4WlYu1cPpYko-PbohBdj0vFDvtPeiht0msz7uy6PXGM4sjoNchnGPuSVExQCcpzLXcPA_ByluhqLyhRlNR5_FYaH2CUtbzmZ3B7zdovvFtxpEnNYThcUOfPM-ntcy74k"
+//           request.setValue(header, forHTTPHeaderField: "Authorization")
+//           request.httpMethod = "POST"
+//        let params = ["to" : fcm,
+//                         "notification" : [
+//                           "title" : "Sooffer Driver",
+//                           "body" : "\(message)",
+//                           "sound" : "default"
+//                           ],
+//                         "data" : [
+//                         "title" : "Huberswiss",
+//                         "score" : "5x1",
+//                          "message" :"\(message)"
+//                           ]
+//               ] as [String : Any]
+//           request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//           guard let httpbody = try? JSONSerialization.data(withJSONObject: params, options: [])  else { return }
+//           request.httpBody = httpbody
+//           
+//           URLSession.shared.dataTask(with: request) { (data, resule, error) in
+//               guard let data = data else {return}
+//               
+//               do{
+//                   
+//                   let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+//                   print("====>postwithHeader",json)
+//                   
+//               }catch{
+//                   print("JSONS Error")
+//               }
+//               
+//               }.resume()
        }
 }

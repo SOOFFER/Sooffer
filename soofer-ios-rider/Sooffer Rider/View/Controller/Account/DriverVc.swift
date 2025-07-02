@@ -69,7 +69,7 @@ extension DriverVc {
         loginSignupVm.vechicleAdd(withVechNumber: withNumber, withMakeName: withMake, withModel: withModel, vehiclecolor: withcolor)
         loginSignupVm.addvechSuccess = {
 //            UserDefaults.standard.set(false, forKey: UserDefaultsKey.driver)
-            
+            UserDefaults.standard.set(false, forKey: "isarrive")
             self.delegate.driver(withTaxiId: self.loginSignupVm.vechSuccess?.taxi._id ?? "", no: withNumber, makeName: withMake, model: withModel, color: withcolor)
             self.dismiss(animated: true, completion: nil)
         }

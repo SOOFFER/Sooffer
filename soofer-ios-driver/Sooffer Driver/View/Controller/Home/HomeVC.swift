@@ -46,6 +46,7 @@ extension HomeVC : TripRoutes{
         self.getFBTripData()
         self.getProfileData()
         self.getFBCancelLationDetails()
+         print("backpress")
     }
     
     func getPinLocation(tag: String, addr: String, addrLoc: CLLocation) {
@@ -133,7 +134,9 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     @IBOutlet weak var cashcollectlb: UILabel!
     @IBOutlet weak var incomeLb: UILabel!
     
-    @IBOutlet weak var earntitlelb: UILabel!
+     @IBOutlet weak var TotalmileDis: UILabel!
+     @IBOutlet weak var RidesLB: UILabel!
+     @IBOutlet weak var earntitlelb: UILabel!
      
      @IBOutlet weak var GatewaychargeVal: UILabel!
      
@@ -216,15 +219,20 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
     var tripRouteStatus : TripStatusModel = TripStatusModel()
     var FBtripstatus : FBTripDataModel?
      var onlinestatusvalue: String = ""
+     var twoDriverListen = false
      var subscriptionBool = Bool()
      var onetimepolyline = Bool()
     
     //Firebase object
     var FBConnect = FireBaseconnection.instanse
      var driverid = ""
+     var names: String?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         names = "hjjh"
+         print("NAMES:::\(names ?? "")")
         
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
@@ -250,18 +258,30 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         self.setupTableview()
         self.setupAction()
         self.setupView()
+    //     self.endRider()
         self.setupMapDelegate()
         self.mapPadding(addBottom: 0.0, reduceBottom: 0.0)
         self.observeNotification()
          self.driverid = "\(UserDefaults.standard.string(forKey: UserDefaultsKey.userid) ?? "")"
          print("driverid:: \(driverid)")
          NotificationCenter.default.addObserver(self, selector: #selector(setupprint), name: Notification.Name("audiocall"), object: nil)
-//         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-//            // self.getFBDriverDetails()
-//              self.getFBTripData()
-//         }
+         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("twodriverListen"), object: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            // self.getFBDriverDetails()
+              print("getFBTripData self.")
+              self.getFBTripData()
+              self.focusCallPage(mode: true)
+             print("viewdidload")
+         }
+         
     }
-
+     private func focusCallPage(mode: Bool){
+         if mode{
+             NotificationCenter.default.addObserver(self, selector: #selector(setupprint), name: Notification.Name("audiocall"), object: nil)
+         }else{
+             NotificationCenter.default.removeObserver(self, name: Notification.Name("audiocall"), object: nil)
+         }
+     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
@@ -270,7 +290,7 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.getFBDriverDetails()
         }
-        
+        print("viewWillAppear")
         self.logout()
         self.getFBTripData()
         self.getProfileData()
@@ -284,11 +304,14 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         GatewaychargeVal.text! = decimalDataString(data: Constant.driverearningData.GatewayCharge.description)
         
         earntitlelb.text! = decimalDataString(data: Constant.driverearningData.earned.description)
-        
+        print("perdaykm,\(Constant.driverearningData.perDayKM)")
         cashcollectlb.text! = decimalDataString(data: Constant.driverearningData.cashCollected.description)
         taxLb.text! = decimalDataString(data: Constant.driverearningData.Tax.description)
         incomeLb.text! = decimalDataString(data: Constant.driverearningData.earned.description)
-
+         TotalmileDis.text! = Constant.driverearningData.perDayKM + "KM"
+         /*decimalDataString(data: Constant.driverearningData.perDayKM.description)*/
+       //  RidesLB.text! = Constant.driverearningData.perDayRide
+         RidesLB.text = String(Constant.driverearningData.perDayRide)
        
     }
     
@@ -299,13 +322,22 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
             self.timer.invalidate()
         }
     }
+     @objc func methodOfReceivedNotification(notification: Notification) {
+          self.getFBTripData()
+          print("new::::::")
+     }
      @objc func setupprint(){
          if let profileData : ProfileModel  = Constant.profileData as? ProfileModel {
+              self.focusCallPage(mode: false)
              let sinchVc = VideoCallVC.initWithStory()
              print("driverfcmhomepage::\(self.FBtripstatus?.rider_token)")
+              print("tripFBStatus,\(self.tripFBStatus.rider_token)")
              sinchVc.riderfcm = self.FBtripstatus?.rider_token ?? ""
               sinchVc.riderpic = self.tripRouteStatus.rider.profileurl
               sinchVc.ridername = self.tripRouteStatus.rider.fname
+              sinchVc.dismissPage = {
+                  self.focusCallPage(mode: true)
+              }
              self.navigationController?.pushViewController(sinchVc, animated: true)
          }
          
@@ -358,8 +390,10 @@ class HomeVC: UIViewController ,MFMessageComposeViewControllerDelegate{
         }
          self.SupportView.addAction(for: .tap) {
           
-             if let url = URL(string:  "tel://\(Constant.profileData.phone ?? "")"),
-                UIApplication.shared.canOpenURL(url) {
+//             if let url = URL(string:  "tel://\(Constant.profileData.phone ?? "")"),
+//                UIApplication.shared.canOpenURL(url) {
+              if let url = URL(string:  "tel://8888208018"),
+                 UIApplication.shared.canOpenURL(url) {
                  if #available(iOS 10, *) {
                      UIApplication.shared.open(url)
                  } else{
@@ -928,6 +962,8 @@ extension HomeVC{
     func getProfileData(){
         self.profile.getProfile()
         self.profile.successprofile = {
+             Constant.profileData = self.profile.profileData ?? ProfileModel()
+             print("profile::,\(self.profile.profileData?.attendance)")
             print("SADFASDFADS", Constant.profileData.attendance)
              self.subscriptionBool = Constant.profileData.isSubcriptionActive
              print("issubscription:::\(self.subscriptionBool)")
@@ -1008,7 +1044,7 @@ extension HomeVC{
                 }else{
                      let safe =  UserDefaults.standard.string(forKey: UserDefaultsKey.safeRide) ?? ""
                      print("Ride:::", safe)
-                     if !tripstatus.safeRide.safeRidetripStatus.isEmpty {
+          if !tripstatus.safeRide.safeRidetripStatus.isEmpty {
                           self.homevm.tripCurrentStatus(view: self.view, allowanceDistance: "", pickupLat: "", pickupLng: "", startTime: "", fromAddress: "", endAddress: address, endTime: time, waitingTime: "", waitingSecond: "", additionalFee: "", dropLng: lang, dropLat: lat, duration: String(format: "%.3f", actualtravelDistance), tripId: tripid, status: status, distance: strdistance,startMeter: "", endMeter: "", hillKm: "", newUpdate: "true", cusemailid: "", safeRide: "true")
                      } else {
                           self.homevm.tripCurrentStatus(view: self.view, allowanceDistance: "", pickupLat: "", pickupLng: "", startTime: "", fromAddress: "", endAddress: address, endTime: time, waitingTime: "", waitingSecond: "", additionalFee: "", dropLng: lang, dropLat: lat, duration: String(format: "%.3f", actualtravelDistance), tripId: tripid, status: status, distance: strdistance,startMeter: "", endMeter: "", hillKm: "", newUpdate: "true", cusemailid: "", safeRide: "false")
@@ -1028,7 +1064,9 @@ extension HomeVC{
               self.tripRouteStatus = self.homevm.tripRoute ?? TripStatusModel()
               print("uuuuu::: \(self.tripRouteStatus.status), and isfirsdriver:: \(self.tripRouteStatus.isFirstDriver)")
               print("Status::::", tripstatus)
+              print("Status::::", status)
            //   print("rider token is:: \(tripstatus.rider_token)")
+              
               self.RouteRiderOTPViews(tripstatus: tripstatus,tripType: self.tripRouteStatus.tripType)
               let ridetype : String = UserDefaults.standard.value(forKey: UserDefaultsKey.triptype) as? String ?? ""
               if  ridetype == "hailtaxi"{
@@ -1048,7 +1086,7 @@ extension HomeVC{
                             /* if tripstatus.safeRide.safeRidetripStatus == "7" {
                                   UserDefaults.standard.set(lat.description, forKey: UserDefaultsKey.pickuplat)
                                   UserDefaults.standard.set(lang.description, forKey: UserDefaultsKey.pickuplang)
-                                  UserDefaults.standard.set(address, forKey: UserDefaultsKey.pickupaddrs)
+                             UserDefaults.standard.set(address, forKey: UserDefaultsKey.pickupaddrs)
                                   UserDefaults.standard.set("true", forKey: UserDefaultsKey.isstarted)
                              }*/
                              print("update status: \(status)")
@@ -1066,10 +1104,13 @@ extension HomeVC{
                         print("status::::", status)
                         if status == "2" || status == "3"{
                              if status == "3"{
+                                  print("asdass:::,\(tripstatus)")
                                   UserDefaults.standard.set(lat.description, forKey: UserDefaultsKey.pickuplat)
                                   UserDefaults.standard.set(lang.description, forKey: UserDefaultsKey.pickuplang)
                                   UserDefaults.standard.set(address, forKey: UserDefaultsKey.pickupaddrs)
                                   UserDefaults.standard.set("true", forKey: UserDefaultsKey.isstarted)
+                            //      gfhfgh
+//                                  self.RouteRiderOTPViews(tripstatus: tripstatus,tripType: self.tripRouteStatus.tripType)
                                   if self.tripRouteStatus.tripType != "rental" || self.tripRouteStatus.tripType != "outstation"{
                                        self.alertView.isHidden = true
                                   }else{
@@ -1077,6 +1118,7 @@ extension HomeVC{
                                   }
                              }
                              self.updateTripSttaus(Status: status)
+//                             self.RouteRiderOTPViews(tripstatus: tripstatus,tripType: self.tripRouteStatus.tripType)
                         }else if status == "4"{
                              self.rideStatusView.deInitView()
                              self.rideDetailView.deInitView()
@@ -1142,6 +1184,17 @@ extension HomeVC{
                         self.setPolyLineWithMaker(pickupaddr: "", dropaddr: "", pickupLoc: driverLoc, dropLoc: endLoc, tripSttaus: tripstatus, waypoints: mulitway, midpoint: midpoint)
                  
               }
+         if tripstatus == "6" {
+               //if tripstatus.safeRide.safeRidetripStatus == "6" {
+                   self.setPolyLineWithMaker(pickupaddr: "", dropaddr: "", pickupLoc: driverLoc, dropLoc: startLoc, tripSttaus: tripstatus, waypoints: "", midpoint: midpoint)
+              //}
+         }else if tripstatus == "7"{
+              self.addressList.reloadData()
+              
+                    
+                    self.setPolyLineWithMaker(pickupaddr: "", dropaddr: "", pickupLoc: driverLoc, dropLoc: endLoc, tripSttaus: tripstatus, waypoints: mulitway, midpoint: midpoint)
+             
+         }
         
     }
     
@@ -1203,7 +1256,8 @@ extension HomeVC{
     }
     
     func getFBDriverDetails(){
-         self.FBConnect.getdDriversData { (driverData) in
+         self.FBConnect.getdDriversData { [self] (driverData) in
+              print("DRIVER ::\(driverData.request.status)")
               if let drivers : FBDriverDataModel? = driverData{
                    Constant.credits = drivers?.credits ?? "0.0"
                    
@@ -1245,6 +1299,20 @@ extension HomeVC{
               if !tripId.isEmpty/* || tripId == "0"*/{
                    print("tripIDDD;;;;;", driverData.accept.trip_id)
                    UserDefaults.standard.set(tripId, forKey: UserDefaultsKey.tripId)
+                 
+                     
+                   
+              }
+              print("safeRideStatus::,\(driverData.request.safeRideData.safeRideStatus):::adasdsasd,\(twoDriverListen)adhjdaghghasd::::::\(driverData.accept.trip_id)")
+                   if driverData.accept.trip_id != 0 {
+                       // if !twoDriverListen {
+            //   if driverData.request.safeRideData.safeRideStatus == "true"{
+            NotificationCenter.default.post(name: Notification.Name("twodriverListen"), object: nil)
+                         //   twoDriverListen = true
+                             
+//                        }
+                        print("TWO DRIVER LISTEN VAL:: \(twoDriverListen)")
+//                   }
               }
 
             //  self.getFBTripData()
@@ -1341,6 +1409,7 @@ extension HomeVC{
     }
     
     func updateTripSttaus(Status: String){
+         print("Updatestatus:::,\(Status)")
         self.FBConnect.CreateFirebaseTripData(status: Status)
     }
     
@@ -1349,13 +1418,16 @@ extension HomeVC{
     }
     
     func getFBTripData(){
+         print("getFBTripData 11")
         self.FBConnect.getTripData { (tripData) in
             print("dxfdxhgchgvhgjvjhv", tripData.status)
+             tripData.safeRide.safeRidetripStatus
             
             if let tripstatus : FBTripDataModel = tripData as? FBTripDataModel {
                 var driverId = UserDefaults.standard.string(forKey: UserDefaultsKey.userid)
                  var firstdriver = UserDefaults.standard.string(forKey: UserDefaultsKey.isdriver)
                  let tripdriverid = tripstatus.driver_id
+                 print("TWO DRIVER STATUS ID ::\(tripstatus.safeRide.safeRidetripStatus)")
                  print("my data::::", tripstatus.safeRide, tripdriverid)
                  print("first USerid:: \(driverId), and then \n secondtriver id:: \(tripstatus.safeRide.secondDriver), and driver id :: \(tripdriverid)")
               
@@ -1386,7 +1458,7 @@ extension HomeVC{
                                      self.rideDetailView.deInitView()
                                      
                                           self.mapView.clear()
-                                          self.viewDidLoad()
+                                       //   self.viewDidLoad()
                                
                                      let vc = InvoiceVC.initWithStory()
                                      vc.modalPresentationStyle = .fullScreen
@@ -1429,6 +1501,7 @@ extension HomeVC{
                       }
                     //  }*/
                 } else {
+                     print("jhfjk::,\(tripstatus.status)")
                     if tripstatus.status == "1" || tripstatus.status == "2" || tripstatus.status == "3"{
                         let tripType = UserDefaults.standard.value(forKey: UserDefaultsKey.triptype) as? String ?? ""
                         print("locationsss::::", tripstatus.status)
@@ -1438,7 +1511,7 @@ extension HomeVC{
                         self.rideStatusView.deInitView()
                         self.rideDetailView.deInitView()
                         self.mapView.clear()
-                        self.viewDidLoad()
+                      //  self.viewDidLoad()
                         let vc = InvoiceVC.initWithStory()
                         vc.modalPresentationStyle = .fullScreen
                         self.present(vc, animated: true, completion: nil)
@@ -1645,12 +1718,16 @@ extension HomeVC{
 //                        UIApplication.shared.openURL(url)
 //                    }
 //                }
+                 self.focusCallPage(mode: false)
                  let vc = VideoCallVC.initWithStory()
                  print("driverfcmhomepage::\(self.FBtripstatus?.rider_token), oooo:: \(tripstatus.rider_token)")
                  vc.riderfcm =   tripstatus.rider_token //self.FBtripstatus?.rider_token ?? ""
                  vc.ridername = self.tripRouteStatus.rider.fname
                  vc.riderpic = self.tripRouteStatus.rider.profileurl
                  vc.firebaseNotiifcation(message: "Your Driver inviting you to join call", fcm: tripstatus.rider_token)
+                 vc.dismissPage = {
+                     self.focusCallPage(mode: true)
+                 }
                  self.navigationController?.pushViewController(vc, animated: true)
             }, message: { (message) in
                 let vc = ChatVC.initWithStory()

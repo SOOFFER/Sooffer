@@ -236,6 +236,30 @@ class HomeVM{
     var succOutstationFare : (()->())?
     var errOutstationFare : (()->())?
 
+    var updateLocSuccess: (() -> ())?
+    var updateLocErrorrr: (() -> ())?
+    
+    
+    func updateLocFunc(view : UIView, dropLat : String , dropLng : String){
+        let url = ServiceApi.updateLoc
+        var params = Parameters()
+        params["trip_id"] = UserDefaults.standard.string(forKey: UserDefaultsKey.tripid) ?? ""
+        params["dropLat"] = dropLat
+        params["dropLng"] = dropLng
+        
+        self.dataService?.putApi(view: view, url: url, params: params, jsonSuccess: { (success) in
+            self.fareDetail = EstimateFareDetails(fromJson: convertToDictionary(text: success.description) ?? ["":""])
+           
+        }, jsonError: { (jsonError) in
+            self.errfareDetail = EstimateFareDetails(fromJson: convertToDictionary(text: jsonError.description) ?? ["":""])
+        }, error: { (Error) in
+            print("@@@Error" ,Error)
+        }, dataSuccess: { (responseData) in
+            print("@@@responseData" ,responseData)
+        },dataError: { (errorData) in
+            print("@@@errorData" ,errorData)
+        })
+    }
     
     // MARK: - Network call
     func getVechileList(view : UIView , pickupLoc : CLLocation , dropLoc : CLLocation  ){
@@ -295,7 +319,7 @@ class HomeVM{
         })
     }
     
-    func sendRideRequest(view : UIView ,date : String ,paymentType : String , pickupCity : String , bookingtype : String ,tripTime : String, estimateFare : EstimateFareDetails,utc : String, isMultiLocation : String ,multiLocation : String, homeType: RedirectHome, withId: String, withNo: String, withName: String, withMake: String){
+    func sendRideRequest(view : UIView ,date : String ,paymentType : String , pickupCity : String , bookingtype : String ,tripTime : String, estimateFare : EstimateFareDetails,utc : String, isMultiLocation : String ,multiLocation : String, homeType: RedirectHome, withId: String, withNo: String, withName: String, withMake: String,drivergender: String){
         if let fare : EstimateFareDetails = estimateFare as? EstimateFareDetails{
           
             let url = ServiceApi.requestTaxi
@@ -335,6 +359,7 @@ class HomeVM{
             params["otherPhCode"] = Constant.phoneCode
             params["noofseats"] = "1"
             params["utc"] = utc
+            params["drivergender"] = drivergender
             params["serviceTypeId"] = fare.vehicleDetailsAndFare.vehicleDetails.serviceId ?? ""
             
             print("hggdfhgfhg\(isMultiLocation)")

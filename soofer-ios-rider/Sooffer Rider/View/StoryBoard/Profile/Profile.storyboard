@@ -26,7 +26,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b8R-yr-zNy">
-                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="743"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="dZz-ys-DXR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="504"/>
@@ -285,6 +285,35 @@
                                     </constraints>
                                 </view>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHr-lT-Yve">
+                                <rect key="frame" x="183" y="796" width="226" height="56"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="cAx-Gm-kif">
+                                        <rect key="frame" x="10" y="10" width="35" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="KIe-Su-L07"/>
+                                            <constraint firstAttribute="width" constant="35" id="ZsB-r0-5hY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELETE ACCOUNT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBf-e6-g2v">
+                                        <rect key="frame" x="48.5" y="10" width="172.5" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                <constraints>
+                                    <constraint firstItem="cAx-Gm-kif" firstAttribute="top" secondItem="IHr-lT-Yve" secondAttribute="top" constant="10" id="7ck-lU-5Bx"/>
+                                    <constraint firstAttribute="width" constant="226" id="JcV-ef-ZoH"/>
+                                    <constraint firstItem="xBf-e6-g2v" firstAttribute="top" secondItem="IHr-lT-Yve" secondAttribute="top" constant="10" id="L0f-Ih-8HN"/>
+                                    <constraint firstAttribute="bottom" secondItem="cAx-Gm-kif" secondAttribute="bottom" constant="10" id="NKl-SW-v08"/>
+                                    <constraint firstAttribute="bottom" secondItem="xBf-e6-g2v" secondAttribute="bottom" constant="10" id="PRr-Ul-pRP"/>
+                                    <constraint firstAttribute="height" constant="56" id="PXb-g1-Ybq"/>
+                                    <constraint firstAttribute="trailing" secondItem="xBf-e6-g2v" secondAttribute="trailing" constant="5" id="R7r-lK-x32"/>
+                                    <constraint firstItem="cAx-Gm-kif" firstAttribute="leading" secondItem="IHr-lT-Yve" secondAttribute="leading" constant="10" id="SEp-JR-9F6"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Kj-cQ-drt">
                                 <rect key="frame" x="0.0" y="48" width="414" height="814"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -627,20 +656,23 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8Kj-cQ-drt" firstAttribute="leading" secondItem="oLs-t3-MsG" secondAttribute="leading" id="1Xw-Hb-LSB"/>
+                            <constraint firstItem="IHr-lT-Yve" firstAttribute="top" secondItem="b8R-yr-zNy" secondAttribute="bottom" constant="5" id="2FQ-OB-mrD"/>
                             <constraint firstItem="b8R-yr-zNy" firstAttribute="leading" secondItem="oLs-t3-MsG" secondAttribute="leading" id="5FA-P2-W6c"/>
                             <constraint firstItem="oLs-t3-MsG" firstAttribute="bottom" secondItem="8Kj-cQ-drt" secondAttribute="bottom" id="6fZ-QK-Oma"/>
                             <constraint firstItem="8Kj-cQ-drt" firstAttribute="top" secondItem="oLs-t3-MsG" secondAttribute="top" id="Brw-Zp-fp2"/>
                             <constraint firstItem="HeW-cc-iUs" firstAttribute="leading" secondItem="Dpo-Pa-jBv" secondAttribute="leading" id="F3N-LE-EGi"/>
                             <constraint firstItem="8Kj-cQ-drt" firstAttribute="trailing" secondItem="oLs-t3-MsG" secondAttribute="trailing" id="F60-b2-GNm"/>
-                            <constraint firstItem="oLs-t3-MsG" firstAttribute="bottom" secondItem="b8R-yr-zNy" secondAttribute="bottom" id="HZp-gj-Ypi"/>
+                            <constraint firstItem="oLs-t3-MsG" firstAttribute="bottom" secondItem="b8R-yr-zNy" secondAttribute="bottom" constant="71" id="HZp-gj-Ypi"/>
                             <constraint firstItem="CMm-L9-Ul7" firstAttribute="top" secondItem="oLs-t3-MsG" secondAttribute="top" constant="30" id="Muz-g7-PRD"/>
                             <constraint firstItem="b8R-yr-zNy" firstAttribute="top" secondItem="oLs-t3-MsG" secondAttribute="top" id="eeH-LL-djT"/>
                             <constraint firstItem="oLs-t3-MsG" firstAttribute="trailing" secondItem="b8R-yr-zNy" secondAttribute="trailing" id="i7I-cN-cFC"/>
+                            <constraint firstItem="oLs-t3-MsG" firstAttribute="bottom" secondItem="IHr-lT-Yve" secondAttribute="bottom" constant="10" id="j6w-lD-MzT"/>
                             <constraint firstItem="CMm-L9-Ul7" firstAttribute="leading" secondItem="oLs-t3-MsG" secondAttribute="leading" constant="30" id="kqi-Js-e8S"/>
                             <constraint firstItem="oLs-t3-MsG" firstAttribute="trailing" secondItem="cDj-SU-U9M" secondAttribute="trailing" constant="30" id="kwR-jk-hpg"/>
                             <constraint firstItem="cDj-SU-U9M" firstAttribute="top" secondItem="oLs-t3-MsG" secondAttribute="top" constant="30" id="lGr-b2-VOu"/>
                             <constraint firstItem="HeW-cc-iUs" firstAttribute="top" secondItem="Dpo-Pa-jBv" secondAttribute="top" id="rdS-aH-5ZY"/>
                             <constraint firstAttribute="trailing" secondItem="HeW-cc-iUs" secondAttribute="trailing" id="yYW-Cc-d6i"/>
+                            <constraint firstItem="oLs-t3-MsG" firstAttribute="trailing" secondItem="IHr-lT-Yve" secondAttribute="trailing" constant="5" id="zbt-hZ-yzI"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -650,6 +682,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="DeleteAccountView" destination="IHr-lT-Yve" id="0B1-2Z-qUj"/>
                         <outlet property="Editbtn" destination="cDj-SU-U9M" id="8Lp-U6-4Pw"/>
                         <outlet property="ccTxt" destination="mVk-BW-wpa" id="55V-CG-mqh"/>
                         <outlet property="editTableView" destination="8Kj-cQ-drt" id="mPt-Be-mao"/>
@@ -714,11 +747,18 @@
         <image name="menu" width="24" height="24"/>
         <image name="nav_edit" width="24" height="24"/>
         <image name="user_placeholer" width="240" height="240"/>
+        <image name="warning" width="512" height="512"/>
         <namedColor name="AppColor">
             <color red="0.066666666666666666" green="0.070588235294117646" blue="0.066666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

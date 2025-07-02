@@ -107,7 +107,7 @@ class HomeVM{
                 return
             }
             self.getTripRouteClouser?()
-            showToast(msg: triproute.message )
+            //showToast(msg: triproute.message )
         }
     }
     

@@ -17,7 +17,7 @@ class LoginSignupModel{
     var token : String = String()
     var otp : String = String()
     var data : [LoginDocsData] = [LoginDocsData]()
-    
+    var countryList: [CountryModel] = [CountryModel]()
     init(){}
     
     init(json : JSON){
@@ -31,6 +31,13 @@ class LoginSignupModel{
             return LoginDocsData.init(json: jsonVal)
         })
         self.data = dataList ?? [LoginDocsData]()
+ 
+        let countryarray = json.array
+        
+        let countrylist = countryarray?.compactMap({ (jsonVal) -> CountryModel? in
+            return CountryModel.init(json: jsonVal)
+        })
+        self.countryList = countrylist ?? [CountryModel]()
     }
 }
 
@@ -81,7 +88,8 @@ class earningAmount {
     var rideFare: Double  = Double()
     var Tax: Double  = Double()
     var GatewayCharge: Double  = Double()
-    
+    var perDayKM: String  = String()
+    var perDayRide: Int  = Int()
     
     init() { }
     init(json : JSON){
@@ -92,9 +100,28 @@ class earningAmount {
         self.rideFare = json["rideFare"].double ?? Double()
         self.Tax = json["Tax"].double ?? Double()
         self.GatewayCharge = json["GatewayCharge"].double ?? Double()
+        self.perDayKM = json["perDayKM"].string ?? String()
+        self.perDayRide = json["perDayRide"].int ?? Int()
+       
     }
 }
-
+class CountryModel {
+    var _id : String = String()
+    var currencyName: String = String()
+    var name : String = String()
+    var value: String = String()
+    var id : String = String()
+    
+    init() { }
+    
+    init(json: JSON) {
+        self.id = json["id"].string ?? String()
+        self.value = json["value"].string ?? String()
+        self.name = json["name"].string ?? String()
+        self.currencyName = json["currencyName"].string ?? String()
+        self._id = json["_id"].string ?? String()
+    }
+}
 class Status {
     var _id : String = String()
     var canoperate : String = String()

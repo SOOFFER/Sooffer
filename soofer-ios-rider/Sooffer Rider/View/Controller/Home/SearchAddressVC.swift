@@ -71,17 +71,19 @@ class SearchAddressVC: UIViewController,UITextFieldDelegate,searchMultipleStop {
     
     @IBOutlet weak var pickupTXF: UITextField!
     @IBOutlet weak var searchTXF: UITextField!
-    
+    @IBOutlet var dummyview: UIView!
     @IBOutlet weak var pickupView: UIView!
     @IBOutlet weak var dropView: UIView!
     @IBOutlet weak var addView: UIView!
     
     @IBOutlet weak var setupPinLBL: UILabel!
     
+    @IBOutlet weak var Button: UIButton!
     @IBOutlet weak var addressTabelView: UITableView!
     
     var pageFrom : String?
-    
+    var delegate: Delegate!
+    var isSelected = false
     //VariableDeclaraction
     let Localize : Localizations = Localizations.instance
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -151,12 +153,16 @@ class SearchAddressVC: UIViewController,UITextFieldDelegate,searchMultipleStop {
     func setupView(){
         
         if pageFrom == "home"{
-            self.dropView.isHidden = true
+            self.pickupView.isHidden = true
             self.addView.isHidden = true
-
+            self.dummyview.isHidden = false
+            self.searchTXF.placeholder = Localize.stringForKey(key: "search")
         }else{
-            self.dropView.isHidden = false
-            self.addView.isHidden = false
+            self.pickupView.isHidden = false
+            self.dummyview.isHidden = true
+            self.searchTXF.placeholder = Localize.stringForKey(key: "search")
+//            self.addView.isHidden = false
+            
         }
         
 //     self.view.addGestureRecognizer((self.revealViewController()?.panGestureRecognizer())!)
@@ -309,10 +315,17 @@ extension SearchAddressVC :UITableViewDelegate , UITableViewDataSource{
                 self.pickupTXF.text = self.searchAddress?.addressList[indexPath.row].description ?? ""
             }
             self.tappedPlace = TappedPlace.drop.rawValue
-            if pageFrom == "home"{
-                self.navigateWithFromAddr()
-            }else{
-                self.navigatetoHomeWithAddress()
+            if isSelected {
+                convertAddressTOLatLang(address: self.pickupTXF.text!, latlang: {(location) in
+                    self.delegate.address(address: self.searchTXF.text!, lat: location.coordinate.latitude.description, lng: location.coordinate.longitude.description)
+                    self.navigationController?.popViewController(animated: true)
+                })
+            } else {
+                if pageFrom == "home"{
+                    self.navigateWithFromAddr()
+                }else{
+                    self.navigatetoHomeWithAddress()
+                }
             }
             break
         case TappedPlace.drop.rawValue:
@@ -332,10 +345,19 @@ extension SearchAddressVC :UITableViewDelegate , UITableViewDataSource{
                 var Raddress = UserDefaults.standard.string(forKey: "recentSearchesKey")
                 self.searchTXF.text = Raddress
             }
-            if pageFrom == "home"{
-                self.navigateWithFromAddr()
-            }else{
-                self.navigatetoHomeWithAddress()
+            if isSelected {
+                print("hsdfghdsfhgsdf\(self.searchTXF.text)")
+                convertAddressTOLatLang(address: self.searchTXF.text!, latlang: {(location) in
+                    print("LOCATIONNN::\(location.coordinate.latitude):::LNG\(location.coordinate.longitude)")
+                    self.delegate.address(address: self.searchTXF.text!, lat: location.coordinate.latitude.description, lng: location.coordinate.longitude.description)
+                    self.navigationController?.popViewController(animated: true)
+                })
+            } else {
+                if pageFrom == "home"{
+                    self.navigateWithFromAddr()
+                }else{
+                    self.navigatetoHomeWithAddress()
+                }
             }
             break
         default:
@@ -436,8 +458,11 @@ extension SearchAddressVC :UITableViewDelegate , UITableViewDataSource{
 //                            } else {
 //                                UserDefaults.standard.set(false, forKey: UserDefaultsKey.driver)
 //                            }
+                            print("Pick::::::,\(self.pickupaddr),:::\(self.dropAddr)/::::sd\(pickupLoc)")
                             print("Ride later or not::\(RideNowOrLater)")
                             homeVc.pickupaddr = self.pickupaddr
+                            homeVc.pickupLoc  = self.pickupLoc
+                            homeVc.pickupLoc1 = self.pickupLoc
                             homeVc.dropLoc = self.dropLoc
                             homeVc.dropAddr = self.dropAddr
                             homeVc.isSchudleRide = self.RideNowOrLater
