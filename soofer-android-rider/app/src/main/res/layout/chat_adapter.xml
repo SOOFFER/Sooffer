@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_100sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:id="@+id/lytMsgSend"
+        android:background="@drawable/chat_send_bg">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/txtsendername"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:textSize="@dimen/_12sdp"
+                android:text="Test"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/txtMsgSend"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum "
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@id/lytMsgSend"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:id="@+id/lytMsgReceive"
+        android:background="@drawable/chat_receive_bg">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/txtrecivername"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:textSize="@dimen/_12sdp"
+                android:text="Test"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txtMsgReceive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum "
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

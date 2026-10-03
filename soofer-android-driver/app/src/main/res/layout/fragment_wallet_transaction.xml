@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F7FA"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.WalletTransactionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:id="@+id/toolbar"
+            android:elevation="@dimen/_5sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            app:titleTextColor="#1A1A2E"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:title="@string/wallet_transaction"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E8ECF0"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/recycle_view_transaction"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="80dp"
+            tools:listitem="@layout/wallet_transaction_adapter"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="empty.json"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/Loader_view"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="16dp"
+        app:lottie_autoPlay="true"
+        android:visibility="gone"
+        app:lottie_fileName="loader_front.json"
+        app:lottie_loop="true"/>
+
+</FrameLayout>

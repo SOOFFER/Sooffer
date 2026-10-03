@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/_40sdp"
+            app:srcCompat="@drawable/ic_pic_location" />
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:visibility="visible">
+
+            <ImageButton
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:padding="@dimen/_8sdp"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:id="@+id/title_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@+id/back_img"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17sdp"
+                android:textFontWeight="700" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:background="@color/white"
+            android:elevation="@dimen/_3sdp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:background="@drawable/ic_drop_dot"
+                android:backgroundTint="#F0F4FF">
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_centerInParent="true"
+                    android:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_search" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/address_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/Add_location_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/ic_button_bg"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/add_location"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textFontWeight="700"
+            android:visibility="gone" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/favorite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_16sdp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_14sdp"
+            app:cardElevation="@dimen/_8sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:letterSpacing="0.08"
+                    android:text="Save as Favourite"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_11sdp" />
+
+                <RadioGroup
+                    android:id="@+id/chooseRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="@drawable/ic_drop_dot"
+                    android:backgroundTint="#F6F7FB"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_4sdp">
+
+                    <RadioButton
+                        android:id="@+id/radiohome"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/home"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <RadioButton
+                        android:id="@+id/radioWork"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/work"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <RadioButton
+                        android:id="@+id/other_radio"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/other"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="#F0F0F0" />
+
+                <RelativeLayout
+                    android:id="@+id/home_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ic_drop_dot"
+                        android:backgroundTint="#F0F4FF">
+
+                        <ImageView
+                            android:id="@+id/home_img"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_centerInParent="true"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_home_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_56sdp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/setaddress_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/home_place"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <EditText
+                            android:id="@+id/customize_lable_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM "
+                            android:hint="@string/name_your_favorite_ex_gym"
+                            android:imeOptions="actionDone"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_13sdp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F0F0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_4sdp">
+
+                    <TextView
+                        android:id="@+id/cancel_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/_16sdp"
+                        android:paddingEnd="@dimen/_16sdp"
+                        android:text="@string/cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_13sdp"
+                        android:textFontWeight="700" />
+
+                    <TextView
+                        android:id="@+id/save_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:background="@drawable/ic_drop_dot"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/_20sdp"
+                        android:paddingEnd="@dimen/_20sdp"
+                        android:text="@string/save"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp"
+                        android:textFontWeight="700" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>

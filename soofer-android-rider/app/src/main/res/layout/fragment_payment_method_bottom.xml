@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    tools:context=".TripFlowScreen.bottomSheetDialogFragment.PaymentMethodBottomFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_toEndOf="@+id/back_img"
+        android:text="Select your payment "
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/chash_method"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+                <ImageButton
+                    android:id="@+id/cash_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@null"
+                    android:tint="@color/grey"
+                    app:srcCompat="@drawable/ic_money" />
+
+                <TextView
+                    android:id="@+id/cash_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_toEndOf="@+id/cash_img"
+                    android:text="Cash"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp" />
+            </RelativeLayout>
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:background="@color/grey" />-->
+
+            <RelativeLayout
+                android:id="@+id/card_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@color/white">
+
+                <ImageButton
+                    android:id="@+id/card_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@null"
+                    android:tint="@color/grey"
+                    app:srcCompat="@drawable/ic_stripe" />
+
+                <TextView
+                    android:id="@+id/card_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_toEndOf="@+id/card_img"
+                    android:text="Card"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp" />
+            </RelativeLayout>
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:background="@color/grey" />-->
+            <RelativeLayout
+                android:id="@+id/add_card_method"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@color/white">
+
+                <ImageButton
+                    android:id="@+id/add_Card_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@null"
+                    android:tint="@color/grey"
+                    app:srcCompat="@drawable/ic_stripe" />
+
+                <TextView
+                    android:id="@+id/add_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_toEndOf="@+id/add_Card_img"
+                    android:text="Pay to driver direclty using UPI"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+</FrameLayout>

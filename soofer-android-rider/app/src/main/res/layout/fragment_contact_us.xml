@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F7FB"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp">
+
+            <ImageButton
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_8sdp"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@+id/back_img"
+                android:text="@string/contact_us"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                android:textFontWeight="700" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_20sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_16sdp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/_14sdp"
+                        app:cardElevation="@dimen/_2sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/_16sdp"
+                            android:paddingEnd="@dimen/_16sdp"
+                            >
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/subject_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:hint="@string/enter_subject_here"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_15sdp"
+                                app:met_baseColor="@color/grey"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelText="Reason to contact"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/query_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_150sdp"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:hint="@string/write_your_query_here"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_15sdp"
+                                app:met_baseColor="@color/grey"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelText="Your Query"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/send_query_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:background="@drawable/ic_button_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/send_query"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textFontWeight="700" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</FrameLayout>

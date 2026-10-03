@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/_25sdp"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_8sdp"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/category_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/book_rebustar_outstation"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textFontWeight="700" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@color/grey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/drop_location_is_outsite_city_limits_continue_booking_outstation_instead"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <LinearLayout
+                    android:id="@+id/ride_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="match_parent"/>
+
+                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/drop_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/change_drop"
+                         android:background="@drawable/ic_button_bg"
+                         android:backgroundTint="@color/colorPrimary"
+                         android:textColor="@color/white"
+                        android:textSize="@dimen/_8sdp" />
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="match_parent"/>
+
+                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/continue_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                         android:background="@drawable/ic_button_bg"
+                         android:backgroundTint="@color/colorPrimary"
+                         android:text="@string/continues"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_8sdp" />
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/app_logo_img"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/ic_circle_bg"
+        android:layout_gravity="center|top"
+        android:padding="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@drawable/ic_applogo"
+        android:visibility="visible" />
+</FrameLayout>

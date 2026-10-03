@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:viewportWidth="480"
+    android:viewportHeight="480"
+    android:width="24dp"
+    android:height="24dp">
+    <path
+        android:pathData="M368 0L8 0C3.582 0 0 3.582 0 8l0 464c0 4.418 3.582 8 8 8l360 0c4.418 0 8 -3.582 8 -8L376 8c0 -4.418 -3.582 -8 -8 -8zm-8 464l-344 0 0 -448 344 0 0 448z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M64 48l280 0 0 16 -280 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 80l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 112l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 144l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 176l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 208l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 240l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M88 312l256 0 0 16 -256 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 344l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M32 376l312 0 0 16 -312 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M192 424l152 0 0 16 -152 0z"
+        android:fillColor="#000000" />
+    <path
+        android:pathData="M472 80l-24 0 0 -16c0 -4.418 -3.582 -8 -8 -8l-32 0c-4.418 0 -8 3.582 -8 8l0 280c0.197 0.628 0.278 1.287 0.24 1.944l16 64c1.074 4.286 5.419 6.889 9.705 5.815 2.863 -0.717 5.098 -2.953 5.815 -5.815l16 -64c-0.038 -0.657 0.043 -1.316 0.24 -1.944l0 -140.688 18.344 18.344c1.5 1.5 3.534 2.344 5.656 2.344 4.418 0 8 -3.582 8 -8l0 -128c0 -4.418 -3.582 -8 -8 -8zM424 375.016L418.248 352 429.752 352 424 375.016Zm8 -39.016l-16 0 0 -88 16 0 0 88zm0 -104l-16 0 0 -136 16 0 0 136zm0 -152l-16 0 0 -8 16 0 0 8zm32 116.688l-4.688 -4.688 4.688 -4.688 0 9.376zm0 -32l-16 16 0 -84.688 16 0 0 68.688z"
+        android:fillColor="#000000" />
+</vector>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_6sdp">
+
+        <LinearLayout
+            android:id="@+id/overall_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:drawableStart="@drawable/ic_location"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableTint="@color/colorPrimary"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="@dimen/_2sdp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/addressss"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/trip_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/activity_bg"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/tap_to_arrive"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textFontWeight="700" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0" />
+
+            <LinearLayout
+                android:id="@+id/common_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/_4sdp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/rider_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_4sdp">
+
+                    <ImageButton
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:background="@null"
+                        android:clickable="false"
+                        app:tint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_rider_profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="@string/rider_details"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#F0F0F0" />
+
+                <LinearLayout
+                    android:id="@+id/vehicle_detail_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_4sdp"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:background="@null"
+                        android:clickable="false"
+                        app:tint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_car_flow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="Vehicle Info"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#F0F0F0" />
+
+                <LinearLayout
+                    android:id="@+id/navigation_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_4sdp">
+
+                    <ImageButton
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:background="@null"
+                        android:clickable="false"
+                        app:tint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_navigation" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:text="@string/navigation"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11sdp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

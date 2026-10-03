@@ -1,0 +1,116 @@
+package com.soofer.app.Model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+public class AllwalletTransactionmodel {
+
+    @SerializedName("success")
+    @Expose
+    private Boolean success;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("transaction")
+    @Expose
+    private List<Transaction> transaction = null;
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<Transaction> getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(List<Transaction> transaction) {
+        this.transaction = transaction;
+    }
+
+    public class Transaction {
+
+        @SerializedName("_id")
+        @Expose
+        private String id;
+        @SerializedName("type")
+        @Expose
+        private String type;
+        @SerializedName("date")
+        @Expose
+        private String date;
+        @SerializedName("amt")
+        @Expose
+        private Float amt;
+        @SerializedName("trxid")
+        @Expose
+        private String trxid;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        @SerializedName("description")
+        @Expose
+        private String description;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public Float getAmt() {
+            return amt;
+        }
+
+        public void setAmt(Float amt) {
+            this.amt = amt;
+        }
+
+        public String getTrxid() {
+            return trxid;
+        }
+
+        public void setTrxid(String trxid) {
+            this.trxid = trxid;
+        }
+
+    }
+
+}

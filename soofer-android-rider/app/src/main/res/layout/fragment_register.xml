@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F7FB"
+    android:clickable="true"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp">
+
+            <ImageButton
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:padding="@dimen/_8sdp"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@+id/back_img"
+                android:text="@string/register"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17sdp"
+                android:textFontWeight="700" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingTop="@dimen/_20sdp"
+                android:paddingBottom="@dimen/_24sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_2sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_12sdp"
+                        android:paddingBottom="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:letterSpacing="0.08"
+                            android:text="Personal Info"
+                            android:textAllCaps="true"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/_11sdp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/fname_edit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_6sdp"
+                                android:layout_weight="1"
+                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghjklyxcvbnm"
+                                android:hint="@string/first_name"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_14sdp"
+                                app:met_baseColor="@color/black"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/lname_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_6sdp"
+                                android:layout_weight="1"
+                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZqwertzuiopasdfghjklyxcvbnm"
+                                android:hint="@string/last_name"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_14sdp"
+                                app:met_baseColor="@color/black"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+                        </LinearLayout>
+
+                        <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                            android:id="@+id/email_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0123456789qwertzuiopasdfghjklyxcvbnm@._$-"
+                            android:hint="@string/email_address"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/_14sdp"
+                            app:met_baseColor="@color/black"
+                            app:met_floatingLabel="highlight"
+                            app:met_floatingLabelTextColor="@color/colorPrimary"
+                            app:met_primaryColor="?colorAccent"
+                            app:met_singleLineEllipsis="true" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/cc_edt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:hint=" CC "
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:text="+1"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_14sdp"
+                                app:met_baseColor="@color/black"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/country_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:focusable="false"
+                                android:hint=" CC "
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:text="+IN"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_14sdp"
+                                android:visibility="gone"
+                                app:met_baseColor="@color/black"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+
+                            <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                                android:id="@+id/mobile_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:layout_toEndOf="@+id/cc_edt"
+                                android:digits="0123456789"
+                                android:hint="@string/mobile_number"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_14sdp"
+                                app:met_baseColor="@color/black"
+                                app:met_floatingLabel="highlight"
+                                app:met_floatingLabelTextColor="@color/colorPrimary"
+                                app:met_maxCharacters="10"
+                                app:met_primaryColor="?colorAccent"
+                                app:met_singleLineEllipsis="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_2sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_12sdp"
+                        android:paddingBottom="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:letterSpacing="0.08"
+                            android:text="Security"
+                            android:textAllCaps="true"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/_11sdp" />
+
+                        <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                            android:id="@+id/password_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/ic_hide"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:hint="@string/password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/_14sdp"
+                            app:met_baseColor="@color/black"
+                            app:met_floatingLabel="highlight"
+                            app:met_floatingLabelTextColor="@color/colorPrimary"
+                            app:met_maxCharacters="12"
+                            app:met_primaryColor="?colorAccent"
+                            app:met_singleLineEllipsis="true" />
+
+                        <com.soofer.app.CommonClass.Customizeview.CustomEditText
+                            android:id="@+id/referral_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/referral_invite_code_optional"
+                            android:imeOptions="actionDone"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/_14sdp"
+                            app:met_baseColor="@color/black"
+                            app:met_floatingLabel="highlight"
+                            app:met_floatingLabelTextColor="@color/colorPrimary"
+                            app:met_primaryColor="?colorAccent"
+                            app:met_singleLineEllipsis="true" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_2sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:letterSpacing="0.08"
+                            android:text="Gender"
+                            android:textAllCaps="true"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/_11sdp" />
+
+                        <io.ghyeok.stickyswitch.widget.StickySwitch
+                            android:id="@+id/stickySwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_gravity="center"
+                            app:ss_animationDuration="600"
+                            app:ss_animationType="line"
+                            app:ss_iconPadding="14dp"
+                            app:ss_iconSize="20dp"
+                            app:ss_leftIcon="@drawable/ic_male"
+                            app:ss_leftText="Male"
+                            app:ss_rightIcon="@drawable/ic_female"
+                            app:ss_rightText="Female"
+                            app:ss_selectedTextSize="15sp"
+                            app:ss_sliderBackgroundColor="@color/black"
+                            app:ss_switchColor="@color/colorPrimary"
+                            app:ss_textColor="@color/black"
+                            app:ss_textSize="14sp"
+                            app:ss_textVisibility="visible" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_toEndOf="@+id/or_txt"
+                        android:background="@color/black" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_toStartOf="@+id/or_txt"
+                        android:background="@color/black" />
+
+                    <TextView
+                        android:id="@+id/or_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Or"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textFontWeight="700" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/gmail_img"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/ic_edit_bg"
+                        android:padding="@dimen/_10sdp"
+                        android:src="@drawable/ic_gmail" />
+
+                    <androidx.legacy.widget.Space
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/fb_img"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/ic_edit_bg"
+                        android:padding="@dimen/_10sdp"
+                        android:src="@drawable/ic_fb" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_12sdp">
+
+                    <CheckBox
+                        android:id="@+id/terms_condition_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/terms_contionlink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_toEndOf="@+id/terms_condition_txt"
+                        android:maxLines="2"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/i_agree_to_the_terms_amp_condition_and_privacy_policy"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/_12sdp" />
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@drawable/ic_button_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sdp"
+                    android:textFontWeight="700" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="By signing up via text, you agree to receive recurring 2FA messages, from Sooffer at the phone number provided. Consent is not a condition of purchase. Reply STOP to unsubscribe. Reply HELP for help. Message frequency varies. Msg &amp; data rates may apply. View our Privacy Policy and Terms of Service."
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</FrameLayout>

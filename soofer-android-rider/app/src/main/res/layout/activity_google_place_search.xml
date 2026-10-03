@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_14sdp">
+
+                <ImageButton
+                    android:id="@+id/back_img"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@null"
+                    android:padding="@dimen/_8sdp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_arrow_back" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_14sdp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/pickup_relative"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/chat_receive_bg"
+                        android:backgroundTint="@color/white"
+                        android:elevation="2dp"
+                        android:padding="@dimen/_2sdp">
+
+                        <EditText
+                            android:id="@+id/pickup_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@+id/picku_close_btn"
+                            android:background="@null"
+                            android:hint="@string/pickup_addressss"
+                            android:maxLines="1"
+                            android:padding="@dimen/_8sdp"
+                            android:paddingStart="@dimen/_12sdp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <ImageButton
+                            android:id="@+id/picku_close_btn"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:background="@null"
+                            android:padding="@dimen/_6sdp"
+                            app:srcCompat="@drawable/ic_close" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pickup_relative"
+                        android:layout_marginTop="@dimen/_8sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_1sdp"
+                            android:background="@drawable/chat_receive_bg"
+                            android:backgroundTint="@color/white"
+                            android:elevation="2dp"
+                            android:padding="@dimen/_2sdp">
+
+                            <EditText
+                                android:id="@+id/search_et"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toStartOf="@+id/close_btn"
+                                android:background="@null"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawableStart="@drawable/ic_search_layer"
+                                android:hint="@string/search"
+                                android:imeOptions="actionSearch"
+                                android:padding="@dimen/_8sdp"
+                                android:singleLine="true"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <ImageButton
+                                android:id="@+id/close_btn"
+                                android:layout_width="@dimen/_28sdp"
+                                android:layout_height="@dimen/_28sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@null"
+                                android:padding="@dimen/_6sdp"
+                                app:srcCompat="@drawable/ic_close" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/add_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    android:background="@drawable/chat_receive_bg"
+                    android:backgroundTint="#33FFFFFF"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:text="@string/add_stop"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textFontWeight="700"
+                    app:drawableStartCompat="@drawable/ic_add"
+                    app:drawableTint="@color/white" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/place_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                tools:listitem="@layout/googleplaceadapter"
+                android:padding="@dimen/_4sdp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

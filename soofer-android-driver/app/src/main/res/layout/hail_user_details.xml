@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                android:text="Customer Details"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/fname_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/lname_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    android:visibility="visible"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+            </LinearLayout>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/email_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:digits="0123456789qwertzuiopasdfghjklyxcvbnm@."
+                android:hint="@string/email_address"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="@dimen/_15sdp"
+                android:visibility="visible"
+                app:met_baseColor="@color/black"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/cc_edt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:hint=" CC "
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:text="+91"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/black"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mobile_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_toEndOf="@+id/cc_edt"
+                    android:digits="0123456789"
+                    android:hint="@string/mobile"
+                    android:imeOptions="actionDone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:text=""
+                    android:maxLength="15"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/black"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Cancel"
+                    android:id="@+id/cancel_txt"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Submit"
+                    android:id="@+id/submit_txt"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

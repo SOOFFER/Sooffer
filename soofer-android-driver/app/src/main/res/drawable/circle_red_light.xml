@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- ~15% opacity red — matches redcolor (drop pin) -->
+    <solid android:color="#26E53935" />
+
+</shape>

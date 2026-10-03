@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:text="@string/government_of_tamil_nadu"
+                android:textAlignment="center"
+                android:textFontWeight="700"
+                android:textColor="#0a763c"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:visibility="gone"
+                android:text="@string/d_taxi_functioning_under_the_control_of_department_of_industries_amp_commerce"
+                android:textAlignment="center"
+                android:id="@+id/english"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/_70sdp"
+                    app:srcCompat="@drawable/ic_hand_shake"
+                    android:id="@+id/hand_img"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:layout_height="@dimen/_70sdp"/>
+                <ImageView
+                    android:id="@+id/app_logo_img"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/hand_img"
+                    android:layout_height="@dimen/_200sdp"
+                    app:srcCompat="@drawable/ic_app_logo_round"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_width="@dimen/_80sdp"
+                    app:srcCompat="@drawable/ic_hand_shake"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:layout_height="@dimen/_80sdp"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loader_front.json"
+            app:lottie_loop="true" />
+    </RelativeLayout>
+
+</FrameLayout>

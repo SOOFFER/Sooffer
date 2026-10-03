@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/nav_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/rider_profile_image"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/my_account" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_toEndOf="@+id/rider_profile_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="User Name"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_15sdp"
+                android:textFontWeight="700"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/wallet_balance_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@drawable/ic_drop_dot"
+                android:backgroundTint="#33FFFFFF"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_3sdp"
+                android:text="Wallet Balance : $ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/nav_header_container"
+        android:background="#F0F0F0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/logout_layout"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_below="@id/viewLine"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        tools:listitem="@layout/activity_navigation_drawer_adapter" />
+
+    <RelativeLayout
+        android:id="@+id/logout_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="@dimen/_5sdp"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="#F0F0F0" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_drop_dot"
+            android:backgroundTint="#FFF0F0">
+
+            <ImageView
+                android:id="@+id/logout_img"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerInParent="true"
+                app:tint="@color/redcolor"
+                app:srcCompat="@drawable/ic_logout" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/logout_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_56sdp"
+            android:text="@string/logout"
+            android:textColor="@color/redcolor"
+            android:textSize="@dimen/_14sdp"
+            android:textFontWeight="700" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

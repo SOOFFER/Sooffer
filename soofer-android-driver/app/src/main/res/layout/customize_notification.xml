@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notification_layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="3dp" >
+
+    <ImageView
+        android:id="@+id/button_enable_alarm"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@null"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gps Location"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp" />
+
+</LinearLayout>

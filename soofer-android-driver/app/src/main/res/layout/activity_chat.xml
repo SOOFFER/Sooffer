@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F7FB">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/_4sdp"
+        app:navigationIcon="@drawable/ic_arrow_back_white"
+        app:title="@string/your_trip"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/chatLayout"
+        android:layout_below="@id/toolbar"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        tools:listitem="@layout/chat_adapter"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <RelativeLayout
+        android:id="@+id/chatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="@dimen/_6sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_12sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="#F0F0F0" />
+
+        <EditText
+            android:id="@+id/edtMessage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_toStartOf="@id/imgSend"
+            android:background="@drawable/chat_receive_bg"
+            android:backgroundTint="#F6F7FB"
+            android:hint="@string/enter_your_message"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_14sdp"
+            android:paddingEnd="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textSize="@dimen/_13sdp" />
+
+        <RelativeLayout
+            android:id="@+id/imgSend"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_drop_dot"
+            android:backgroundTint="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_centerInParent="true"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_send"
+                tools:ignore="UseAppTint" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

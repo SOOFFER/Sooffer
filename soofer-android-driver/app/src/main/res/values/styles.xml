@@ -1,0 +1,115 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">@color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
+        <item name="popupMenuStyle">@style/popupMenuStyle</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item><!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">60dp</item><!-- item size in menu-->
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="popupMenuStyle">@style/MyPopupMenuStyle</item>
+    </style>
+
+    <style name="MyPopupMenuStyle">
+        <item name="android:dropDownSelector">@drawable/abc_list_selector_holo_dark</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <item name="android:dropDownVerticalOffset">10dip</item>
+        <item name="android:dropDownHorizontalOffset">0dip</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editTextBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="Mytheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textAppearance">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap" tools:ignore="NewApi">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:ignore="NewApi">true</item>
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
+            @android:transition/move
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
+            @android:transition/move
+        </item>
+    </style>
+
+    <style name="popupMenuStyle" parent="@android:style/Widget.PopupMenu">
+
+        <item name="android:popupBackground">@color/white</item>
+
+
+    </style>
+
+    <style name="DialogTheme">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_right</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+    </style>
+    <style name="fate_in_and_fate_out">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="DialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+    </style>
+    <style name="mdtp_ActionButton.Text" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+</resources>

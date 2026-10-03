@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containter"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".TripFlowScreen.RedEstimateFragment">
+
+    <LinearLayout
+        android:id="@+id/request_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="@dimen/_4sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:id="@+id/estimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <ImageView
+                            android:id="@+id/car_type_imge"
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_sedan" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/total_amount_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:text="$ 0"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp"
+                                android:textFontWeight="700" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:clickable="false"
+                                android:text="@string/approx_ride_fare"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#F0F0F0" />
+
+                    <LinearLayout
+                        android:id="@+id/change_payment_Layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <ImageView
+                            android:id="@+id/cash_imge"
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_stripe" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:clickable="false"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/payment_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:text="Card"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_13sdp"
+                                android:textFontWeight="700" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:clickable="false"
+                                android:text="@string/payment_method"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F0F0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:id="@+id/apply_coupon_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <ImageView
+                            android:id="@+id/apply_coupon_imge"
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/ic_apply_coupon" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:clickable="false"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:text="Apply Coupon"
+                                android:textColor="@color/black"
+                                android:textFontWeight="700"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:clickable="false"
+                                android:text="Coupon"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#F0F0F0" />
+
+                    <LinearLayout
+                        android:id="@+id/fare_estimation_Layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingTop="@dimen/_14sdp"
+                        android:paddingBottom="@dimen/_14sdp"
+                        android:paddingEnd="@dimen/_8sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:clickable="false"
+                            app:srcCompat="@drawable/info" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:clickable="false"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/info_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="false"
+                                android:text="Info"
+                                android:textFontWeight="700"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:clickable="false"
+                                android:text="Estimation fare"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F0F0" />
+
+                <CheckBox
+                    android:id="@+id/use_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/use_wallet"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/request_now"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            android:background="@drawable/ic_button_bg"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/confirm_booking"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:textFontWeight="700" />
+
+    </LinearLayout>
+
+</FrameLayout>

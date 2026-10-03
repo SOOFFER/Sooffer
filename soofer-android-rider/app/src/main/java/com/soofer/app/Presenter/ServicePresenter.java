@@ -1,0 +1,66 @@
+package com.soofer.app.Presenter;
+
+import android.app.Activity;
+import androidx.annotation.NonNull;
+
+import com.soofer.app.CommonClass.SharedHelper;
+import com.soofer.app.CommonClass.Utiles;
+import com.soofer.app.Model.ServiceModel;
+import com.soofer.app.Retrofit.ApiInterface;
+import com.soofer.app.Retrofit.RetrofitGenerator;
+import com.soofer.app.View.ServiceView;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ServicePresenter {
+    public RetrofitGenerator retrofitGenerator = null;
+    private ServiceView serviceView;
+
+    public ServicePresenter(ServiceView serviceView) {
+        this.serviceView = serviceView;
+
+    }
+
+    public void getServiceFare(final Activity activity, HashMap<String, String> map) {
+        if (Utiles.isNetworkAvailable(activity)) {
+            if (retrofitGenerator == null) {
+             //   Utiles.ShowLoader(activity);
+                serviceView.show();
+                retrofitGenerator = new RetrofitGenerator();
+                ApiInterface service = retrofitGenerator.getRetrofitUrl().create(ApiInterface.class);
+                Call<ServiceModel> call = service.getServiceList( SharedHelper.getKey(activity.getApplicationContext(), "token"), map);
+                call.enqueue(new Callback<ServiceModel>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ServiceModel> call, @NonNull Response<ServiceModel> response) {
+                        retrofitGenerator =null;
+                        serviceView.hide();
+                        if (response.isSuccessful() && response.body() != null) {
+                            serviceView.OnSuccess(response);
+                        } else {
+                            serviceView.OnFailure(response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ServiceModel> call, @NonNull Throwable t) {
+                        System.out.println("thro "+t);
+                        serviceView.hide();
+                        retrofitGenerator =null;
+                        Utiles.CommonToast(activity, "Something Went Wrong");
+                    }
+                });
+            }
+
+        } else {
+            Utiles.showNoNetwork(activity);
+        }
+
+
+    }
+
+}

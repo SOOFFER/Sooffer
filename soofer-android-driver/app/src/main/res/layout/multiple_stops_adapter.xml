@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_4sdp"
+    android:layout_marginEnd="@dimen/_4sdp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_14sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/_1sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Stop Header with Badge -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                >
+
+                <!-- Stop Number/Badge -->
+                <FrameLayout
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:background="@drawable/ic_circular_stop_badge">
+
+                    <TextView
+                        android:id="@+id/stop_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        tools:ignore="HardcodedText" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/_12sdp">
+
+                    <TextView
+                        android:id="@+id/picker_label_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PICKUP"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:letterSpacing="0.05" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Vertical Connector Line (if not last item) -->
+            <View
+                android:id="@+id/connector_line"
+                android:layout_width="@dimen/_2sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:background="@drawable/gradient_connector"
+                android:visibility="visible" />
+
+            <!-- Address Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_14sdp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="@dimen/_3sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:background="@color/colorPrimary"
+                        android:layout_marginEnd="@dimen/_8sdp" />
+
+                    <TextView
+                        android:id="@+id/location_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/address_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:lineSpacingMultiplier="1.35"
+                    android:textColor="@color/text_dark"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

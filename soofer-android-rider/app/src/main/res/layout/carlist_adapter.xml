@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_6sdp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_12sdp"
+        android:layout_margin="@dimen/_5sdp"
+        app:cardElevation="@dimen/_2sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/_8sdp">
+
+            <RadioButton
+                android:id="@+id/car_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false" />
+
+            <RelativeLayout
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/ic_drop_dot"
+                android:backgroundTint="#F0F4FF">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/car_imge"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_sedan" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/car_type_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_weight="1"
+                android:text="SEDAN"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:textFontWeight="700" />
+
+            <TextView
+                android:id="@+id/package_type_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner"
+                android:backgroundTint="@color/colorPrimary"
+                android:paddingStart="@dimen/_14sdp"
+                android:paddingEnd="@dimen/_14sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="$ 100"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                android:textFontWeight="700" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Image (6)"
+            android:textColor="@color/imgtext"
+            android:textSize="@dimen/_16sdp"
+            android:gravity="center"
+            android:textFontWeight="700"
+            android:letterSpacing="0.02" />
+
+        <View
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_3sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@color/colorPrimary" />
+
+        <!-- Row 1: Left & Right -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgLeft"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_left_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgRight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_right_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Row 2: Front & Back -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_front_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_back_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Row 3: Front Left & Front Right -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgSide1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_front_left_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="@dimen/_6sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardBackgroundColor="#F4F6FB">
+
+                    <ImageView
+                        android:id="@+id/imgSide2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_camera"
+                        android:padding="@dimen/_15sdp"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/colorPrimary" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vehicle_front_right_image"
+                    android:textColor="@color/imgtext"
+                    android:textSize="@dimen/_11sdp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_SaveImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/activity_bg"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11sdp"
+            android:textFontWeight="700"
+            android:letterSpacing="0.08"
+            android:textAllCaps="true"
+            android:stateListAnimator="@null"
+            android:elevation="@dimen/_3sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:text="Take Photo" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

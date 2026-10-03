@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- ~15% opacity green — matches colorPrimary1 (green pickup pin) -->
+    <solid android:color="#2638A169" />
+
+</shape>

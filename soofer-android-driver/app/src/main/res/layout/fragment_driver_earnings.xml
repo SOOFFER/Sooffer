@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/yourcantainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6FB"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="@dimen/_4sdp"
+            android:paddingStart="@dimen/_4sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_8sdp"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_arrow_back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@+id/back_img"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/earnings"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:text="@string/earnings_overview_subtitle"
+                    android:textColor="@color/textGrey"
+                    android:textSize="@dimen/_11sdp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_14sdp"
+            app:cardElevation="@dimen/_2sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_14sdp"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_14sdp"
+                android:paddingBottom="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.05"
+                    android:text="@string/filter_by_date_range"
+                    android:textColor="@color/textGrey"
+                    android:textFontWeight="600"
+                    android:textSize="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/from_edt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableEnd="@drawable/calendar_layer"
+                        android:drawablePadding="@dimen/_6sdp"
+                        android:focusable="false"
+                        android:hint="@string/from"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/_14sdp"
+                        app:met_baseColor="@color/grey"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelTextColor="@color/colorPrimary"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@color/light_grey" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/to_edt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableEnd="@drawable/calendar_layer"
+                        android:drawablePadding="@dimen/_6sdp"
+                        android:focusable="false"
+                        android:hint="@string/to"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/_14sdp"
+                        app:met_baseColor="@color/grey"
+                        app:met_floatingLabel="highlight"
+                        app:met_floatingLabelTextColor="@color/colorPrimary"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/earnings_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_16sdp"
+                android:scrollbars="none"
+                tools:listitem="@layout/earningadapter" />
+
+            <TextView
+                android:id="@+id/nodata_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/_14sdp"
+                android:gravity="center"
+                android:paddingStart="@dimen/_32sdp"
+                android:paddingTop="@dimen/_24sdp"
+                android:paddingEnd="@dimen/_32sdp"
+                android:paddingBottom="@dimen/_24sdp"
+                android:text="@string/no_earnins"
+                android:textColor="@color/black"
+                android:textFontWeight="700"
+                android:textSize="@dimen/_15sdp"
+                app:drawableTint="@color/grey"
+                app:drawableTopCompat="@drawable/ic_wallet" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

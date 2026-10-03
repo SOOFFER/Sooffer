@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/_25sdp"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:elevation="@dimen/_8sdp"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:id="@+id/category_txt"
+                    android:text="Meter"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/oto_meter"
+                    android:layout_gravity="center"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/mobile_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:digits="0123456789"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:text=""
+
+                    app:met_floatingLabel="none"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:drawableEnd="@drawable/ic_meter_layer"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/hill_amount_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:digits="0123456789"
+                    android:hint="@string/enter_hill_station_km"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:text=""
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/black"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/toll_amount_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:digits="0123456789"
+                    android:hint="@string/enter_your_toll_amount"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text=""
+                    android:visibility="gone"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:met_baseColor="@color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/black"
+                    app:met_primaryColor="?colorAccent"
+                    app:met_singleLineEllipsis="true" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/activity_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                   />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/app_logo_img"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/ic_circle_bg"
+        android:layout_gravity="center|top"
+        android:padding="@dimen/_5sdp"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@drawable/ic_applogo"
+        android:visibility="visible" />
+</FrameLayout>
